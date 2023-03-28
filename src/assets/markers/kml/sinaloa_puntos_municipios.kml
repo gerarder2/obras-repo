@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Datos</name>
+    <Style id="icon-1899-0288D1-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-DB4436-normal">
+      <IconStyle>
+        <color>ff3644db</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-DB4436-highlight">
+      <IconStyle>
+        <color>ff3644db</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-DB4436">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-DB4436-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-DB4436-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Placemark>
+      <name>AHOME</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE AHOME (SIN)<br> ESTADO SIN<br> NIVELB 7<br> POB_TOT 359146<br> HAB_KM 101,95]]></description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -109.106351,25.926615,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>BADIRAGUATO</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE BADIRAGUATO (SIN)<br> ESTADO SIN<br> NIVELB 2<br> POB_TOT 37757<br> HAB_KM 8,03]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -107.382568,25.61192,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>CONCORDIA</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE CONCORDIA (SIN)<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 27815<br> HAB_KM 13,1]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -105.972922,23.432379,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>COSALA</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE COSALA (SIN)<br> ESTADO SIN<br> NIVELB 3<br> POB_TOT 17269<br> HAB_KM 7,84]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -106.758832,24.525538,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>CULIACAN</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE CULIACAN (SIN)<br> ESTADO SIN<br> NIVELB 7<br> POB_TOT 745537<br> HAB_KM 125,02]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -107.353184,24.669729,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>CHOIX</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE CHOIX (SIN)<br> ESTADO SIN<br> NIVELB 3<br> POB_TOT 29355<br> HAB_KM 9,23]]></description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -108.313636,26.667335,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>ELOTA</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE ELOTA (SIN)<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 49471<br> HAB_KM 30,3]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -106.881975,24.037701,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>ESCUINAPA</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE ESCUINAPA (SIN)<br> ESTADO SIN<br> NIVELB 6<br> POB_TOT 50438<br> HAB_KM 32,45]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -105.722335,22.720734,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>EL FUERTE</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE EL FUERTE<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 89515<br> HAB_KM 21,52]]></description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -108.65367,26.259165,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>GUASAVE</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE GUASAVE (SIN)<br> ESTADO SIN<br> NIVELB 6<br> POB_TOT 277402<br> HAB_KM 106,65]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -108.51539,25.514699,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>MAZATLAN</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE MAZATLAN (SIN)<br> ESTADO SIN<br> NIVELB 7<br> POB_TOT 380509<br> HAB_KM 155,09]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -106.267921,23.468953,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>MOCORITO</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE MOCORITO (SIN)<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 50082<br> HAB_KM 18,06]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -107.78053,25.358317,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>ROSARIO</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE ROSARIO (SIN)<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 47934<br> HAB_KM 18,42]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -105.827402,23.090224,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SALVADOR ALVARADO</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE SALVADOR ALVARADO (SIN)<br> ESTADO SIN<br> NIVELB 7<br> POB_TOT 73303<br> HAB_KM 94,12]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -107.988432,25.386072,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SAN IGNACIO</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE SAN IGNACIO (SIN)<br> ESTADO SIN<br> NIVELB 3<br> POB_TOT 26762<br> HAB_KM 5,27]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -106.362555,23.931784,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SINALOA</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE SINALOA (SIN)<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 85100<br> HAB_KM 13,6]]></description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -108.131926,26.023857,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>NAVOLATO</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE NAVOLATO (SIN)<br> ESTADO SIN<br> NIVELB 6<br> POB_TOT 145622<br> HAB_KM 70,38]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -107.762228,24.752855,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>ANGOSTURA</name>
+      <description><![CDATA[Sinaloa<br><br> NOMBRE ANGOSTURA (SIN)<br> ESTADO SIN<br> NIVELB 6<br> POB_TOT 43827<br> HAB_KM 38,46]]></description>
+      <styleUrl>#icon-1899-DB4436</styleUrl>
+      <Point>
+        <coordinates>
+          -108.137537,25.207439,0
+        </coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

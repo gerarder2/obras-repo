@@ -1,0 +1,136 @@
+<div id="doughnut-chart-ui">
+  <ng-container *ngIf="!card">
+    <p-panel
+      class="chart"
+      [ngStyle]="votosPartidosSeleccionado ? { 'padding-top': '10px' } : { 'padding-top': '0px' }"
+      *ngFor="let dChart of doughnutCharts; index as i"
+      [toggleable]="true"
+      [collapsed]="i === 0 && !card ? true : false"
+    >
+      <ng-template pTemplate="header"> {{ dChart.category }} </ng-template>
+      <label for="participacionCiudadana" class="participacion" *ngIf="dChart.participacionCiudadana"
+        >Porcentaje de participacion ciudadana: {{ dChart.participacionCiudadana }}%</label
+      >
+      <label class="participacion" *ngIf="dChart.participacionCiudadana"
+        >Total de Votos: {{ sumaTotalVotos }}</label
+      >
+      <ng-container [ngTemplateOutlet]="bodyTemplate" [ngTemplateOutletContext]="{ dChart: dChart }"></ng-container>
+    </p-panel>
+  </ng-container>
+
+  <ng-container *ngIf="card">
+    <div
+      class="chart"
+      [ngStyle]="votosPartidosSeleccionado ? { 'padding-top': '10px' } : { 'padding-top': '0px' }"
+      *ngFor="let dChart of doughnutCharts"
+    >
+      <p class="category" *ngIf="!votosPartidosSeleccionado">{{ dChart.category }}</p>
+      <label for="participacionCiudadana" class="participacion" *ngIf="dChart.participacionCiudadana"
+        >Porcentaje de participacion ciudadana: {{ dChart.participacionCiudadana }}%</label
+      >
+      <ng-container [ngTemplateOutlet]="bodyTemplate" [ngTemplateOutletContext]="{ dChart: dChart }"></ng-container>
+    </div>
+  </ng-container>
+
+  <ng-template #bodyTemplate let-dChart="dChart">
+    <div>
+      <div>
+        <app-grafica-view
+          *ngIf="!votosPartidosSeleccionado"
+          [chartLabels]="dChart.labels"
+          [jsonArray]="dChart.numbers"
+          [backgroundColors]="dChart.colors"
+        ></app-grafica-view>
+      </div>
+    </div>
+    <div
+      [ngClass]="{ 'chart-specs': !votosPartidosSeleccionado, 'chart-specs-seleccionado': votosPartidosSeleccionado }"
+    >
+      <div class="color-wrapper">
+        <div *ngFor="let item of dChart.images" class="pb-1 mt-1">
+          <img [src]="item" alt="" />
+        </div>
+      </div>
+      <div class="label-ref">
+        <div *ngFor="let item of dChart.labels" class="itempl-1 mt-1">
+          {{ item }}
+        </div>
+      </div>
+      <div class="pt-1">
+        <div *ngFor="let item of dChart.numbers; let i = index" class="progress mt-1">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            [ngStyle]="{ width: item + '%', 'background-color': dChart.colors[i], color: 'black' }"
+            aria-valuenow="100"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+      <div class="percent">
+        <div *ngFor="let item of dChart.votos; let i = index" class="mt-1">
+          {{ item | number: '':'en' }}
+        </div>
+      </div>
+      <div class="percent">
+        <div *ngFor="let item of dChart.numbers; let i = index" class="mt-1">{{ item }}%</div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- <div
+    class="chart"
+    [ngStyle]="votosPartidosSeleccionado ? { 'padding-top': '10px' } : { 'padding-top': '0px' }"
+    *ngFor="let dChart of doughnutCharts"
+  >
+    <p class="category" *ngIf="!votosPartidosSeleccionado">{{ dChart.category }}</p>
+    <label for="participacionCiudadana" class="participacion" *ngIf="dChart.participacionCiudadana"
+      >Porcentaje de participacion ciudadana: {{ dChart.participacionCiudadana }}%</label
+    >
+    <div>
+      <div>
+        <app-grafica-view
+          *ngIf="!votosPartidosSeleccionado"
+          [chartLabels]="dChart.labels"
+          [jsonArray]="dChart.numbers"
+          [backgroundColors]="dChart.colors"
+        ></app-grafica-view>
+      </div>
+    </div>
+    <div
+      [ngClass]="{ 'chart-specs': !votosPartidosSeleccionado, 'chart-specs-seleccionado': votosPartidosSeleccionado }"
+    >
+      <div class="color-wrapper">
+        <div *ngFor="let item of dChart.images" class="pb-1 mt-1">
+          <img [src]="item" alt="" />
+        </div>
+      </div>
+      <div class="label-ref">
+        <div *ngFor="let item of dChart.labels" class="pl-1 mt-1">
+          {{ item }}
+        </div>
+      </div>
+      <div class="pt-1">
+        <div *ngFor="let item of dChart.numbers; let i = index" class="progress mt-1">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            style="width: {{ item }}%; background-color: {{ dChart.colors[i] }}; color:black"
+            aria-valuenow="100"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+      <div class="percent">
+        <div *ngFor="let item of dChart.votos; let i = index" class="mt-1">
+          {{ item | number: '':'en' }}
+        </div>
+      </div>
+      <div class="percent">
+        <div *ngFor="let item of dChart.numbers; let i = index" class="mt-1">{{ item }}%</div>
+      </div>
+    </div>
+  </div> -->
+</div>

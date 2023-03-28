@@ -1,0 +1,69 @@
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-xs {
+  font-size: 0.75rem !important;
+}
+
+.font-sm {
+  font-size: 0.85rem !important;
+}
+
+.font-lg {
+  font-size: 1rem !important;
+}
+
+.font-xl {
+  font-size: 1.25rem !important;
+}
+
+.font-2xl {
+  font-size: 1.5rem !important;
+}
+
+.font-3xl {
+  font-size: 1.75rem !important;
+}
+
+.font-4xl {
+  font-size: 2rem !important;
+}
+
+.font-5xl {
+  font-size: 2.5rem !important;
+}
+
+// // Tipografia Circular Bold
+// @font-face {
+//   font-family: 'Circular-Bold';
+//   src: url('../assets/fonts/circular/bold/CircularStd-Bold.woff2') format('woff2'),
+//     url('../assets/fonts/circular/bold/CircularStd-Bold.woff') format('woff');
+//   font-weight: bold;
+//   font-style: normal;
+//   font-display: swap;
+// }
+
+// // Tipografia Circular Book
+// @font-face {
+//   font-family: 'Circular-Book';
+//   src: url('~../assets/fonts/circular/book/CircularStd-Book.woff2') format('woff2'),
+//       url('~../assets/fonts/circular/book/CircularStd-Book.woff') format('woff');
+//   font-weight: 500;
+//   font-style: normal;
+//   font-display: swap;
+// }
+
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//   font-family: 'Circular-Bold', sans-serif;
+// }
+
+// * {
+//   font-family: 'Circular-Book', sans-serif;
+// }

@@ -1,0 +1,366 @@
+@import './../../../scss/bootstrap-variables';
+.container-header{
+  background: url('./../../../assets/img/Rectangulo_2783.png') no-repeat center;
+  background-size: cover;
+  height: 120px;
+
+  .titulo-header {
+    text-align: center;
+    background-color: rgba(0,0,0, 0.6);
+    padding-top: 10px;
+    padding-bottom: 1px;
+   
+    h6, h5, h4 {
+      color: $white;
+      font-weight: 500;
+    }
+  }
+}
+
+.desc-header {
+  height: 80px;
+  text-align: center;
+  background-color: rgba(168, 23, 54, 0.6);
+  padding-top: 3px;
+
+  h6, h5, h4 {
+    color: $white;
+    font-weight: 500;
+    margin-bottom: 0px;
+  }
+}
+
+.map-container {
+  position:relative;
+  .map{
+      // height: calc(100vh);
+      height: 500px;
+      display:block;
+  }
+  .map.map-sidebar-open{
+    margin-left: 400px;
+    position: relative;
+    transition: margin-left 0.3s ease-in-out;
+  }
+
+  .map.map-asidebar-open{
+    margin-right: 500px;
+    position: relative;
+    transition: margin-right 0.3s ease-in-out;
+
+  }
+
+  .graphics-container {
+    cursor: pointer;
+    background: #fff;
+    height: 40px;
+    line-height: 1;
+    position: absolute;
+    right: 10px;
+    top: 85px;
+    width: 160px;
+    z-index: 400;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    &:hover{
+      background-color: $gray-200;
+    }
+    border: 2px solid rgba(0,0,0,0.2);
+  }
+
+  .map-slider {
+    position: absolute;
+    top: auto;
+    margin-left:1rem;
+    margin-right: 1rem;
+    bottom: 1rem;
+    z-index: 400;
+    background-color: #f4f7fa;
+    padding: 15px;
+    border-radius: 5px;
+    width: 100%;
+    height: 70px;
+  }
+
+  .buscador-secciones{
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    z-index: 500;
+    left: 410px;
+    width: 300px;
+    ::ng-deep .p-dropdown {
+      width: 100%;
+    }
+  }
+
+  .map-sidebar-toggle {
+    cursor: pointer;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    z-index: 500;
+    width: 145px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    &:hover{
+      background-color: $gray-200;
+    }
+    border: 2px solid rgba(0,0,0,0.2);
+  } 
+  .map-sidebar {
+    background: #fff;
+    height: 400px;    
+    position: absolute;
+    left: -400px;
+    top: 20px;
+    width: 300px;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+    padding: 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 15px;
+  }
+
+  .map-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid $gray-200;
+
+    .header-title {
+      font-weight: bold;
+      margin: 0;
+      line-height: 32px;
+    }
+  }
+
+  .map-sidebar.map-sidebar-open {
+    left: 20px;
+    border: 2px solid $gray-300;
+  }
+  .map-sidebar-title{
+    margin-left: 10px;
+  }
+
+  .map-asidebar {
+    background: #fff;
+    height: calc(100vh - 100px);    position: fixed;
+    right: -500px;
+    top: 97px;
+    width: 500px;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    padding: 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .map-asidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid $gray-200;
+
+    .header-title {
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+
+  .map-asidebar.map-asidebar-open {
+    right: 0;
+    border-top: 1px solid $gray-300;
+    border-left: 2px solid $gray-300;
+  }
+  .map-asidebar-title{
+    margin-left: 10px;
+  }
+}
+ 
+.municipios-container {
+  .municipios-title {
+    width: 100%;
+  }
+}
+
+.form-input{
+  width: 100px;
+  position: absolute;
+}
+
+.tools {
+  width: 50px;
+  margin-left: 212px;
+}
+
+
+
+.floating-div {
+  position: absolute;
+  bottom: 15px;
+  // right: 15px;
+  z-index: 400;
+  background-color: #f4f7fa;
+  padding: 15px;
+  border-radius: 10px;
+  height: 70px;
+}
+.floating-div.map-sidebar-open{
+  margin-left: 420px;
+  transition: margin-left 0.3s ease-in-out;
+}
+.floating-div.map-asidebar-open{
+  margin-right: 420px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+// @media (min-width:390px) {
+//   .floating-div { 
+//     /* Estilos para tamaños de pantalla mayores a 992px */
+//     height: 120px;
+//     width: 92%;
+//     left: 15px;
+//   }
+// }
+// @media (min-width:996px) {
+//   .floating-div { 
+//     /* Estilos para tamaños de pantalla mayores a 992px */
+//     height: 70px;
+//      width: 72%;
+//      left: inherit;
+//     // left: 0px;
+//   }
+// }
+
+.icons-list li .desc {
+  line-height: 35px;
+  height: 40px;
+  margin-left: 50px;
+  border-bottom: 0;
+}
+
+.icons-list li p-inputSwitch {
+  display: block;
+  float: left;
+  
+  line-height: 53px !important;
+  text-align: center;
+}
+
+.graphics-body{
+  max-width: 70vh;
+  overflow: auto;
+}
+
+// inputSwitch partidos
+
+:host ::ng-deep .custom-pri
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pri
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #186302;
+}
+
+:host ::ng-deep .custom-pan
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pan
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #0000FF;
+}
+
+:host ::ng-deep .custom-prd
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-prd
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #FFAB04;
+}
+
+:host ::ng-deep .custom-morena
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-morena
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #AF272F;
+}
+
+:host ::ng-deep .custom-pas
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pas
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #613AA7;
+}
+
+:host ::ng-deep .custom-mc
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-mc
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #FF8000;
+}
+
+:host ::ng-deep .custom-pt
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pt
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #D31520;
+}
+
+:host ::ng-deep .custom-pes
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pes
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #7915CB;
+}
+
+:host ::ng-deep .custom-pvem
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pvem
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #85EE66;
+}
+
+::ng-deep .leaflet-popup-content {
+  font-size: 14px !important;
+  width: 500px !important;
+}
+
+.controles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.data-container {
+  height: 300px;
+
+  .data-title {
+    text-align: center;
+    padding: 20px;
+  }
+}
+.icon-text {
+  font-size: 5rem;
+  color: $gold;
+}

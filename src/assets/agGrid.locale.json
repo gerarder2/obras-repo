@@ -1,0 +1,78 @@
+{
+  "page": "Pagina",
+  "more": "Más",
+  "to": "daTo",
+  "of": "daOf",
+  "next": "Siguiente",
+  "previous": "Anteriior",
+  "loadingOoo": "Cargando...",
+
+  "selectAll": "Seleccionar Todo",
+  "searchOoo": "Biscar...",
+  "blanks": "Blanc",
+
+  "filterOoo": "Filtro...",
+  "applyFilter": "Aplicar Filtro...",
+
+  "equals": "Igual a",
+  "lessThan": "Menor que",
+  "greaterThan": "Mayor que",
+  "inRange": "En Rango",
+  "notEqual": "Diferente",
+  "lessThanOrEqual": "Menor o Igual que",
+  "greaterThanOrEqual": "Mayor o Igual que",
+
+  "contains": "Contiene",
+  "noContains": "No Contiene",
+  "startsWith": "Empieza con",
+  "endsWith": "Termina con",
+
+  "group": "Grupo",
+
+  "columns": "Columnas",
+  "rowGroupColumns": "Pivote Columnas",
+  "rowGroupColumnsEmptyMessage": "Arrastrar columnas al grupo",
+  "valueColumns": "Valor Columnas",
+  "pivotMode": "Modo Pivote",
+  "groups": "Grupos",
+  "values": "Valores",
+  "pivots": "Pivotes",
+  "valueColumnsEmptyMessage": "Arrastrar columnas a agregar",
+  "pivotColumnsEmptyMessage": "Arrastrar aqui para pivotear",
+  "toolPanelButton": "Panel de Herramientas",
+
+  "noRowsToShow": "Sin Renglones",
+
+  "pinColumn": "Pin Columna",
+  "valueAggregation": "Valor agregar",
+  "autosizeThiscolumn": "Autoajustar Columna",
+  "autosizeAllColumns": "Autoajustar todo",
+  "groupBy": "Agrupado por",
+  "ungroupBy": "Desagrupar por",
+  "resetColumns": "Reiniciar columnas",
+  "expandAll": "Expandir todo",
+  "collapseAll": "Contraer todo",
+  "toolPanel": "Panel de Herramientas",
+  "export": "Exportar",
+  "csvExport": "Exportar CSV",
+  "excelExport": "Exportar Excel",
+
+  "pinLeft": "Pin <<",
+  "pinRight": "Pin >>",
+  "noPin": "Sin Pin <>",
+
+  "sum": "Sum",
+  "min": "Min",
+  "max": "Max",
+  "first": "Primero",
+  "last": "Ultima",
+  "none": "Ninguno",
+  "count": "Contador",
+  "average": "Promedio",
+
+  "copy": "Copiar",
+  "copyWithHeaders": "Copiar con Cabeceras",
+  "ctrlC": "ctrl n C",
+  "paste": "Pegar",
+  "ctrlV": "ctrl n C"
+}

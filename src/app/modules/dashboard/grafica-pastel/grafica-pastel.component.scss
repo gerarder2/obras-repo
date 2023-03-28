@@ -1,0 +1,113 @@
+h4 {
+  text-align: center;
+  font: normal 17px sans-serif;
+  margin: 20px 0;
+}
+.website {
+  font: normal 14px sans-serif;
+  letter-spacing: 0.5px;
+  display: block;
+  cursor: pointer;
+  background-color: white;
+  color: #d9a74a;
+  text-decoration: none;
+  text-align: right;
+}
+
+#doughnut-chart-ui {
+  font: normal 12px sans-serif;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.category {
+  font: bold 14px sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.participacion {
+  font: bold 12px sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  color: black;
+}
+
+.chart:nth-child(2) {
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+
+.chart {
+  width: auto;
+  padding: 10px;
+
+  .color-wrapper {
+    display: grid;
+    margin-right: 10px;
+  }
+
+  .color-ref {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transform: translateY(4px);
+  }
+
+  .chart-specs {
+    display: grid;
+    grid-template-columns: 7% 40% 28% 18% 10%;
+    line-height: 23px;
+    margin-top: 30px;
+    margin-left: 0px;
+  }
+
+  .chart-specs-seleccionado {
+    display: grid;
+    grid-template-columns: 7% 40% 34% 11% 10%;
+    line-height: 23px;
+    margin-top: 30px;
+    margin-left: 0px;
+  
+  }
+}
+
+.label-ref .item {
+  text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+margin-right: 10px;
+}
+
+.label-ref,
+.percent {
+  display: grid;
+
+  > div {
+    white-space: nowrap;
+    color: black;
+  }
+}
+
+.percent {
+  margin-left: 10px;
+}
+img{
+    height: 24px;
+    width: 24px;
+}
+
+.progress {
+  display: flex;
+  height: 2rem;
+  overflow: hidden;
+  line-height: 0;
+  font-size: 0.75rem;
+  background-color: #f4f7fa;
+  border-radius: 1.25rem;
+}

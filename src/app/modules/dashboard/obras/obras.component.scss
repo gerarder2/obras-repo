@@ -1,0 +1,18 @@
+:host ::ng-deep .p-dropdown {
+    width: 100%;
+}
+
+:host ::ng-deep .p-treeselect {
+    width: 100%;
+}
+
+.controles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+td.text-center {
+    text-align: center;
+}

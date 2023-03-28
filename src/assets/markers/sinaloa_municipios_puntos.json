@@ -1,0 +1,293 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -109.106351,
+                    25.926615,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 1,
+                "name": "AHOME",
+                "description": "Sinaloa<br><br> NOMBRE AHOME (SIN)<br> ESTADO SIN<br> NIVELB 7<br> POB_TOT 359146<br> HAB_KM 101,95"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -108.137537,
+                    25.207439,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 2,
+                "name": "ANGOSTURA",
+                "description": "Sinaloa<br><br> NOMBRE ANGOSTURA (SIN)<br> ESTADO SIN<br> NIVELB 6<br> POB_TOT 43827<br> HAB_KM 38,46"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -107.382568,
+                    25.61192,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 3,
+                "name": "BADIRAGUATO",
+                "description": "Sinaloa<br><br> NOMBRE BADIRAGUATO (SIN)<br> ESTADO SIN<br> NIVELB 2<br> POB_TOT 37757<br> HAB_KM 8,03"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -105.972922,
+                    23.432379,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 4,
+                "name": "CONCORDIA",
+                "description": "Sinaloa<br><br> NOMBRE CONCORDIA (SIN)<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 27815<br> HAB_KM 13,1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -106.758832,
+                    24.525538,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 5,
+                "name": "COSALA",
+                "description": "Sinaloa<br><br> NOMBRE COSALA (SIN)<br> ESTADO SIN<br> NIVELB 3<br> POB_TOT 17269<br> HAB_KM 7,84"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -107.353184,
+                    24.669729,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 6,
+                "name": "CULIACAN",
+                "description": "Sinaloa<br><br> NOMBRE CULIACAN (SIN)<br> ESTADO SIN<br> NIVELB 7<br> POB_TOT 745537<br> HAB_KM 125,02"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -108.313636,
+                    26.667335,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 7,
+                "name": "CHOIX",
+                "description": "Sinaloa<br><br> NOMBRE CHOIX (SIN)<br> ESTADO SIN<br> NIVELB 3<br> POB_TOT 29355<br> HAB_KM 9,23"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -106.881975,
+                    24.037701,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 8,
+                "name": "ELOTA",
+                "description": "Sinaloa<br><br> NOMBRE ELOTA (SIN)<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 49471<br> HAB_KM 30,3"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -105.722335,
+                    22.720734,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 9,
+                "name": "ESCUINAPA",
+                "description": "Sinaloa<br><br> NOMBRE ESCUINAPA (SIN)<br> ESTADO SIN<br> NIVELB 6<br> POB_TOT 50438<br> HAB_KM 32,45"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -108.65367,
+                    26.259165,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 10,
+                "name": "EL FUERTE",
+                "description": "Sinaloa<br><br> NOMBRE EL FUERTE<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 89515<br> HAB_KM 21,52"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -108.51539,
+                    25.514699,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 11,
+                "name": "GUASAVE",
+                "description": "Sinaloa<br><br> NOMBRE GUASAVE (SIN)<br> ESTADO SIN<br> NIVELB 6<br> POB_TOT 277402<br> HAB_KM 106,65"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -106.267921,
+                    23.468953,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 12,
+                "name": "MAZATLAN",
+                "description": "Sinaloa<br><br> NOMBRE MAZATLAN (SIN)<br> ESTADO SIN<br> NIVELB 7<br> POB_TOT 380509<br> HAB_KM 155,09"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -107.78053,
+                    25.358317,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 13,
+                "name": "MOCORITO",
+                "description": "Sinaloa<br><br> NOMBRE MOCORITO (SIN)<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 50082<br> HAB_KM 18,06"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -105.827402,
+                    23.090224,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 14,
+                "name": "ROSARIO",
+                "description": "Sinaloa<br><br> NOMBRE ROSARIO (SIN)<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 47934<br> HAB_KM 18,42"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -107.988432,
+                    25.386072,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 15,
+                "name": "SALVADOR ALVARADO",
+                "description": "Sinaloa<br><br> NOMBRE SALVADOR ALVARADO (SIN)<br> ESTADO SIN<br> NIVELB 7<br> POB_TOT 73303<br> HAB_KM 94,12"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -106.362555,
+                    23.931784,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 16,
+                "name": "SAN IGNACIO",
+                "description": "Sinaloa<br><br> NOMBRE SAN IGNACIO (SIN)<br> ESTADO SIN<br> NIVELB 3<br> POB_TOT 26762<br> HAB_KM 5,27"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -108.131926,
+                    26.023857,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 17,
+                "name": "SINALOA",
+                "description": "Sinaloa<br><br> NOMBRE SINALOA (SIN)<br> ESTADO SIN<br> NIVELB 5<br> POB_TOT 85100<br> HAB_KM 13,6"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -107.762228,
+                    24.752855,
+                    0
+                ]
+            },
+            "properties": {
+                "id": 18,
+                "name": "NAVOLATO",
+                "description": "Sinaloa<br><br> NOMBRE NAVOLATO (SIN)<br> ESTADO SIN<br> NIVELB 6<br> POB_TOT 145622<br> HAB_KM 70,38"
+            }
+        }
+    ]
+}

@@ -1,0 +1,190 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "gobierno": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "rxjs-compat",
+              "leaflet",
+              "angular2-text-mask",
+              "sweetalert2",
+              "@turf",
+              "earcut",
+              "deep-equal",
+              "geojson-rbush",
+              "object-assign",
+              "polygon-clipping",
+              "concaveman",
+              "rbush",
+              "skmeans",
+              "density-clustering",
+              "turf-jsts",
+              "geojson-equality"
+            ],
+            "outputPath": "dist/gobierno",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/fullcalendar/main.min.css",
+              "node_modules/simple-line-icons/css/simple-line-icons.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/sweetalert2/dist/sweetalert2.css",
+              "node_modules/angular-calendar/css/angular-calendar.css",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.bubble.css",
+              "node_modules/quill/dist/quill.snow.css",
+              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "node_modules/angular2-toaster/toaster.css",
+              "node_modules/leaflet/dist/leaflet.css",
+              "src/scss/style.scss"
+            ],
+            "scripts": [
+              "node_modules/rsvp/dist/rsvp.js",
+              "node_modules/js-sha256/build/sha256.min.js",
+              "node_modules/qz-tray/qz-tray.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/fullcalendar/main.min.js",
+              "node_modules/chart.js/dist/Chart.min.js",
+              "node_modules/sweetalert2/dist/sweetalert2.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "gobierno:build:production"
+            },
+            "development": {
+              "browserTarget": "gobierno:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "gobierno:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "node_modules/fullcalendar/main.min.css",
+              "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/simple-line-icons/css/simple-line-icons.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/sweetalert2/dist/sweetalert2.css",
+              "node_modules/prismjs/themes/prism.css",
+              "node_modules/prismjs/themes/prism-okaidia.css",
+              "node_modules/angular-calendar/css/angular-calendar.css",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.bubble.css",
+              "node_modules/quill/dist/quill.snow.css",
+              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "node_modules/angular2-toaster/toaster.css",
+              "node_modules/leaflet/dist/leaflet.css",
+              "src/scss/style.scss"
+            ],
+            "scripts": [
+              "node_modules/js-sha256/build/sha256.min.js",
+              "node_modules/qz-tray/qz-tray.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/fullcalendar/main.min.js",
+              "node_modules/chart.js/dist/Chart.bundle.min.js",
+              "node_modules/chart.js/dist/Chart.min.js",
+              "node_modules/sweetalert2/dist/sweetalert2.js",
+              "node_modules/prismjs/prism.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "gobierno",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
+}

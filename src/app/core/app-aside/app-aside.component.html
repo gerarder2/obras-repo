@@ -1,0 +1,24 @@
+<aside class="aside-menu">
+  <tabset>
+    <tab>
+      <ng-template tabHeading><i class="icon-list"></i></ng-template>
+      <ng-container *ngIf="messages">
+        <div class="callout m-0 py-2 text-muted text-center bg-light text-uppercase">
+          <small><b>Mensajes</b></small>
+        </div>
+        <hr class="transparent mx-3 my-0">
+        <ng-container *ngFor="let message of messages">
+        <div class="callout m-0 py-3" [ngClass]="'callout-' + (message.color || 'warning')">
+          <div class="avatar float-right" *ngIf="message.avatar">
+            <img [src]="message.avatar" class="img-avatar" alt="{{message.remitente}}">
+          </div>
+          <div>Reunion con: <strong>{{message.remitente}}</strong></div>
+          <small class="text-muted mr-3"><i class="icon-calendar"></i>&nbsp; {{message.horaInicio + ' - ' + message.horaFin}}</small>
+          <small class="text-muted"><i class="icon-location-pin"></i>&nbsp; {{message.lugar}} </small>
+        </div>
+        <hr class="mx-3 my-0">
+        </ng-container>
+      </ng-container>
+    </tab>
+  </tabset>
+</aside>

@@ -1,0 +1,55 @@
+<ng-container *ngIf="tipoCard !== 'obras'">
+  
+  <strong>{{properties.nombrePartido}}</strong>
+  <img [src]="properties.imagenPartido" width="16" height="16">
+  <strong>{{properties.ganador?.candidato?.nombre}}</strong>
+  <br>
+  <hr>
+  Votos: {{properties.votosContados |  number:'':'en'}}<br>
+  Partido: {{properties.ganador?.partido?.nombre}}
+  <br>
+  No.Registrados: {{properties.noRegistrados |  number:'':'en'}}<br>
+  Nulos: {{properties.nulos |  number:'':'en'}}<br>
+  Total Votos: {{properties.votos |  number:'':'en'}}<br>
+  Lista Nominal: {{properties.listaNominal |  number:'':'en'}}<br>
+    <hr>
+    <ng-scrollbar [visibility]="'hover'" style="height: 300px">
+    <app-grafica-pastel
+      [votosPartidosSeleccionado]="properties"
+      [partidos]="properties?.partidos"
+      [card]="true"
+      *ngIf="properties?.votosPartido"
+    ></app-grafica-pastel
+    ><!-- ... -->
+  </ng-scrollbar>
+</ng-container>
+
+<ng-container *ngIf="tipoCard === 'obras'">
+  <strong>{{ properties.objeto }}</strong>
+  <!-- <img [src]="properties.imagenPartido" width="16" height="16" /> -->
+  <br />
+  <hr />
+  <p *ngIf="properties.porcentajeAvance">
+    <strong>Porcentaje Avance:</strong> {{ properties.porcentajeAvance / 100 | percent }}
+  </p>
+  <p><strong>Tipo Inversión:</strong> {{ properties.descripcionTipoInversion }}</p>
+  <p><strong>Tipo de Obra Social:</strong> {{ properties.descripcionTipoObraSocial }}</p>
+  <p><strong>Tipo de Obra:</strong> {{ properties.descripcionTipoObra }}</p>
+  <p><strong>Monto:</strong> {{ properties.montoInversion | currency }}</p>
+
+  <p>
+    <i class="far fa-calendar"></i><strong> Fecha Contratación:</strong>
+    {{ properties.fechaContratacion | date: 'longDate':'':'es' }}
+  </p>
+  <p>
+    <i class="fas fa-calendar"></i> <strong>Fecha Estimada:</strong>
+    {{ properties.fechaEstimada | date: 'longDate':'':'es' }}
+  </p>
+  <p>
+    <i class="fas fa-calendar"></i> <strong>Fecha Terminación:</strong>
+    {{ properties.fechaTerminacion | date: 'longDate':'':'es' }}
+  </p>
+  <hr />
+
+  <p><strong>Comentarios:</strong></p>
+</ng-container>

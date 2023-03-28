@@ -1,0 +1,33 @@
+.p-datatable .p-sortable-column.p-highlight {
+  color: $blue;
+}
+
+.p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+  color: $blue;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: $blue;
+  border-color: $blue;
+}
+
+input[type='button'],
+input[type='submit'],
+input[type='reset'],
+input[type='file']::-webkit-file-upload-button,
+button {
+  border-radius: 3px;
+  border-width: 1px;
+}
+.field-checkbox {
+  display: flex;
+  align-items: center;
+}
+.field-checkbox.list { 
+    margin-bottom: 1rem;
+}
+.field-checkbox label, .field-radiobutton label {
+  margin-left: 0.5rem;
+  margin-bottom: 0rem;
+  line-height: 1;
+}

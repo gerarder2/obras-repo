@@ -1,0 +1,33 @@
+$theme-colors: map-remove($theme-colors, "info");
+@each $color, $value in $theme-colors {
+  .modal-#{"" + $color} {
+
+    .modal-content {
+      border: none;
+      border-radius: 16px;
+      border-color: $value;
+    }
+
+    .modal-header {
+      border: none;
+      border-radius: 16px 16px 0 0;
+      color: #fff;
+      background-color: $value;
+    }
+  }
+}
+
+.modal-info {
+
+  .modal-content {
+    border: none;
+    border-radius: 16px;
+    border-color:  $blue-info;
+  }
+
+  .modal-header {
+    border: none;
+    border-radius: 16px 16px 0 0;
+    background-color:  $blue-info;
+  }
+}

@@ -1,0 +1,23 @@
+@import './../../../scss/bootstrap-variables';
+
+.app-header.navbar .nav-item {
+    height: 50px;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    .nav-link {
+        line-height: 50px;
+        color: $gray-500;
+    }
+    .nav-link:hover {
+        line-height: 50px;
+        color: $gray-800;
+    }
+}
+.app-header.navbar .nav-item.active {
+    border-bottom: 3px solid $wine;
+    
+    .nav-link.active {
+        font-weight: 500;
+        color: $wine;
+    }
+}

@@ -1,0 +1,25 @@
+<app-header
+  [imgUrl]="imgUrl"
+  [user]="user"
+  [notifications]="notificaciones"
+  [messages]="mensajes"
+  [appLogo]="appLogo"
+></app-header>
+<div class="app-body">
+  <app-sidebar *ngIf="haveMenu"></app-sidebar>
+  <!-- Main content -->
+  <main class="main">
+    <!-- Breadcrumb -->
+    <!-- <ol class="breadcrumb"> -->
+      <!-- <app-breadcrumbs></app-breadcrumbs> -->
+      <!-- Breadcrumb Menu-->
+    <!-- </ol> -->
+    <div class="container-fluid">
+      <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+      <router-outlet></router-outlet>
+    </div>
+    <!-- /.conainer-fluid -->
+  </main>
+  <app-aside [messages]="mensajes"></app-aside>
+</div>
+<app-footer></app-footer>
