@@ -31,3 +31,9 @@ $theme-colors: map-remove($theme-colors, "info");
     background-color:  $blue-info;
   }
 }
+
+.modal-light {
+  .modal-header {
+    color: $gray-800;
+  }
+}
