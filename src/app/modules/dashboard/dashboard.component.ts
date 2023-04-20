@@ -86,6 +86,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   obrasMarksLayer: any;
 
+  cards: any[];
+  tiposObras: any[];
+  estatusObras: any[];
+  estatusObrasSeleccionado: any;
+
   constructor(
     private router: Router,
     private auth: AuthenticationService,
@@ -118,9 +123,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.municipiosSeleccionados = [];
     this.labelSeccionesDistritos = '';
     this.seccionesActuales = [];
-  }
 
-  ngOnInit() {
+    this.periodoSeleccionado = 0;
+
     this.municipios = [
       { id: 1, nombre: 'AHOME', latitud: 25.91194, longitud: -109.1735 },
       { id: 2, nombre: 'ANGOSTURA', latitud: 25.36797, longitud: -108.15913 },
@@ -142,7 +147,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       { id: 18, nombre: 'NAVOLATO', latitud: 24.65792, longitud: -107.53742 }
     ];
 
-    this.periodoSeleccionado = 0;
+    this.tiposObras = [];
+    this.cards = [
+      { id: 1, cantidad: 1069, descripcion: 'TOTAL DE CONTRATOS', imagen: 'document_sq.png' },
+      { id: 2, cantidad: 18, descripcion: 'MUNICIPIOS BENEFICIADOS', imagen: 'sinaloa_map_sq.png' },
+      { id: 1, cantidad: 2929438639.42, descripcion: 'MONTO TOTAL EJERCIDO', imagen: 'dollar_sq.png' }
+    ];
+    this.estatusObras = [];
+  }
+
+  ngOnInit() {
     this.loadCatalogos();
   }
 
@@ -400,19 +414,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
-    setTimeout(() => {
-      this.map.invalidateSize();
-    }, 200);
-  }
+  // toggleSidebar() {
+  //   this.sidebarOpen = !this.sidebarOpen;
+  //   setTimeout(() => {
+  //     this.map.invalidateSize();
+  //   }, 200);
+  // }
 
-  toggleASidebar() {
-    this.asidebarOpen = !this.asidebarOpen;
-    setTimeout(() => {
-      this.map.invalidateSize();
-    }, 200);
-  }
+  // toggleASidebar() {
+  //   this.asidebarOpen = !this.asidebarOpen;
+  //   setTimeout(() => {
+  //     this.map.invalidateSize();
+  //   }, 200);
+  // }
 
   onChangePuesto(_$event) {
     const params = {

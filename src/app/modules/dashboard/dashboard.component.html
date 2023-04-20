@@ -13,137 +13,77 @@
   <div class="map-sidebar map-sidebar-open">
     <div class="map-sidebar-header">
       <h6 class="header-title">Configuración</h6>
-      <button class="btn btn-sm btn-gold-100 icon text-white" (click)="toggleSidebar()">
+      <button class="btn btn-sm btn-gold-100 icon text-white" (click)="recargarInfo()">
         <i class="fas fa-rotate"></i>
       </button>
     </div>
 
     <div class="map-sidebar-body">
-      <h6 class="header-title">Por tipo de obra</h6>
+      <h6 class="header-title">Por Tipo de Obra</h6>
+      <section class="tipo-obras">
+        <ng-container>
+          <div class="col-xs-8 col-sm" *ngFor="let tipo of tiposObras">
+            <ul class="icons-list">
+              <li>
+                <!-- <i class="icon-screen-desktop bg-primary"></i> -->
+                <p-inputSwitch
+                  [(ngModel)]="tipo.checked"
+                  [class]="'custom-' + tipo.nombre.toLocaleLowerCase()"
+                  (onChange)="onChangePartido(tipo)"
+                ></p-inputSwitch>
 
-      <div class="form-group">
-        <label><strong>Años</strong></label>
-        <p-dropdown
-          [options]="periodos"
-          [(ngModel)]="periodoSeleccionado"
-          placeholder="Seleccione..."
-          optionLabel=""
-          [showClear]="false"
-          (onChange)="recargarInfo($event)"
-        ></p-dropdown>
-      </div>
-      <hr />
-      <!-- puestos -->
-      <h6><strong>Puestos</strong></h6>
-      <div *ngFor="let puesto of puestos" class="field-checkbox list">
-        <p-radioButton
-          [inputId]="puesto.nombre"
-          name="puesto"
-          [value]="puesto"
-          [(ngModel)]="puestoSeleccionado"
-          [disabled]="!periodoSeleccionado"
-          (onClick)="onChangePuesto($event)"
-        ></p-radioButton>
-        <label [for]="puesto.nombre">{{ puesto.nombre }}</label>
-      </div>
-      <!-- end puestos -->
-      <hr />
-      <!-- municipios -->
-      <p-panel
-        *ngIf="puestoSeleccionado && votosMunicipio?.length > 0"
-        [toggleable]="true"
-        [collapsed]="panelMunicipios()"
-      >
-        <ng-template pTemplate="header">
-          <div class="field-checkbox">
-            <p-checkbox
-              (onChange)="checkUncheckMunicipios()"
-              [(ngModel)]="allMunicipios"
-              [binary]="true"
-              inputId="binary"
-              name="binary"
-            ></p-checkbox>
-            <label for="binary"><strong>Municipios</strong></label>
-          </div>
-        </ng-template>
-        <ng-template pTemplate="icons">
-          <button class="p-panel-header-icon p-link" (click)="allMunicipios = false; checkUncheckMunicipios()">
-            <i class="fas fa-trash"></i>
-          </button>
-        </ng-template>
-        <ng-container *ngFor="let municipio of municipios; index as i">
-          <div class="field-checkbox list">
-            <p-checkbox
-              name="group2"
-              value="municipio"
-              [value]="municipio"
-              [(ngModel)]="municipiosSeleccionados"
-              [inputId]="municipio.nombre"
-              (onChange)="onChangeMunicipio($event, municipio)"
-            ></p-checkbox>
-            <label [for]="municipio.nombre">{{ municipio.nombre }}</label>
+                <div class="desc">
+                  <img
+                    [src]="'./assets/markers/partidos/' + tipo.nombre.toLocaleLowerCase() + '.png'"
+                    width="42"
+                    height="42"
+                  />
+                </div>
+              </li>
+            </ul>
           </div>
         </ng-container>
-      </p-panel>
-      <!-- end municipios -->
-      <!-- distritos -->
-      <p-panel
-        *ngIf="puestoSeleccionado && votosMunicipio?.length > 0"
-        [toggleable]="true"
-        [collapsed]="panelDistritos()"
-      >
-        <ng-template pTemplate="header">
-          <div class="field-checkbox">
-            <p-checkbox
-              (onChange)="checkUncheckDistritos()"
-              [(ngModel)]="allDistritos"
-              [binary]="true"
-              inputId="binary2"
-              name="binary2"
-            ></p-checkbox>
-            <label for="binary2"><strong>Distritos</strong></label>
-          </div>
-        </ng-template>
-        <ng-template pTemplate="icons">
-          <button class="p-panel-header-icon p-link" (click)="allDistritos = false; checkUncheckDistritos()">
-            <i class="fas fa-trash"></i>
-          </button>
-        </ng-template>
-        <ng-container *ngFor="let distrito of distritos; index as i">
-          <div class="field-checkbox list">
-            <p-checkbox
-              name="group3"
-              [value]="distrito"
-              [(ngModel)]="distritosSeleccionados"
-              [inputId]="distrito.clave"
-              (onChange)="onChangeDistrito($event, distrito)"
-            ></p-checkbox>
-            <div class="controles">
-              <label [for]="distrito.clave">Distrito {{ distrito.clave }}</label>
-              <button
-                *ngIf="checkDistritoSelected(distrito)"
-                class="btn btn-sm btn-secondary"
-                (click)="mostrarSecciones(distrito)"
-              >
-                Secciones
-              </button>
-            </div>
-          </div>
-        </ng-container>
-      </p-panel>
-      <!-- end distritos -->
-
-      <!-- secciones especiales -->
-      <ng-container *ngIf="puestoSeleccionado">
-        <app-secciones-especiales
-          [anioSelected]="periodoSeleccionado"
-          [puestoSelected]="puestoSeleccionado.id"
-          (onFiltrarSecciones)="filtrarSecciones($event)"
-          (onBorrar)="quitarSeccionesEspecialesLayer()"
-          (onLoading)="loadingSeccionesEspeciales($event)"
-        ></app-secciones-especiales>
-      </ng-container>
-
+      </section>
+      <h6 class="header-title">Por Municipio</h6>
+      <section>
+        <div class="form-group">
+          <p-dropdown
+            [options]="municipios"
+            [(ngModel)]="municipioSeleccionado"
+            placeholder="Seleccione..."
+            optionLabel="nombre"
+            [showClear]="false"
+            (onChange)="recargarInfo($event)"
+          ></p-dropdown>
+        </div>
+      </section>
+      <h6 class="header-title">Por Años</h6>
+      <section class="drop-years">
+        <div class="form-group">
+          <p-dropdown
+            [options]="periodos"
+            [(ngModel)]="periodoSeleccionado"
+            placeholder="Seleccione..."
+            optionLabel=""
+            [showClear]="false"
+            (onChange)="recargarInfo($event)"
+          ></p-dropdown>
+        </div>
+      </section>
+      <h6 class="header-title">Por Estatus de Obra</h6>
+      <section class="estatus-obras">
+        <div class="form-group">
+          <p-dropdown
+            [options]="estatusObras"
+            [(ngModel)]="estatusObrasSeleccionado"
+            placeholder="Seleccione..."
+            optionLabel=""
+            [showClear]="false"
+            (onChange)="recargarInfo($event)"
+          ></p-dropdown>
+        </div>
+      </section>
+      <hr />
       <!-- obras -->
       <ng-container *ngIf="municipiosSeleccionados.length > 0 || distritosSeleccionados.length > 0">
         <app-obras
@@ -164,15 +104,28 @@
   ></div>
 </section>
 <section class="data-container">
-  <div class="h3 data-title">Datos Abiertos</div>
-  <div class="col-sm-6 col-md-3">
+  <div class="h2 data-title">Datos Abiertos</div>
+  <div class="datos-abiertos row col-12">
+    <div class="col-sm-3 col-md-3" *ngFor="let card of cards">
     <div class="card bg-gray-200">
+      <img src="{{ './../../../assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="...">
       <div class="card-body">
-        <div class="icon-text text-center mb-4">
-          <i class="fas fa-file-signature"></i>
+        <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
+          <div class="text-center">
+            <small class="descripcion">{{ card.descripcion }}</small>
+          </div>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-3 col-md-3">
+      <div class="card">
+        <img src="{{ './../../../assets/img/arrow_sq.png'}}" class="card-img-top mx-auto" alt="...">
+        <div class="card-body">
+          <div class="cantidad h4 mb-0 text-center">Ver Más</div>
+          <div class="text-center">
+            <small class="descripcion">&nbsp;</small>
+          </div>
         </div>
-        <div class="h4 mb-0">1238</div>
-        <small class="text-uppercase font-weight-bold">Products sold</small>
       </div>
     </div>
   </div>

@@ -1,0 +1,59 @@
+@import './../../../scss/bootstrap-variables';
+
+.data-container {
+    height: 80px;
+    background-color:$gray-200;
+    .data-title {
+        margin-bottom: 10px;
+    }
+}
+
+.card-body .title {
+    padding: 10px;
+    text-align: center;
+}
+
+.card.wine {
+    background-color: $wine;
+    color: white;
+}
+.card.wine-800 {
+    background-color: $wine-800;
+    color: white;
+}
+.card.wine-500 {
+    background-color: $wine-500;
+    color: white;
+}
+
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: $wine-50;
+ }
+
+ .progress {
+    display: flex;
+    height: 0.7rem;
+    overflow: hidden;
+    line-height: 0;
+    font-size: 0.75rem;
+    background-color: $gray-300;
+    border-radius: 1.25rem;
+  }
+
+  .progressbar.wine {
+    background-color: $wine;
+  }
+
+  .progress-bar.green {
+    background-color: $green;
+  }
+
+  .progress-bar.gold-500 {
+    background-color: $gold-500;
+  }
+  
+  .progress-bar.gold {
+    background-color: $gold;
+  }
+  

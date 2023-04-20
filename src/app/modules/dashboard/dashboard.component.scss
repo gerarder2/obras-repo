@@ -83,13 +83,7 @@
     height: 70px;
   }
 
-  .buscador-secciones{
-    position: absolute;
-    left: 15px;
-    top: 15px;
-    z-index: 500;
-    left: 410px;
-    width: 300px;
+  .map-sidebar-body{
     ::ng-deep .p-dropdown {
       width: 100%;
     }
@@ -352,15 +346,14 @@
   width: 100%;
 }
 
-.data-container {
-  height: 300px;
-
-  .data-title {
-    text-align: center;
-    padding: 20px;
-  }
-}
 .icon-text {
   font-size: 5rem;
   color: $gold;
+}
+
+.card-img-top {
+  width: 100px;
+  margin-top: 15px;
+  // height: 10vw;
+  // object-fit: cover;
 }

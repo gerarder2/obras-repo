@@ -10,6 +10,27 @@ html {
   font-size: 14px;
 }
 
+.data-container {
+  height: 300px;
+
+  .data-title {
+    text-align: center;
+    padding: 20px;
+  }
+}
+
+.datos-abiertos {
+  font-size: 1.3rem;
+  .cantidad {
+    font-size: 1.8rem;
+    font-weight:bold;
+  }
+  .card-image {
+    width: 80px;
+    height: 80px;
+  }
+}
+
 // Override Boostrap variables
 @import 'bootstrap-variables';
 
@@ -28,4 +49,5 @@ html {
 
 @import '~ag-grid-community/dist/styles/ag-grid.css';
 
-@import '~ag-grid-community/dist/styles/ag-theme-balham.css'
+@import '~ag-grid-community/dist/styles/ag-theme-balham.css';
+

@@ -7,8 +7,8 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <ul class="nav navbar-nav d-md-down-none">
-    <li class="nav-item px-3" *ngFor="let link of links" routerLinkActive="active">
-      <a class="nav-link" routerLinkActive="active"
+    <li class="nav-item px-3" *ngFor="let link of links" [routerLinkActive]="'active'">
+      <a class="nav-link" [routerLinkActive]="'active'"
       [routerLink]="[link.url]">{{link.name}}</a>
     </li>
   </ul>

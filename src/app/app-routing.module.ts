@@ -7,18 +7,27 @@ import { NgModule } from '@angular/core';
 import { environment } from './../environments/environment';
 
 export const routes: Routes = [
+  // {
+  //   path: '',
+  //   redirectTo: 'dashboard',
+  //   pathMatch: 'full'
+  // },
   {
     path: '',
-    pathMatch: 'full',
     component: FullLayoutComponent,
     data: {
       title: 'Home'
     },
     children: [
       {
-        path: '',
+        path: 'inicio',
         loadChildren: () => import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule)
-      }
+      },
+      {
+        path: 'licitaciones',
+        loadChildren: () => import('./modules/licitaciones/licitaciones.module').then((m) => m.LicitacionesModule)
+      },
+      { path: 'obras', loadChildren: () => import('./modules/obras/obras.module').then((m) => m.ObrasModule) }
     ]
   },
 

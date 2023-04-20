@@ -46,7 +46,7 @@ export class AppHeaderComponent implements OnInit {
     );
 
     this.links = [
-      { url: '/', name: 'Inicio' },
+      { url: '/inicio', name: 'Inicio' },
       { url: '/licitaciones', name: 'Licitaciones' },
       { url: '/obras', name: 'Obras' },
       { url: '/datos_abiertos', name: 'Datos Abiertos' }

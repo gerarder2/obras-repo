@@ -12,7 +12,6 @@ import { AuthenticationService } from './services/authentication.service';
     <div>
       <block-ui></block-ui>
       <router-outlet></router-outlet>
-      <router-outlet name="print"></router-outlet>
     </div>
   `
 })
