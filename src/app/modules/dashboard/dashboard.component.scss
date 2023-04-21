@@ -34,7 +34,7 @@
   position:relative;
   .map{
       // height: calc(100vh);
-      height: 500px;
+      height: 610px;
       display:block;
   }
   .map.map-sidebar-open{
@@ -106,11 +106,11 @@
   } 
   .map-sidebar {
     background: #fff;
-    height: 400px;    
+    height: 580px;    
     position: absolute;
     left: -400px;
-    top: 20px;
-    width: 300px;
+    top: 15px;
+    width: 370px;
     transition: left 0.3s ease-in-out;
     z-index: 1000;
     padding: 15px;
@@ -251,6 +251,40 @@
   overflow: auto;
 }
 
+
+// inputSwitch tiposObras
+:host ::ng-deep .custom-green
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-green
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$green;
+}
+:host ::ng-deep .custom-wine
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-wine
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$wine;
+}
+:host ::ng-deep .custom-wine-100
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-wine-100
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$wine-100;
+}
+:host ::ng-deep .custom-gold
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-gold
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$gold;
+}
 // inputSwitch partidos
 
 :host ::ng-deep .custom-pri
@@ -356,4 +390,12 @@
   margin-top: 15px;
   // height: 10vw;
   // object-fit: cover;
+}
+
+.label-switch {
+  top: -5px;
+    line-height: 15px;
+    position: relative;
+    margin-bottom: 10px;
+    color: $gray-700;
 }

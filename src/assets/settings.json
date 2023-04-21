@@ -1,11 +1,4 @@
 {
-    "webApi": "http://gdlphytolab.selfip.com:84/api",
-    "webApiSeguridad": "http://gdlphytolab.selfip.com:84/api",
-    "webApiClientes": "http://gdlphytolab.selfip.com:84/api",
-    "webApiServicios": "http://gdlphytolab.selfip.com:84/api",
-    "webApiImpresiones": "http://gdlphytolab.selfip.com:84/api",
-    "webApiCFDIS": "http://phytomonitor.dyndns-web.com:84/api",
-    "serverSocket":"https://socket-phyto.herokuapp.com/",
-    "redirectUrl": "http://phytomonitor.com.mx/",
-    "periodos": ["2016", "2018", "2021"]
+    "webApi": "http://74.208.25.33:86/api",
+    "periodos": ["Todos", "2016", "2018", "2021"]
 }

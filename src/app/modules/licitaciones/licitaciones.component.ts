@@ -54,9 +54,30 @@ export class LicitacionesComponent implements OnInit {
     ];
 
     this.licitacionesData = [
-      { numeroContrato: 'IO-956235', objeto: 'REABILITACION', fecha: '2023-05-05', monto: '12032145658', avance: 30 },
-      { numeroContrato: 'IO-856235', objeto: 'REABILITACION', fecha: '2023-05-05', monto: '52032145658', avance: 50 },
-      { numeroContrato: 'IO-456235', objeto: 'REABILITACION', fecha: '2023-05-05', monto: '96032145658', avance: 10 }
+      {
+        numeroContrato: 'IO-956235',
+        objeto:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,',
+        fecha: '2023-05-05',
+        monto: '12032145658',
+        avance: 30
+      },
+      {
+        numeroContrato: 'IO-856235',
+        objeto:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s,',
+        fecha: '2023-05-05',
+        monto: '52032145658',
+        avance: 50
+      },
+      {
+        numeroContrato: 'IO-456235',
+        objeto:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,',
+        fecha: '2023-05-05',
+        monto: '96032145658',
+        avance: 10
+      }
     ];
   }
 

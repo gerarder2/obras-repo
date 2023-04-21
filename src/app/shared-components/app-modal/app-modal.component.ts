@@ -22,14 +22,39 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
           </div>
         </div>
       </div>
-
       <div class="ml-auto">
         <button type="button" class="close" (click)="bsModalRef.hide()">
           <span aria-hidden="true"><i class="fa fa-close"></i></span>
         </button>
       </div>
     </div>
-    <div class="modal-body"></div>
+    <div class="modal-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <small>Objeto</small>
+            <p>{{ params.objeto }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <small>Tipo de Licitacion</small>
+            <p>{{ params.tipoLicitacion }}</p>
+          </div>
+          <div class="col-3">
+            <small>Fecha</small>
+            <p>{{ params.fecha }}</p>
+          </div>
+          <div class="col-3">
+            <small>Normatividad</small>
+            <p>Federal</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12"></div>
+        </div>
+      </div>
+    </div>
   `
 })
 export class AppModalComponent implements OnInit {

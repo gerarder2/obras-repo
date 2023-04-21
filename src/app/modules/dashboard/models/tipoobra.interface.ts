@@ -1,5 +1,7 @@
 export interface TipoObra {
   id?: number;
-  nombre?: string;
+  descripcion?: string;
   icon?: string;
+  checked?: boolean;
+  color?: string;
 }

@@ -363,4 +363,29 @@ export class HelperService {
 
     return grupoTiposObra;
   }
+
+  public formatTipoObras(tiposObras: TipoObra[]) {
+    for (const item of tiposObras) {
+      item.checked = true;
+      switch (item['id']) {
+        case 1:
+          item.icon = 'fas fa-landmark';
+          item.color = 'wine';
+          break;
+        case 2:
+          item.icon = 'fas fa-city';
+          item.color = 'green';
+          break;
+        case 3:
+          item.icon = ' fas fa-bus';
+          item.color = 'wine-100';
+          break;
+        case 4:
+          item.icon = 'fas fa-hand-holding-droplet';
+          item.color = 'gold';
+          break;
+      }
+    }
+    return tiposObras;
+  }
 }

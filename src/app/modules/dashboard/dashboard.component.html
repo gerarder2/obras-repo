@@ -21,28 +21,16 @@
     <div class="map-sidebar-body">
       <h6 class="header-title">Por Tipo de Obra</h6>
       <section class="tipo-obras">
-        <ng-container>
-          <div class="col-xs-8 col-sm" *ngFor="let tipo of tiposObras">
-            <ul class="icons-list">
-              <li>
-                <!-- <i class="icon-screen-desktop bg-primary"></i> -->
-                <p-inputSwitch
-                  [(ngModel)]="tipo.checked"
-                  [class]="'custom-' + tipo.nombre.toLocaleLowerCase()"
-                  (onChange)="onChangePartido(tipo)"
-                ></p-inputSwitch>
+        <div class="col-xs-10" *ngFor="let tipo of tiposObras">
+          <p-inputSwitch
+            [(ngModel)]="tipo.checked"
+            [class]="'custom-' + tipo.color"
 
-                <div class="desc">
-                  <img
-                    [src]="'./assets/markers/partidos/' + tipo.nombre.toLocaleLowerCase() + '.png'"
-                    width="42"
-                    height="42"
-                  />
-                </div>
-              </li>
-            </ul>
-          </div>
-        </ng-container>
+          ></p-inputSwitch>
+          <label class="label-switch" for="switch1"
+            ><i class="fas" [ngClass]="tipo.icon"></i> {{ tipo.descripcion }}</label
+          >
+        </div>
       </section>
       <h6 class="header-title">Por Municipio</h6>
       <section>
@@ -77,22 +65,19 @@
             [options]="estatusObras"
             [(ngModel)]="estatusObrasSeleccionado"
             placeholder="Seleccione..."
-            optionLabel=""
+            optionLabel="descripcion"
             [showClear]="false"
             (onChange)="recargarInfo($event)"
           ></p-dropdown>
         </div>
       </section>
-      <hr />
-      <!-- obras -->
-      <ng-container *ngIf="municipiosSeleccionados.length > 0 || distritosSeleccionados.length > 0">
-        <app-obras
-          (onBorrar)="quitarObrasLayer()"
-          (onFilter)="mostrarPuntosObra($event)"
-          [municipiosSelected]="municipiosSeleccionados"
-          [distritosSelected]="distritosSeleccionados"
-        ></app-obras>
-      </ng-container>
+     <section>
+      <div class="form-group float-right">
+        <button class="btn btn-primary icon text-white" (click)="recargarInfo()">
+        <i class="fas fa-filter"></i> Filtrar
+      </button>
+      </div>
+     </section>
     </div>
   </div>
   <!-- end sidebar -->
@@ -107,19 +92,19 @@
   <div class="h2 data-title">Datos Abiertos</div>
   <div class="datos-abiertos row col-12">
     <div class="col-sm-3 col-md-3" *ngFor="let card of cards">
-    <div class="card bg-gray-200">
-      <img src="{{ './../../../assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="...">
-      <div class="card-body">
-        <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
+      <div class="card bg-gray-200">
+        <img src="{{ './../../../assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="..." />
+        <div class="card-body">
+          <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
           <div class="text-center">
             <small class="descripcion">{{ card.descripcion }}</small>
           </div>
+        </div>
       </div>
-    </div>
     </div>
     <div class="col-sm-3 col-md-3">
       <div class="card">
-        <img src="{{ './../../../assets/img/arrow_sq.png'}}" class="card-img-top mx-auto" alt="...">
+        <img src="{{ './../../../assets/img/arrow_sq.png' }}" class="card-img-top mx-auto" alt="..." />
         <div class="card-body">
           <div class="cantidad h4 mb-0 text-center">Ver Más</div>
           <div class="text-center">

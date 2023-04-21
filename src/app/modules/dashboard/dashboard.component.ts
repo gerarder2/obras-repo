@@ -26,6 +26,7 @@ import { Partido } from './models/partido.interface';
 import { Puesto } from './models/puesto.interface';
 import { Router } from '@angular/router';
 import { Seccion } from './models/seccion.interface';
+import { TipoObra } from './models/tipoobra.interface';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -51,7 +52,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   asidebarOpen = false;
 
   periodos: string[];
-  periodoSeleccionado: number;
+  periodoSeleccionado: any;
 
   municipios: Municipio[] = [];
   municipiosLoading = false;
@@ -87,7 +88,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   obrasMarksLayer: any;
 
   cards: any[];
-  tiposObras: any[];
+  tiposObras: TipoObra[];
   estatusObras: any[];
   estatusObrasSeleccionado: any;
 
@@ -127,6 +128,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.periodoSeleccionado = 0;
 
     this.municipios = [
+      { id: 0, nombre: 'TODOS LOS MUNICIPIOS', latitud: 25.91194, longitud: -109.1735 },
       { id: 1, nombre: 'AHOME', latitud: 25.91194, longitud: -109.1735 },
       { id: 2, nombre: 'ANGOSTURA', latitud: 25.36797, longitud: -108.15913 },
       { id: 3, nombre: 'BADIRAGUATO', latitud: 25.36285, longitud: -107.54986 },
@@ -153,7 +155,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       { id: 2, cantidad: 18, descripcion: 'MUNICIPIOS BENEFICIADOS', imagen: 'sinaloa_map_sq.png' },
       { id: 1, cantidad: 2929438639.42, descripcion: 'MONTO TOTAL EJERCIDO', imagen: 'dollar_sq.png' }
     ];
-    this.estatusObras = [];
+    this.estatusObras = [
+      { id: 0, descripcion: 'Todos los procesos' },
+      { id: 1, descripcion: 'Por Hacer' },
+      { id: 2, descripcion: 'En Proceso' },
+      { id: 3, descripcion: 'Terminado' }
+    ];
   }
 
   ngOnInit() {
@@ -167,12 +174,38 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   loadCatalogos() {
     this.catalogosService.getCatalogos().subscribe({
       next: (data: any[]) => {
-        this.puestos = data[0].data;
-        this.partidos = data[1].data;
-        this.distritos = data[2].data;
+        this.tiposObras = this.helperService.formatTipoObras(data[0].data);
+
+        // this.partidos = data[1].data;
+        // this.distritos = data[2].data;
+        this.populateDropdowns();
       },
       error: (err: unknown) => {
         console.warn(err);
+      }
+    });
+  }
+
+  populateDropdowns() {
+    this.municipioSeleccionado = this.municipios[0];
+    this.periodoSeleccionado = this.periodos[0];
+    this.estatusObrasSeleccionado = this.estatusObras[0];
+    this.filtrar();
+  }
+
+  filtrar() {
+    this.catalogosService.getObrasTotales({ ejercicio: 0 }).subscribe({
+      next: (response) => {}
+    });
+
+    const payload = {
+      idTipoObraSocial: 0,
+      idsMunicipios: this.municipioSeleccionado.id,
+      ejercicio: 2021
+    };
+    this.catalogosService.getMapaObras(payload).subscribe({
+      next: (response) => {
+        this.mostrarPuntosObra(response);
       }
     });
   }
@@ -243,16 +276,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
     if (geoJsonData) {
       this.geoJson = L.geoJSON(geoJsonData, {
-        pointToLayer: (feature, latlng) => {
-          const img = feature?.properties?.ganador?.partido?.nombre
-            ? feature?.properties?.ganador?.partido?.nombre.toLowerCase() + '.png'
-            : 'transparent.png';
-          const icono = new this.LeafIcon({
-            iconUrl: `assets/markers/partidos/${img}`
-          });
+        // pointToLayer: (feature, latlng) => {
+        //   const img = feature?.properties?.ganador?.partido?.nombre
+        //     ? feature?.properties?.ganador?.partido?.nombre.toLowerCase() + '.png'
+        //     : 'transparent.png';
+        //   const icono = new this.LeafIcon({
+        //     iconUrl: `assets/markers/partidos/${img}`
+        //   });
 
-          return L.marker(latlng, { icon: icono });
-        },
+        //   return L.marker(latlng, { icon: icono });
+        // },
         style: (feature) => {
           let color = '';
           if (!feature.properties.color) {
@@ -536,17 +569,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onChangePartido(partido: Partido) {
-    const geoJsonActual = this.localStorage.getItem('geojson');
-    let newGeoJson;
-    if (partido.checked) {
-      newGeoJson = this.helperService.mostrarPartido(partido, geoJsonActual);
-    } else {
-      newGeoJson = this.helperService.ocultarPartido(partido, geoJsonActual);
-    }
-    this.visualizarMapa(newGeoJson);
-  }
-
   checkUncheckMunicipios() {
     if (this.allMunicipios) {
       this.municipiosSeleccionados = this.municipios.slice();
@@ -678,6 +700,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   mostrarPuntosObra($event) {
+    console.log($event);
     if (this.obrasMarksLayer) {
       this.map.removeLayer(this.obrasMarksLayer);
     }
@@ -685,9 +708,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     $event.data.forEach((point) => {
       if (point.latitud && point.longitud) {
-        const img = point.idTipoObra;
+        const img = point.idTipoObraSocial;
         const icono = new this.LeafIcon({
-          iconUrl: `assets/markers/obras/o_${img}_m.svg`
+          iconUrl: `assets/markers/obras/oo_${img}_m.svg`
         });
         // Create element
         const popup = document.createElement('app-card-information');

@@ -218,7 +218,10 @@
               <ng-template pTemplate="body" let-product>
                 <tr>
                   <td>{{ product.numeroContrato }}</td>
-                  <td>{{ product.objeto }}</td>
+                  <td><div style="white-space: nowrap; 
+                    width: 80px; 
+                    overflow: hidden;
+                    text-overflow: ellipsis; ">{{ product.objeto }}</div></td>
                   <td>{{ product.fecha }}</td>
                   <td>{{ product.monto | currency: 'USD' }}</td>
                   <td>{{ product.avance }} %</td>

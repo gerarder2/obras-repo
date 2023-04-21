@@ -17,11 +17,11 @@ export class CatalogosService {
   constructor(private http: HttpClient, private helperService: HelperService) {}
 
   public getCatalogos() {
-    const puestos = `${environment.webApi}/Menu/Puestos?anio=2021`;
-    const partidos = `${environment.webApi}/Menu/Partidos`;
-    const distritos = `${environment.webApi}/Menu/Distritos?idCabeceraDistrital=0`;
+    const obrasSocial = `${environment.webApi}/TipoObraSocial/Combo`;
+    // const partidos = `${environment.webApi}/Menu/Partidos`;
+    // const distritos = `${environment.webApi}/Menu/Distritos?idCabeceraDistrital=0`;
 
-    return forkJoin([this.http.get(puestos), this.http.get(partidos), this.http.get(distritos)]);
+    return forkJoin([this.http.get(obrasSocial)]);
   }
 
   public getDistritos(queryParams: any): Observable<any> {
@@ -191,5 +191,19 @@ export class CatalogosService {
     idsSeccionesEspeciales: string;
   }): Observable<any> {
     return this.http.get(`${environment.webApi}/Menu/EleccionesSecciones`, { params: queryParams });
+  }
+
+  public getMapaObras(queryParams?: {
+    idTipoObraSocial: number;
+    idsMunicipios: number;
+    ejercicio: number;
+    estatus?: string;
+  }): Observable<any> {
+    queryParams.estatus = 'Terminado';
+    return this.http.get(`${environment.webApi}/ObraPortal/Mapa`, { params: queryParams });
+  }
+
+  public getObrasTotales(queryParams?: any): Observable<any> {
+    return this.http.get(`${environment.webApi}/ObraPortal/Totales`, { params: queryParams });
   }
 }
