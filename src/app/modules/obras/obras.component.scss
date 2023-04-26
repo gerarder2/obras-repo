@@ -72,3 +72,11 @@
     background: $gold-50;
   }
 
+  :host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: #ffffff;
+    border-color: $wine-800;
+    color: $wine;
+  }
+  :host ::ng-deep .p-tabview .p-tabview-nav li {
+   font-size: 0.8rem;
+  }

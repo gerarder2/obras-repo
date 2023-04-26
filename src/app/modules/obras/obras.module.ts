@@ -9,6 +9,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TableModule } from 'primeng/table';
 import { DirectivesModule } from '../../directives/directives.module';
+import { TabViewModule } from 'primeng/tabview';
+import { KnobModule } from 'primeng/knob';
 
 import { LOCALE_ID, NgModule } from '@angular/core';
 
@@ -24,7 +26,9 @@ import { LOCALE_ID, NgModule } from '@angular/core';
     CollapseModule.forRoot(),
     TableModule,
     DirectivesModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TabViewModule,
+    KnobModule
   ],
   exports: [ObrasModalComponent],
   providers: [{ provide: LOCALE_ID, useValue: 'en-US' }]

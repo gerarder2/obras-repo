@@ -4,7 +4,8 @@ import { Mensaje } from '../../../models';
 
 @Component({
   selector: 'app-obras-modal',
-  templateUrl: 'obras-modal.component.html'
+  templateUrl: 'obras-modal.component.html',
+  styleUrls: ['../obras.component.scss']
 })
 export class ObrasModalComponent implements OnInit {
   // Variables Modal
@@ -16,6 +17,7 @@ export class ObrasModalComponent implements OnInit {
   public modalExtraOptions: any;
   public titlePage = 'asdf';
   public eventos: any[];
+  public value: number;
   // end
 
   private mensaje: Mensaje;
@@ -28,6 +30,7 @@ export class ObrasModalComponent implements OnInit {
       { evento: 'Apertura', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' },
       { evento: 'Fallo', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' }
     ];
+    this.value = 25;
   }
 
   // Angular metodos del ciclo de vida del componente
