@@ -1,1 +1,244 @@
-<p>obras works!</p>
+<div class="animated fadeIn no-action-tools">
+  <section class="data-container">
+    <div class="h2 data-title">Obras</div>
+  </section>
+
+  <section class="mt-4">
+    <div class="datos-abiertos row justify-content-md-center">
+      <ng-container *ngFor="let card of cardObras; let index = index">
+        <div class="col-xs-12" [ngClass]="{ 'col-lg-4': index > 0, 'col-lg-2': index < 1 }">
+          <div class="card licitacion-card" [ngClass]="card.color">
+            <div class="card-body">
+              <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
+              <div class="text-center">
+                <small class="descripcion">{{ card.descripcion }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </section>
+
+  <section class="container mt-4">
+    <div class="row">
+      <div class="col-6">
+        <div class="card bg-gray-200">
+          <div class="card-body p-0">
+            <div class="h5 title">TIPO DE OBRAS</div>
+            <table class="table table-striped table-borderless">
+              <thead class="thead-default">
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>Progreso</th>
+                  <th style="text-align: center">%</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of tabla1">
+                  <td style="width: 20%" scope="row">{{ item.nombre }}</td>
+                  <td style="width: 60%">
+                    <div class="progress">
+                      <div
+                        class="progress-bar"
+                        role="progressbar"
+                        [ngStyle]="{ width: item.progreso + '%' }"
+                        [ngClass]="item.color"
+                        aria-valuenow="100"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </td>
+                  <!-- <td><p-progressBar [value]="item.progreso" [style]="{ height: '6px' }"></p-progressBar></td> -->
+                  <td style="text-align: center; width: 20%">{{ item.progreso }} %</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card bg-gray-200">
+          <div class="card-body p-0">
+            <div class="h5 title">AÑOS</div>
+            <table class="table table-striped table-borderless">
+              <thead class="thead-default">
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>Progreso</th>
+                  <th style="text-align: center">%</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of tabla2">
+                  <td style="width: 20%" scope="row">{{ item.nombre }}</td>
+                  <td style="width: 60%">
+                    <div class="progress">
+                      <div
+                        class="progress-bar"
+                        role="progressbar"
+                        [ngStyle]="{ width: item.progreso + '%' }"
+                        [ngClass]="item.color"
+                        aria-valuenow="100"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </td>
+                  <!-- <td><p-progressBar [value]="item.progreso" [style]="{ height: '6px' }"></p-progressBar></td> -->
+                  <td style="text-align: center; width: 20%">{{ item.progreso }} %</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container mt-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border">
+          <div class="card-body">
+            <div>
+              <div class="row">
+                <div class="form-group col-sm-6">
+                  <label><strong>Buscar</strong></label>
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder="Por número de licitacion, contrato, objeto"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <button (click)="collapsed = !collapsed" class="float-right btn btn-link">
+                    <i class="fas" [ngClass]="{ 'fa-chevron-down': !collapsed, 'fa-chevron-up': collapsed }"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div [collapse]="!collapsed">
+              <form [formGroup]="filterForm">
+                <div class="row">
+                  <div class="form-group col-sm-3">
+                    <label>Por tipo de obra</label>
+                    <ng-select appearance="outline" formControlName="tipoObra" bindLabel="nombre" [items]="tiposObras">
+                    </ng-select>
+                  </div>
+                  <div class="form-group col-sm-3">
+                    <label>Por municipio</label>
+                    <ng-select appearance="outline" formControlName="municipio" bindLabel="nombre" [items]="municipios">
+                    </ng-select>
+                  </div>
+                  <div class="form-group col-sm-3">
+                    <label>Por año</label>
+                    <ng-select appearance="outline" formControlName="annio" bindLabel="nombre" [items]="periodos">
+                    </ng-select>
+                  </div>
+                  <div class="form-group col-sm-3">
+                    <label>Por tipo modalidad</label>
+                    <ng-select
+                      appearance="outline"
+                      formControlName="tipoModalidad"
+                      bindLabel="nombre"
+                      [items]="tiposModalidad"
+                    >
+                    </ng-select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-sm-3">
+                    <label>Por organismo</label>
+                    <ng-select appearance="outline" formControlName="organismo" bindLabel="nombre" [items]="organismos">
+                    </ng-select>
+                  </div>
+                  <div class="form-group col-sm-3">
+                    <label>Por contratista</label>
+                    <ng-select
+                      appearance="outline"
+                      formControlName="contratista"
+                      bindLabel="nombre"
+                      [items]="contratistas"
+                    >
+                    </ng-select>
+                  </div>
+                  <div class="form-group col-sm-3">
+                    <label>Por tipo contrato</label>
+                    <ng-select
+                      appearance="outline"
+                      formControlName="tipoContrato"
+                      bindLabel="nombre"
+                      [items]="tiposContrato"
+                    >
+                    </ng-select>
+                  </div>
+                  <div class="form-inline col-sm-3">
+                    <button class="btn btn-lg btn-gold-100 icon text-white"><i class="fas fa-rotate"></i></button>
+                    <button class="btn btn-primary"><i class="fas fa-filter"></i> Filtrar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container mt-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <p-table
+              [value]="licitacionesData"
+              [tableStyle]="{ 'min-width': '60rem' }"
+              [paginator]="true"
+              [rows]="5"
+              [showCurrentPageReport]="true"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              [rowsPerPageOptions]="[10, 25, 50]"
+              styleClass="p-datatable-sm p-datatable-striped"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="numeroContrato" style="width: 25%">
+                    Numero Contrato <p-sortIcon field="numeroContrato"></p-sortIcon>
+                  </th>
+
+                  <th pSortableColumn="objeto" style="width: 20%">Objeto <p-sortIcon field="objeto"></p-sortIcon></th>
+                  <th pSortableColumn="fecha" style="width: 20%">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+                  <th pSortableColumn="monto" style="width: 20%">Monto total <p-sortIcon field="monto"></p-sortIcon></th>
+                  <th pSortableColumn="avance" style="width: 20%">Avance <p-sortIcon field="avance"></p-sortIcon></th>
+                  <th></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-product>
+                <tr>
+                  <td>{{ product.numeroContrato }}</td>
+                  <td>
+                    <div style="white-space: nowrap; width: 80px; overflow: hidden; text-overflow: ellipsis">
+                      {{ product.objeto }}
+                    </div>
+                  </td>
+                  <td>{{ product.fecha }}</td>
+                  <td>{{ product.monto | currency: 'USD' }}</td>
+                  <td>{{ product.avance }} %</td>
+                  <td>
+                    <button (click)="openModalComponent(product)" class="btn btn-wine-100 btn-sm">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -9,13 +9,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TableModule } from 'primeng/table';
 import { DirectivesModule } from '../../directives/directives.module';
-import { SharedModule } from 'primeng/api';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { LicitacionesModalComponent } from './modal/licitaciones-modal.component';
 
 // import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 @NgModule({
-  declarations: [LicitacionesComponent],
+  declarations: [LicitacionesComponent, LicitacionesModalComponent],
   imports: [
     CommonModule,
     LicitacionesRoutingModule,
@@ -26,9 +26,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CollapseModule.forRoot(),
     TableModule,
     DirectivesModule,
-    SharedModule,
     ModalModule.forRoot()
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'en-US' }]
+  providers: [{ provide: LOCALE_ID, useValue: 'en-US' }],
+  exports: [LicitacionesModalComponent]
 })
 export class LicitacionesModule {}

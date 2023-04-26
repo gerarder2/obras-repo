@@ -62,6 +62,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 // Import Global Services
 import { fakeBackendProvider } from './helpers/fake-backend';
 import localeEsMx from '@angular/common/locales/es';
+import { SharedModule } from 'primeng/api';
 
 registerLocaleData(localeEsMx);
 
@@ -120,7 +121,8 @@ export function ConfigLoader(configService: ConfigService) {
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     PerfectScrollbarModule,
     SidebarModule,
-    ProgressBarModule
+    ProgressBarModule,
+    SharedModule
   ],
   declarations: [AppComponent, ...APP_CONTAINERS, ...APP_COMPONENTS, ...APP_DIRECTIVES],
   providers: [

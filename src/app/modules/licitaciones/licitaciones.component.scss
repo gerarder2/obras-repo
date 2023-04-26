@@ -63,5 +63,9 @@
 
   p-table ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
     background: $wine-50;
-}
+  }
+  
+  p-table.odd ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
+    background: $gold-50;
+  }
 

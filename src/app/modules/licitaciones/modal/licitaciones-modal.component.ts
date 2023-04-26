@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { Mensaje } from '../../models';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Mensaje } from '../../../models/mensaje';
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-licitaciones-modal',
+  styleUrls: ['../licitaciones.component.scss'],
   template: `
     <!-- modal -->
     <div class="modal-header" ngxModalDraggable>
@@ -38,15 +39,15 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
         </div>
         <div class="row">
           <div class="col-6">
-            <small>Tipo de Licitacion</small>
+            <small><strong>Tipo de Licitacion</strong></small>
             <p>{{ params.tipoLicitacion }}</p>
           </div>
           <div class="col-3">
-            <small>Fecha</small>
+            <small><strong>Fecha</strong></small>
             <p>{{ params.fecha }}</p>
           </div>
           <div class="col-3">
-            <small>Normatividad</small>
+            <small><strong>Normatividad</strong></small>
             <p>Federal</p>
           </div>
         </div>
@@ -54,43 +55,43 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
           <div class="col-12"></div>
         </div>
         <div class="row">
-          <p-table
-            [value]="eventos"
-            [tableStyle]="{ 'min-width': '60rem' }"
-            styleClass="p-datatable-sm p-datatable-striped"
-          >
-            <ng-template pTemplate="header">
-              <tr>
-                <th>Evento</th>
-                <th>Fecha</th>
-                <th>Evidencia</th>
-                <th>Documentos</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-product>
-              <tr>
-                <td>{{ product.evento }}</td>
-                <td>
-                  {{ product.fecha }}
-                </td>
-                <td>
-                  <button class="btn btn-primary"><i class="fas fa-play    "></i> ver Video</button>
-                </td>
-                <td>{{ product.avance }} %</td>
-                <td>
-                  <button class="btn btn-primary">
-                    <i class="fas fa-file-download    "></i>
-                  </button>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
+          <div class="col-12">
+            <p-table
+              [ngClass]="{ odd: true }"
+              [value]="eventos"
+              [tableStyle]="{ 'min-width': '60rem' }"
+              styleClass="p-datatable-sm p-datatable-striped"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Evento</th>
+                  <th>Fecha</th>
+                  <th>Evidencia</th>
+                  <th>Documentos</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-product>
+                <tr>
+                  <td>{{ product.evento }}</td>
+                  <td>
+                    {{ product.fecha }}
+                  </td>
+                  <td>
+                    <button class="btn btn-primary"><i class="fas fa-play    "></i> ver Video</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary"><i class="fas fa-file-download    "></i> Documento</button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
         </div>
       </div>
     </div>
   `
 })
-export class AppModalComponent implements OnInit {
+export class LicitacionesModalComponent implements OnInit {
   // Variables Modal
   public cssClass: { color: string; type: string };
   public maximizado: boolean;
@@ -99,18 +100,19 @@ export class AppModalComponent implements OnInit {
   public params: any;
   public modalExtraOptions: any;
   public titlePage = 'asdf';
-  public eventos = [
-    { evento: 'Visita', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' },
-    { evento: 'Junta', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' },
-    { evento: 'Apertura', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' },
-    { evento: 'Fallo', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' }
-  ];
+  public eventos: any[];
   // end
 
   private mensaje: Mensaje;
 
   constructor(public bsModalRef: BsModalRef) {
     this.mensaje = new Mensaje();
+    this.eventos = [
+      { evento: 'Visita', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' },
+      { evento: 'Junta', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' },
+      { evento: 'Apertura', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' },
+      { evento: 'Fallo', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' }
+    ];
   }
 
   // Angular metodos del ciclo de vida del componente
