@@ -25,6 +25,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SidebarModule } from 'primeng/sidebar';
 import { TreeSelectModule } from 'primeng/treeselect';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
     ProgressBarModule,
     TreeSelectModule,
     NgScrollbarModule,
+    ModalModule.forRoot(),
     BlockUIModule.forRoot()
   ],
   declarations: [DashboardComponent, GraficaPastelComponent, GraficaViewComponent, CardInformationComponent],

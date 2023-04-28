@@ -27,6 +27,8 @@ import { Puesto } from './models/puesto.interface';
 import { Router } from '@angular/router';
 import { Seccion } from './models/seccion.interface';
 import { TipoObra } from './models/tipoobra.interface';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ObrasModalComponent } from '../obras/modal/obras-modal.component';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -78,6 +80,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   votosSeccionEspecial: any;
 
   mensaje: Mensaje;
+  bsModalRef: BsModalRef;
 
   seccionMarkersLayer: any;
   seccionSeleccionada: Seccion;
@@ -102,7 +105,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private applicationRef: ApplicationRef,
     private viewRef: ViewContainerRef,
     private inj: Injector,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private bsModalService: BsModalService
   ) {
     const config = this.configService.getConfig();
     this.periodos = config.periodos;
@@ -195,7 +199,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   filtrar() {
     this.catalogosService.getObrasTotales({ ejercicio: 0 }).subscribe({
-      next: (response) => {}
+      next: (response) => {},
+      error: (err: unknown) => {
+        console.warn(err);
+        this.mensaje.showMessage(err);
+      }
     });
 
     const payload = {
@@ -206,6 +214,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.catalogosService.getMapaObras(payload).subscribe({
       next: (response) => {
         this.mostrarPuntosObra(response);
+      },
+      error: (err: unknown) => {
+        console.warn(err);
+        this.mensaje.showMessage(err);
       }
     });
   }
@@ -430,8 +442,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       const dynamicIcon = new this.LeafIcon({ iconUrl: `assets/markers/${color}.svg` });
       L.marker([randomPoint.lat, randomPoint.long], { icon: dynamicIcon })
         .addTo(this.seccionMarkersLayer)
-        .on('click', () => {
-          alert(color);
+        .on('click', (e) => {
+          alert(e);
+          //this.openModalComponent();
         });
     }
   }
@@ -728,7 +741,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         popupComponentRef.instance.properties = point;
         popupComponentRef.setInput('properties', point);
 
-        L.marker([point.latitud, point.longitud], { icon: icono }).addTo(this.obrasMarksLayer).bindPopup(popup);
+        // L.marker([point.latitud, point.longitud], { icon: icono }).addTo(this.obrasMarksLayer).bindPopup(popup);
+        L.marker([point.latitud, point.longitud], { icon: icono })
+          .addTo(this.obrasMarksLayer)
+          .on('click', (e) => {
+            console.log(e, point);
+            this.openModalComponent(point);
+          });
       }
     });
   }
@@ -767,5 +786,34 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     if ($event === 'loading') {
       this.blockUIList.start('Procesando...');
     }
+  }
+
+  // SECCION CONFIGURACION MODAL
+  public openModalComponent(opciones?: any) {
+    console.log(opciones);
+    const initialState = {
+      params: opciones ? opciones : {},
+      isModal: true,
+      modalExtraOptions: {
+        closeButton: true,
+        closeButtonText: 'Cancelar',
+        acceptButton: true,
+        acceptButtonText: 'Aceptar'
+      }
+    };
+
+    this.bsModalRef = this.bsModalService.show(ObrasModalComponent, {
+      initialState,
+      class: 'modal-light modal-lg',
+      backdrop: 'static',
+      keyboard: true,
+      ignoreBackdropClick: true
+    });
+
+    this.bsModalRef.content.event.subscribe((res) => {
+      console.warn(res);
+    });
+
+    this.bsModalService.onHide.subscribe((reason: string) => {});
   }
 }
