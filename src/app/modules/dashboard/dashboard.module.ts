@@ -18,13 +18,11 @@ import { NgModule } from '@angular/core';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ObrasComponent } from './obras/obras.component';
 import { OverlayModule } from 'primeng/overlay';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PanelModule } from 'primeng/panel';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { SeccionesEspecialesComponent } from './secciones-especiales/secciones-especiales.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { TreeSelectModule } from 'primeng/treeselect';
 
@@ -51,15 +49,8 @@ import { TreeSelectModule } from 'primeng/treeselect';
     NgScrollbarModule,
     BlockUIModule.forRoot()
   ],
-  declarations: [
-    DashboardComponent,
-    GraficaPastelComponent,
-    GraficaViewComponent,
-    CardInformationComponent,
-    ObrasComponent,
-    SeccionesEspecialesComponent
-  ],
+  declarations: [DashboardComponent, GraficaPastelComponent, GraficaViewComponent, CardInformationComponent],
   providers: [CatalogosService, { provide: LOCALE_ID, useValue: 'en-US' }],
-  entryComponents: [CardInformationComponent, ObrasComponent]
+  entryComponents: [CardInformationComponent]
 })
 export class DashboardModule {}

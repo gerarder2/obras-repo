@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { single } from './graficas';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
+import { LegendPosition } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-datos-abiertos',
@@ -24,6 +25,7 @@ export class DatosAbiertosComponent implements OnInit {
   xAxisLabel = '';
   showYAxisLabel = true;
   yAxisLabel = '';
+  legendPosition: LegendPosition;
 
   colorScheme: Color = {
     domain: ['#691B33', '#B18147', '#2B5C4E', '#C97B7C'],
@@ -34,6 +36,7 @@ export class DatosAbiertosComponent implements OnInit {
 
   constructor() {
     Object.assign(this, { single });
+    this.legendPosition = LegendPosition.Right;
   }
 
   ngOnInit(): void {

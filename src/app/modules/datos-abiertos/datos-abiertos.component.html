@@ -28,27 +28,82 @@
 
   <section class="container-fluid mt-4">
     <div class="datos-abiertos row">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-body">
-              <ngx-charts-bar-vertical
-                [view]=""
-                [scheme]="colorScheme"
-                [results]="single"
-                [gradient]="gradient"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xAxisLabel"
-                [yAxisLabel]="yAxisLabel"
-                [showGridLines]="true"
-              >
-              </ngx-charts-bar-vertical>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="row box-500">
+              <div class="col-md-6 p-0">
+                <ngx-charts-bar-vertical
+                  [view]=""
+                  [scheme]="colorScheme"
+                  [results]="single"
+                  [gradient]="gradient"
+                  [xAxis]="showXAxis"
+                  [yAxis]="showYAxis"
+                  [legend]="showLegend"
+                  [legendPosition]="legendPosition"
+                  [showXAxisLabel]="showXAxisLabel"
+                  [showYAxisLabel]="showYAxisLabel"
+                  [xAxisLabel]="xAxisLabel"
+                  [yAxisLabel]="yAxisLabel"
+                  [showGridLines]="true"
+                >
+                </ngx-charts-bar-vertical>
+              </div>
+              <div class="col-md-4">
+                <ngx-charts-pie-chart
+                  [view]=""
+                  [scheme]="colorScheme"
+                  [results]="single"
+                  [gradient]="gradient"
+                  [legend]="false"
+                  [legendPosition]="legendPosition"
+                  [labels]="false"
+                  [doughnut]="false"
+                >
+                </ngx-charts-pie-chart>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="row box-500">
+              <div class="col-md-6 p-0">
+                <ngx-charts-bar-horizontal
+                  [view]="view"
+                  [scheme]="colorScheme"
+                  [results]="single"
+                  [gradient]="gradient"
+                  [xAxis]="showXAxis"
+                  [yAxis]="showYAxis"
+                  [legend]="showLegend"
+                  [showXAxisLabel]="showXAxisLabel"
+                  [showYAxisLabel]="showYAxisLabel"
+                  [xAxisLabel]="xAxisLabel"
+                  [yAxisLabel]="yAxisLabel"
+                >
+                </ngx-charts-bar-horizontal>
+              </div>
+              <div class="col-md-4">
+                <ngx-charts-pie-chart
+                  [view]=""
+                  [scheme]="colorScheme"
+                  [results]="single"
+                  [gradient]="gradient"
+                  [legend]="false"
+                  [legendPosition]="legendPosition"
+                  [labels]="false"
+                  [doughnut]="false"
+                >
+                </ngx-charts-pie-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </div>
