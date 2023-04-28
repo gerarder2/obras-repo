@@ -88,11 +88,12 @@
     id="map"
   ></div>
 </section>
-<section class="data-container">
+<section class="data-container container">
   <div class="h2 data-title">Datos Abiertos</div>
-  <div class="datos-abiertos row col-12">
-    <div class="col-sm-3 col-md-3" *ngFor="let card of cards">
-      <div class="card bg-gray-200">
+  <div class="datos-abiertos row">
+    <div class="col-12">
+    <div class="card-deck" >
+      <div class="card bg-gray-200" *ngFor="let card of cards">
         <img src="{{ './../../../assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="..." />
         <div class="card-body">
           <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
@@ -101,8 +102,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-3 col-md-3">
       <div class="card">
         <img src="{{ './../../../assets/img/arrow_sq.png' }}" class="card-img-top mx-auto" alt="..." />
         <div class="card-body">
@@ -112,6 +111,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </section>

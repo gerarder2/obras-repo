@@ -49,7 +49,7 @@ export class AppHeaderComponent implements OnInit {
       { url: '/inicio', name: 'Inicio' },
       { url: '/licitaciones', name: 'Licitaciones' },
       { url: '/obras', name: 'Obras' },
-      { url: '/datos_abiertos', name: 'Datos Abiertos' }
+      { url: '/datos-abiertos', name: 'Datos Abiertos' }
     ];
   }
 }

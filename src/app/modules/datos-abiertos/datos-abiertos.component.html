@@ -1,0 +1,54 @@
+<div class="animated fadeIn no-action-tools">
+  <section class="data-container">
+    <div class="h2 data-title">Licitaciones</div>
+  </section>
+
+  <section class="container-fluid mt-4">
+    <div class="datos-abiertos row justify-content-md-center">
+      <div class="h3 data-title text-center">Totales</div>
+      <div class="card-group">
+        <div class="col-md-3" *ngFor="let card of cards">
+          <div class="card bg-gray-200">
+            <img src="{{ './../../../assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="..." />
+            <div class="card-body">
+              <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
+              <div class="text-center">
+                <small class="descripcion">{{ card.descripcion }}</small>
+              </div>
+              <div class="text-center buttons">
+                <button class="btn btn-rounded btn-success"><i class="fas fa-file-pdf"></i></button>
+                <button class="btn btn-rounded btn-primary"><i class="fas fa-file-excel"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-fluid mt-4">
+    <div class="datos-abiertos row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <ngx-charts-bar-vertical
+                [view]=""
+                [scheme]="colorScheme"
+                [results]="single"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                [showGridLines]="true"
+              >
+              </ngx-charts-bar-vertical>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+</div>

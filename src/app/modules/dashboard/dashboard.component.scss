@@ -123,7 +123,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     border-bottom: 1px solid $gray-200;
 
     .header-title {
@@ -398,4 +398,8 @@
     position: relative;
     margin-bottom: 10px;
     color: $gray-700;
+}
+
+.data-container {
+  height: 350px;
 }

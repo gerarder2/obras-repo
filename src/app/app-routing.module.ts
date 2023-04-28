@@ -27,7 +27,11 @@ export const routes: Routes = [
         path: 'licitaciones',
         loadChildren: () => import('./modules/licitaciones/licitaciones.module').then((m) => m.LicitacionesModule)
       },
-      { path: 'obras', loadChildren: () => import('./modules/obras/obras.module').then((m) => m.ObrasModule) }
+      { path: 'obras', loadChildren: () => import('./modules/obras/obras.module').then((m) => m.ObrasModule) },
+      {
+        path: 'datos-abiertos',
+        loadChildren: () => import('./modules/datos-abiertos/datos-abiertos.module').then((m) => m.DatosAbiertosModule)
+      }
     ]
   },
 

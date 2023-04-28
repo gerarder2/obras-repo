@@ -1,0 +1,86 @@
+@import './../../../scss/bootstrap-variables';
+
+.container-fluid {
+    padding: 0px 30px;
+}
+
+.data-container {
+    height: 80px;
+    background-color:$gray-200;
+    .data-title {
+        margin-bottom: 10px;
+        text-align: center;
+    }
+}
+
+.card-body .title {
+    padding: 10px;
+    text-align: center;
+}
+
+.card.wine {
+    background-color: $wine;
+    color: white;
+}
+.card.wine-800 {
+    background-color: $wine-800;
+    color: white;
+}
+.card.wine-500 {
+    background-color: $wine-500;
+    color: white;
+}
+
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: $wine-50;
+ }
+
+ .progress {
+    display: flex;
+    height: 0.7rem;
+    overflow: hidden;
+    line-height: 0;
+    font-size: 0.75rem;
+    background-color: $gray-300;
+    border-radius: 1.25rem;
+  }
+
+  .progressbar.wine {
+    background-color: $wine;
+  }
+
+  .progress-bar.green {
+    background-color: $green;
+  }
+
+  .progress-bar.gold-500 {
+    background-color: $gold-500;
+  }
+  
+  .progress-bar.gold {
+    background-color: $gold;
+  }
+
+  .card.border {
+    border: 1px solid $gray-300;
+  }
+
+  p-table ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
+    background: $wine-50;
+  }
+  
+  p-table.odd ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
+    background: $gold-50;
+  }
+
+.card-img-top {
+    width: 100px;
+    margin-top: 15px;
+    // height: 10vw;
+    // object-fit: cover;
+}
+
+.data-title.text-center {
+    color: $wine,
+}
