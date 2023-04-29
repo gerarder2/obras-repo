@@ -199,7 +199,7 @@ export class CatalogosService {
     ejercicio: number;
     estatus?: string;
   }): Observable<any> {
-    queryParams.estatus = 'Terminado';
+    queryParams.estatus = 'TODAS';
     return this.http.get(`${environment.webApi}/ObraPortal/Mapa`, { params: queryParams });
   }
 

@@ -95,6 +95,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   estatusObras: any[];
   estatusObrasSeleccionado: any;
 
+  puntosMapa: any[];
+
   constructor(
     private router: Router,
     private auth: AuthenticationService,
@@ -160,15 +162,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       { id: 1, cantidad: 2929438639.42, descripcion: 'MONTO TOTAL EJERCIDO', imagen: 'dollar_sq.png' }
     ];
     this.estatusObras = [
-      { id: 0, descripcion: 'Todos los procesos' },
-      { id: 1, descripcion: 'Por Hacer' },
-      { id: 2, descripcion: 'En Proceso' },
-      { id: 3, descripcion: 'Terminado' }
+      { id: 0, descripcion: 'TODAS' },
+      { id: 1, descripcion: 'POR HACER' },
+      { id: 2, descripcion: 'EN PROCESO' },
+      { id: 3, descripcion: 'TERMINADO' }
     ];
   }
 
   ngOnInit() {
     this.loadCatalogos();
+    this.loadTotales();
+    this.loadPuntosObra();
   }
 
   ngAfterViewInit() {
@@ -194,27 +198,66 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.municipioSeleccionado = this.municipios[0];
     this.periodoSeleccionado = this.periodos[0];
     this.estatusObrasSeleccionado = this.estatusObras[0];
-    this.filtrar();
   }
 
-  filtrar() {
-    this.catalogosService.getObrasTotales({ ejercicio: 0 }).subscribe({
-      next: (response) => {},
+  loadPuntosObra() {
+    const payload = {
+      idTipoObraSocial: 0,
+      idsMunicipios: 0,
+      ejercicio: 0
+    };
+    this.catalogosService.getMapaObras(payload).subscribe({
+      next: (response) => {
+        this.puntosMapa = response;
+        this.mostrarPuntosObra(this.puntosMapa);
+      },
       error: (err: unknown) => {
         console.warn(err);
         this.mensaje.showMessage(err);
       }
     });
+  }
 
+  filtrar() {
     const payload = {
       idTipoObraSocial: 0,
-      idsMunicipios: this.municipioSeleccionado.id,
-      ejercicio: 2021
+      idsMunicipios: 0,
+      ejercicio: 0
     };
-    this.catalogosService.getMapaObras(payload).subscribe({
-      next: (response) => {
-        this.mostrarPuntosObra(response);
-      },
+    if (this.periodoSeleccionado > 0) {
+      payload.ejercicio = this.periodoSeleccionado;
+      this.catalogosService.getMapaObras(payload).subscribe({
+        next: (response) => {
+          this.puntosMapa = response;
+          this.mostrarPuntosObra(this.puntosMapa);
+        },
+        error: (err: unknown) => {
+          console.warn(err);
+          this.mensaje.showMessage(err);
+        }
+      });
+    } else {
+      const info = {
+        tiposObras: this.tiposObras,
+        puntosMapa: this.puntosMapa,
+        idMunicipio: this.municipioSeleccionado.id,
+        estatus: this.estatusObrasSeleccionado.descripcion
+      };
+      const newPuntosMapa = this.helperService.filtrarData(info);
+      if (newPuntosMapa.data.length > 0) {
+        this.mostrarPuntosObra(newPuntosMapa);
+      } else {
+        if (this.obrasMarksLayer) {
+          this.map.removeLayer(this.obrasMarksLayer);
+        }
+        this.mensaje.messageWarning('Filtro sin resultados');
+      }
+    }
+  }
+
+  loadTotales() {
+    this.catalogosService.getObrasTotales({ ejercicio: 0 }).subscribe({
+      next: (response) => {},
       error: (err: unknown) => {
         console.warn(err);
         this.mensaje.showMessage(err);
@@ -712,14 +755,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  mostrarPuntosObra($event) {
-    console.log($event);
+  mostrarPuntosObra(info) {
     if (this.obrasMarksLayer) {
       this.map.removeLayer(this.obrasMarksLayer);
     }
     this.obrasMarksLayer = L.layerGroup().addTo(this.map);
 
-    $event.data.forEach((point) => {
+    info.data.forEach((point) => {
       if (point.latitud && point.longitud) {
         const img = point.idTipoObraSocial;
         const icono = new this.LeafIcon({
@@ -815,5 +857,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
 
     this.bsModalService.onHide.subscribe((reason: string) => {});
+  }
+
+  onChangeTipoObra(obra: any) {
+    console.log(obra);
   }
 }

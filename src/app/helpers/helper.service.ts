@@ -388,4 +388,51 @@ export class HelperService {
     }
     return tiposObras;
   }
+  public filtrarData(info) {
+    const filtros = {
+      idMunicipio: info.idMunicipio,
+      estatus: info.estatus,
+      idTipoObraSocial: []
+    };
+    // Obtener los tipos de obrasocial seleccionados
+    info.tiposObras.forEach((element) => {
+      if (element.checked) {
+        filtros.idTipoObraSocial.push(element.id);
+      }
+    });
+    const resultado = info.puntosMapa.data.filter((obra) => {
+      console.log('filtros', filtros);
+      // // Filtrar por municipio
+      // if (filtros.idMunicipio && obra.idMunicipio !== filtros.idMunicipio) {
+      //   return false;
+      // }
+
+      // // Filtrar por estatus
+      // if (filtros.estatus !== 'TODAS') {
+      //   if (filtros.estatus && obra.estatus !== filtros.estatus) {
+      //     return false;
+      //   }
+      // }
+
+      // // Filtrar por tipo de obra social
+      // if (filtros.idTipoObraSocial && !filtros.idTipoObraSocial.includes(obra.idTipoObraSocial)) {
+      //   return false;
+      // }
+
+      // // Si llegamos aquí, es porque la obra cumple con todos los filtros
+      // return true;
+      if (filtros.idMunicipio && obra.idMunicipio !== filtros.idMunicipio) {
+        return false;
+      }
+      if (filtros.estatus !== 'TODAS' && obra.estatus !== filtros.estatus) {
+        return false;
+      }
+      if (filtros.idTipoObraSocial.length > 0 && !filtros.idTipoObraSocial.includes(obra.idTipoObraSocial)) {
+        return false;
+      }
+      return true;
+    });
+    console.log(resultado);
+    return { data: resultado };
+  }
 }

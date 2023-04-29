@@ -25,7 +25,7 @@
           <p-inputSwitch
             [(ngModel)]="tipo.checked"
             [class]="'custom-' + tipo.color"
-
+            (onChange)="onChangeTipoObra(tipo)"
           ></p-inputSwitch>
           <label class="label-switch" for="switch1"
             ><i class="fas" [ngClass]="tipo.icon"></i> {{ tipo.descripcion }}</label
@@ -36,12 +36,13 @@
       <section>
         <div class="form-group">
           <p-dropdown
+            appendTo="body"
             [options]="municipios"
             [(ngModel)]="municipioSeleccionado"
             placeholder="Seleccione..."
             optionLabel="nombre"
             [showClear]="false"
-            (onChange)="recargarInfo($event)"
+
           ></p-dropdown>
         </div>
       </section>
@@ -49,12 +50,13 @@
       <section class="drop-years">
         <div class="form-group">
           <p-dropdown
+            appendTo="body"
             [options]="periodos"
             [(ngModel)]="periodoSeleccionado"
             placeholder="Seleccione..."
             optionLabel=""
             [showClear]="false"
-            (onChange)="recargarInfo($event)"
+            
           ></p-dropdown>
         </div>
       </section>
@@ -62,22 +64,23 @@
       <section class="estatus-obras">
         <div class="form-group">
           <p-dropdown
+            appendTo="body"
             [options]="estatusObras"
             [(ngModel)]="estatusObrasSeleccionado"
             placeholder="Seleccione..."
             optionLabel="descripcion"
             [showClear]="false"
-            (onChange)="recargarInfo($event)"
-          ></p-dropdown>
+
+            ></p-dropdown>
         </div>
       </section>
-     <section>
-      <div class="form-group float-right">
-        <button class="btn btn-primary icon text-white" (click)="recargarInfo()">
-        <i class="fas fa-filter"></i> Filtrar
-      </button>
-      </div>
-     </section>
+      <section>
+        <div class="form-group float-right">
+          <button class="btn btn-primary icon text-white" (click)="filtrar()">
+            <i class="fas fa-filter"></i> Filtrar
+          </button>
+        </div>
+      </section>
     </div>
   </div>
   <!-- end sidebar -->
@@ -92,26 +95,26 @@
   <div class="h2 data-title">Datos Abiertos</div>
   <div class="datos-abiertos row">
     <div class="col-12">
-    <div class="card-deck" >
-      <div class="card bg-gray-200" *ngFor="let card of cards">
-        <img src="{{ './../../../assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="..." />
-        <div class="card-body">
-          <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
-          <div class="text-center">
-            <small class="descripcion">{{ card.descripcion }}</small>
+      <div class="card-deck">
+        <div class="card bg-gray-200" *ngFor="let card of cards">
+          <img src="{{ './../../../assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="..." />
+          <div class="card-body">
+            <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
+            <div class="text-center">
+              <small class="descripcion">{{ card.descripcion }}</small>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <img src="{{ './../../../assets/img/arrow_sq.png' }}" class="card-img-top mx-auto" alt="..." />
+          <div class="card-body">
+            <div class="cantidad h4 mb-0 text-center">Ver Más</div>
+            <div class="text-center">
+              <small class="descripcion">&nbsp;</small>
+            </div>
           </div>
         </div>
       </div>
-      <div class="card">
-        <img src="{{ './../../../assets/img/arrow_sq.png' }}" class="card-img-top mx-auto" alt="..." />
-        <div class="card-body">
-          <div class="cantidad h4 mb-0 text-center">Ver Más</div>
-          <div class="text-center">
-            <small class="descripcion">&nbsp;</small>
-          </div>
-        </div>
-      </div>
-    </div>
     </div>
   </div>
 </section>
