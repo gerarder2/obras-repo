@@ -432,7 +432,6 @@ export class HelperService {
       }
       return true;
     });
-    console.log(resultado);
     return { data: resultado };
   }
 }

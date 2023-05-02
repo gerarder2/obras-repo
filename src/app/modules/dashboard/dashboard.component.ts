@@ -547,16 +547,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   recargarInfo($event?) {
-    if ($event) {
-      this.puestoSeleccionado = null;
-    }
-    this.municipiosSeleccionados = [];
-    this.distritosSeleccionados = [];
-    this.seccionesEspeciales = [];
-    this.allDistritos = false;
-    this.allMunicipios = false;
+    this.municipioSeleccionado = this.municipios[0];
+    this.periodoSeleccionado = this.periodos[0];
+    this.estatusObrasSeleccionado = this.estatusObras[0];
+    this.tiposObras.forEach((el) => {
+      el.checked = true;
+    });
+    this.filtrar();
     // TODO BORRAR DEMAS ELEMENTOS
-    this.refreshMap();
+    // this.refreshMap();
   }
 
   refreshMap() {
@@ -787,7 +786,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         L.marker([point.latitud, point.longitud], { icon: icono })
           .addTo(this.obrasMarksLayer)
           .on('click', (e) => {
-            console.log(e, point);
             this.openModalComponent(point);
           });
       }
@@ -832,7 +830,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   // SECCION CONFIGURACION MODAL
   public openModalComponent(opciones?: any) {
-    console.log(opciones);
     const initialState = {
       params: opciones ? opciones : {},
       isModal: true,
