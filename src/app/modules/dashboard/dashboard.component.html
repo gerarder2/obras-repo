@@ -42,7 +42,6 @@
             placeholder="Seleccione..."
             optionLabel="nombre"
             [showClear]="false"
-
           ></p-dropdown>
         </div>
       </section>
@@ -54,9 +53,8 @@
             [options]="periodos"
             [(ngModel)]="periodoSeleccionado"
             placeholder="Seleccione..."
-            optionLabel=""
+            optionLabel="descripcion"
             [showClear]="false"
-            
           ></p-dropdown>
         </div>
       </section>
@@ -70,8 +68,7 @@
             placeholder="Seleccione..."
             optionLabel="descripcion"
             [showClear]="false"
-
-            ></p-dropdown>
+          ></p-dropdown>
         </div>
       </section>
       <section>
@@ -108,10 +105,12 @@
         <div class="card">
           <img src="{{ './../../../assets/img/arrow_sq.png' }}" class="card-img-top mx-auto" alt="..." />
           <div class="card-body">
-            <div class="cantidad h4 mb-0 text-center">Ver Más</div>
-            <div class="text-center">
-              <small class="descripcion">&nbsp;</small>
-            </div>
+            <a [routerLink]="['/datos-abiertos']" tooltip="Regresar" class="text-primary" href="#">
+              <div class="cantidad h4 mb-0 text-center">Ver Más</div>
+              <div class="text-center">
+                <small class="descripcion">&nbsp;</small>
+              </div>
+            </a>
           </div>
         </div>
       </div>

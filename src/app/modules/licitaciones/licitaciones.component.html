@@ -3,9 +3,118 @@
     <div class="h2 data-title">Licitaciones</div>
   </section>
 
-  <section class="mt-4">
+  <section class="container mt-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border">
+          <div class="card-body">
+            <form [formGroup]="filterForm">
+              <div>
+                <div class="row">
+                  <div class="form-group col-sm-6">
+                    <label><strong>Buscar</strong></label>
+                    <input
+                      type="text"
+                      id="name"
+                      placeholder="Por número de licitacion, contrato, objeto"
+                      class="form-control big-input"
+                    />
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <label><strong>Periodo</strong></label>
+                    <p-selectButton
+                      styleClass="select-gold"
+                      [options]="periodos"
+                      formControlName="annio"
+                      optionLabel="descripcion"
+                      optionValue="id"
+                    >
+                    </p-selectButton>
+                    <button
+                      (click)="collapsed = !collapsed"
+                      class="collapsed-button float-right btn btn-rounded btn-wine-100 text-white"
+                    >
+                      <i class="fas" [ngClass]="{ 'fa-chevron-down': !collapsed, 'fa-chevron-up': collapsed }"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div [collapse]="!collapsed">
+                <div class="row">
+                  <div class="form-group col-sm-3">
+                    <label>Por tipo de obra</label>
+                    <ng-select
+                      appearance="outline"
+                      formControlName="tipoObra"
+                      bindLabel="descripcion"
+                      [items]="tiposObras"
+                    >
+                    </ng-select>
+                  </div>
+                  <div class="form-group col-sm-3">
+                    <label>Por municipio</label>
+                    <ng-select appearance="outline" formControlName="municipio" bindLabel="nombre" [items]="municipios">
+                    </ng-select>
+                  </div>
+                  <!-- <div class="form-group col-sm-3">
+                    <label>Por año</label>
+                    <ng-select appearance="outline" formControlName="annio" bindLabel="descripcion" [items]="periodos">
+                    </ng-select>
+                  </div> -->
+                  <div class="form-group col-sm-3">
+                    <label>Por tipo modalidad</label>
+                    <ng-select
+                      appearance="outline"
+                      formControlName="tipoModalidad"
+                      bindLabel="descripcion"
+                      [items]="tiposModalidad"
+                    >
+                    </ng-select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-sm-3">
+                    <label>Por organismo</label>
+                    <ng-select appearance="outline" formControlName="organismo" bindLabel="nombre" [items]="organismos">
+                    </ng-select>
+                  </div>
+                  <div class="form-group col-sm-3">
+                    <label>Por contratista</label>
+                    <ng-select
+                      appearance="outline"
+                      formControlName="contratista"
+                      bindLabel="nombreCompleto"
+                      [items]="contratistas"
+                    >
+                    </ng-select>
+                  </div>
+                  <div class="form-group col-sm-3">
+                    <label>Por tipo contrato</label>
+                    <ng-select
+                      appearance="outline"
+                      formControlName="tipoContrato"
+                      bindLabel="descripcion"
+                      [items]="tiposContrato"
+                    >
+                    </ng-select>
+                  </div>
+                  <div class="form-inline col-sm-3">
+                    <button class="btn btn-lg btn-gold-100 icon text-white"><i class="fas fa-rotate"></i></button>
+                    <button class="btn btn-primary"><i class="fas fa-filter"></i> Filtrar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container mt-4">
     <div class="datos-abiertos row justify-content-md-center">
-      <div class="col col-lg-3" *ngFor="let card of licitaciones">
+      <div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let card of licitaciones">
         <div class="card licitacion-card" [ngClass]="card.color">
           <div class="card-body">
             <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
@@ -100,98 +209,6 @@
       <div class="col-12">
         <div class="card border">
           <div class="card-body">
-            <div>
-              <div class="row">
-                <div class="form-group col-sm-6">
-                  <label><strong>Buscar</strong></label>
-                  <input
-                    type="text"
-                    id="name"
-                    placeholder="Por número de licitacion, contrato, objeto"
-                    class="form-control"
-                  />
-                </div>
-                <div class="col-sm-6">
-                  <button (click)="collapsed = !collapsed" class="float-right btn btn-link">
-                    <i class="fas" [ngClass]="{ 'fa-chevron-down': !collapsed, 'fa-chevron-up': collapsed }"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div [collapse]="!collapsed">
-              <form [formGroup]="filterForm">
-                <div class="row">
-                  <div class="form-group col-sm-3">
-                    <label>Por tipo de obra</label>
-                    <ng-select appearance="outline" formControlName="tipoObra" bindLabel="nombre" [items]="tiposObras">
-                    </ng-select>
-                  </div>
-                  <div class="form-group col-sm-3">
-                    <label>Por municipio</label>
-                    <ng-select appearance="outline" formControlName="municipio" bindLabel="nombre" [items]="municipios">
-                    </ng-select>
-                  </div>
-                  <div class="form-group col-sm-3">
-                    <label>Por año</label>
-                    <ng-select appearance="outline" formControlName="annio" bindLabel="nombre" [items]="periodos">
-                    </ng-select>
-                  </div>
-                  <div class="form-group col-sm-3">
-                    <label>Por tipo modalidad</label>
-                    <ng-select
-                      appearance="outline"
-                      formControlName="tipoModalidad"
-                      bindLabel="nombre"
-                      [items]="tiposModalidad"
-                    >
-                    </ng-select>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="form-group col-sm-3">
-                    <label>Por organismo</label>
-                    <ng-select appearance="outline" formControlName="organismo" bindLabel="nombre" [items]="organismos">
-                    </ng-select>
-                  </div>
-                  <div class="form-group col-sm-3">
-                    <label>Por contratista</label>
-                    <ng-select
-                      appearance="outline"
-                      formControlName="contratista"
-                      bindLabel="nombre"
-                      [items]="contratistas"
-                    >
-                    </ng-select>
-                  </div>
-                  <div class="form-group col-sm-3">
-                    <label>Por tipo contrato</label>
-                    <ng-select
-                      appearance="outline"
-                      formControlName="tipoContrato"
-                      bindLabel="nombre"
-                      [items]="tiposContrato"
-                    >
-                    </ng-select>
-                  </div>
-                  <div class="form-inline col-sm-3">
-                    <button class="btn btn-lg btn-gold-100 icon text-white"><i class="fas fa-rotate"></i></button>
-                    <button class="btn btn-primary"><i class="fas fa-filter"></i> Filtrar</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="container mt-4">
-    <div class="row">
-      <div class="col-12">
-        <div class="card border">
-          <div class="card-body">
             <p-table
               [value]="licitacionesData"
               [tableStyle]="{ 'min-width': '60rem' }"
@@ -210,7 +227,9 @@
 
                   <th pSortableColumn="objeto" style="width: 20%">Objeto <p-sortIcon field="objeto"></p-sortIcon></th>
                   <th pSortableColumn="fecha" style="width: 20%">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
-                  <th pSortableColumn="monto" style="width: 20%">Monto total <p-sortIcon field="monto"></p-sortIcon></th>
+                  <th pSortableColumn="monto" style="width: 20%">
+                    Monto total <p-sortIcon field="monto"></p-sortIcon>
+                  </th>
                   <th pSortableColumn="avance" style="width: 20%">Avance <p-sortIcon field="avance"></p-sortIcon></th>
                   <th></th>
                 </tr>

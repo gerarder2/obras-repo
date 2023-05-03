@@ -5,6 +5,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Mensaje } from '../../models';
 import { ConfigService } from '../../services';
 import { Municipio } from '../dashboard/models/municipio.interface';
+import { CatalogosService } from '../../services/catalogos.service';
 
 @Component({
   selector: 'app-obras',
@@ -33,11 +34,16 @@ export class ObrasComponent implements OnInit {
   // Variables Mensajes y Modal
   private mensaje: Mensaje;
   private bsModalRef: BsModalRef;
+  private config;
   // ------------------------------------------------ //
 
-  constructor(private fb: FormBuilder, private configService: ConfigService, private bsModalService: BsModalService) {
-    const config = this.configService.getConfig();
-    this.periodos = config.periodos;
+  constructor(
+    private fb: FormBuilder,
+    private configService: ConfigService,
+    private bsModalService: BsModalService,
+    private catalogosService: CatalogosService
+  ) {
+    this.config = this.configService.getConfig();
     this.collapsed = false;
     this.mensaje = new Mensaje();
     this.cardObras = [
@@ -57,12 +63,6 @@ export class ObrasComponent implements OnInit {
       { id: 1, nombre: '2022', progreso: 40, color: 'wine' },
       { id: 2, nombre: '2021', progreso: 50, color: 'green' },
       { id: 3, nombre: '2020', progreso: 65, color: 'gold-500' }
-    ];
-
-    this.tiposObras = [
-      { id: 1, nombre: ' 1Tipo' },
-      { id: 2, nombre: 'Tipo 2' },
-      { id: 3, nombre: 'Tipo 3' }
     ];
 
     this.licitacionesData = [
@@ -114,28 +114,36 @@ export class ObrasComponent implements OnInit {
       { id: 18, nombre: 'NAVOLATO', latitud: 24.65792, longitud: -107.53742 }
     ];
 
-    this.tiposObras = [
-      { id: 0, descripcion: 'Todos' },
-      { id: 1, descripcion: 'Tipo Obra 1' },
-      { id: 2, descripcion: 'Tipo Obra 2' },
-      { id: 3, descripcion: 'Tipo Obra 3' }
-    ];
-
-    this.estatusObras = [
-      { id: 0, descripcion: 'Todos los procesos' },
-      { id: 1, descripcion: 'Por Hacer' },
-      { id: 2, descripcion: 'En Proceso' },
-      { id: 3, descripcion: 'Terminado' }
-    ];
-
+    this.periodos = [];
+    this.tiposObras = [];
     this.tiposModalidad = [];
+    this.organismos = [];
+    this.contratistas = [];
+    this.tiposContrato = [];
   }
 
   ngOnInit(): void {
+    this.loadCatalogos();
     this.initializeForm();
   }
 
-  initializeForm() {
+  loadCatalogos() {
+    this.catalogosService.getCatalogos().subscribe({
+      next: (response: any[]) => {
+        this.tiposObras = response[0].data;
+        this.tiposModalidad = response[1].data;
+        this.organismos = response[2].data;
+        this.contratistas = response[3].data;
+        this.tiposContrato = response[4].data;
+        this.periodos = this.config.periodos;
+      },
+      error: (err: unknown) => {
+        console.warn(err);
+      }
+    });
+  }
+
+  public initializeForm() {
     this.filterForm = this.fb.group({
       tipoObra: new FormControl(''),
       municipio: new FormControl(''),
@@ -174,5 +182,9 @@ export class ObrasComponent implements OnInit {
     });
 
     this.bsModalService.onHide.subscribe((reason: string) => {});
+  }
+
+  public filtrar() {
+    console.log(this.filterForm.value);
   }
 }

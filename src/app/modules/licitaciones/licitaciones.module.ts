@@ -11,6 +11,7 @@ import { TableModule } from 'primeng/table';
 import { DirectivesModule } from '../../directives/directives.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { LicitacionesModalComponent } from './modal/licitaciones-modal.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 // import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
@@ -26,7 +27,8 @@ import { LicitacionesModalComponent } from './modal/licitaciones-modal.component
     CollapseModule.forRoot(),
     TableModule,
     DirectivesModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    SelectButtonModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'en-US' }],
   exports: [LicitacionesModalComponent]

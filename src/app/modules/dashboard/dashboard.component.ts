@@ -224,8 +224,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       idsMunicipios: 0,
       ejercicio: 0
     };
-    if (this.periodoSeleccionado > 0) {
-      payload.ejercicio = this.periodoSeleccionado;
+    if (this.periodoSeleccionado.descripcion !== 'Todos') {
+      payload.ejercicio = parseInt(this.periodoSeleccionado.descripcion);
       this.catalogosService.getMapaObras(payload).subscribe({
         next: (response) => {
           this.puntosMapa = response;

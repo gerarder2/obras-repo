@@ -3,12 +3,13 @@ import { Observable, forkJoin } from 'rxjs';
 import { HelperService } from './../helpers/helper.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TipoObra } from './../modules/dashboard/models/tipoobra.interface';
 import { TreeNode } from 'primeng/api';
 import { environment } from './../../environments/environment';
 import { map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CatalogosService {
   public config: any;
   public geoJson: any;
@@ -18,10 +19,18 @@ export class CatalogosService {
 
   public getCatalogos() {
     const obrasSocial = `${environment.webApi}/TipoObraSocial/Combo`;
-    // const partidos = `${environment.webApi}/Menu/Partidos`;
-    // const distritos = `${environment.webApi}/Menu/Distritos?idCabeceraDistrital=0`;
+    const tiposModalidad = `${environment.webApi}/TipoModalidad/Combo`;
+    const organismos = `${environment.webApi}/Dependencia/Combo`;
+    const constratistas = `${environment.webApi}/Contratista/Combo`;
+    const tiposContrato = `${environment.webApi}/TipoContrato/Combo`;
 
-    return forkJoin([this.http.get(obrasSocial)]);
+    return forkJoin([
+      this.http.get(obrasSocial),
+      this.http.get(tiposModalidad),
+      this.http.get(organismos),
+      this.http.get(constratistas),
+      this.http.get(tiposContrato)
+    ]);
   }
 
   public getDistritos(queryParams: any): Observable<any> {

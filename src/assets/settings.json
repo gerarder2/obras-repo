@@ -1,4 +1,21 @@
 {
     "webApi": "http://74.208.25.33:86/api",
-    "periodos": ["Todos", "2016", "2018", "2021"]
+    "periodos": [
+        {
+            "id": 0,
+            "descripcion": "Todos"
+        },
+        {
+            "id": 1,
+            "descripcion": "2016"
+        },
+        {
+            "id": 2,
+            "descripcion": "2018"
+        },
+        {
+            "id": 3,
+            "descripcion": "2021"
+        }
+    ]
 }

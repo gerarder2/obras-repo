@@ -69,3 +69,29 @@
     background: $gold-50;
   }
 
+.form-control.big-input {
+  height: 45px;
+}
+
+.collapsed-button {
+  position: absolute;
+  right: 0px;
+  top: -15px;
+}
+
+::ng-deep {
+  .p-selectbutton .p-button.p-highlight {
+    background: $wine-500;
+    background-color: $wine-500;
+    border-color: $wine-500;
+  }
+
+  .p-selectbutton .p-button.p-highlight:hover {
+    background: $wine-500;
+    border-color: $wine-500;
+
+  }
+  .p-button:focus {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px $wine-50, 0 1px 2px 0 black;
+  }
+}

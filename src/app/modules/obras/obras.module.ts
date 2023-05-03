@@ -11,6 +11,7 @@ import { TableModule } from 'primeng/table';
 import { DirectivesModule } from '../../directives/directives.module';
 import { TabViewModule } from 'primeng/tabview';
 import { KnobModule } from 'primeng/knob';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 import { LOCALE_ID, NgModule } from '@angular/core';
 
@@ -28,7 +29,8 @@ import { LOCALE_ID, NgModule } from '@angular/core';
     DirectivesModule,
     ModalModule.forRoot(),
     TabViewModule,
-    KnobModule
+    KnobModule,
+    SelectButtonModule
   ],
   exports: [ObrasModalComponent],
   providers: [{ provide: LOCALE_ID, useValue: 'en-US' }]
