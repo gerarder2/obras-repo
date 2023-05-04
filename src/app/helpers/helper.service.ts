@@ -434,4 +434,44 @@ export class HelperService {
     });
     return { data: resultado };
   }
+
+  calcularAvanceObra(obrasPorTipo: any[]) {
+    const tabla1 = [];
+    const sum = obrasPorTipo.reduce((accumulator, element) => {
+      return accumulator + element.numeroObras;
+    }, 0);
+
+    obrasPorTipo.forEach((element, index) => {
+      const avance = Math.round((element.numeroObras / sum) * 100);
+
+      tabla1.push({
+        id: index + 1,
+        nombre: element.descripcionTipoObraSocial,
+        progreso: avance,
+        color: avance > 30 ? (avance > 60 ? 'green' : 'gold-500') : 'wine'
+      });
+    });
+
+    return tabla1;
+  }
+
+  calcularAvanceObraEjercicio(obrasPorEjercicio: any[]) {
+    const tabla2 = [];
+    const sum = obrasPorEjercicio.reduce((accumulator, element) => {
+      return accumulator + element.numeroObras;
+    }, 0);
+
+    obrasPorEjercicio.forEach((element, index) => {
+      const avance = Math.round((element.numeroObras / sum) * 100);
+
+      tabla2.push({
+        id: index + 1,
+        nombre: element.ejercicio,
+        progreso: avance,
+        color: avance > 30 ? (avance > 60 ? 'green' : 'gold-500') : 'wine'
+      });
+    });
+
+    return tabla2;
+  }
 }

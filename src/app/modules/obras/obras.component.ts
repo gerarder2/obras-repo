@@ -1,3 +1,4 @@
+import { HelperService } from './../../helpers/helper.service';
 import { Component, OnInit } from '@angular/core';
 import { ObrasModalComponent } from './modal/obras-modal.component';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
@@ -6,6 +7,7 @@ import { Mensaje } from '../../models';
 import { ConfigService } from '../../services';
 import { Municipio } from '../dashboard/models/municipio.interface';
 import { CatalogosService } from '../../services/catalogos.service';
+import { ObrasService } from './services/obras.services';
 
 @Component({
   selector: 'app-obras',
@@ -19,7 +21,7 @@ export class ObrasComponent implements OnInit {
   public collapsed: boolean;
 
   public filterForm: FormGroup;
-  public licitacionesData: any[];
+  public obrasTabla: any[];
 
   //Catalogos
   public tiposObras: any[];
@@ -41,56 +43,24 @@ export class ObrasComponent implements OnInit {
     private fb: FormBuilder,
     private configService: ConfigService,
     private bsModalService: BsModalService,
-    private catalogosService: CatalogosService
+    private catalogosService: CatalogosService,
+    private obrassService: ObrasService,
+    private helperService: HelperService
   ) {
     this.config = this.configService.getConfig();
     this.collapsed = false;
     this.mensaje = new Mensaje();
     this.cardObras = [
-      { id: 1, cantidad: 2579, descripcion: 'TOTAL DE CONTRATOS', color: 'gold-500' },
-      { id: 2, cantidad: 3005568996.5, descripcion: 'MONTO TOTAL EJERCIDO (MXN)', color: 'wine-100' },
-      { id: 3, cantidad: 3875568996.5, descripcion: 'MONTO MAXIMO EN CONTRATOS', color: 'wine-50' }
+      { id: 1, cantidad: 0, descripcion: 'TOTAL DE CONTRATOS', color: 'gold-500' },
+      { id: 2, cantidad: 0, descripcion: 'MONTO TOTAL EJERCIDO (MXN)', color: 'wine-100' },
+      { id: 3, cantidad: 0, descripcion: 'MONTO MAXIMO EN CONTRATOS', color: 'wine-50' }
     ];
 
-    this.tabla1 = [
-      { id: 1, nombre: 'CAMINOS/CARRETERAS', progreso: 40, color: 'wine' },
-      { id: 2, nombre: 'EDUCACION', progreso: 50, color: 'green' },
-      { id: 3, nombre: 'INFRAESTRUCTURA', progreso: 65, color: 'gold-500' },
-      { id: 2, nombre: 'SALUD', progreso: 70, color: 'gold' }
-    ];
+    this.tabla1 = [];
 
-    this.tabla2 = [
-      { id: 1, nombre: '2022', progreso: 40, color: 'wine' },
-      { id: 2, nombre: '2021', progreso: 50, color: 'green' },
-      { id: 3, nombre: '2020', progreso: 65, color: 'gold-500' }
-    ];
+    this.tabla2 = [];
 
-    this.licitacionesData = [
-      {
-        numeroContrato: 'IO-956235',
-        objeto:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,',
-        fecha: '2023-05-05',
-        monto: '12032145658',
-        avance: 30
-      },
-      {
-        numeroContrato: 'IO-856235',
-        objeto:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s,',
-        fecha: '2023-05-05',
-        monto: '52032145658',
-        avance: 50
-      },
-      {
-        numeroContrato: 'IO-456235',
-        objeto:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,',
-        fecha: '2023-05-05',
-        monto: '96032145658',
-        avance: 10
-      }
-    ];
+    this.obrasTabla = [];
 
     this.municipios = [
       { id: 0, nombre: 'TODOS LOS MUNICIPIOS', latitud: 25.91194, longitud: -109.1735 },
@@ -125,9 +95,10 @@ export class ObrasComponent implements OnInit {
   ngOnInit(): void {
     this.loadCatalogos();
     this.initializeForm();
+    this.loadObrasData();
   }
 
-  loadCatalogos() {
+  public loadCatalogos() {
     this.catalogosService.getCatalogos().subscribe({
       next: (response: any[]) => {
         this.tiposObras = response[0].data;
@@ -136,6 +107,12 @@ export class ObrasComponent implements OnInit {
         this.contratistas = response[3].data;
         this.tiposContrato = response[4].data;
         this.periodos = this.config.periodos;
+
+        this.tiposObras.unshift({ id: 0, descripcion: 'Todas' });
+        this.tiposModalidad.unshift({ id: 0, descripcion: 'Todas' });
+        this.organismos.unshift({ id: 0, nombre: 'Todos' });
+        this.contratistas.unshift({ id: 0, nombreCompleto: 'Todos' });
+        this.tiposContrato.unshift({ id: 0, descripcion: 'Todos' });
       },
       error: (err: unknown) => {
         console.warn(err);
@@ -143,15 +120,49 @@ export class ObrasComponent implements OnInit {
     });
   }
 
+  public loadObrasData() {
+    console.log(this.filterForm.value);
+    const queryParams = this.filterForm.value;
+
+    if (!queryParams.numeroContrato) {
+      queryParams.numeroContrato = 0;
+    }
+
+    if (queryParams.ejercicio > 0) {
+      const ejercicio = this.periodos.find((e) => e.id === queryParams.ejercicio);
+      queryParams.ejercicio = ejercicio;
+    }
+
+    this.obrassService.getObrasDatos(queryParams).subscribe({
+      next: (response: any) => {
+        this.obrasTabla = response.data.obras;
+        this.tabla1 = this.helperService.calcularAvanceObra(response.data.obrasPorTipo);
+        this.tabla2 = this.helperService.calcularAvanceObraEjercicio(response.data.obrasPorEjercicio);
+
+        const sum = this.obrasTabla.reduce((accumulator, element) => {
+          return accumulator + element.montoInversion;
+        }, 0);
+        this.cardObras[0].cantidad = this.obrasTabla.length;
+        this.cardObras[1].cantidad = sum;
+        this.cardObras[2].cantidad = sum;
+      },
+      error: (err: unknown) => {
+        console.warn(err);
+        this.mensaje.showMessage(err);
+      }
+    });
+  }
+
   public initializeForm() {
     this.filterForm = this.fb.group({
-      tipoObra: new FormControl(''),
-      municipio: new FormControl(''),
-      annio: new FormControl(''),
-      tipoModalidad: new FormControl(''),
-      organismo: new FormControl(''),
-      contratista: new FormControl(''),
-      tipoContrato: new FormControl('')
+      numeroContrato: new FormControl(''),
+      idTipoObraSocial: new FormControl(0),
+      idMunicipio: new FormControl(0),
+      ejercicio: new FormControl(0),
+      idTipoModalidad: new FormControl(0),
+      idDependencia: new FormControl(0),
+      idContratista: new FormControl(0),
+      idTipoContrato: new FormControl(0)
     });
   }
 
@@ -185,6 +196,13 @@ export class ObrasComponent implements OnInit {
   }
 
   public filtrar() {
-    console.log(this.filterForm.value);
+    this.loadObrasData();
+  }
+
+  public resetForm() {
+    this.filterForm.reset();
+    setTimeout(() => {
+      this.initializeForm();
+    }, 100);
   }
 }
