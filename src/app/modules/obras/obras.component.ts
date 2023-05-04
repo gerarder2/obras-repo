@@ -121,7 +121,6 @@ export class ObrasComponent implements OnInit {
   }
 
   public loadObrasData() {
-    console.log(this.filterForm.value);
     const queryParams = this.filterForm.value;
 
     if (!queryParams.numeroContrato) {
@@ -130,7 +129,9 @@ export class ObrasComponent implements OnInit {
 
     if (queryParams.ejercicio > 0) {
       const ejercicio = this.periodos.find((e) => e.id === queryParams.ejercicio);
-      queryParams.ejercicio = ejercicio;
+      if (ejercicio) {
+        queryParams.ejercicio = ejercicio.descripcion;
+      }
     }
 
     this.obrassService.getObrasDatos(queryParams).subscribe({
