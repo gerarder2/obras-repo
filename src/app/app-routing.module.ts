@@ -7,11 +7,11 @@ import { NgModule } from '@angular/core';
 import { environment } from './../environments/environment';
 
 export const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'dashboard',
-  //   pathMatch: 'full'
-  // },
+  {
+    path: '',
+    redirectTo: 'inicio',
+    pathMatch: 'full'
+  },
   {
     path: '',
     component: FullLayoutComponent,
