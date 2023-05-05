@@ -28,8 +28,8 @@
             (onChange)="onChangeTipoObra(tipo)"
           ></p-inputSwitch>
           <label class="label-switch" for="switch1"
-            ><i class="fas" [ngClass]="tipo.icon"></i> {{ tipo.descripcion }}</label
-          >
+            ><i class="fas" [ngClass]="tipo.icon"></i> {{ tipo.descripcion }} ({{ tipo.conteo }})
+          </label>
         </div>
       </section>
       <h6 class="header-title">Por Municipio</h6>

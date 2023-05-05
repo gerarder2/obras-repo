@@ -4,19 +4,19 @@
     <div class="row">
       <div class="col-md-6">
         <small>Numero de contrato</small>
-        <p>{{ params.numeroContrato }}</p>
+        <p>{{ obra.numeroContrato }}</p>
       </div>
       <div class="col-md-2">
         <small>Ejercicio</small>
-        <p>{{ params.numeroContrato }}</p>
+        <p>{{ '-' }}</p>
       </div>
       <div class="col-md-2">
         <small>Beneficiarios</small>
-        <p>{{ params.numeroContrato }}</p>
+        <p>{{ obra.totalBeneficiados }}</p>
       </div>
       <div class="col-md-2">
         <small>Credito</small>
-        <p>{{ params.numeroContrato }}</p>
+        <p>{{ obra.esCredito ? 'SI' : 'NO' }}</p>
       </div>
     </div>
   </div>
@@ -32,37 +32,38 @@
       <div class="row">
         <div class="col-md-3">
           <small>Objeto</small>
-          <p>{{ params.objeto }}</p>
+          <p>{{ obra.objeto }}</p>
         </div>
         <div class="col-md-3">
           <div class="row">
             <div class="col-12">
               <small>Fecha contrato</small>
-              <p>{{ params.fecha }}</p>
+              <p>{{ obra.fechaContratacion }}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <small>Origen recurso</small>
-              <p>{{ params.origen }}</p>
+              <p>{{ '-' }}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <small>Periodo ejecución</small>
-              <p>{{ params.periodoEjecucion }}</p>
+              <p>{{ '-' }}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <small>Dirección</small>
-              <p>{{ params.direccion }}</p>
+              <p>{{ '-' }}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <small>Residente / Supervisor</small>
-              <p>{{ params.residenteSupervisor }}</p>
+              <p>{{ '-' }}</p>
+              <p>{{ obra.nombreSupervisor }}</p>
             </div>
           </div>
         </div>
@@ -70,25 +71,25 @@
           <div class="row">
             <div class="col-12">
               <small>Contratista</small>
-              <p>{{ params.contratista }}</p>
+              <p>{{ obra.descripcionContratista }}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <small>Tipo Modalidad</small>
-              <p>{{ params.tipoModalidad }}</p>
+              <p>{{ obra.descripcionTipoModalidad }}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <small>Número autorización</small>
-              <p>{{ params.numeroAutorizacion }}</p>
+              <p>{{ '-' }}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <small>Municipio</small>
-              <p>{{ params.municipio }}</p>
+              <p>{{ '-' }}</p>
             </div>
           </div>
         </div>
@@ -96,25 +97,25 @@
           <div class="row">
             <div class="col-12">
               <small>Tipo contrato</small>
-              <p>{{ params.tipoContrato }}</p>
+              <p>{{ obra.descripcionTipoContrato }}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <small>Tipo Obra</small>
-              <p>{{ params.tipoObra }}</p>
+              <p>{{ obra.descripcionTipoObraSocial }}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <small>Dependencia / Organismo</small>
-              <p>{{ params.periodoEjecucion }}</p>
+              <p>{{ obra.descripcionDependencia }}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <small>Geolocalizacion</small>
-              <p>{{ params.geolocalizacion }}</p>
+              <p>[{{ obra.latitud }},{{ obra.longitud}}]</p>
             </div>
           </div>
         </div>

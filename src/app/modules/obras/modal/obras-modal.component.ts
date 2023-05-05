@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Mensaje } from '../../../models';
+import { ObrasService } from '../services/obras.service';
+import { Obra } from '../../dashboard/models/obra.interface';
 
 @Component({
   selector: 'app-obras-modal',
@@ -18,19 +20,33 @@ export class ObrasModalComponent implements OnInit {
   public titlePage = 'asdf';
   public eventos: any[];
   public value: number;
+  public obra: Obra;
   // end
 
   private mensaje: Mensaje;
 
-  constructor(public bsModalRef: BsModalRef) {
+  constructor(public bsModalRef: BsModalRef, private obrasService: ObrasService) {
     this.mensaje = new Mensaje();
     this.eventos = [];
     this.value = 25;
+    this.obra = {};
   }
 
   // Angular metodos del ciclo de vida del componente
   ngOnInit(): void {
     console.log(this.params);
+    this.loadObraDetalle();
+  }
+  public loadObraDetalle() {
+    this.obrasService.getObrasDatosById({ idObra: this.params.id }).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.obra = response.data;
+      },
+      error: (err: unknown) => {
+        this.mensaje.showMessage(err);
+      }
+    });
   }
   // ------------------------------------------------- //
 

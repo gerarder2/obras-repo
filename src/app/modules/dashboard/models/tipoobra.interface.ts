@@ -4,4 +4,5 @@ export interface TipoObra {
   icon?: string;
   checked?: boolean;
   color?: string;
+  conteo?: number;
 }

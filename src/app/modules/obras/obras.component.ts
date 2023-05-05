@@ -7,7 +7,7 @@ import { Mensaje } from '../../models';
 import { ConfigService } from '../../services';
 import { Municipio } from '../dashboard/models/municipio.interface';
 import { CatalogosService } from '../../services/catalogos.service';
-import { ObrasService } from './services/obras.services';
+import { ObrasService } from './services/obras.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({

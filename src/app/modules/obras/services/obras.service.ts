@@ -29,4 +29,9 @@ export class ObrasService {
   }): Observable<any> {
     return this.http.get(`${this.config.webApi}/ObraPortal/Listado`, { params: queryParams });
   }
+
+  // http://74.208.25.33:86/api/ObraPortal/4462
+  public getObrasDatosById(obra: { idObra?: number }): Observable<any> {
+    return this.http.get(`${this.config.webApi}/ObraPortal/${obra.idObra}`);
+  }
 }

@@ -366,6 +366,7 @@ export class HelperService {
 
   public formatTipoObras(tiposObras: TipoObra[]) {
     for (const item of tiposObras) {
+      item.conteo = 0;
       item.checked = true;
       switch (item['id']) {
         case 1:
@@ -408,6 +409,9 @@ export class HelperService {
         return false;
       }
       if (filtros.idTipoObraSocial.length > 0 && !filtros.idTipoObraSocial.includes(obra.idTipoObraSocial)) {
+        return false;
+      }
+      if (filtros.idTipoObraSocial.length === 0) {
         return false;
       }
       return true;
@@ -453,5 +457,13 @@ export class HelperService {
     });
 
     return tabla2;
+  }
+
+  public calcularConteoTiposObras(tiposObras: TipoObra[], data: any[]) {
+    tiposObras.forEach((objeto) => {
+      const coincidencias = data.filter((el) => el.idTipoObraSocial === objeto.id);
+      objeto.conteo = coincidencias.length;
+    });
+    return tiposObras;
   }
 }

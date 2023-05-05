@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   estatusObras: any[];
   estatusObrasSeleccionado: any;
 
-  puntosMapa: any[];
+  puntosMapa: any;
 
   constructor(
     private router: Router,
@@ -210,6 +210,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.catalogosService.getMapaObras(payload).subscribe({
       next: (response) => {
         this.puntosMapa = response;
+        const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, this.puntosMapa.data);
+        this.tiposObras = conteo;
+
         this.mostrarPuntosObra(this.puntosMapa);
       },
       error: (err: unknown) => {
@@ -236,6 +239,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.catalogosService.getMapaObras(payload).subscribe({
         next: (response) => {
           this.puntosMapa = response;
+          const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, this.puntosMapa.data.data);
+          this.tiposObras = conteo;
           this.mostrarPuntosObra(this.puntosMapa);
         },
         error: (err: unknown) => {
@@ -254,6 +259,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
       const newPuntosMapa = this.helperService.filtrarData(info);
       if (newPuntosMapa.data.length > 0) {
+        const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
+        this.tiposObras = conteo;
         this.mostrarPuntosObra(newPuntosMapa);
       } else {
         if (this.obrasMarksLayer) {
