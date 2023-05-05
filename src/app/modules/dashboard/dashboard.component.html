@@ -36,6 +36,7 @@
       <section>
         <div class="form-group">
           <p-dropdown
+            (onChange)="filtrar()"
             appendTo="body"
             [options]="municipios"
             [(ngModel)]="municipioSeleccionado"
@@ -49,6 +50,7 @@
       <section class="drop-years">
         <div class="form-group">
           <p-dropdown
+            (onChange)="filtrar()"
             appendTo="body"
             [options]="periodos"
             [(ngModel)]="periodoSeleccionado"
@@ -62,6 +64,7 @@
       <section class="estatus-obras">
         <div class="form-group">
           <p-dropdown
+            (onChange)="filtrar()"
             appendTo="body"
             [options]="estatusObras"
             [(ngModel)]="estatusObrasSeleccionado"

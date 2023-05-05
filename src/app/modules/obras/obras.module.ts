@@ -14,6 +14,7 @@ import { KnobModule } from 'primeng/knob';
 import { SelectButtonModule } from 'primeng/selectbutton';
 
 import { LOCALE_ID, NgModule } from '@angular/core';
+import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule({
   declarations: [ObrasComponent, ObrasModalComponent],
@@ -30,7 +31,8 @@ import { LOCALE_ID, NgModule } from '@angular/core';
     ModalModule.forRoot(),
     TabViewModule,
     KnobModule,
-    SelectButtonModule
+    SelectButtonModule,
+    BlockUIModule.forRoot()
   ],
   exports: [ObrasModalComponent],
   providers: [{ provide: LOCALE_ID, useValue: 'en-US' }]

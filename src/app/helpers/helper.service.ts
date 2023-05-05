@@ -401,26 +401,6 @@ export class HelperService {
       }
     });
     const resultado = info.puntosMapa.data.filter((obra) => {
-      console.log('filtros', filtros);
-      // // Filtrar por municipio
-      // if (filtros.idMunicipio && obra.idMunicipio !== filtros.idMunicipio) {
-      //   return false;
-      // }
-
-      // // Filtrar por estatus
-      // if (filtros.estatus !== 'TODAS') {
-      //   if (filtros.estatus && obra.estatus !== filtros.estatus) {
-      //     return false;
-      //   }
-      // }
-
-      // // Filtrar por tipo de obra social
-      // if (filtros.idTipoObraSocial && !filtros.idTipoObraSocial.includes(obra.idTipoObraSocial)) {
-      //   return false;
-      // }
-
-      // // Si llegamos aquí, es porque la obra cumple con todos los filtros
-      // return true;
       if (filtros.idMunicipio && obra.idMunicipio !== filtros.idMunicipio) {
         return false;
       }

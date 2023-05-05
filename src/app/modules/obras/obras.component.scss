@@ -1,5 +1,9 @@
 @import './../../../scss/bootstrap-variables';
 
+.container.no-cursor {
+  cursor:default;
+}
+
 .data-container {
     height: 80px;
     background-color:$gray-200;

@@ -10,7 +10,8 @@ import { AfterViewInit, Directive, ElementRef, HostListener } from '@angular/cor
  */
 
 @Directive({
-  selector: '[ngxModalDraggable]',
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: '[ngxModalDraggable]'
 })
 export class NgxModalDraggableDirective implements AfterViewInit {
   private modalElement: HTMLElement;
@@ -42,7 +43,7 @@ export class NgxModalDraggableDirective implements AfterViewInit {
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
     if (event.button === 2 || (this.handleElement && event.target !== this.handleElement)) {
-      return; // prevents right click drag
+      return;
     }
 
     // enable dragging
@@ -55,7 +56,7 @@ export class NgxModalDraggableDirective implements AfterViewInit {
   }
 
   @HostListener('document:mouseup', ['$event'])
-  onMouseUp(event: MouseEvent) {
+  onMouseUp(_event: MouseEvent) {
     this.isDraggable = false;
   }
 
@@ -69,7 +70,7 @@ export class NgxModalDraggableDirective implements AfterViewInit {
   }
 
   @HostListener('document:mouseleave', ['$event'])
-  onMouseLeave(event: MouseEvent) {
+  onMouseLeave(_event: MouseEvent) {
     this.isDraggable = false;
   }
 }

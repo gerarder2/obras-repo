@@ -24,12 +24,7 @@ export class ObrasModalComponent implements OnInit {
 
   constructor(public bsModalRef: BsModalRef) {
     this.mensaje = new Mensaje();
-    this.eventos = [
-      { evento: 'Visita', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' },
-      { evento: 'Junta', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' },
-      { evento: 'Apertura', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' },
-      { evento: 'Fallo', fecha: '2023-01-30 15:00', evidencia: '', documentos: '' }
-    ];
+    this.eventos = [];
     this.value = 25;
   }
 

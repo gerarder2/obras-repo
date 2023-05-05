@@ -8,6 +8,7 @@ import { ConfigService } from '../../services';
 import { Municipio } from '../dashboard/models/municipio.interface';
 import { CatalogosService } from '../../services/catalogos.service';
 import { ObrasService } from './services/obras.services';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-obras',
@@ -15,6 +16,8 @@ import { ObrasService } from './services/obras.services';
   styleUrls: ['./obras.component.scss']
 })
 export class ObrasComponent implements OnInit {
+  @BlockUI('obras-page') blockUIList: NgBlockUI;
+
   public cardObras: any[];
   public tabla1: any[];
   public tabla2: any[];
@@ -121,6 +124,7 @@ export class ObrasComponent implements OnInit {
   }
 
   public loadObrasData() {
+    this.blockUIList.start('Cargando...');
     const queryParams = this.filterForm.value;
 
     if (!queryParams.numeroContrato) {
@@ -145,10 +149,12 @@ export class ObrasComponent implements OnInit {
         }, 0);
         this.cardObras[0].cantidad = this.obrasTabla.length;
         this.cardObras[1].cantidad = sum;
-        this.cardObras[2].cantidad = sum;
+        this.cardObras[2].canstidad = sum;
+        this.blockUIList.stop();
       },
       error: (err: unknown) => {
         console.warn(err);
+        this.blockUIList.stop();
         this.mensaje.showMessage(err);
       }
     });
@@ -183,7 +189,7 @@ export class ObrasComponent implements OnInit {
 
     this.bsModalRef = this.bsModalService.show(ObrasModalComponent, {
       initialState,
-      class: 'modal-light modal-lg',
+      class: 'modal-light modal-fullscreen',
       backdrop: 'static',
       keyboard: true,
       ignoreBackdropClick: true

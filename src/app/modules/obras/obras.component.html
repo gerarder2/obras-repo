@@ -1,4 +1,4 @@
-<div class="animated fadeIn no-action-tools">
+<div class="animated fadeIn no-action-tools" *blockUI="'obras-page'">
   <section class="data-container">
     <div class="h2 data-title">Obras</div>
   </section>
@@ -43,9 +43,10 @@
               </div>
               <div [collapse]="!collapsed">
                 <div class="row">
-                  <div class="form-group col-sm-3">
+                  <div class="form-group col-sm-4">
                     <label>Por tipo de obra</label>
                     <ng-select
+                      (change)="filtrar()"
                       appearance="outline"
                       formControlName="idTipoObraSocial"
                       bindLabel="descripcion"
@@ -54,9 +55,10 @@
                     >
                     </ng-select>
                   </div>
-                  <div class="form-group col-sm-3">
+                  <div class="form-group col-sm-4">
                     <label>Por municipio</label>
                     <ng-select
+                      (change)="filtrar()"
                       appearance="outline"
                       formControlName="idMunicipio"
                       bindLabel="nombre"
@@ -65,14 +67,15 @@
                     >
                     </ng-select>
                   </div>
-                  <!-- <div class="form-group col-sm-3">
+                  <!-- <div class="form-group col-sm-4">
                     <label>Por año</label>
                     <ng-select appearance="outline" formControlName="annio" bindLabel="nombre" [items]="periodos">
                     </ng-select>
                   </div> -->
-                  <div class="form-group col-sm-3">
+                  <div class="form-group col-sm-4">
                     <label>Por tipo modalidad</label>
                     <ng-select
+                      (change)="filtrar()"
                       appearance="outline"
                       formControlName="idTipoModalidad"
                       bindLabel="descripcion"
@@ -84,9 +87,10 @@
                 </div>
 
                 <div class="row">
-                  <div class="form-group col-sm-3">
+                  <div class="form-group col-sm-4">
                     <label>Por organismo</label>
                     <ng-select
+                      (change)="filtrar()"
                       appearance="outline"
                       formControlName="idDependencia"
                       bindValue="id"
@@ -95,9 +99,10 @@
                     >
                     </ng-select>
                   </div>
-                  <div class="form-group col-sm-3">
+                  <div class="form-group col-sm-4">
                     <label>Por contratista</label>
                     <ng-select
+                      (change)="filtrar()"
                       appearance="outline"
                       formControlName="idContratista"
                       bindLabel="nombreCompleto"
@@ -106,9 +111,10 @@
                     >
                     </ng-select>
                   </div>
-                  <div class="form-group col-sm-3">
+                  <div class="form-group col-sm-4">
                     <label>Por tipo contrato</label>
                     <ng-select
+                      (change)="filtrar()"
                       appearance="outline"
                       formControlName="idTipoContrato"
                       bindLabel="descripcion"
@@ -141,7 +147,10 @@
         <div class="col-xs-12 col-md-6 col-lg-4">
           <div class="card licitacion-card" [ngClass]="card.color">
             <div class="card-body">
-              <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
+              <div class="cantidad h4 mb-0 text-center">
+                <span *ngIf="card.descripcion === 'TOTAL DE CONTRATOS'">{{ card.cantidad | number }}</span>
+                <span *ngIf="card.descripcion !== 'TOTAL DE CONTRATOS'">{{ card.cantidad | currency }}</span>
+              </div>
               <div class="text-center">
                 <small class="descripcion">{{ card.descripcion }}</small>
               </div>
@@ -241,7 +250,7 @@
               [paginator]="true"
               [rows]="10"
               [showCurrentPageReport]="true"
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} registros"
               [rowsPerPageOptions]="[10, 25, 50]"
               styleClass="p-datatable-sm p-datatable-striped"
             >
@@ -275,9 +284,9 @@
                       {{ product.objeto }}
                     </div>
                   </td>
-                  <td>{{ product.fechaInicio }}</td>
-                  <td>{{ product.montoInversion | currency: 'USD' }}</td>
-                  <td>{{ product.porcentajeAvance }} %</td>
+                  <td>{{ product.fechaInicio | date: 'longDate':'':'es' }}</td>
+                  <td style="text-align: right">{{ product.montoInversion | currency: 'USD' }}</td>
+                  <td style="text-align: right">{{ product.porcentajeAvance }} %</td>
                   <td>{{ product.descripcionTipoObraSocial }}</td>
                   <td>
                     <button (click)="openModalComponent(product)" class="btn btn-wine-100 btn-sm">

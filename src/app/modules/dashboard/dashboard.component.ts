@@ -222,10 +222,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     const payload = {
       idTipoObraSocial: 0,
       idsMunicipios: 0,
-      ejercicio: 0
+      ejercicio: 0,
+      estatus: 'TODAS'
     };
+
     if (this.periodoSeleccionado.descripcion !== 'Todos') {
       payload.ejercicio = parseInt(this.periodoSeleccionado.descripcion);
+      payload.idsMunicipios = this.municipioSeleccionado.id;
+      payload.estatus = this.estatusObrasSeleccionado;
+      console.log('payload', payload);
+
       this.catalogosService.getMapaObras(payload).subscribe({
         next: (response) => {
           this.puntosMapa = response;
@@ -243,6 +249,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         idMunicipio: this.municipioSeleccionado.id,
         estatus: this.estatusObrasSeleccionado.descripcion
       };
+      console.log('info', info);
+
       const newPuntosMapa = this.helperService.filtrarData(info);
       if (newPuntosMapa.data.length > 0) {
         this.mostrarPuntosObra(newPuntosMapa);
@@ -858,5 +866,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   onChangeTipoObra(obra: any) {
     console.log(obra);
+    this.filtrar();
   }
 }

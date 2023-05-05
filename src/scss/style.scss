@@ -51,3 +51,22 @@ html {
 
 @import '~ag-grid-community/dist/styles/ag-theme-balham.css';
 
+
+.modal-fullscreen {
+  padding: 0 !important; // override inline padding-right added from js
+}
+.modal-fullscreen.modal-dialog {
+  width: 90%;
+  max-width: none;
+  height: 100%;
+  margin: 1.75rem auto;
+}
+.modal-fullscreen.modal-content {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+.modal-fullscreen.modal-body {
+  overflow-y: auto;
+}
+
