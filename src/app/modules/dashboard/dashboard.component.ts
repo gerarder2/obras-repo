@@ -204,7 +204,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     const payload = {
       idTipoObraSocial: 0,
       idsMunicipios: 0,
-      ejercicio: 0
+      ejercicio: 0,
+      estatus: 'TODAS'
     };
     this.catalogosService.getMapaObras(payload).subscribe({
       next: (response) => {
@@ -229,7 +230,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     if (this.periodoSeleccionado.descripcion !== 'Todos') {
       payload.ejercicio = parseInt(this.periodoSeleccionado.descripcion);
       payload.idsMunicipios = this.municipioSeleccionado.id;
-      payload.estatus = this.estatusObrasSeleccionado;
+      payload.estatus = this.estatusObrasSeleccionado.descripcion;
       console.log('payload', payload);
 
       this.catalogosService.getMapaObras(payload).subscribe({
