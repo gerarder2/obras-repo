@@ -38,7 +38,7 @@
           <div class="row">
             <div class="col-12">
               <small>Fecha contrato</small>
-              <p>{{ obra.fechaContratacion }}</p>
+              <p>{{ obra.fechaContratacion | date: 'longDate':'':'es' }}</p>
             </div>
           </div>
           <div class="row">
@@ -50,7 +50,9 @@
           <div class="row">
             <div class="col-12">
               <small>Periodo ejecución</small>
-              <p>{{ '-' }}</p>
+              <p>
+                {{ obra.fechaInicio | date: 'longDate':'':'es' }} - {{ obra.fechaEstimadaFin | date: 'longDate':'':'es' }}
+              </p>
             </div>
           </div>
           <div class="row">
@@ -61,8 +63,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <small>Residente / Supervisor</small>
-              <p>{{ '-' }}</p>
+              <small>Residente o Supervisor</small>
               <p>{{ obra.nombreSupervisor }}</p>
             </div>
           </div>
@@ -89,7 +90,7 @@
           <div class="row">
             <div class="col-12">
               <small>Municipio</small>
-              <p>{{ '-' }}</p>
+              <p>{{ obra.nombreMunicipio }}</p>
             </div>
           </div>
         </div>
@@ -115,7 +116,7 @@
           <div class="row">
             <div class="col-12">
               <small>Geolocalizacion</small>
-              <p>[{{ obra.latitud }},{{ obra.longitud}}]</p>
+              <p>[{{ obra.latitud }},{{ obra.longitud }}]</p>
             </div>
           </div>
         </div>

@@ -5,7 +5,8 @@ export interface Obra {
   porcentajeInversion?: number;
   descripcionTipoInversion?: string;
   fechaContratacion?: Date;
-  fechaEstimada?: Date;
+  fechaEstimadaInicio?: Date;
+  fechaEstimadaFin?: Date;
   latitud?: string;
   longitud?: string;
   idTipoObraSocial?: number;
@@ -44,6 +45,7 @@ export interface Obra {
   numeroContrato?: string;
   idSupervisor?: number;
   nombreSupervisor?: string;
+  nombreMunicipio?: string;
   avances?: any[];
   documentos?: any[];
   evidencias?: any[];
