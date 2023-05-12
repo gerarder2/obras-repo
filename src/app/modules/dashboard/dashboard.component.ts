@@ -859,7 +859,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     this.bsModalRef = this.bsModalService.show(ObrasModalComponent, {
       initialState,
-      class: 'modal-light modal-lg',
+      class: 'modal-light modal-fullscreen',
       backdrop: 'static',
       keyboard: true,
       ignoreBackdropClick: true
