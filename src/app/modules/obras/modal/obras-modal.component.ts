@@ -1,8 +1,39 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Mensaje } from '../../../models';
 import { ObrasService } from '../services/obras.service';
 import { Obra } from '../../dashboard/models/obra.interface';
+import {
+  ApexNonAxisChartSeries,
+  ApexChart,
+  ApexPlotOptions,
+  ChartComponent,
+  ApexStroke,
+  ApexAxisChartSeries,
+  ApexDataLabels,
+  ApexGrid,
+  ApexTitleSubtitle,
+  ApexXAxis
+} from 'ng-apexcharts';
+
+export type ChartOptionsRadial = {
+  colors: string[];
+  series?: ApexNonAxisChartSeries;
+  chart?: ApexChart;
+  labels?: string[];
+  plotOptions?: ApexPlotOptions;
+  stroke: ApexStroke;
+};
+
+export type ChartOptionsLine = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  grid: ApexGrid;
+  stroke: ApexStroke;
+  title: ApexTitleSubtitle;
+};
 
 @Component({
   selector: 'app-obras-modal',
@@ -10,6 +41,8 @@ import { Obra } from '../../dashboard/models/obra.interface';
   styleUrls: ['../obras.component.scss']
 })
 export class ObrasModalComponent implements OnInit {
+  @ViewChild('chart') chart: ChartComponent;
+
   // Variables Modal
   public cssClass: { color: string; type: string };
   public maximizado: boolean;
@@ -23,6 +56,11 @@ export class ObrasModalComponent implements OnInit {
   public obra: Obra;
   // end
 
+  //charts
+  public chartOptionsRadial: Partial<ChartOptionsRadial>;
+  public chartOptionsLine: Partial<ChartOptionsLine>;
+  public showGraficaPorcentaje: boolean;
+
   private mensaje: Mensaje;
 
   constructor(public bsModalRef: BsModalRef, private obrasService: ObrasService) {
@@ -30,6 +68,7 @@ export class ObrasModalComponent implements OnInit {
     this.eventos = [];
     this.value = 25;
     this.obra = {};
+    this.showGraficaPorcentaje = false;
   }
 
   // Angular metodos del ciclo de vida del componente
@@ -42,6 +81,7 @@ export class ObrasModalComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.obra = response.data;
+        this.generarGraficas();
       },
       error: (err: unknown) => {
         this.mensaje.showMessage(err);
@@ -49,6 +89,71 @@ export class ObrasModalComponent implements OnInit {
     });
   }
   // ------------------------------------------------- //
+
+  private generarGraficas() {
+    // Porcentaje Avance
+
+    const sum = this.obra.avances.reduce((accumulator, element) => {
+      return accumulator + element.porcentaje;
+    }, 0);
+
+    this.showGraficaPorcentaje = true;
+    this.chartOptionsRadial = {
+      colors: ['#ff0000'],
+      series: [Math.round(sum / 2)],
+      chart: {
+        height: 250,
+        type: 'radialBar'
+      },
+      plotOptions: {
+        radialBar: {
+          hollow: {
+            size: '50%'
+          }
+        }
+      },
+      stroke: {
+        lineCap: 'round'
+      },
+      labels: ['Avance']
+    };
+
+    // Line
+    this.chartOptionsLine = {
+      series: [
+        {
+          name: 'Desktops',
+          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+        }
+      ],
+      chart: {
+        height: 250,
+        type: 'line',
+        zoom: {
+          enabled: false
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: 'straight'
+      },
+      title: {
+        text: 'Product Trends by Month',
+        align: 'left'
+      },
+      grid: {
+        row: {
+          colors: ['#f3f3f3', 'transparent'],
+          opacity: 0.5
+        }
+      },
+      xaxis: {
+        categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep']
+      }
+    };
+  }
 
   // Cerrar el modal, ademas envia la informacion al componente list correspondiente. No modificar
   private closeModal(data: any) {

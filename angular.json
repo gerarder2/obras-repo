@@ -73,7 +73,8 @@
               "node_modules/moment/min/moment.min.js",
               "node_modules/fullcalendar/main.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
-              "node_modules/sweetalert2/dist/sweetalert2.js"
+              "node_modules/sweetalert2/dist/sweetalert2.js",
+              "node_modules/apexcharts/dist/apexcharts.min.js"
             ]
           },
           "configurations": {
@@ -167,7 +168,8 @@
               "node_modules/chart.js/dist/Chart.bundle.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
               "node_modules/sweetalert2/dist/sweetalert2.js",
-              "node_modules/prismjs/prism.js"
+              "node_modules/prismjs/prism.js",
+              "node_modules/apexcharts/dist/apexcharts.min.js"
             ]
           }
         },
