@@ -51,7 +51,8 @@
             <div class="col-12">
               <small>Periodo ejecución</small>
               <p>
-                {{ obra.fechaInicio | date: 'longDate':'':'es' }} - {{ obra.fechaEstimadaFin | date: 'longDate':'':'es' }}
+                {{ obra.fechaInicio | date: 'longDate':'':'es' }} -
+                {{ obra.fechaEstimadaFin | date: 'longDate':'':'es' }}
               </p>
             </div>
           </div>
@@ -123,7 +124,42 @@
       </div>
     </p-tabPanel>
     <p-tabPanel header="AVANCES">
-      <p-knob [(ngModel)]="value" valueColor="MediumTurquoise" rangeColor="SlateGray"></p-knob>
+      <!-- <p-knob [(ngModel)]="value" valueColor="MediumTurquoise" rangeColor="SlateGray"></p-knob> -->
+      <!--The content below is only a placeholder and can be replaced.-->
+
+      <ng-template pTemplate="content">
+        <div class="row">
+          <div class="col-4">
+            <ng-container *ngIf="showGraficaPorcentaje">
+              <div id="chart">
+                <apx-chart
+                  [series]="chartOptionsRadial.series"
+                  [chart]="chartOptionsRadial.chart"
+                  [plotOptions]="chartOptionsRadial.plotOptions"
+                  [labels]="chartOptionsRadial.labels"
+                  [colors]="chartOptionsRadial.colors"
+                  [stroke]="chartOptionsRadial.stroke"
+                ></apx-chart>
+              </div>
+            </ng-container>
+          </div>
+          <div class="col-4">
+            <ng-container *ngIf="showGraficaPorcentaje">
+              <div id="chart">
+                <apx-chart
+                  [series]="chartOptionsLine.series"
+                  [chart]="chartOptionsLine.chart"
+                  [xaxis]="chartOptionsLine.xaxis"
+                  [dataLabels]="chartOptionsLine.dataLabels"
+                  [grid]="chartOptionsLine.grid"
+                  [stroke]="chartOptionsLine.stroke"
+                  [title]="chartOptionsLine.title"
+                ></apx-chart>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-template>
     </p-tabPanel>
 
     <p-tabPanel header="LICITACIÓN">

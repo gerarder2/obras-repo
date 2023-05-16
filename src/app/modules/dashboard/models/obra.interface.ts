@@ -1,3 +1,6 @@
+import { Avance } from './avance.interface';
+import { Evidencia } from './evidencia.interface';
+
 export interface Obra {
   id?: number;
   objeto?: string;
@@ -46,7 +49,7 @@ export interface Obra {
   idSupervisor?: number;
   nombreSupervisor?: string;
   nombreMunicipio?: string;
-  avances?: any[];
+  avances?: Avance[];
   documentos?: any[];
-  evidencias?: any[];
+  evidencias?: Evidencia[];
 }

@@ -10,8 +10,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { TableModule } from 'primeng/table';
 import { DirectivesModule } from '../../directives/directives.module';
 import { TabViewModule } from 'primeng/tabview';
-import { KnobModule } from 'primeng/knob';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BlockUIModule } from 'ng-block-ui';
@@ -30,9 +30,9 @@ import { BlockUIModule } from 'ng-block-ui';
     DirectivesModule,
     ModalModule.forRoot(),
     TabViewModule,
-    KnobModule,
     SelectButtonModule,
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+    NgApexchartsModule
   ],
   exports: [ObrasModalComponent],
   providers: [{ provide: LOCALE_ID, useValue: 'en-US' }]
