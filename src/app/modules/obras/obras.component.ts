@@ -87,7 +87,7 @@ export class ObrasComponent implements OnInit {
       { id: 18, nombre: 'NAVOLATO', latitud: 24.65792, longitud: -107.53742 }
     ];
 
-    this.periodos = [];
+    this.periodos = this.config.periodos;
     this.tiposObras = [];
     this.tiposModalidad = [];
     this.organismos = [];
@@ -109,7 +109,6 @@ export class ObrasComponent implements OnInit {
         this.organismos = response[2].data;
         this.contratistas = response[3].data;
         this.tiposContrato = response[4].data;
-        this.periodos = this.config.periodos;
 
         this.tiposObras.unshift({ id: 0, descripcion: 'Todas' });
         this.tiposModalidad.unshift({ id: 0, descripcion: 'Todas' });
@@ -119,6 +118,7 @@ export class ObrasComponent implements OnInit {
       },
       error: (err: unknown) => {
         console.warn(err);
+        this.mensaje.showMessage(err);
       }
     });
   }
