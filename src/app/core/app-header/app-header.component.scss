@@ -6,18 +6,18 @@
     margin-right: 10px !important;
     .nav-link {
         line-height: 50px;
-        color: $gray-500;
+        color: $gray-300;
     }
     .nav-link:hover {
         line-height: 50px;
-        color: $gray-800;
+        color: $gray-100;
     }
 }
 .app-header.navbar .nav-item.active {
-    border-bottom: 3px solid $wine;
+    border-bottom: 3px solid $gold-800;
     
     .nav-link.active {
         font-weight: 500;
-        color: $wine;
+        color: $white;
     }
 }

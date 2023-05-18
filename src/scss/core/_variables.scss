@@ -39,9 +39,9 @@ $vimeo: #aad450 !default;
 
 $zindex-navbar: 1010 !default;
 $navbar-height: 55px !default;
-$navbar-bg: #fff !default;
+// $navbar-bg: #fff !default;
 // $navbar-bg:                           #438EB9 !default;
-// $navbar-bg:                           theme-color("primary") !default;
+$navbar-bg:                           theme-color("primary") !default;
 $navbar-border: (
   bottom: (
     size: 1px,
@@ -50,12 +50,14 @@ $navbar-border: (
       color: $border-color,
   ),
 ) !default;
-$navbar-brand-width: 220px !default;
-$navbar-brand-width: 155px !default;
-$navbar-brand-bg:                     #fff !default;
+// $navbar-brand-width: 220px !default;
+// $navbar-brand-width: 155px !default;
+$navbar-brand-width: 300px !default;
+
+$navbar-brand-bg:                     $wine !default;
 // $navbar-brand-bg:                     #438EB9 !default;
 // $navbar-brand-bg: theme-color('primary') !default;
-$navbar-brand-logo: url('./../../assets/img/logo-new.png') !default;
+$navbar-brand-logo: url('./../../assets/img/logo-new.svg') !default;
 //$navbar-brand-logo-size:              70px auto !default;
 $navbar-brand-logo-size: 200px auto !default;
 $navbar-brand-border: (

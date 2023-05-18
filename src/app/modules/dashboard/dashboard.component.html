@@ -24,7 +24,7 @@
         <div class="col-xs-10" *ngFor="let tipo of tiposObras">
           <p-inputSwitch
             [(ngModel)]="tipo.checked"
-            [class]="'custom-' + tipo.color"
+            [class]="'small-input-switch p-mr-2 custom-' + tipo.color"
             (onChange)="onChangeTipoObra(tipo)"
           ></p-inputSwitch>
           <label class="label-switch" for="switch1"
@@ -91,26 +91,26 @@
     id="map"
   ></div>
 </section>
-<section class="data-container container">
-  <div class="h2 data-title">Datos Abiertos</div>
+<section class="data-container ml-5 mr-5">
+  <div class="h4 data-title">DATOS ABIERTOS</div>
   <div class="datos-abiertos row">
     <div class="col-12">
       <div class="card-deck">
-        <div class="card bg-gray-200" *ngFor="let card of cards">
+        <div class="card shadow" *ngFor="let card of cards">
           <img src="{{ './assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="..." />
           <div class="card-body">
-            <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
-            <div class="text-center">
+            <div class="card-title cantidad h4 mb-0 text-center text-primary">{{ card.cantidad | number }}</div>
+            <div class=" card-text text-center">
               <small class="descripcion">{{ card.descripcion }}</small>
             </div>
           </div>
         </div>
-        <div class="card">
-          <img src="{{ './assets/img/arrow_sq.png' }}" class="card-img-top mx-auto" alt="..." />
+        <div class="card shadow">
+          <img src="{{ './assets/img/icono-vermas.svg' }}" class="card-img-top mx-auto" alt="..." />
           <div class="card-body">
             <a [routerLink]="['/datos-abiertos']" tooltip="Regresar" class="text-primary" href="#">
-              <div class="cantidad h4 mb-0 text-center">Ver Más</div>
-              <div class="text-center">
+              <div class="card-title cantidad h4 mb-0 text-center">Ver Más</div>
+              <div class="card-text text-center">
                 <small class="descripcion">&nbsp;</small>
               </div>
             </a>

@@ -157,9 +157,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     this.tiposObras = [];
     this.cards = [
-      { id: 1, cantidad: 1069, descripcion: 'TOTAL DE CONTRATOS', imagen: 'document_sq.png' },
-      { id: 2, cantidad: 18, descripcion: 'MUNICIPIOS BENEFICIADOS', imagen: 'sinaloa_map_sq.png' },
-      { id: 1, cantidad: 2929438639.42, descripcion: 'MONTO TOTAL EJERCIDO', imagen: 'dollar_sq.png' }
+      { id: 1, cantidad: 1069, descripcion: 'TOTAL DE CONTRATOS', imagen: 'contrato-icon.svg' },
+      { id: 2, cantidad: 18, descripcion: 'MUNICIPIOS BENEFICIADOS', imagen: 'municipios-icon.svg' },
+      { id: 3, cantidad: 2929438639.42, descripcion: 'MONTO TOTAL EJERCIDO', imagen: 'montototal-icon.svg' },
     ];
     this.estatusObras = [
       { id: 0, descripcion: 'TODAS' },

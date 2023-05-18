@@ -6,20 +6,18 @@
   <button class="navbar-toggler d-md-down-none" type="button" appSidebarToggler *ngIf="menuExist">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <ul class="nav navbar-nav d-md-down-none">
+  <ul class="nav navbar-nav ml-auto float-left">
     <li class="nav-item px-3" *ngFor="let link of links" [routerLinkActive]="'active'">
       <a class="nav-link" [routerLinkActive]="'active'"
       [routerLink]="[link.url]">{{link.name}}</a>
     </li>
     <li>
-      <div class="col-md-12">
         <div class="input-group">
-          <input type="text" id="input2-group1" name="input2-group1" placeholder="Buscar por licitacion, objeto o contrato" class="form-control">
+          <input style="width:275px" type="text" id="input2-group1" name="input2-group1" placeholder="Buscar por licitacion, objeto o contrato" class="form-control">
           <div class="input-group-append">
-            <span class="input-group-text"><i class="fas fa-search    "></i></span>
+            <span class="input-group-text bg-green"><i class="fas fa-search    "></i></span>
           </div>
         </div>
-      </div>
     </li>
   </ul>
 

@@ -1,17 +1,21 @@
 @import './../../../scss/bootstrap-variables';
 .container-header{
-  background: url('./../../../assets/img/Rectangulo_2783.png') no-repeat center;
   background-size: cover;
   height: 120px;
 
   .titulo-header {
     text-align: center;
-    background-color: rgba(0,0,0, 0.6);
+    background-color: $white;
     padding-top: 10px;
     padding-bottom: 1px;
+    color: $wine;
+
+    h4 {
+      font-weight: 600;
+    }
    
-    h6, h5, h4 {
-      color: $white;
+    h6, h5 {
+      color: $black;
       font-weight: 500;
     }
   }
@@ -20,8 +24,13 @@
 .desc-header {
   height: 80px;
   text-align: center;
-  background-color: rgba(168, 23, 54, 0.6);
+  background-color: $gold-800;
   padding-top: 3px;
+  padding-bottom: 1px;
+
+  h4 {
+    font-weight: 600;
+  }
 
   h6, h5, h4 {
     color: $white;
@@ -386,7 +395,7 @@
 }
 
 .card-img-top {
-  width: 100px;
+  max-height: 100px;
   margin-top: 15px;
   // height: 10vw;
   // object-fit: cover;
@@ -401,5 +410,34 @@
 }
 
 .data-container {
-  height: 350px;
+  height: 325px;
+  .data-title {
+    color: $wine;
+    h4 {
+      font-weight: 600;
+    }
+  }
+}
+
+.small-input-switch {
+
+  ::ng-deep .p-inputswitch {
+    height: 1.2rem;
+    width: 2.4rem;
+    &.p-inputswitch-checked {
+        .p-inputswitch-slider::before {
+            transform: translateX(1rem);
+        }
+    }
+
+    ::ng-deep .p-inputswitch-slider::before {
+        width: 0.9rem;
+        height: 0.9rem;
+        margin-top: -0.45rem;
+    }
+  }
+}
+
+.card.shadow{
+  box-shadow: 0px 23px 44px rgba(176,183,195,0.14);
 }
