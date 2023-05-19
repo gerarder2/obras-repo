@@ -145,3 +145,7 @@ $blue-secondary-border: #bfe3fc;
 .text-white {
   color: $white;
 }
+
+.card.shadow{
+  box-shadow: 0px 23px 44px rgba(176,183,195,0.14);
+}

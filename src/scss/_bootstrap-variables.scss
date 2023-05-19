@@ -83,7 +83,9 @@ $theme-colors: (
   blue: $blue,
   gold-100: $gold-100,
   gold-500: $gold-500,
-  wine-100: $wine-100
+  wine-100: $wine-100,
+  wine: $wine,
+  gold: $gold-800
 );
 
 // Options
@@ -93,6 +95,7 @@ $theme-colors: (
 $enable-transitions: true;
 $enable-rounded: true;
 $enable-flex: true;
+$border-radius: 5px;
 // Body
 //
 // Settings for the `<body>` element.

@@ -36,6 +36,10 @@ export class ObrasComponent implements OnInit {
   public tiposContrato: any[];
   public organismos: any[];
 
+  public montoTotalEjercido: number;
+  public totalContratos: number;
+  public montoMaximoContratos: number;
+
   // Variables Mensajes y Modal
   private mensaje: Mensaje;
   private bsModalRef: BsModalRef;
@@ -53,6 +57,7 @@ export class ObrasComponent implements OnInit {
     this.config = this.configService.getConfig();
     this.collapsed = false;
     this.mensaje = new Mensaje();
+
     this.cardObras = [
       { id: 1, cantidad: 0, descripcion: 'TOTAL DE CONTRATOS', color: 'gold-500' },
       { id: 2, cantidad: 0, descripcion: 'MONTO TOTAL EJERCIDO (MXN)', color: 'wine-100' },
@@ -147,9 +152,9 @@ export class ObrasComponent implements OnInit {
         const sum = this.obrasTabla.reduce((accumulator, element) => {
           return accumulator + element.montoInversion;
         }, 0);
-        this.cardObras[0].cantidad = this.obrasTabla.length;
-        this.cardObras[1].cantidad = sum;
-        this.cardObras[2].canstidad = sum;
+        this.totalContratos = this.obrasTabla.length;
+        this.montoTotalEjercido = sum;
+        this.montoMaximoContratos = sum;
         this.blockUIList.stop();
       },
       error: (err: unknown) => {
