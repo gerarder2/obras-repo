@@ -113,6 +113,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ) {
     const config = this.configService.getConfig();
     this.periodos = config.periodos;
+    this.periodo = 'Todos';
 
     this.LeafIcon = L.Icon.extend({
       options: {
@@ -212,10 +213,24 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.catalogosService.getMapaObras(payload).subscribe({
       next: (response) => {
         this.puntosMapa = response;
-        const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, this.puntosMapa.data);
-        this.tiposObras = conteo;
+        const info = {
+          tiposObras: this.tiposObras,
+          puntosMapa: this.puntosMapa,
+          idMunicipio: this.municipioSeleccionado.id,
+          estatus: this.estatusObrasSeleccionado.descripcion
+        };
+        const newPuntosMapa = this.helperService.filtrarData(info);
 
-        this.mostrarPuntosObra(this.puntosMapa);
+        if (newPuntosMapa.data.length > 0) {
+          const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
+          this.tiposObras = conteo;
+          this.mostrarPuntosObra(newPuntosMapa);
+        } else {
+          if (this.obrasMarksLayer) {
+            this.map.removeLayer(this.obrasMarksLayer);
+          }
+          this.mensaje.messageWarning('Filtro sin resultados');
+        }
       },
       error: (err: unknown) => {
         console.warn(err);
@@ -272,7 +287,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.filtrarLocal();
       }
     } else {
-      this.filtrarLocal();
+      if (this.periodoSeleccionado.descripcion === 'Todos') {
+        if (this.periodo !== this.periodoSeleccionado.descripcion) {
+          this.periodo = this.periodoSeleccionado.descripcion;
+          this.loadPuntosObra();
+        } else {
+          this.filtrarLocal();
+        }
+      } else {
+        this.filtrarLocal();
+      }
     }
   }
 
