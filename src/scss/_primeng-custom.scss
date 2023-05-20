@@ -1,6 +1,16 @@
 .p-component {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Kumbh Sans', sans-serif !important;
 }
+
+.p-dropdown-item{
+  font-size: 0.8rem !important;
+}
+
+.p-dropdown-label.p-inputtext {
+  font-family: 'Kumbh Sans', sans-serif !important;
+  font-size: 0.8rem !important;
+}
+
 .p-datatable .p-sortable-column.p-highlight {
   color: $blue;
 }

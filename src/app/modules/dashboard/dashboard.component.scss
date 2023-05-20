@@ -95,7 +95,9 @@
   .map-sidebar-body{
     ::ng-deep .p-dropdown {
       width: 100%;
+      font-size: 0.8rem;
     }
+
   }
 
   .map-sidebar-toggle {
@@ -115,17 +117,17 @@
   } 
   .map-sidebar {
     background: #fff;
-    height: 97%;    
+    min-height: 100px;    
     position: absolute;
-    left: -400px;
     top: 15px;
-    width: 410px;
+    width: 350px;
     transition: left 0.3s ease-in-out;
     z-index: 1000;
     padding: 15px;
     overflow-x: hidden;
     overflow-y: auto;
     border-radius: 15px;
+    font-size: 0.8rem;
   }
 
   .map-sidebar-header {

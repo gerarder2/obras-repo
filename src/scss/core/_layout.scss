@@ -314,7 +314,6 @@ app-root {
 //
 // Mobile layout
 //
-
 @include media-breakpoint-down(md) {
   // .app-header.navbar {
   //   position: fixed !important;
@@ -339,8 +338,9 @@ app-root {
   //   }
   // }
 
-  .app-body {
-    margin-top: $navbar-height;
+  .header-fixed .app-body {
+    // margin-top: $navbar-height;
+    margin-top: 110px;
   }
 
   .breadcrumb-fixed {

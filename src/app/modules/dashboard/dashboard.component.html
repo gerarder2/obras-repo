@@ -36,6 +36,7 @@
       <section>
         <div class="form-group">
           <p-dropdown
+            class="p-inputtext-sm"
             (onChange)="filtrar()"
             appendTo="body"
             [options]="municipios"
@@ -50,6 +51,7 @@
       <section class="drop-years">
         <div class="form-group">
           <p-dropdown
+            class="p-inputtext-sm"
             (onChange)="filtrar()"
             appendTo="body"
             [options]="periodos"
@@ -64,6 +66,7 @@
       <section class="estatus-obras">
         <div class="form-group">
           <p-dropdown
+            class="p-inputtext-sm"
             (onChange)="filtrar()"
             appendTo="body"
             [options]="estatusObras"
@@ -100,7 +103,7 @@
           <img src="{{ './assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="..." />
           <div class="card-body">
             <div class="card-title cantidad h4 mb-0 text-center text-primary">{{ card.cantidad | number }}</div>
-            <div class=" card-text text-center">
+            <div class="card-text text-center">
               <small class="descripcion">{{ card.descripcion }}</small>
             </div>
           </div>
