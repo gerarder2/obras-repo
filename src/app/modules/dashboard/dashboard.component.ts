@@ -29,6 +29,7 @@ import { Seccion } from './models/seccion.interface';
 import { TipoObra } from './models/tipoobra.interface';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ObrasModalComponent } from '../obras/modal/obras-modal.component';
+import { Totales } from './models/totales.interface';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -97,6 +98,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   estatusObrasSeleccionado: any;
 
   puntosMapa: any;
+  totales: Totales;
+  montoInversion: number;
 
   constructor(
     private router: Router,
@@ -112,6 +115,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private bsModalService: BsModalService
   ) {
     const config = this.configService.getConfig();
+    this.montoInversion = 0;
     this.periodos = config.periodos;
     this.periodo = 'Todos';
 
@@ -324,7 +328,30 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   loadTotales() {
     this.catalogosService.getObrasTotales({ ejercicio: 0 }).subscribe({
-      next: (response) => {},
+      next: (response: any) => {
+        this.totales = response.data[0];
+        this.montoInversion = this.totales.totalMontoInversion;
+        this.cards = [
+          {
+            id: 1,
+            cantidad: this.totales.totalNumeroContratos,
+            descripcion: 'TOTAL DE CONTRATOS',
+            imagen: 'contrato-icon.svg'
+          },
+          {
+            id: 2,
+            cantidad: this.totales.totalMuncipiosBeneficiados,
+            descripcion: 'MUNICIPIOS BENEFICIADOS',
+            imagen: 'municipios-icon.svg'
+          },
+          {
+            id: 3,
+            cantidad: this.totales.totalMontoInversion,
+            descripcion: 'MONTO TOTAL EJERCIDO',
+            imagen: 'montototal-icon.svg'
+          }
+        ];
+      },
       error: (err: unknown) => {
         console.warn(err);
         this.mensaje.showMessage(err);
