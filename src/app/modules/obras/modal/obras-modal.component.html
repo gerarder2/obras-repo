@@ -264,7 +264,9 @@
     <p-tabPanel header="EVIDENCIA DOCUMENTADA">
       <ng-template pTemplate="content">
         <div class="row">
-          <div class="col-12 text-center"><p class="h4 mb-5">En esta sección se encuentra toda la documentación del contrato</p></div>
+          <div class="col-12 text-center">
+            <p class="h4 mb-5">En esta sección se encuentra toda la documentación del contrato</p>
+          </div>
         </div>
         <div class="row">
           <div class="col-12">
@@ -273,21 +275,21 @@
                 <div class="card-body">
                   <h5 class="card-title">CONTRATO</h5>
                   <p class="card-text">&nbsp;</p>
-                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download    "></i> Descargar</a>
+                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download"></i> Descargar</a>
                 </div>
               </div>
               <div class="card shadow text-center">
                 <div class="card-body">
                   <h5 class="card-title">FALLO</h5>
                   <p class="card-text">&nbsp;</p>
-                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download    "></i> Descargar</a>
+                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download"></i> Descargar</a>
                 </div>
               </div>
               <div class="card shadow text-center">
                 <div class="card-body">
                   <h5 class="card-title">TODOS LOS ARCHIVOS</h5>
                   <p class="card-text">&nbsp;</p>
-                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download    "></i> Descargar</a>
+                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download"></i> Descargar</a>
                 </div>
               </div>
             </div>
@@ -295,6 +297,51 @@
         </div>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel header="EVIDENCIA FOTOGRAFICA"> </p-tabPanel>
+    <p-tabPanel header="EVIDENCIA FOTOGRAFICA">
+      <ng-template pTemplate="content">
+        <div class="row" *ngIf="!showCarousel">
+          <div class="col-12">
+            <div class="card-deck">
+              <div class="card shadow" *ngFor="let item of obra.evidencias">
+                <div class="card-body">
+                  <h5 class="card-title">{{ item.descripcion }}</h5>
+                  <p class="card-text">&nbsp;</p>
+                  <ng-container *ngFor="let img of item.imagenes let index = index">
+                    <a href="#" style="text-decoration: none" (click)="onImageSelected(item, index); $event.preventDefault()">
+                      <img src="{{ img.rutaPublica + img.nombre }}" class="img-thumbnail img-64" alt="..." />
+                    </a>
+                  </ng-container>
+                  <p class="card-text"><small class="text-muted">Click en la imagen para mas información</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="12" *ngIf="showCarousel">
+            <div class="card shadow">
+              <div class="card-body">
+                <div class="card-title mb-5">
+                  <button type="button" class="close" (click)="showCarousel = false">
+                    <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                  </button>
+                </div>
+                <carousel
+                [activeSlide]="imageIndex"
+                >
+                  <slide *ngFor="let slide of evidencia.imagenes; let index = index">
+                    <img class="carousel" src="{{ slide.rutaPublica + slide.nombre }}" alt="image slide" />
+                    <div class="carousel-caption">
+                      <h4>Evidencia {{ index }}</h4>
+                      <p>{{ evidencia.descripcion }}</p>
+                    </div>
+                  </slide>
+                </carousel>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-tabPanel>
   </p-tabView>
 </div>

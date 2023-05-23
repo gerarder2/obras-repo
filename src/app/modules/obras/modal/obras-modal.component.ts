@@ -18,6 +18,7 @@ import {
   ApexMarkers,
   ApexResponsive
 } from 'ng-apexcharts';
+import { Evidencia } from '../../dashboard/models/evidencia.interface';
 
 export type ChartOptionsRadial = {
   colors: string[];
@@ -67,6 +68,7 @@ export class ObrasModalComponent implements OnInit {
   public eventos: any[];
   public value: number;
   public obra: Obra;
+  public evidencia: Evidencia;
   // end
 
   //charts
@@ -74,6 +76,10 @@ export class ObrasModalComponent implements OnInit {
   public chartOptionsLine: Partial<ChartOptionsLine>;
   public showGraficaPorcentaje: boolean;
   public chartOptionsPie: Partial<ChartOptionsPie>;
+
+  //Layout
+  public showCarousel: boolean;
+  public imageIndex: number;
 
   private mensaje: Mensaje;
   private graphicPalette: string[];
@@ -85,6 +91,8 @@ export class ObrasModalComponent implements OnInit {
     this.value = 25;
     this.obra = {};
     this.showGraficaPorcentaje = false;
+    this.showCarousel = false;
+    this.imageIndex = 0;
   }
 
   // Angular metodos del ciclo de vida del componente
@@ -104,6 +112,12 @@ export class ObrasModalComponent implements OnInit {
       }
     });
   }
+
+  public onImageSelected(evidencia: Evidencia, index) {
+    this.evidencia = evidencia;
+    this.showCarousel = true;
+    this.imageIndex = index;
+  }
   // ------------------------------------------------- //
 
   private generarGraficas() {
@@ -122,7 +136,7 @@ export class ObrasModalComponent implements OnInit {
     this.showGraficaPorcentaje = true;
     this.chartOptionsRadial = {
       colors: this.graphicPalette,
-      series: [porcentaje < 100 ? Math.round(porcentaje / 2) : porcentaje],
+      series: [this.obra.avances.length > 1 ? Math.round(porcentaje / 2) : porcentaje],
       chart: {
         height: 200,
         type: 'radialBar'

@@ -1,6 +1,14 @@
 // scss-lint:disable all
 // Core Admin Variables
 
+//BreakPoints
+$breakpoint-xs: 320px;
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-rg: 940px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
 $enable-sidebar-nav-rounded: false !default;
 
 $border-color: $gray-200 !default;

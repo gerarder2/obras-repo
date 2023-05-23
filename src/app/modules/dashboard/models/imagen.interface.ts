@@ -1,5 +1,6 @@
 export interface Imagen {
-  id: number;
-  nombre: string;
-  idEvidencia: number;
+  id?: number;
+  nombre?: string;
+  idEvidencia?: number;
+  rutaPublica?: string;
 }
