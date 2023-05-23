@@ -1,3 +1,4 @@
+import { LegendPosition } from '@swimlane/ngx-charts';
 import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Mensaje } from '../../../models';
@@ -13,7 +14,9 @@ import {
   ApexDataLabels,
   ApexGrid,
   ApexTitleSubtitle,
-  ApexXAxis
+  ApexXAxis,
+  ApexMarkers,
+  ApexResponsive
 } from 'ng-apexcharts';
 
 export type ChartOptionsRadial = {
@@ -26,6 +29,7 @@ export type ChartOptionsRadial = {
 };
 
 export type ChartOptionsLine = {
+  colors: string[];
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
@@ -33,6 +37,15 @@ export type ChartOptionsLine = {
   grid: ApexGrid;
   stroke: ApexStroke;
   title: ApexTitleSubtitle;
+  markers: ApexMarkers;
+};
+
+export type ChartOptionsPie = {
+  colors: string[];
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
 };
 
 @Component({
@@ -60,10 +73,13 @@ export class ObrasModalComponent implements OnInit {
   public chartOptionsRadial: Partial<ChartOptionsRadial>;
   public chartOptionsLine: Partial<ChartOptionsLine>;
   public showGraficaPorcentaje: boolean;
+  public chartOptionsPie: Partial<ChartOptionsPie>;
 
   private mensaje: Mensaje;
+  private graphicPalette: string[];
 
   constructor(public bsModalRef: BsModalRef, private obrasService: ObrasService) {
+    this.graphicPalette = ['#952431', '#B18147', '#3D5C4F', '#6610f2'];
     this.mensaje = new Mensaje();
     this.eventos = [];
     this.value = 25;
@@ -99,16 +115,19 @@ export class ObrasModalComponent implements OnInit {
 
     this.showGraficaPorcentaje = true;
     this.chartOptionsRadial = {
-      colors: ['#ff0000'],
+      colors: this.graphicPalette,
       series: [Math.round(sum / 2)],
       chart: {
-        height: 250,
+        height: 200,
         type: 'radialBar'
       },
       plotOptions: {
         radialBar: {
           hollow: {
-            size: '50%'
+            size: '70%'
+          },
+          track: {
+            background: '#e4e4e4'
           }
         }
       },
@@ -120,6 +139,7 @@ export class ObrasModalComponent implements OnInit {
 
     // Line
     this.chartOptionsLine = {
+      colors: this.graphicPalette,
       series: [
         {
           name: 'Desktops',
@@ -137,7 +157,9 @@ export class ObrasModalComponent implements OnInit {
         enabled: false
       },
       stroke: {
-        curve: 'straight'
+        curve: 'smooth',
+        width: 2
+        // colors: ['#ff0000']
       },
       title: {
         text: 'Product Trends by Month',
@@ -145,13 +167,42 @@ export class ObrasModalComponent implements OnInit {
       },
       grid: {
         row: {
-          colors: ['#f3f3f3', 'transparent'],
+          colors: ['#d3d3d3', 'transparent'],
           opacity: 0.5
         }
+      },
+      markers: {
+        colors: this.graphicPalette,
+        size: [5]
       },
       xaxis: {
         categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep']
       }
+    };
+
+    //Pie
+    this.chartOptionsPie = {
+      colors: this.graphicPalette,
+      series: [44, 55],
+      chart: {
+        width: 250,
+        type: 'pie'
+      },
+      labels: ['Team A', 'Team B'],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom',
+              show: false
+            }
+          }
+        }
+      ]
     };
   }
 

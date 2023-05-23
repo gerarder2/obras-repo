@@ -30,9 +30,15 @@
   <p-tabView>
     <p-tabPanel header="DATOS GENERALES">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-6">
           <small>Objeto</small>
           <p>{{ obra.objeto }}</p>
+          <div class="row">
+            <div class="col-12">
+              <small>Geolocalizacion</small>
+              <p>[{{ obra.latitud }},{{ obra.longitud }}]</p>
+            </div>
+          </div>
         </div>
         <div class="col-md-3">
           <div class="row">
@@ -68,14 +74,14 @@
               <p>{{ obra.nombreSupervisor }}</p>
             </div>
           </div>
-        </div>
-        <div class="col-md-3">
           <div class="row">
             <div class="col-12">
               <small>Contratista</small>
               <p>{{ obra.descripcionContratista }}</p>
             </div>
           </div>
+        </div>
+        <div class="col-md-3">
           <div class="row">
             <div class="col-12">
               <small>Tipo Modalidad</small>
@@ -94,8 +100,6 @@
               <p>{{ obra.nombreMunicipio }}</p>
             </div>
           </div>
-        </div>
-        <div class="col-md-3">
           <div class="row">
             <div class="col-12">
               <small>Tipo contrato</small>
@@ -114,12 +118,6 @@
               <p>{{ obra.descripcionDependencia }}</p>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <small>Geolocalizacion</small>
-              <p>[{{ obra.latitud }},{{ obra.longitud }}]</p>
-            </div>
-          </div>
         </div>
       </div>
     </p-tabPanel>
@@ -129,34 +127,81 @@
 
       <ng-template pTemplate="content">
         <div class="row">
-          <div class="col-4">
-            <ng-container *ngIf="showGraficaPorcentaje">
-              <div id="chart">
-                <apx-chart
-                  [series]="chartOptionsRadial.series"
-                  [chart]="chartOptionsRadial.chart"
-                  [plotOptions]="chartOptionsRadial.plotOptions"
-                  [labels]="chartOptionsRadial.labels"
-                  [colors]="chartOptionsRadial.colors"
-                  [stroke]="chartOptionsRadial.stroke"
-                ></apx-chart>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <div class="card bg-gray-50">
+                  <div class="card-body p-0 clearfix">
+                    <i class="fas fa-hand-holding-dollar bg-green p-4 font-5xl mr-3 float-left"></i>
+                    <div class="pt-4 text-muted text-uppercase font-weight-bold font-xs">
+                      MONTO TOTAL EJERCIDO (MXN)
+                    </div>
+                    <div class="h3 text-primary mb-0"><strong>$1.999,50</strong></div>
+                  </div>
+                </div>
               </div>
-            </ng-container>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <ng-container *ngIf="showGraficaPorcentaje">
+                  <div class="card bg-gray-50">
+                    <div class="card-body">
+                      <div id="chart">
+                        <apx-chart
+                          [series]="chartOptionsLine.series"
+                          [chart]="chartOptionsLine.chart"
+                          [xaxis]="chartOptionsLine.xaxis"
+                          [dataLabels]="chartOptionsLine.dataLabels"
+                          [grid]="chartOptionsLine.grid"
+                          [stroke]="chartOptionsLine.stroke"
+                          [colors]="chartOptionsLine.colors"
+                          [markers]="chartOptionsLine.markers"
+                        ></apx-chart>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
           </div>
-          <div class="col-4">
-            <ng-container *ngIf="showGraficaPorcentaje">
-              <div id="chart">
-                <apx-chart
-                  [series]="chartOptionsLine.series"
-                  [chart]="chartOptionsLine.chart"
-                  [xaxis]="chartOptionsLine.xaxis"
-                  [dataLabels]="chartOptionsLine.dataLabels"
-                  [grid]="chartOptionsLine.grid"
-                  [stroke]="chartOptionsLine.stroke"
-                  [title]="chartOptionsLine.title"
-                ></apx-chart>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <ng-container *ngIf="showGraficaPorcentaje">
+                  <div class="card bg-gray-100">
+                    <div class="card-body">
+                      <div id="chart">
+                        <apx-chart
+                          [series]="chartOptionsRadial.series"
+                          [chart]="chartOptionsRadial.chart"
+                          [plotOptions]="chartOptionsRadial.plotOptions"
+                          [labels]="chartOptionsRadial.labels"
+                          [colors]="chartOptionsRadial.colors"
+                          [stroke]="chartOptionsRadial.stroke"
+                        ></apx-chart>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
               </div>
-            </ng-container>
+              <div class="col-12">
+                <ng-container *ngIf="showGraficaPorcentaje">
+                  <div class="card bg-gray-100">
+                    <div class="card-body">
+                      <div id="chart">
+                        <apx-chart
+                          [series]="chartOptionsPie.series"
+                          [chart]="chartOptionsPie.chart"
+                          [labels]="chartOptionsPie.labels"
+                          [responsive]="chartOptionsPie.responsive"
+                          [colors]="chartOptionsPie.colors"
+                        ></apx-chart>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
           </div>
         </div>
       </ng-template>

@@ -153,3 +153,16 @@ p-table ::ng-deep .p-datatable .p-sortable-column:hover .p-sortable-column-icon 
   text-align: center;
 }
 
+
+.modal-header {
+  .container.no-cursor {
+    p {
+      font-weight: 800;
+    }
+  }
+}
+
+p-tabview ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-color: $wine !important;
+  color: $wine !important;
+}

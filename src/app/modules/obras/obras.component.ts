@@ -194,7 +194,7 @@ export class ObrasComponent implements OnInit {
 
     this.bsModalRef = this.bsModalService.show(ObrasModalComponent, {
       initialState,
-      class: 'modal-gold-100 modal-fullscreen',
+      class: 'modal-gold modal-fullscreen',
       backdrop: 'static',
       keyboard: true,
       ignoreBackdropClick: true

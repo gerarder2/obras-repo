@@ -383,7 +383,7 @@ export class HelperService {
           break;
         case 4:
           item.icon = 'fas fa-hand-holding-droplet';
-          item.color = 'gold';
+          item.color = 'gold-800';
           break;
       }
     }
