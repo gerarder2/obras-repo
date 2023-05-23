@@ -127,16 +127,18 @@
 
       <ng-template pTemplate="content">
         <div class="row">
-          <div class="col-6">
+          <div class="col-12 col-md-6">
             <div class="row">
               <div class="col-12">
-                <div class="card bg-gray-50">
+                <div class="card shadow">
                   <div class="card-body p-0 clearfix">
                     <i class="fas fa-hand-holding-dollar bg-green p-4 font-5xl mr-3 float-left"></i>
                     <div class="pt-4 text-muted text-uppercase font-weight-bold font-xs">
                       MONTO TOTAL EJERCIDO (MXN)
                     </div>
-                    <div class="h3 text-primary mb-0"><strong>$1.999,50</strong></div>
+                    <div class="h3 text-primary mb-0">
+                      <strong>{{ this.obra.montoInversion | currency }}</strong>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -144,7 +146,7 @@
             <div class="row">
               <div class="col-12">
                 <ng-container *ngIf="showGraficaPorcentaje">
-                  <div class="card bg-gray-50">
+                  <div class="card shadow">
                     <div class="card-body">
                       <div id="chart">
                         <apx-chart
@@ -164,11 +166,11 @@
               </div>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-12 col-md-6">
             <div class="row">
               <div class="col-12">
                 <ng-container *ngIf="showGraficaPorcentaje">
-                  <div class="card bg-gray-100">
+                  <div class="card shadow">
                     <div class="card-body">
                       <div id="chart">
                         <apx-chart
@@ -186,7 +188,7 @@
               </div>
               <div class="col-12">
                 <ng-container *ngIf="showGraficaPorcentaje">
-                  <div class="card bg-gray-100">
+                  <div class="card shadow">
                     <div class="card-body">
                       <div id="chart">
                         <apx-chart
@@ -259,7 +261,40 @@
         </div>
       </div>
     </p-tabPanel>
-    <p-tabPanel header="EVIDENCIA DOCUMENTADA"> </p-tabPanel>
+    <p-tabPanel header="EVIDENCIA DOCUMENTADA">
+      <ng-template pTemplate="content">
+        <div class="row">
+          <div class="col-12 text-center"><p class="h4 mb-5">En esta sección se encuentra toda la documentación del contrato</p></div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card-group">
+              <div class="card shadow text-center">
+                <div class="card-body">
+                  <h5 class="card-title">CONTRATO</h5>
+                  <p class="card-text">&nbsp;</p>
+                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download    "></i> Descargar</a>
+                </div>
+              </div>
+              <div class="card shadow text-center">
+                <div class="card-body">
+                  <h5 class="card-title">FALLO</h5>
+                  <p class="card-text">&nbsp;</p>
+                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download    "></i> Descargar</a>
+                </div>
+              </div>
+              <div class="card shadow text-center">
+                <div class="card-body">
+                  <h5 class="card-title">TODOS LOS ARCHIVOS</h5>
+                  <p class="card-text">&nbsp;</p>
+                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download    "></i> Descargar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-tabPanel>
     <p-tabPanel header="EVIDENCIA FOTOGRAFICA"> </p-tabPanel>
   </p-tabView>
 </div>

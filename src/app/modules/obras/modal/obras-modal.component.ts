@@ -108,15 +108,21 @@ export class ObrasModalComponent implements OnInit {
 
   private generarGraficas() {
     // Porcentaje Avance
-
-    const sum = this.obra.avances.reduce((accumulator, element) => {
+    const seriesPie = [];
+    const seriesPieLabel = [];
+    const porcentaje = this.obra.avances.reduce((accumulator, element) => {
       return accumulator + element.porcentaje;
     }, 0);
+
+    this.obra.avances.forEach((element) => {
+      seriesPie.push(element.porcentaje);
+      seriesPieLabel.push(element.id);
+    });
 
     this.showGraficaPorcentaje = true;
     this.chartOptionsRadial = {
       colors: this.graphicPalette,
-      series: [Math.round(sum / 2)],
+      series: [porcentaje < 100 ? Math.round(porcentaje / 2) : porcentaje],
       chart: {
         height: 200,
         type: 'radialBar'
@@ -183,12 +189,12 @@ export class ObrasModalComponent implements OnInit {
     //Pie
     this.chartOptionsPie = {
       colors: this.graphicPalette,
-      series: [44, 55],
+      series: seriesPie,
       chart: {
-        width: 250,
+        width: 300,
         type: 'pie'
       },
-      labels: ['Team A', 'Team B'],
+      labels: seriesPieLabel,
       responsive: [
         {
           breakpoint: 480,
