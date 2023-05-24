@@ -58,16 +58,16 @@ html {
 .modal-fullscreen.modal-dialog {
   width: 90%;
   max-width: none;
-  height: 100%;
   margin: 1.75rem auto;
+  overflow-y: initial !important
 }
-.modal-fullscreen.modal-content {
-  height: 100%;
-  border: 0;
-  border-radius: 0;
+.modal-fullscreen .modal-content {
+  height: 92vh !important;
+  // overflow: hidden;
+  .modal-body{
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
 }
-.modal-fullscreen.modal-body {
-  overflow-y: auto;
 }
 
 img.img-thumbnail.img-64 {

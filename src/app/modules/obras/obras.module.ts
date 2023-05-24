@@ -13,6 +13,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { GalleriaModule } from 'primeng/galleria';
 
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BlockUIModule } from 'ng-block-ui';
@@ -34,7 +35,8 @@ import { BlockUIModule } from 'ng-block-ui';
     SelectButtonModule,
     BlockUIModule.forRoot(),
     NgApexchartsModule,
-    CarouselModule.forRoot()
+    CarouselModule.forRoot(),
+    GalleriaModule
   ],
   exports: [ObrasModalComponent],
   providers: [{ provide: LOCALE_ID, useValue: 'en-US' }]

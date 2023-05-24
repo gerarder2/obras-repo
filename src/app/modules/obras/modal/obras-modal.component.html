@@ -306,8 +306,12 @@
                 <div class="card-body">
                   <h5 class="card-title">{{ item.descripcion }}</h5>
                   <p class="card-text">&nbsp;</p>
-                  <ng-container *ngFor="let img of item.imagenes let index = index">
-                    <a href="#" style="text-decoration: none" (click)="onImageSelected(item, index); $event.preventDefault()">
+                  <ng-container *ngFor="let img of item.imagenes; let index = index">
+                    <a
+                      href="#"
+                      style="text-decoration: none"
+                      (click)="onImageSelected(item, index); $event.preventDefault()"
+                    >
                       <img src="{{ img.rutaPublica + img.nombre }}" class="img-thumbnail img-64" alt="..." />
                     </a>
                   </ng-container>
@@ -318,7 +322,29 @@
           </div>
         </div>
         <div class="row justify-content-center">
-          <div class="12" *ngIf="showCarousel">
+          <p-galleria
+            [value]="images"
+            [(visible)]="displayCustom"
+            [(activeIndex)]="activeIndex"
+            [responsiveOptions]="responsiveOptions"
+            [containerStyle]="{ 'max-width': '850px'}"
+            [numVisible]="7"
+            [circular]="true"
+            [fullScreen]="true"
+            [showItemNavigators]="true"
+            [showThumbnails]="false"
+            [baseZIndex]="100000"
+          >
+            <ng-template pTemplate="item" let-item>
+              <img [src]="item.previewImageSrc" style=" max-height: calc(100vh - 50px); width: auto; display: block" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+              <div class="grid grid-nogutter justify-content-center">
+                <img [src]="item.thumbnailImageSrc" style="display: block" />
+              </div>
+            </ng-template>
+          </p-galleria>
+          <!-- <div class="12" *ngIf="showCarousel">
             <div class="card shadow">
               <div class="card-body">
                 <div class="card-title mb-5">
@@ -339,7 +365,7 @@
                 </carousel>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </ng-template>
     </p-tabPanel>

@@ -1,4 +1,3 @@
-import { LegendPosition } from '@swimlane/ngx-charts';
 import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Mensaje } from '../../../models';
@@ -19,6 +18,7 @@ import {
   ApexResponsive
 } from 'ng-apexcharts';
 import { Evidencia } from '../../dashboard/models/evidencia.interface';
+import { Imagen } from '../../dashboard/models/imagen.interface';
 
 export type ChartOptionsRadial = {
   colors: string[];
@@ -66,7 +66,6 @@ export class ObrasModalComponent implements OnInit {
   public modalExtraOptions: any;
   public titlePage = 'asdf';
   public eventos: any[];
-  public value: number;
   public obra: Obra;
   public evidencia: Evidencia;
   // end
@@ -81,6 +80,12 @@ export class ObrasModalComponent implements OnInit {
   public showCarousel: boolean;
   public imageIndex: number;
 
+  //Gallery
+  public responsiveOptions: any[];
+  public displayCustom: boolean;
+  public activeIndex: number;
+  public images: any[];
+
   private mensaje: Mensaje;
   private graphicPalette: string[];
 
@@ -88,11 +93,28 @@ export class ObrasModalComponent implements OnInit {
     this.graphicPalette = ['#952431', '#B18147', '#3D5C4F', '#6610f2'];
     this.mensaje = new Mensaje();
     this.eventos = [];
-    this.value = 25;
     this.obra = {};
     this.showGraficaPorcentaje = false;
     this.showCarousel = false;
     this.imageIndex = 0;
+    this.activeIndex = 0;
+    this.displayCustom = false;
+    this.images = [];
+
+    this.responsiveOptions = [
+      {
+        breakpoint: '1024px',
+        numVisible: 5
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 3
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1
+      }
+    ];
   }
 
   // Angular metodos del ciclo de vida del componente
@@ -115,10 +137,26 @@ export class ObrasModalComponent implements OnInit {
 
   public onImageSelected(evidencia: Evidencia, index) {
     this.evidencia = evidencia;
-    this.showCarousel = true;
+    this.images = this.formatImages(evidencia.imagenes);
+    // this.showCarousel = true;
     this.imageIndex = index;
+    this.activeIndex = index;
+    this.displayCustom = true;
   }
   // ------------------------------------------------- //
+
+  private formatImages(images: Imagen[]) {
+    const imgs = [];
+    images.forEach((element, index) => {
+      imgs.push({
+        previewImageSrc: `${element.rutaPublica}${element.nombre}`,
+        thumbnailImageSrc: `${element.rutaPublica}${element.nombre}`,
+        alt: '',
+        title: `Imagen - ${index + 1}`
+      });
+    });
+    return imgs;
+  }
 
   private generarGraficas() {
     // Porcentaje Avance
