@@ -155,6 +155,12 @@ export class ObrasModalComponent implements OnInit {
         title: `Imagen - ${index + 1}`
       });
     });
+    imgs.push({
+      previewImageSrc: './assets/img/sample_1.jpeg',
+      thumbnailImageSrc: './assets/img/sample_1.jpeg',
+      alt: '',
+      title: ''
+    });
     return imgs;
   }
 

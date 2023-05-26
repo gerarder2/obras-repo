@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { single } from './graficas';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { LegendPosition } from '@swimlane/ngx-charts';
+import { CatalogosService } from '../../services/catalogos.service';
+import { Mensaje } from '../../models/mensaje';
 
 @Component({
   selector: 'app-datos-abiertos',
@@ -10,6 +12,7 @@ import { LegendPosition } from '@swimlane/ngx-charts';
 })
 export class DatosAbiertosComponent implements OnInit {
   public cards: any[];
+  public totales: any;
 
   single: any[];
   multi: any[];
@@ -34,9 +37,12 @@ export class DatosAbiertosComponent implements OnInit {
     name: 'Customer Usage'
   };
 
-  constructor() {
+  private mensaje: Mensaje;
+
+  constructor(private catalogosService: CatalogosService) {
     Object.assign(this, { single });
     this.legendPosition = LegendPosition.Right;
+    this.mensaje = new Mensaje();
   }
 
   ngOnInit(): void {
@@ -56,5 +62,62 @@ export class DatosAbiertosComponent implements OnInit {
       { id: 6, cantidad: 862, descripcion: 'LICITACIONES', imagen: 'books_sq.png', pdf: '', cvs: '' },
       { id: 7, cantidad: 1903, descripcion: 'EVENTOS DE LICITACION', imagen: 'calendar_sq.png', pdf: '', cvs: '' }
     ];
+    this.loadTotales();
+  }
+
+  private loadTotales() {
+    this.catalogosService.getObrasTotales({ ejercicio: 0 }).subscribe({
+      next: (response: any) => {
+        this.totales = response.data[0];
+        this.cards = [
+          {
+            id: 1,
+            cantidad: this.totales.totalNumeroContratos,
+            descripcion: 'TOTAL DE CONTRATOS',
+            imagen: 'contrato-icon.svg'
+          },
+          {
+            id: 2,
+            cantidad: this.totales.totalContratistas,
+            descripcion: 'CONTRATISTAS',
+            imagen: 'contratistas-icon.svg'
+          },
+          {
+            id: 3,
+            cantidad: this.totales.totalMuncipiosBeneficiados,
+            descripcion: 'MUNICIPIOS BENEFICIADOS',
+            imagen: 'municipios-icon.svg'
+          },
+          {
+            id: 4,
+            cantidad: this.totales.totalDependencias,
+            descripcion: 'DEPENDENCIAS / ORGANISMOS',
+            imagen: 'depend-org-icon.svg'
+          },
+          {
+            id: 5,
+            cantidad: this.totales.totalConveniosModificatorios,
+            descripcion: 'CONVENIOS MODIFICATORIOS',
+            imagen: 'convenios-icon.svg'
+          },
+          {
+            id: 6,
+            cantidad: this.totales.totalLicitaciones,
+            descripcion: 'LICITACIONES',
+            imagen: 'licitaciones-icon.svg'
+          },
+          {
+            id: 7,
+            cantidad: this.totales.totalEventosLicitaciones,
+            descripcion: 'EVENTOS DE LICITACION',
+            imagen: 'evlicitacion-icon.svg'
+          }
+        ];
+      },
+      error: (err: unknown) => {
+        console.warn(err);
+        this.mensaje.showMessage(err);
+      }
+    });
   }
 }

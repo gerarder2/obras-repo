@@ -147,38 +147,36 @@
   </section>
 
   <section class="container mt-4">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="card box shadow">
-            <div class="card-body center">
-              <h2 class="card-title text-primary">
-                <strong>{{ montoTotalEjercido | currency }}</strong>
-              </h2>
-              <p>MONTO TOTAL EJERCIDO (MXN)</p>
-            </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card box shadow">
+          <div class="card-body center">
+            <h2 class="card-title text-primary">
+              <strong>{{ montoTotalEjercido | currency }}</strong>
+            </h2>
+            <p>MONTO TOTAL EJERCIDO (MXN)</p>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card shadow">
-                <div class="card-body">
-                  <h4 class="card-title text-primary">
-                    <strong>{{ totalContratos | number }}</strong>
-                  </h4>
-                  <p>TOTAL DE CONTRATOS</p>
-                </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card shadow">
+              <div class="card-body">
+                <h4 class="card-title text-primary">
+                  <strong>{{ totalContratos | number }}</strong>
+                </h4>
+                <p>TOTAL DE CONTRATOS</p>
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="card shadow">
-                <div class="card-body">
-                  <h4 class="card-title text-primary">
-                    <strong>{{ montoMaximoContratos | currency }}</strong>
-                  </h4>
-                  <p class="card-text">MONTO MAXIMO EN CONTRATOS</p>
-                </div>
+          </div>
+          <div class="col-md-12">
+            <div class="card shadow">
+              <div class="card-body">
+                <h4 class="card-title text-primary">
+                  <strong>{{ montoMaximoContratos | currency }}</strong>
+                </h4>
+                <p class="card-text">MONTO MAXIMO EN CONTRATOS</p>
               </div>
             </div>
           </div>

@@ -3,107 +3,31 @@
     <div class="h2 data-title">Datos Abiertos</div>
   </section>
 
-  <section class="container-fluid mt-4">
-    <div class="datos-abiertos row justify-content-md-center">
-      <div class="h3 data-title text-center">Totales</div>
-      <div class="card-group">
-        <div class="col-md-3" *ngFor="let card of cards">
-          <div class="card bg-gray-200">
-            <img src="{{ './assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="..." />
-            <div class="card-body">
-              <div class="cantidad h4 mb-0 text-center">{{ card.cantidad | number }}</div>
-              <div class="text-center">
-                <small class="descripcion">{{ card.descripcion }}</small>
+  <section class="container mt-4">
+    <div class="row row-cols-2">
+      <ng-container *ngFor="let card of cards">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-body p-0 clearfix">
+              <img src="{{ './assets/img/' + card.imagen }}" class="img-svg-card p-4 mr-3 float-left" />
+              <div class="pt-4 text-muted text-uppercase font-weight-bold font-sm">{{ card.descripcion }}</div>
+              <div class="h3 text-primary mb-0">
+                <strong>{{ card.cantidad | number }}</strong>
               </div>
-              <div class="text-center buttons">
-                <button class="btn btn-rounded btn-success"><i class="fas fa-file-pdf"></i></button>
-                <button class="btn btn-rounded btn-primary"><i class="fas fa-file-excel"></i></button>
+              <div class="group-buttons float-right mr-3">
+                <button type="button" class="collapsed-button btn btn-outline-success btn-rounded">
+                  <i class="far fa-file-pdf"></i>
+                </button>
+                <button type="button" class="collapsed-button btn btn-outline-primary btn-rounded">
+                  <i class="far fa-file-excel"></i>
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </ng-container>
     </div>
-  </section>
 
-  <section class="container-fluid mt-4">
-    <div class="datos-abiertos row">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <div class="row box-500">
-              <div class="col-md-6 p-0">
-                <ngx-charts-bar-vertical
-                  [view]=""
-                  [scheme]="colorScheme"
-                  [results]="single"
-                  [gradient]="gradient"
-                  [xAxis]="showXAxis"
-                  [yAxis]="showYAxis"
-                  [legend]="showLegend"
-                  [legendPosition]="legendPosition"
-                  [showXAxisLabel]="showXAxisLabel"
-                  [showYAxisLabel]="showYAxisLabel"
-                  [xAxisLabel]="xAxisLabel"
-                  [yAxisLabel]="yAxisLabel"
-                  [showGridLines]="true"
-                >
-                </ngx-charts-bar-vertical>
-              </div>
-              <div class="col-md-4">
-                <ngx-charts-pie-chart
-                  [view]=""
-                  [scheme]="colorScheme"
-                  [results]="single"
-                  [gradient]="gradient"
-                  [legend]="false"
-                  [legendPosition]="legendPosition"
-                  [labels]="false"
-                  [doughnut]="false"
-                >
-                </ngx-charts-pie-chart>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <div class="row box-500">
-              <div class="col-md-6 p-0">
-                <ngx-charts-bar-horizontal
-                  [view]="view"
-                  [scheme]="colorScheme"
-                  [results]="single"
-                  [gradient]="gradient"
-                  [xAxis]="showXAxis"
-                  [yAxis]="showYAxis"
-                  [legend]="showLegend"
-                  [showXAxisLabel]="showXAxisLabel"
-                  [showYAxisLabel]="showYAxisLabel"
-                  [xAxisLabel]="xAxisLabel"
-                  [yAxisLabel]="yAxisLabel"
-                >
-                </ngx-charts-bar-horizontal>
-              </div>
-              <div class="col-md-4">
-                <ngx-charts-pie-chart
-                  [view]=""
-                  [scheme]="colorScheme"
-                  [results]="single"
-                  [gradient]="gradient"
-                  [legend]="false"
-                  [legendPosition]="legendPosition"
-                  [labels]="false"
-                  [doughnut]="false"
-                >
-                </ngx-charts-pie-chart>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    
   </section>
 </div>
