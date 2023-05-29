@@ -117,7 +117,7 @@ p-table ::ng-deep .p-datatable .p-sortable-column:hover .p-sortable-column-icon 
   top: 0px;
 }
 
-::ng-deep {
+:host ::ng-deep {
   .p-selectbutton .p-button.p-highlight {
     background: $gold-500;
     background-color: $gold-500;

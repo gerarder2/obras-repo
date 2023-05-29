@@ -6,6 +6,9 @@ import { Municipio } from '../dashboard/models/municipio.interface';
 import { ConfigService } from '../../services';
 import { LicitacionesModalComponent } from './modal/licitaciones-modal.component';
 import { CatalogosService } from '../../services/catalogos.service';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { LicitacionesService } from './services/licitaciones.service';
+import { HelperService } from '../../helpers/helper.service';
 
 @Component({
   selector: 'app-licitaciones',
@@ -13,7 +16,9 @@ import { CatalogosService } from '../../services/catalogos.service';
   styleUrls: ['./licitaciones.component.scss']
 })
 export class LicitacionesComponent implements OnInit {
-  public licitaciones: any[];
+  @BlockUI('licitaciones-page') blockUIList: NgBlockUI;
+
+  public cardLicitaciones: any[];
   public tabla1: any[];
   public tabla2: any[];
   public collapsed: boolean;
@@ -31,6 +36,10 @@ export class LicitacionesComponent implements OnInit {
   public tiposContrato: any[];
   public organismos: any[];
 
+  public montoTotalEjercido: number;
+  public totalLicitaciones: number;
+  public montoMaximoContratos: number;
+
   // Variables Mensajes y Modal
   private mensaje: Mensaje;
   private bsModalRef: BsModalRef;
@@ -41,56 +50,48 @@ export class LicitacionesComponent implements OnInit {
     private fb: FormBuilder,
     private configService: ConfigService,
     private bsModalService: BsModalService,
-    private catalogosService: CatalogosService
+    private catalogosService: CatalogosService,
+    private licitacionesService: LicitacionesService,
+    private helperService: HelperService
   ) {
     this.config = this.configService.getConfig();
     this.collapsed = false;
     this.mensaje = new Mensaje();
-    this.licitaciones = [
-      { id: 1, cantidad: 300, descripcion: 'TOTAL DE LICITACIONES', color: 'wine' },
-      { id: 2, cantidad: 1182, descripcion: 'EVENTOS DE LICITACION', color: 'wine-800' },
-      { id: 3, cantidad: 5, descripcion: 'DEPENDENCIAS/ORGANISMOS', color: 'wine-500' }
+    this.cardLicitaciones = [
+      { id: 1, cantidad: 0, descripcion: 'TOTAL DE LICITACIONES', color: 'wine-800' },
+      { id: 2, cantidad: 0, descripcion: 'EVENTOS DE LICITACION', color: 'wine-800' },
+      { id: 3, cantidad: 0, descripcion: 'DEPENDENCIAS / ORGANISMOS', color: 'wine-800' }
     ];
 
-    this.tabla1 = [
-      { id: 1, nombre: 'SIDUR', progreso: 40, color: 'wine' },
-      { id: 2, nombre: 'CEA', progreso: 50, color: 'green' },
-      { id: 3, nombre: 'ISIE', progreso: 65, color: 'gold-500' },
-      { id: 2, nombre: 'OTROS', progreso: 70, color: 'gold' }
-    ];
+    this.tabla1 = [];
 
-    this.tabla2 = [
-      { id: 1, nombre: 'SIDUR', progreso: 40 },
-      { id: 2, nombre: 'CEA', progreso: 50 },
-      { id: 3, nombre: 'ISIE', progreso: 65 },
-      { id: 2, nombre: 'OTROS', progreso: 70 }
-    ];
+    this.tabla2 = [];
 
     this.licitacionesData = [
-      {
-        numeroContrato: 'IO-956235',
-        objeto:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,',
-        fecha: '2023-05-05',
-        monto: '12032145658',
-        avance: 30
-      },
-      {
-        numeroContrato: 'IO-856235',
-        objeto:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s,',
-        fecha: '2023-05-05',
-        monto: '52032145658',
-        avance: 50
-      },
-      {
-        numeroContrato: 'IO-456235',
-        objeto:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,',
-        fecha: '2023-05-05',
-        monto: '96032145658',
-        avance: 10
-      }
+      // {
+      //   numeroContrato: 'IO-956235',
+      //   objeto:
+      //     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,',
+      //   fecha: '2023-05-05',
+      //   monto: '12032145658',
+      //   avance: 30
+      // },
+      // {
+      //   numeroContrato: 'IO-856235',
+      //   objeto:
+      //     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s,',
+      //   fecha: '2023-05-05',
+      //   monto: '52032145658',
+      //   avance: 50
+      // },
+      // {
+      //   numeroContrato: 'IO-456235',
+      //   objeto:
+      //     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,',
+      //   fecha: '2023-05-05',
+      //   monto: '96032145658',
+      //   avance: 10
+      // }
     ];
 
     this.municipios = [
@@ -115,7 +116,7 @@ export class LicitacionesComponent implements OnInit {
       { id: 18, nombre: 'NAVOLATO', latitud: 24.65792, longitud: -107.53742 }
     ];
 
-    this.periodos = [];
+    this.periodos = this.config.periodos;
     this.tiposObras = [];
     this.tiposModalidad = [];
     this.organismos = [];
@@ -126,9 +127,10 @@ export class LicitacionesComponent implements OnInit {
   ngOnInit(): void {
     this.loadCatalogos();
     this.initializeForm();
+    this.loadLicitacionesData();
   }
 
-  loadCatalogos() {
+  public loadCatalogos() {
     this.catalogosService.getCatalogos().subscribe({
       next: (response: any[]) => {
         this.tiposObras = response[0].data;
@@ -136,23 +138,69 @@ export class LicitacionesComponent implements OnInit {
         this.organismos = response[2].data;
         this.contratistas = response[3].data;
         this.tiposContrato = response[4].data;
-        this.periodos = this.config.periodos;
+
+        this.tiposObras.unshift({ id: 0, descripcion: 'Todas' });
+        this.tiposModalidad.unshift({ id: 0, descripcion: 'Todas' });
+        this.organismos.unshift({ id: 0, nombre: 'Todos' });
+        this.contratistas.unshift({ id: 0, nombreCompleto: 'Todos' });
+        this.tiposContrato.unshift({ id: 0, descripcion: 'Todos' });
       },
       error: (err: unknown) => {
         console.warn(err);
+        this.mensaje.showMessage(err);
+      }
+    });
+  }
+
+  public loadLicitacionesData() {
+    this.blockUIList.start('Cargando...');
+    const queryParams = this.filterForm.value;
+
+    if (!queryParams.numeroContrato) {
+      queryParams.numeroContrato = 0;
+    }
+
+    if (queryParams.ejercicio > 0) {
+      const ejercicio = this.periodos.find((e) => e.id === queryParams.ejercicio);
+      if (ejercicio) {
+        queryParams.ejercicio = ejercicio.descripcion;
+      }
+    }
+
+    this.licitacionesService.getLicitacionDatos(queryParams).subscribe({
+      next: (response: any) => {
+        this.licitacionesData = response.data;
+        // this.tabla1 = this.helperService.calcularAvanceObra(response.data.obrasPorTipo);
+        // this.tabla2 = this.helperService.calcularAvanceObraEjercicio(response.data.obrasPorEjercicio);
+
+        // const sum = this.licitacionesData.reduce((accumulator, element) => {
+        //   return accumulator + element.montoInversion;
+        // }, 0);
+        this.totalLicitaciones = this.licitacionesData.length;
+        console.log(this.totalLicitaciones)
+        this.cardLicitaciones[0].cantidad = this.totalLicitaciones;
+        // this.montoTotalEjercido = sum;
+        // this.montoMaximoContratos = sum;
+        this.blockUIList.stop();
+      },
+      error: (err: unknown) => {
+        console.warn(err);
+        this.blockUIList.stop();
+        this.mensaje.showMessage(err);
       }
     });
   }
 
   public initializeForm() {
     this.filterForm = this.fb.group({
-      tipoObra: new FormControl(''),
-      municipio: new FormControl(''),
-      annio: new FormControl(''),
-      tipoModalidad: new FormControl(''),
-      organismo: new FormControl(''),
-      contratista: new FormControl(''),
-      tipoContrato: new FormControl('')
+      numeroContrato: new FormControl(''),
+      idTipoObraSocial: new FormControl(0),
+      idMunicipio: new FormControl(0),
+      ejercicio: new FormControl(0),
+      idTipoModalidad: new FormControl(0),
+      idDependencia: new FormControl(0),
+      idContratista: new FormControl(0),
+      idTipoContrato: new FormControl(0)
     });
   }
 
@@ -172,7 +220,7 @@ export class LicitacionesComponent implements OnInit {
 
     this.bsModalRef = this.bsModalService.show(LicitacionesModalComponent, {
       initialState,
-      class: 'modal-light modal-lg',
+      class: 'modal-primary modal-fullscreen',
       backdrop: 'static',
       keyboard: true,
       ignoreBackdropClick: true
@@ -183,5 +231,16 @@ export class LicitacionesComponent implements OnInit {
     });
 
     this.bsModalService.onHide.subscribe((reason: string) => {});
+  }
+
+  public filtrar() {
+    this.loadLicitacionesData();
+  }
+
+  public resetForm() {
+    this.filterForm.reset();
+    setTimeout(() => {
+      this.initializeForm();
+    }, 100);
   }
 }

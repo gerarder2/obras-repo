@@ -61,13 +61,24 @@
     border: 1px solid $gray-300;
   }
 
-  p-table ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
-    background: $wine-50;
-  }
   
-  p-table.odd ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
-    background: $gold-50;
-  }
+p-table ::ng-deep .p-datatable .p-datatable-thead > tr > th  {
+  background-color: $gray-700;
+  color: $white;
+}
+
+p-table ::ng-deep .p-datatable .p-sortable-column:hover  {
+  background-color: $gray-600;
+  color: $white;
+}
+
+p-table ::ng-deep .p-datatable .p-sortable-column .p-sortable-column-icon {
+  color: $white;
+}
+
+p-table ::ng-deep .p-datatable .p-sortable-column:hover .p-sortable-column-icon {
+  color: $white;
+}
 
 .form-control.big-input {
   height: 45px;
@@ -78,20 +89,36 @@
   right: 0px;
   top: -15px;
 }
-
-::ng-deep {
+:host ::ng-deep {
   .p-selectbutton .p-button.p-highlight {
-    background: $wine-500;
-    background-color: $wine-500;
-    border-color: $wine-500;
+    background: $wine-800;
+    background-color: $wine-800;
+    border-color: $wine-800;
   }
 
   .p-selectbutton .p-button.p-highlight:hover {
-    background: $wine-500;
-    border-color: $wine-500;
+    background: $wine-800;
+    border-color: $wine-800;
 
   }
   .p-button:focus {
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px $wine-50, 0 1px 2px 0 black;
   }
+}
+
+.modal-header {
+  .container.no-cursor {
+    p {
+      font-weight: 800;
+    }
+  }
+}
+
+.center {
+  text-align: center;
+  padding: 30px 0;
+}
+
+.text-center {
+  text-align: center;
 }
