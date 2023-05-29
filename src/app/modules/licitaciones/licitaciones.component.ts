@@ -177,7 +177,6 @@ export class LicitacionesComponent implements OnInit {
         //   return accumulator + element.montoInversion;
         // }, 0);
         this.totalLicitaciones = this.licitacionesData.length;
-        console.log(this.totalLicitaciones)
         this.cardLicitaciones[0].cantidad = this.totalLicitaciones;
         // this.montoTotalEjercido = sum;
         // this.montoMaximoContratos = sum;
