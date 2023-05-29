@@ -92,7 +92,7 @@ export class DatosAbiertosComponent implements OnInit {
             id: 4,
             cantidad: this.totales.totalDependencias,
             descripcion: 'DEPENDENCIAS / ORGANISMOS',
-            imagen: 'depend-org-icon.svg'
+            imagen: 'icono dependencias.svg'
           },
           {
             id: 5,
