@@ -44,6 +44,12 @@ export class LicitacionesComponent implements OnInit {
   private mensaje: Mensaje;
   private bsModalRef: BsModalRef;
   private config;
+
+  //Variables data
+  public licitacionesTabla: any[];
+  public licitacionesPorDependencia: any[];
+  public eventosPorDependencia: any[];
+
   // ------------------------------------------------ //
 
   constructor(
@@ -93,6 +99,10 @@ export class LicitacionesComponent implements OnInit {
       //   avance: 10
       // }
     ];
+
+    this.licitacionesTabla = [];
+    this.licitacionesPorDependencia = [];
+    this.eventosPorDependencia = [];
 
     this.municipios = [
       { id: 0, nombre: 'TODOS LOS MUNICIPIOS', latitud: 25.91194, longitud: -109.1735 },
@@ -169,14 +179,14 @@ export class LicitacionesComponent implements OnInit {
 
     this.licitacionesService.getLicitacionDatos(queryParams).subscribe({
       next: (response: any) => {
-        this.licitacionesData = response.data;
-        // this.tabla1 = this.helperService.calcularAvanceObra(response.data.obrasPorTipo);
-        // this.tabla2 = this.helperService.calcularAvanceObraEjercicio(response.data.obrasPorEjercicio);
+        this.licitacionesTabla = response.data.licitaciones;
+        //this.licitacionesPorDependencia = this.helperService.calcularAvanceObra(response.data.obrasPorTipo);
+        //this.eventosPorDependencia = this.helperService.calcularAvanceObraEjercicio(response.data.obrasPorEjercicio);
 
         // const sum = this.licitacionesData.reduce((accumulator, element) => {
         //   return accumulator + element.montoInversion;
         // }, 0);
-        this.totalLicitaciones = this.licitacionesData.length;
+        this.totalLicitaciones = this.licitacionesTabla.length;
         this.cardLicitaciones[0].cantidad = this.totalLicitaciones;
         // this.montoTotalEjercido = sum;
         // this.montoMaximoContratos = sum;

@@ -244,7 +244,7 @@
           <div class="card-body">
             <p-table
               class="odd"
-              [value]="licitacionesData"
+              [value]="licitacionesTabla"
               [tableStyle]="{ 'min-width': '60rem' }"
               [paginator]="true"
               [rows]="10"
@@ -255,30 +255,27 @@
             >
               <ng-template pTemplate="header">
                 <tr>
-                  <th pSortableColumn="numeroContrato" style="width: 25%">
-                    Numero Contrato <p-sortIcon field="numeroContrato"></p-sortIcon>
-                  </th>
-
-                  <th pSortableColumn="objeto" style="width: 20%">Objeto <p-sortIcon field="objeto"></p-sortIcon></th>
-                  <th pSortableColumn="fecha" style="width: 20%">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
-                  <th pSortableColumn="monto" style="width: 20%">
-                    Monto total <p-sortIcon field="monto"></p-sortIcon>
-                  </th>
-                  <th pSortableColumn="avance" style="width: 20%">Avance <p-sortIcon field="avance"></p-sortIcon></th>
+                  <th pSortableColumn="numero" style="width: 15%">Numero <p-sortIcon field="numero"></p-sortIcon></th>
+                  <th pSortableColumn="objeto" style="width: 26%">Descripción <p-sortIcon field="objeto"></p-sortIcon></th>
+                  <th pSortableColumn="fechaPublicacion" style="width: 15%">Fecha <p-sortIcon field="fechaPublicacion"></p-sortIcon></th>
+                  <th pSortableColumn="descripcionTipoLicitacion" style="width: 10%">Tipo <p-sortIcon field="descripcionTipoLicitacion"></p-sortIcon></th>
+                  <th pSortableColumn="descripcionTipoNormatividad" style="width: 15%">Normatividad <p-sortIcon field="descripcionTipoNormatividad"></p-sortIcon></th>
+                  <th pSortableColumn="numeroEventos" style="width: 10%">Eventos <p-sortIcon field="numeroEventos"></p-sortIcon></th>
                   <th></th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-product>
                 <tr>
-                  <td>{{ product.numeroContrato }}</td>
+                  <td>{{ product.numero }}</td>
                   <td>
-                    <div style="white-space: nowrap; width: 80px; overflow: hidden; text-overflow: ellipsis">
+                    <div style="white-space: nowrap; width: 220px; overflow: hidden; text-overflow: ellipsis">
                       {{ product.objeto }}
                     </div>
                   </td>
-                  <td>{{ product.fechaInicio | date: 'longDate':'':'es' }}</td>
-                  <td style="text-align: right">{{ product.montoInversion | currency: 'USD' }}</td>
-                  <td style="text-align: right">{{ product.porcentajeAvance }} %</td>
+                  <td style="text-align: center">{{ product.fechaPublicacion | date: 'longDate':'':'es' }}</td>
+                  <td style="text-align: center">{{ product.descripcionTipoLicitacion }}</td>
+                  <td style="text-align: center">{{ product.descripcionTipoNormatividad }} </td>
+                  <td style="text-align: center">{{ product.numeroEventos }} </td>
                   <td>
                     <button (click)="openModalComponent(product)" type="button" class="btn btn-sm btn-outline-gold">
                       Ver más...
