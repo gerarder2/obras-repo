@@ -89,7 +89,7 @@ export class ObrasModalComponent implements OnInit {
   private mensaje: Mensaje;
   private graphicPalette: string[];
 
-  constructor(public bsModalRef: BsModalRef, private obrasService: ObrasService) {
+  constructor(public bsObraModalRef: BsModalRef, private obrasService: ObrasService) {
     this.graphicPalette = ['#952431', '#B18147', '#3D5C4F', '#6610f2'];
     this.mensaje = new Mensaje();
     this.eventos = [];
@@ -276,6 +276,6 @@ export class ObrasModalComponent implements OnInit {
       data
     };
     this.event.next(response);
-    this.bsModalRef.hide();
+    this.bsObraModalRef.hide();
   }
 }

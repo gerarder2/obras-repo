@@ -38,7 +38,7 @@ export class LicitacionesComponent implements OnInit {
 
   // Variables Mensajes y Modal
   private mensaje: Mensaje;
-  private bsModalRef: BsModalRef;
+  private bsLicitacionModalRef: BsModalRef;
   private config;
 
   //Variables data
@@ -198,7 +198,7 @@ export class LicitacionesComponent implements OnInit {
       }
     };
 
-    this.bsModalRef = this.bsModalService.show(LicitacionesModalComponent, {
+    this.bsLicitacionModalRef = this.bsModalService.show(LicitacionesModalComponent, {
       initialState,
       class: 'modal-primary modal-fullscreen',
       backdrop: 'static',
@@ -206,7 +206,7 @@ export class LicitacionesComponent implements OnInit {
       ignoreBackdropClick: true
     });
 
-    this.bsModalRef.content.event.subscribe((res) => {
+    this.bsLicitacionModalRef.content.event.subscribe((res) => {
       console.warn(res);
     });
 

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Mensaje } from '../../../models/mensaje';
+import { ObrasModalComponent } from '../../obras/modal/obras-modal.component';
 
 @Component({
   selector: 'app-licitaciones-modal',
@@ -19,12 +20,12 @@ import { Mensaje } from '../../../models/mensaje';
             <p>{{ params.numero }}</p>
           </div>
           <div class="form-inline col-sm-3">
-            <button class="btn btn-primary"><i class="fas fa-eye"></i> Ver Obra</button>
+            <button class="btn btn-primary" (click)="openModalObra(params)"><i class="fas fa-eye"></i> Ver Obra</button>
           </div>
         </div>
       </div>
       <div class="ml-auto">
-        <button type="button" class="close" (click)="bsModalRef.hide()">
+        <button type="button" class="close" (click)="bsLicitacionModalRef.hide()">
           <span aria-hidden="true"><i class="fa fa-close"></i></span>
         </button>
       </div>
@@ -102,8 +103,9 @@ export class LicitacionesModalComponent implements OnInit {
   // end
 
   private mensaje: Mensaje;
+  private bsObraModalRef: BsModalRef;
 
-  constructor(public bsModalRef: BsModalRef) {
+  constructor(public bsLicitacionModalRef: BsModalRef, private bsModalService: BsModalService) {
     this.mensaje = new Mensaje();
     this.eventos = [];
   }
@@ -115,12 +117,39 @@ export class LicitacionesModalComponent implements OnInit {
   }
   // ------------------------------------------------- //
 
+  public openModalObra(opciones?: any) {
+    const initialState = {
+      params: opciones ? { id: opciones.idObra, licitacion: opciones } : {},
+      isModal: true,
+      modalExtraOptions: {
+        closeButton: true,
+        closeButtonText: 'Cancelar',
+        acceptButton: true,
+        acceptButtonText: 'Aceptar'
+      }
+    };
+
+    this.bsObraModalRef = this.bsModalService.show(ObrasModalComponent, {
+      initialState,
+      class: 'modal-gold modal-fullscreen',
+      backdrop: 'static',
+      keyboard: true,
+      ignoreBackdropClick: true
+    });
+
+    this.bsObraModalRef.content.event.subscribe((res) => {
+      console.warn(res);
+    });
+
+    this.bsModalService.onHide.subscribe((reason: string) => {});
+  }
+
   // Cerrar el modal, ademas envia la informacion al componente list correspondiente. No modificar
   private closeModal(data: any) {
     const response = {
       data
     };
     this.event.next(response);
-    this.bsModalRef.hide();
+    this.bsLicitacionModalRef.hide();
   }
 }
