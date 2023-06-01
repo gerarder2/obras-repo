@@ -42,7 +42,7 @@ export class ObrasComponent implements OnInit {
 
   // Variables Mensajes y Modal
   private mensaje: Mensaje;
-  private bsModalRef: BsModalRef;
+  private bsObraModalRef: BsModalRef;
   private config;
   // ------------------------------------------------ //
 
@@ -193,7 +193,7 @@ export class ObrasComponent implements OnInit {
       }
     };
 
-    this.bsModalRef = this.bsModalService.show(ObrasModalComponent, {
+    this.bsObraModalRef = this.bsModalService.show(ObrasModalComponent, {
       initialState,
       class: 'modal-gold modal-fullscreen',
       backdrop: 'static',
@@ -201,7 +201,7 @@ export class ObrasComponent implements OnInit {
       ignoreBackdropClick: true
     });
 
-    this.bsModalRef.content.event.subscribe((res) => {
+    this.bsObraModalRef.content.event.subscribe((res) => {
       console.warn(res);
     });
 

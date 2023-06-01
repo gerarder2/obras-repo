@@ -211,17 +211,23 @@
 
     <p-tabPanel header="LICITACIÓN">
       <div class="row">
+        <div class="col-12">
+          <small>Objeto</small>
+          <p>{{ params?.licitacion?.objeto }}</p>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-6">
           <small><strong>Tipo de Licitacion</strong></small>
-          <p>{{ params.tipoLicitacion }}</p>
+          <p>{{ params?.licitacion?.descripcionTipoLicitacion }}</p>
         </div>
         <div class="col-3">
           <small><strong>Fecha</strong></small>
-          <p>{{ params.fechaInicio | date: 'longDate':'':'es'  }}</p>
+          <p>{{ params?.licitacion?.fechaPublicacion | date: 'longDate':'':'es' }}</p>
         </div>
         <div class="col-3">
           <small><strong>Normatividad</strong></small>
-          <p>Federal</p>
+          <p>{{ params?.licitacion?.descripcionTipoNormatividad }}</p>
         </div>
       </div>
       <div class="row">
@@ -231,7 +237,7 @@
         <div class="col-12">
           <p-table
             [ngClass]="{ odd: true }"
-            [value]="eventos"
+            [value]="params?.licitacion?.eventos"
             [tableStyle]="{ 'min-width': '60rem' }"
             styleClass="p-datatable-sm p-datatable-striped"
           >
@@ -245,15 +251,15 @@
             </ng-template>
             <ng-template pTemplate="body" let-product>
               <tr>
-                <td>{{ product.evento }}</td>
+                <td>{{ product.descripcionTipoEvento }}</td>
                 <td>
-                  {{ product.fecha }}
+                  {{ product.fechaHora | date: 'longDate':'':'es' }}
                 </td>
                 <td>
-                  <button class="btn btn-primary"><i class="fas fa-play"></i> ver Video</button>
+                  <button class="btn btn-primary"><i class="fas fa-play    "></i> ver Video</button>
                 </td>
                 <td>
-                  <button class="btn btn-primary"><i class="fas fa-file-download"></i> Documento</button>
+                  <button class="btn btn-primary"><i class="fas fa-file-download    "></i> Documento</button>
                 </td>
               </tr>
             </ng-template>
