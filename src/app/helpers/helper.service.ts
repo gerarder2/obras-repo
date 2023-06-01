@@ -419,7 +419,7 @@ export class HelperService {
     return { data: resultado };
   }
 
-  calcularAvanceObra(obrasPorTipo: any[]) {
+  public calcularAvanceObra(obrasPorTipo: any[]) {
     const tabla1 = [];
     const sum = obrasPorTipo.reduce((accumulator, element) => {
       return accumulator + element.numeroObras;
@@ -439,7 +439,7 @@ export class HelperService {
     return tabla1;
   }
 
-  calcularAvanceObraEjercicio(obrasPorEjercicio: any[]) {
+  public calcularAvanceObraEjercicio(obrasPorEjercicio: any[]) {
     const tabla2 = [];
     const sum = obrasPorEjercicio.reduce((accumulator, element) => {
       return accumulator + element.numeroObras;
@@ -465,5 +465,44 @@ export class HelperService {
       objeto.conteo = coincidencias?.length;
     });
     return tiposObras;
+  }
+
+  calcularAvanceLicitacion(licitacionesPorOrganismo: any[]) {
+    const tabla1 = [];
+    const sum = licitacionesPorOrganismo.reduce((accumulator, element) => {
+      return accumulator + element.numeroLicitaciones;
+    }, 0);
+
+    licitacionesPorOrganismo.forEach((element, index) => {
+      const avance = Math.round((element.numeroLicitaciones / sum) * 100);
+
+      tabla1.push({
+        id: index + 1,
+        nombre: element.descripcionDependencia,
+        progreso: avance,
+        color: avance > 30 ? (avance > 60 ? 'green' : 'gold-500') : 'wine'
+      });
+    });
+
+    return tabla1;
+  }
+  calcularAvanceOrganismo(licitacionesPorOrganismo: any[]) {
+    const tabla1 = [];
+    const sum = licitacionesPorOrganismo.reduce((accumulator, element) => {
+      return accumulator + element.numeroEventos;
+    }, 0);
+
+    licitacionesPorOrganismo.forEach((element, index) => {
+      const avance = Math.round((element.numeroEventos / sum) * 100);
+
+      tabla1.push({
+        id: index + 1,
+        nombre: element.descripcionDependencia,
+        progreso: avance,
+        color: avance > 30 ? (avance > 60 ? 'green' : 'gold-500') : 'wine'
+      });
+    });
+
+    return tabla1;
   }
 }

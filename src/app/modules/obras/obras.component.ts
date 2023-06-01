@@ -147,6 +147,7 @@ export class ObrasComponent implements OnInit {
       next: (response: any) => {
         this.obrasTabla = response.data.obras;
         this.tabla1 = this.helperService.calcularAvanceObra(response.data.obrasPorTipo);
+
         this.tabla2 = this.helperService.calcularAvanceObraEjercicio(response.data.obrasPorEjercicio);
 
         const sum = this.obrasTabla.reduce((accumulator, element) => {
