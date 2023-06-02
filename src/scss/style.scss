@@ -56,10 +56,14 @@ html {
   padding: 0 !important; // override inline padding-right added from js
 }
 .modal-fullscreen.modal-dialog {
-  width: 70%;
-  max-width: 90%;
+  width: 90%;
+  max-width: none;
   margin: 1.75rem auto;
-  overflow-y: initial !important
+  overflow-y: initial !important;
+  @include breakpoint('xl') {
+    width: 70%;
+   }
+
 }
 .modal-fullscreen .modal-content {
   height: 92vh !important;
