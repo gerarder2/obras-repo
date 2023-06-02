@@ -127,6 +127,11 @@ export class ObrasModalComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.obra = response.data;
+
+        if (this.obra.licitacion) {
+          this.params.licitacion = this.obra.licitacion;
+        }
+
         this.generarGraficas();
       },
       error: (err: unknown) => {

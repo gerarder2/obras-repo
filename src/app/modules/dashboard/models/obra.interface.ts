@@ -52,4 +52,5 @@ export interface Obra {
   avances?: Avance[];
   documentos?: any[];
   evidencias?: Evidencia[];
+  licitacion?: any;
 }
