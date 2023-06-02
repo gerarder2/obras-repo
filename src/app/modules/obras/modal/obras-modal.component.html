@@ -256,10 +256,22 @@
                   {{ product.fechaHora | date: 'longDate':'':'es' }}
                 </td>
                 <td>
-                  <button class="btn btn-primary"><i class="fas fa-play    "></i> ver Video</button>
+                  <a
+                    class="btn btn-primary"
+                    target="_blank"
+                    href="{{ product.rutaPublicaVideo + product.nombreArchivoVideo }}"
+                    class="btn btn-primary"
+                    ><i class="fas fa-play"></i> Video</a
+                  >
                 </td>
                 <td>
-                  <button class="btn btn-primary"><i class="fas fa-file-download    "></i> Documento</button>
+                  <a
+                    class="btn btn-primary"
+                    target="_blank"
+                    href="{{ product.rutaPublicaDocumento + product.nombreArchivoDocumento }}"
+                    class="btn btn-primary"
+                    ><i class="fas fa-file-download    "></i> Documento</a
+                  >
                 </td>
               </tr>
             </ng-template>
