@@ -56,8 +56,8 @@ html {
   padding: 0 !important; // override inline padding-right added from js
 }
 .modal-fullscreen.modal-dialog {
-  width: 90%;
-  max-width: none;
+  width: 70%;
+  max-width: 90%;
   margin: 1.75rem auto;
   overflow-y: initial !important
 }
