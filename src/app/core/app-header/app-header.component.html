@@ -8,16 +8,12 @@
   </button>
   <ul class="nav navbar-nav ml-auto float-left">
     <li class="nav-item px-3" *ngFor="let link of links" [routerLinkActive]="'active'">
-      <a class="nav-link" [routerLinkActive]="'active'"
-      [routerLink]="[link.url]">{{link.name}}</a>
+      <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="[link.url]">{{ link.name }}</a>
     </li>
-    <li>
-        
-    </li>
+    <li></li>
   </ul>
-  
 
-    <!-- <ul class="navbar-nav mr-auto">
+  <!-- <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
@@ -51,12 +47,79 @@
         <div class="dropdown-header text-center"><strong>Account</strong></div>
         <a class="dropdown-item" href="" (click)="logOut(); (false)"><i class="fa fa-lock"></i> Logout</a>
       </div> -->
-      <div style="margin-top:8px" class="input-group">
-        <input style="width:275px" type="text" id="input2-group1" name="input2-group1" placeholder="Buscar por licitacion, objeto o contrato" class="form-control">
+      <div style="margin-top: 8px" class="input-group">
+        <input
+          #typeaheadInput
+          style="width: 275px"
+          (typeaheadOnSelect)="typeaheadOnSelect($event)"
+          [(ngModel)]="search"
+          [typeahead]="suggestions$"
+          typeaheadOptionField="objeto"
+          [typeaheadAsync]="true"
+          [typeaheadWaitMs]="200"
+          [typeaheadMinLength]="3"
+          [typeaheadScrollable]="true"
+          [optionsListTemplate]="customListTemplate"
+          [adaptivePosition]="true"
+          placeholder="Buscar por licitacion, objeto o contrato"
+          class="form-control"
+          (focus)="clearInput()"
+        />
+
         <div class="input-group-append">
-          <span class="input-group-text bg-green"><i class="fas fa-search    "></i></span>
+          <span class="input-group-text bg-green"><i class="fas fa-search"></i></span>
         </div>
       </div>
     </li>
   </ul>
 </header>
+
+
+
+<ng-template #customListTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
+  <ul class="custom-list-group">
+    <li
+      class="custom-list-group-item"
+      *ngFor="let match of matches"
+      [class.active]="typeaheadTemplateMethods.isActive(match)"
+      (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
+      (mouseenter)="typeaheadTemplateMethods.selectActive(match)"
+    >
+      <!-- {{ match.item.objeto }} -->
+      <!-- <table class="table">
+        <tbody>
+          <tr >
+            <td>{{ match.item.id }}</td>
+            <td>{{ match.item.objeto }}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table> -->
+
+      <div class="result-item">
+        <div class="field">
+          <strong>ID:</strong> {{ match.item.id }}
+        </div>
+        <div class="field">
+          <strong>Objeto:</strong> {{ match.item.objeto }}
+        </div>
+        <div class="field">
+          <strong></strong>
+        </div>
+      </div>
+
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #optionsListTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
+  <table *ngFor="let result of matches">
+    <tbody>
+      <tr >
+        <td>{{ result.item.id }}</td>
+        <td>{{ result.item.objeto }}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>

@@ -63,6 +63,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { fakeBackendProvider } from './helpers/fake-backend';
 import localeEsMx from '@angular/common/locales/es';
 import { SharedModule } from 'primeng/api';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { FormsModule } from '@angular/forms';
 
 registerLocaleData(localeEsMx);
 
@@ -122,7 +124,9 @@ export function ConfigLoader(configService: ConfigService) {
     PerfectScrollbarModule,
     SidebarModule,
     ProgressBarModule,
-    SharedModule
+    SharedModule,
+    TypeaheadModule.forRoot(),
+    FormsModule
   ],
   declarations: [AppComponent, ...APP_CONTAINERS, ...APP_COMPONENTS, ...APP_DIRECTIVES],
   providers: [
