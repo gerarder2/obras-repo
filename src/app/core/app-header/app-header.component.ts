@@ -3,12 +3,14 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
-import { noop, Observable, Observer, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Observable, Observer, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Subscription } from 'rxjs';
 import { environment } from '../../../environments/environment.dev';
 import { Mensaje } from '../../models';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ObrasModalComponent } from '../../modules/obras/modal/obras-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -39,12 +41,14 @@ export class AppHeaderComponent implements OnInit {
   public menuExist = false;
 
   private mensaje: Mensaje;
+  private bsObraModalRef: BsModalRef;
 
   constructor(
     private menuData: MenuService,
     private auth: AuthenticationService,
     private sanitizer: DomSanitizer,
-    private http: HttpClient
+    private http: HttpClient,
+    private bsModalService: BsModalService
   ) {
     this.trustedImgUrl = sanitizer.bypassSecurityTrustResourceUrl(this.imgUrl);
     this.imgUrlError = 'assets/img/avatars/user-a.png';
@@ -107,6 +111,34 @@ export class AppHeaderComponent implements OnInit {
 
   public typeaheadOnSelect($event) {
     console.log($event);
+    this.openModalObra($event.item);
+  }
+
+  public openModalObra(opciones?: any) {
+    const initialState = {
+      params: opciones ? { id: opciones.idObra, licitacion: null } : {},
+      isModal: true,
+      modalExtraOptions: {
+        closeButton: true,
+        closeButtonText: 'Cancelar',
+        acceptButton: true,
+        acceptButtonText: 'Aceptar'
+      }
+    };
+
+    this.bsObraModalRef = this.bsModalService.show(ObrasModalComponent, {
+      initialState,
+      class: 'modal-gold modal-fullscreen',
+      backdrop: 'static',
+      keyboard: true,
+      ignoreBackdropClick: true
+    });
+
+    this.bsObraModalRef.content.event.subscribe((res) => {
+      console.warn(res);
+    });
+
+    this.bsModalService.onHide.subscribe((reason: string) => {});
   }
 
   clearInput(): void {

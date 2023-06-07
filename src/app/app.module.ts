@@ -65,6 +65,7 @@ import localeEsMx from '@angular/common/locales/es';
 import { SharedModule } from 'primeng/api';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 registerLocaleData(localeEsMx);
 
@@ -126,7 +127,8 @@ export function ConfigLoader(configService: ConfigService) {
     ProgressBarModule,
     SharedModule,
     TypeaheadModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ModalModule.forRoot()
   ],
   declarations: [AppComponent, ...APP_CONTAINERS, ...APP_COMPONENTS, ...APP_DIRECTIVES],
   providers: [
