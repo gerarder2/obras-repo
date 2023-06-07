@@ -31,6 +31,7 @@ export class AppHeaderComponent implements OnInit {
   search?: string;
   suggestions$?: Observable<any[]>;
   errorMessage?: string;
+  noResultsFound: boolean;
 
   // @Output() onLogout: EventEmitter<any> = new EventEmitter();
 
@@ -85,7 +86,17 @@ export class AppHeaderComponent implements OnInit {
               .get(`${environment.webApi}/ObraPortal/Combo`, {
                 params: { filtroBusqueda: query }
               })
-              .pipe(map((data: any) => (data && data.data) || ['No Result Found']))
+              .pipe(
+                map((data: any) => {
+                  console.log('data', data);
+                  if (data?.data.length > 0) {
+                    this.noResultsFound = false;
+                  } else {
+                    this.noResultsFound = true;
+                  }
+                  return (data && data.data) || [];
+                })
+              )
           );
         }
 

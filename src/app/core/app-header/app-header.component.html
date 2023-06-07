@@ -69,6 +69,9 @@
         <div class="input-group-append">
           <span class="input-group-text bg-green"><i class="fas fa-search"></i></span>
         </div>
+        <div *ngIf="noResultsFound" class="no-results-message">
+          No se encontraron resultados.
+        </div>
       </div>
     </li>
   </ul>
