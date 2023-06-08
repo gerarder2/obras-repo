@@ -88,3 +88,10 @@ img.carousel {
     height: auto;
    }
 }
+
+.typeahead-search-input {
+  width: 275px !important;
+  @include breakpoint('xl') {
+    width: 500px !important;
+   }
+}

@@ -1,4 +1,6 @@
 @import './../../../scss/bootstrap-variables';
+@import './../../../scss/core/mixins';
+@import './../../../scss/core/variables';
 
 .app-header.navbar .nav-item {
     height: 50px;
@@ -28,11 +30,14 @@
 .custom-list-group {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 275;
     padding-left: 0;
     margin: 0;
     list-style: none;
     height: 300px;
+    @include breakpoint('xl') {
+        width: 500px !important;
+    }
   }
 
   .custom-list-group-item {

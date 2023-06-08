@@ -50,7 +50,7 @@
       <div style="margin-top: 8px" class="input-group">
         <input
           #typeaheadInput
-          style="width: 275px"
+          class="form-control typeahead-search-input"
           (typeaheadOnSelect)="typeaheadOnSelect($event)"
           [(ngModel)]="search"
           [typeahead]="suggestions$"
@@ -61,8 +61,7 @@
           [typeaheadScrollable]="true"
           [optionsListTemplate]="customListTemplate"
           [adaptivePosition]="true"
-          placeholder="Buscar por licitacion, objeto o contrato"
-          class="form-control"
+          placeholder="Buscar, objeto o contrato"
           (focus)="clearInput()"
         />
 
