@@ -116,7 +116,7 @@ export class AppHeaderComponent implements OnInit {
 
   public openModalObra(opciones?: any) {
     const initialState = {
-      params: opciones ? { id: opciones.idObra, licitacion: null } : {},
+      params: opciones ? { id: opciones.id, licitacion: null } : {},
       isModal: true,
       modalExtraOptions: {
         closeButton: true,
