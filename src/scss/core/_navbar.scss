@@ -18,7 +18,7 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: $navbar-brand-logo-size;
-    @include borders($navbar-brand-border);
+    //@include borders($navbar-brand-border);
   }
 
   .navbar-toggler {

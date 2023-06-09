@@ -396,3 +396,12 @@ app-root {
     }
   }
 }
+
+@include media-breakpoint-down(xs) {
+
+  .header-fixed .app-body {
+    // margin-top: $navbar-height;
+    margin-top: 200px;
+  }
+
+}

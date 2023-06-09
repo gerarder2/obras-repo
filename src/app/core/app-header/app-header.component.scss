@@ -2,6 +2,18 @@
 @import './../../../scss/core/mixins';
 @import './../../../scss/core/variables';
 
+.app-header.navbar {
+    @include breakpoint('xs') {
+        height: 200px !important;
+    }
+    @include breakpoint('md') {
+        height: 110px !important;
+    }
+    @include breakpoint('lg') {
+        height: 55px !important;
+    }
+}
+
 .app-header.navbar .nav-item {
     height: 50px;
     margin-left: 10px !important;
