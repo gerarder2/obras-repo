@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { environment } from './../../environments/environment';
 import { map } from 'rxjs/operators';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,14 @@ export class CatalogosService {
   public geoJson: any;
   private locale: any;
 
-  constructor(private http: HttpClient, private helperService: HelperService) {}
+  constructor(private http: HttpClient, private helperService: HelperService, configService: ConfigService) {
+    this.config = configService.getConfig();
+  }
 
   public getCatalogos() {
     const obrasSocial = `${environment.webApi}/TipoObraSocial/Combo`;
     const tiposModalidad = `${environment.webApi}/TipoModalidad/Combo`;
-    const organismos = `${environment.webApi}/Dependencia/Combo`;
+    const organismos = `${this.config.webApiMaatCore}/Dependencia/Combo?IdAgrupador=${this.config.idAgrupador}`;
     const constratistas = `${environment.webApi}/Contratista/Combo`;
     const tiposContrato = `${environment.webApi}/TipoContrato/Combo`;
 
@@ -204,7 +207,7 @@ export class CatalogosService {
 
   public getMapaObras(queryParams?: {
     idTipoObraSocial: number;
-    idsMunicipios: number;
+    idMunicipio: number;
     ejercicio: number;
     estatus?: string;
   }): Observable<any> {

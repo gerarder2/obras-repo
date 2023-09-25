@@ -210,7 +210,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   loadPuntosObra() {
     const payload = {
       idTipoObraSocial: 0,
-      idsMunicipios: 0,
+      idMunicipio: 0,
       ejercicio: 0,
       estatus: 'TODAS'
     };
@@ -247,7 +247,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     console.log('filtrar', this.periodo !== this.periodoSeleccionado.descripcion);
     const payload = {
       idTipoObraSocial: 0,
-      idsMunicipios: 0,
+      idMunicipio: 0,
       ejercicio: 0,
       estatus: 'TODAS'
     };
@@ -256,7 +256,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       if (this.periodo !== this.periodoSeleccionado.descripcion) {
         this.periodo = this.periodoSeleccionado.descripcion;
         payload.ejercicio = parseInt(this.periodoSeleccionado.descripcion);
-        payload.idsMunicipios = this.municipioSeleccionado.id;
+        payload.idMunicipio = this.municipioSeleccionado.id;
         payload.estatus = this.estatusObrasSeleccionado.descripcion;
         console.log('payload', payload);
 
