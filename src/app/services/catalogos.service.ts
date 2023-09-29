@@ -211,7 +211,7 @@ export class CatalogosService {
 
   public getMapaObras(queryParams?: {
     idTipoObraSocial: number;
-    idsMunicipios: number;
+    idMunicipio: number;
     ejercicio: number;
     estatus?: string;
   }): Observable<any> {

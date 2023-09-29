@@ -1,5 +1,6 @@
 {
     "webApi": "http://74.208.25.33:86/api",
+    "webApiMaatCore": "http://74.208.25.33:83/api",
     "periodos": [
         {
             "id": 0,
@@ -17,5 +18,6 @@
             "id": 3,
             "descripcion": "2023"
         }
-    ]
+    ],
+    "idAgrupador": 1
 }
