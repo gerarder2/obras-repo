@@ -119,7 +119,7 @@ export class ObrasModalComponent implements OnInit {
 
   // Angular metodos del ciclo de vida del componente
   ngOnInit(): void {
-    console.log(this.params);
+    console.log(this.params, this.obra);
     this.loadObraDetalle();
   }
   public loadObraDetalle() {

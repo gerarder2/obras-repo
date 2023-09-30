@@ -1,4 +1,5 @@
 import { Avance } from './avance.interface';
+import { Documento } from './documento.interface';
 import { Evidencia } from './evidencia.interface';
 
 export interface Obra {
@@ -50,7 +51,7 @@ export interface Obra {
   nombreSupervisor?: string;
   nombreMunicipio?: string;
   avances?: Avance[];
-  documentos?: any[];
+  documentos?: Documento[];
   evidencias?: Evidencia[];
   licitacion?: any;
 }
