@@ -148,7 +148,7 @@
                 <ng-container *ngIf="showGraficaPorcentaje">
                   <div class="card shadow">
                     <div class="card-body">
-                      <div id="chart">
+                      <div id="chartlineal-{{this.obra.id}}">
                         <apx-chart
                           [series]="chartOptionsLine.series"
                           [chart]="chartOptionsLine.chart"
@@ -172,7 +172,7 @@
                 <ng-container *ngIf="showGraficaPorcentaje">
                   <div class="card shadow">
                     <div class="card-body">
-                      <div id="chart">
+                      <div id="chartradial-{{this.obra.id}}">
                         <apx-chart
                           [series]="chartOptionsRadial.series"
                           [chart]="chartOptionsRadial.chart"
@@ -190,7 +190,7 @@
                 <ng-container *ngIf="showGraficaPorcentaje">
                   <div class="card shadow">
                     <div class="card-body">
-                      <div id="chart">
+                      <div id="chartpie-{{this.obra.id}}">
                         <apx-chart
                           [series]="chartOptionsPie.series"
                           [chart]="chartOptionsPie.chart"

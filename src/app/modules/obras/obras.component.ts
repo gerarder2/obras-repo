@@ -146,7 +146,6 @@ export class ObrasComponent implements OnInit {
     this.obrassService.getObrasDatos(queryParams).subscribe({
       next: (response: any) => {
         this.obrasTabla = response.data.obras;
-        console.log('obras tabla', this.obrasTabla);
         this.tabla1 = this.helperService.calcularAvanceObra(response.data.obrasPorTipo);
 
         this.tabla2 = this.helperService.calcularAvanceObraEjercicio(response.data.obrasPorEjercicio);
@@ -182,7 +181,6 @@ export class ObrasComponent implements OnInit {
 
   // SECCION CONFIGURACION MODAL
   public openModalComponent(opciones?: any) {
-    console.log(opciones);
     const initialState = {
       params: opciones ? opciones : {},
       isModal: true,

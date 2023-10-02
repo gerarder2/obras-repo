@@ -36,7 +36,8 @@
               "skmeans",
               "density-clustering",
               "turf-jsts",
-              "geojson-equality"
+              "geojson-equality",
+              "moment"
             ],
             "outputPath": "dist/gobierno",
             "index": "src/index.html",

@@ -19,6 +19,7 @@ import {
 } from 'ng-apexcharts';
 import { Evidencia } from '../../dashboard/models/evidencia.interface';
 import { Imagen } from '../../dashboard/models/imagen.interface';
+import * as moment from 'moment';
 
 export type ChartOptionsRadial = {
   colors: string[];
@@ -125,7 +126,6 @@ export class ObrasModalComponent implements OnInit {
   public loadObraDetalle() {
     this.obrasService.getObrasDatosById({ idObra: this.params.id }).subscribe({
       next: (response) => {
-        console.log(response);
         this.obra = response.data;
 
         if (this.obra.licitacion) {
@@ -173,6 +173,10 @@ export class ObrasModalComponent implements OnInit {
     // Porcentaje Avance
     const seriesPie = [];
     const seriesPieLabel = [];
+
+    const categories = [];
+    const data = [];
+
     const porcentaje = this.obra.avances.reduce((accumulator, element) => {
       return accumulator + element.porcentaje;
     }, 0);
@@ -180,7 +184,12 @@ export class ObrasModalComponent implements OnInit {
     this.obra.avances.forEach((element) => {
       seriesPie.push(element.porcentaje);
       seriesPieLabel.push(element.id);
+
+      const fecha = moment(element.fecha).format('DD/MMMM/YYYY');
+      categories.push(fecha.toString());
+      data.push(element.porcentaje);
     });
+    console.log('categorias', categories);
 
     this.showGraficaPorcentaje = true;
     this.chartOptionsRadial = {
@@ -211,8 +220,8 @@ export class ObrasModalComponent implements OnInit {
       colors: this.graphicPalette,
       series: [
         {
-          name: 'Desktops',
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          name: 'Avances',
+          data: data
         }
       ],
       chart: {
@@ -245,7 +254,7 @@ export class ObrasModalComponent implements OnInit {
         size: [5]
       },
       xaxis: {
-        categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep']
+        categories: categories
       }
     };
 
