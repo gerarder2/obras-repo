@@ -148,7 +148,7 @@
                 <ng-container *ngIf="showGraficaPorcentaje">
                   <div class="card shadow">
                     <div class="card-body">
-                      <div id="chart">
+                      <div id="chartlineal-{{this.obra.id}}">
                         <apx-chart
                           [series]="chartOptionsLine.series"
                           [chart]="chartOptionsLine.chart"
@@ -172,7 +172,7 @@
                 <ng-container *ngIf="showGraficaPorcentaje">
                   <div class="card shadow">
                     <div class="card-body">
-                      <div id="chart">
+                      <div id="chartradial-{{this.obra.id}}">
                         <apx-chart
                           [series]="chartOptionsRadial.series"
                           [chart]="chartOptionsRadial.chart"
@@ -190,7 +190,7 @@
                 <ng-container *ngIf="showGraficaPorcentaje">
                   <div class="card shadow">
                     <div class="card-body">
-                      <div id="chart">
+                      <div id="chartpie-{{this.obra.id}}">
                         <apx-chart
                           [series]="chartOptionsPie.series"
                           [chart]="chartOptionsPie.chart"
@@ -270,7 +270,7 @@
                     target="_blank"
                     href="{{ product.rutaPublicaDocumento + product.nombreArchivoDocumento }}"
                     class="btn btn-primary"
-                    ><i class="fas fa-file-download    "></i> Documento</a
+                    ><i class="fas fa-file-download"></i> Documento</a
                   >
                 </td>
               </tr>
@@ -281,88 +281,84 @@
     </p-tabPanel>
     <p-tabPanel header="EVIDENCIA DOCUMENTADA">
       <ng-template pTemplate="content">
-        <div class="row">
-          <div class="col-12 text-center">
-            <p class="h4 mb-5">En esta sección se encuentra toda la documentación del contrato</p>
+        <ng-container *ngIf="obra?.documentos?.length > 0">
+          <div class="row">
+            <div class="col-12 text-center">
+              <p class="h4 mb-5">En esta sección se encuentra toda la documentación del contrato</p>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="card-group">
-              <div class="card shadow text-center">
-                <div class="card-body">
-                  <h5 class="card-title">CONTRATO</h5>
-                  <p class="card-text">&nbsp;</p>
-                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download"></i> Descargar</a>
-                </div>
-              </div>
-              <div class="card shadow text-center">
-                <div class="card-body">
-                  <h5 class="card-title">FALLO</h5>
-                  <p class="card-text">&nbsp;</p>
-                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download"></i> Descargar</a>
-                </div>
-              </div>
-              <div class="card shadow text-center">
-                <div class="card-body">
-                  <h5 class="card-title">TODOS LOS ARCHIVOS</h5>
-                  <p class="card-text">&nbsp;</p>
-                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download"></i> Descargar</a>
+          <div class="row">
+            <div class="col-12">
+              <div class="card-group">
+                <div class="card shadow text-center" *ngFor="let doc of obra.documentos">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ doc.descripcionTipoDocumento }}</h5>
+                    <p class="card-text">&nbsp;</p>
+                    <a target="_blank" href="{{doc.ruta}}{{doc.nombreArchivo}}" class="btn btn-outline-primary"><i class="fas fa-download"></i> Descargar</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
+        <ng-container *ngIf="obra?.documentos?.length === 0">
+          <div class="row">
+            <div class="col-12 text-center">
+              <p class="h4 mb-5">Por el momento no existen documentos asociados a esta obra.</p>
+            </div>
+          </div>
+        </ng-container>
       </ng-template>
     </p-tabPanel>
     <p-tabPanel header="EVIDENCIA FOTOGRAFICA">
       <ng-template pTemplate="content">
-        <div class="row" *ngIf="!showCarousel">
-          <div class="col-12">
-            <div class="card-deck">
-              <div class="card shadow" *ngFor="let item of obra.evidencias">
-                <div class="card-body">
-                  <h5 class="card-title">{{ item.descripcion }}</h5>
-                  <p class="card-text">&nbsp;</p>
-                  <ng-container *ngFor="let img of item.imagenes; let index = index">
-                    <a
-                      href="#"
-                      style="text-decoration: none"
-                      (click)="onImageSelected(item, index); $event.preventDefault()"
-                    >
-                      <img src="{{ img.rutaPublica + img.nombre }}" class="img-thumbnail img-64" alt="..." />
-                    </a>
-                  </ng-container>
-                  <p class="card-text"><small class="text-muted">Click en la imagen para mas información</small></p>
+        <ng-container *ngIf="obra?.evidencias?.length > 0">
+          <div class="row" *ngIf="!showCarousel">
+            <div class="col-12">
+              <div class="card-deck">
+                <div class="card shadow" *ngFor="let item of obra.evidencias">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ item.descripcion }}</h5>
+                    <p class="card-text">&nbsp;</p>
+                    <ng-container *ngFor="let img of item.imagenes; let index = index">
+                      <a
+                        href="#"
+                        style="text-decoration: none"
+                        (click)="onImageSelected(item, index); $event.preventDefault()"
+                      >
+                        <img src="{{ img.rutaPublica + img.nombre }}" class="img-thumbnail img-64" alt="..." />
+                      </a>
+                    </ng-container>
+                    <p class="card-text"><small class="text-muted">Click en la imagen para mas información</small></p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row justify-content-center">
-          <p-galleria
-            [value]="images"
-            [(visible)]="displayCustom"
-            [(activeIndex)]="activeIndex"
-            [responsiveOptions]="responsiveOptions"
-            [containerStyle]="{ 'max-width': '850px'}"
-            [numVisible]="7"
-            [circular]="true"
-            [fullScreen]="true"
-            [showItemNavigators]="true"
-            [showThumbnails]="false"
-            [baseZIndex]="100000"
-          >
-            <ng-template pTemplate="item" let-item>
-              <img [src]="item.previewImageSrc" style=" max-height: calc(100vh - 50px); width: auto; display: block" />
-            </ng-template>
-            <ng-template pTemplate="thumbnail" let-item>
-              <div class="grid grid-nogutter justify-content-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block" />
-              </div>
-            </ng-template>
-          </p-galleria>
-          <!-- <div class="12" *ngIf="showCarousel">
+          <div class="row justify-content-center">
+            <p-galleria
+              [value]="images"
+              [(visible)]="displayCustom"
+              [(activeIndex)]="activeIndex"
+              [responsiveOptions]="responsiveOptions"
+              [containerStyle]="{ 'max-width': '850px' }"
+              [numVisible]="7"
+              [circular]="true"
+              [fullScreen]="true"
+              [showItemNavigators]="true"
+              [showThumbnails]="false"
+              [baseZIndex]="100000"
+            >
+              <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="max-height: calc(100vh - 50px); width: auto; display: block" />
+              </ng-template>
+              <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                  <img [src]="item.thumbnailImageSrc" style="display: block" />
+                </div>
+              </ng-template>
+            </p-galleria>
+            <!-- <div class="12" *ngIf="showCarousel">
             <div class="card shadow">
               <div class="card-body">
                 <div class="card-title mb-5">
@@ -384,7 +380,15 @@
               </div>
             </div>
           </div> -->
-        </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="obra?.evidencias?.length === 0">
+          <div class="row">
+            <div class="col-12 text-center">
+              <p class="h4 mb-5">Por el momento no existen evidencias asociadas a esta obra.</p>
+            </div>
+          </div>
+        </ng-container>
       </ng-template>
     </p-tabPanel>
   </p-tabView>

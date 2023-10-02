@@ -181,7 +181,6 @@ export class ObrasComponent implements OnInit {
 
   // SECCION CONFIGURACION MODAL
   public openModalComponent(opciones?: any) {
-    console.log(opciones);
     const initialState = {
       params: opciones ? opciones : {},
       isModal: true,

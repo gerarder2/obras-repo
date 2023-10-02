@@ -279,10 +279,12 @@
             >
               <ng-template pTemplate="header">
                 <tr>
+                  <th pSortableColumn="id" style="width: 25%">
+                   ID <p-sortIcon field="id"></p-sortIcon>
+                  </th>
                   <th pSortableColumn="numeroContrato" style="width: 25%">
                     Numero Contrato <p-sortIcon field="numeroContrato"></p-sortIcon>
                   </th>
-
                   <th pSortableColumn="objeto" style="width: 15%">Objeto <p-sortIcon field="objeto"></p-sortIcon></th>
                   <th pSortableColumn="fechaInicio" style="width: 10%">
                     Fecha <p-sortIcon field="fechaInicio"></p-sortIcon>
@@ -301,6 +303,7 @@
               </ng-template>
               <ng-template pTemplate="body" let-product>
                 <tr>
+                  <td>{{product.id}}</td>
                   <td>{{ product.numeroContrato }}</td>
                   <td>
                     <div style="white-space: nowrap; width: 80px; overflow: hidden; text-overflow: ellipsis">
