@@ -9,6 +9,7 @@ import { Municipio } from '../dashboard/models/municipio.interface';
 import { CatalogosService } from '../../services/catalogos.service';
 import { ObrasService } from './services/obras.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-obras',
@@ -40,6 +41,8 @@ export class ObrasComponent implements OnInit {
   public totalContratos: number;
   public montoMaximoContratos: number;
 
+  public develop: boolean;
+
   // Variables Mensajes y Modal
   private mensaje: Mensaje;
   private bsObraModalRef: BsModalRef;
@@ -54,6 +57,7 @@ export class ObrasComponent implements OnInit {
     private obrassService: ObrasService,
     private helperService: HelperService
   ) {
+    this.develop = !environment.production;
     this.config = this.configService.getConfig();
     this.collapsed = false;
     this.mensaje = new Mensaje();

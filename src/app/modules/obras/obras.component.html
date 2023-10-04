@@ -279,7 +279,7 @@
             >
               <ng-template pTemplate="header">
                 <tr>
-                  <th pSortableColumn="id" style="width: 25%">
+                  <th *ngIf="develop" pSortableColumn="id" style="width: 25%">
                    ID <p-sortIcon field="id"></p-sortIcon>
                   </th>
                   <th pSortableColumn="numeroContrato" style="width: 25%">
@@ -303,7 +303,7 @@
               </ng-template>
               <ng-template pTemplate="body" let-product>
                 <tr>
-                  <td>{{product.id}}</td>
+                  <td *ngIf="develop">{{product.id}}</td>
                   <td>{{ product.numeroContrato }}</td>
                   <td>
                     <div style="white-space: nowrap; width: 80px; overflow: hidden; text-overflow: ellipsis">
