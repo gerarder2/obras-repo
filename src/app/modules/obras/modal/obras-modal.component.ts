@@ -183,7 +183,7 @@ export class ObrasModalComponent implements OnInit {
 
     this.obra.avances.forEach((element) => {
       seriesPie.push(element.porcentaje);
-      seriesPieLabel.push(element.id);
+      seriesPieLabel.push(`${moment(element.fecha).format('DD/MMM/YYYY')}`);
 
       const fecha = moment(element.fecha).format('DD/MMMM/YYYY');
       categories.push(fecha.toString());
@@ -212,7 +212,7 @@ export class ObrasModalComponent implements OnInit {
       stroke: {
         lineCap: 'round'
       },
-      labels: ['Avance']
+      labels: ['Avance de Obra']
     };
 
     // Line
@@ -220,7 +220,7 @@ export class ObrasModalComponent implements OnInit {
       colors: this.graphicPalette,
       series: [
         {
-          name: 'Avances',
+          name: '% Avance',
           data: data
         }
       ],
