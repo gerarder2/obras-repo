@@ -54,4 +54,5 @@ export interface Obra {
   documentos?: Documento[];
   evidencias?: Evidencia[];
   licitacion?: any;
+  descripcionOrigenRecurso?: string;
 }
