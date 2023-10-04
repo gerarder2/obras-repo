@@ -1,4 +1,4 @@
-import { AuthenticationService, MenuService } from './../../services/index';
+import { AuthenticationService, ConfigService, MenuService } from './../../services/index';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
@@ -43,16 +43,22 @@ export class AppHeaderComponent implements OnInit {
   private mensaje: Mensaje;
   private bsObraModalRef: BsModalRef;
 
+  private config: any;
+  private webApi: string;
+
   constructor(
     private menuData: MenuService,
     private auth: AuthenticationService,
     private sanitizer: DomSanitizer,
     private http: HttpClient,
-    private bsModalService: BsModalService
+    private bsModalService: BsModalService,
+    private configService: ConfigService
   ) {
     this.trustedImgUrl = sanitizer.bypassSecurityTrustResourceUrl(this.imgUrl);
     this.imgUrlError = 'assets/img/avatars/user-a.png';
     this.mensaje = new Mensaje();
+    this.config = this.configService.getConfig();
+    this.webApi = this.config.webApi;
   }
 
   public logOut() {
@@ -82,26 +88,21 @@ export class AppHeaderComponent implements OnInit {
     }).pipe(
       switchMap((query: string) => {
         if (query) {
-          // using github public api to get users by name
-          // http://74.208.25.33:86/api/ObraPortal/Combo?filtroBusqueda
-          return (
-            this.http
-              //.get('https://api.github.com/search/users', {
-              .get(`${environment.webApi}/ObraPortal/Combo`, {
-                params: { filtroBusqueda: query }
+          return this.http
+            .get(`${this.webApi}/ObraPortal/Combo`, {
+              params: { filtroBusqueda: query }
+            })
+            .pipe(
+              map((data: any) => {
+                console.log('data', data);
+                if (data?.data.length > 0) {
+                  this.noResultsFound = false;
+                } else {
+                  this.noResultsFound = true;
+                }
+                return (data && data.data) || [];
               })
-              .pipe(
-                map((data: any) => {
-                  console.log('data', data);
-                  if (data?.data.length > 0) {
-                    this.noResultsFound = false;
-                  } else {
-                    this.noResultsFound = true;
-                  }
-                  return (data && data.data) || [];
-                })
-              )
-          );
+            );
         }
 
         return of([]);
