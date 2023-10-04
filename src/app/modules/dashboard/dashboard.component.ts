@@ -178,7 +178,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.loadCatalogos();
     this.loadTotales();
-    this.loadPuntosObra();
   }
 
   ngAfterViewInit() {
@@ -408,6 +407,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.geoJsonFeatureSecciones = geoData[4];
 
         this.visualizarMapa(this.geoJsonFeatureMunicipios);
+        this.loadPuntosObra();
       });
     }, 300);
 

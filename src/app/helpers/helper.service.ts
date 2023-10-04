@@ -17,6 +17,29 @@ import { VotoSeccion } from './../modules/dashboard/models/votoseccion.interface
   providedIn: 'root'
 })
 export class HelperService {
+  private tipoObrasUI = [
+    {
+      idTipoObraSocial: 1,
+      icon: 'fas fa-landmark',
+      color: 'wine'
+    },
+    {
+      idTipoObraSocial: 2,
+      icon: 'fas fa-city',
+      color: 'green'
+    },
+    {
+      idTipoObraSocial: 3,
+      icon: 'fas fa-bus',
+      color: 'wine-100'
+    },
+    {
+      idTipoObraSocial: 4,
+      icon: 'fas fa-hand-holding-droplet',
+      color: 'gold-800'
+    }
+  ];
+
   constructor(private localStorageService: LocalStorageService) {}
 
   public getGeoJsonByGroup(
@@ -362,6 +385,10 @@ export class HelperService {
     }
 
     return grupoTiposObra;
+  }
+
+  public getIconTipoObras(idTipoObraSocial: number) {
+    return this.tipoObrasUI[idTipoObraSocial - 1];
   }
 
   public formatTipoObras(tiposObras: TipoObra[]) {

@@ -7,10 +7,10 @@ import { Observable, Observer, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { Subscription } from 'rxjs';
-import { environment } from '../../../environments/environment.dev';
 import { Mensaje } from '../../models';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ObrasModalComponent } from '../../modules/obras/modal/obras-modal.component';
+import { HelperService } from '../../helpers/helper.service';
 
 @Component({
   selector: 'app-header',
@@ -52,7 +52,8 @@ export class AppHeaderComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private http: HttpClient,
     private bsModalService: BsModalService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private helperService: HelperService
   ) {
     this.trustedImgUrl = sanitizer.bypassSecurityTrustResourceUrl(this.imgUrl);
     this.imgUrlError = 'assets/img/avatars/user-a.png';
@@ -94,13 +95,20 @@ export class AppHeaderComponent implements OnInit {
             })
             .pipe(
               map((data: any) => {
-                console.log('data', data);
+                const format_data = [];
                 if (data?.data.length > 0) {
                   this.noResultsFound = false;
+                  data.data.forEach((element) => {
+                    console.log('element', element.id);
+                    const addAttr = this.helperService.getIconTipoObras(element.idTipoObraSocial);
+                    element = { ...element, ...addAttr };
+                    format_data.push(element);
+                  });
                 } else {
                   this.noResultsFound = true;
                 }
-                return (data && data.data) || [];
+                console.log('formdata', format_data);
+                return (data && format_data) || [];
               })
             );
         }
