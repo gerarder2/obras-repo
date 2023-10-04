@@ -68,37 +68,41 @@
         <div class="input-group-append">
           <span class="input-group-text bg-green"><i class="fas fa-search"></i></span>
         </div>
-        <div *ngIf="noResultsFound" class="no-results-message">
-          No se encontraron resultados.
-        </div>
+        <div *ngIf="noResultsFound" class="no-results-message">No se encontraron resultados.</div>
       </div>
     </li>
   </ul>
 </header>
 
-
-
 <ng-template #customListTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
+  <div class="result-count text-muted p5">Resultados encontrados: {{ matches.length }}</div>
+
   <ul class="custom-list-group">
     <li
       class="custom-list-group-item"
       *ngFor="let match of matches"
-      [class.active]="typeaheadTemplateMethods.isActive(match)"
       (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
-      (mouseenter)="typeaheadTemplateMethods.selectActive(match)"
     >
-      <!-- {{ match.item.objeto }} -->
-      <!-- <table class="table">
-        <tbody>
-          <tr >
-            <td>{{ match.item.id }}</td>
-            <td>{{ match.item.objeto }}</td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table> -->
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">{{match.item.id}} Contrato - {{ match.item.contrato }}</h5>
+          <p class="card-text">{{ match.item.objeto }}</p>
+          <hr />
+          <div class="d-flex justify-content-between">
+            <p>
+              <i [ngClass]="[match.item.icon, match.item.color]" class="fa-lg"></i>
+              {{ match.item.descripcionTipoObraSocial }}
+            </p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <p>Avance: {{ match.item.porcentajeAvance | percent }}</p>
+            <p><i class="fas fa-calendar-alt fa-lg"></i> {{match.item.fechaInicio | date: 'dd/MMM/YYYY':'':'es'}}</p>
+          </div>
+         
+        </div>
+      </div>
 
-      <div class="result-item">
+      <!-- <div class="result-item">
         <div class="field">
           <strong>ID:</strong> {{ match.item.id }}
         </div>
@@ -108,8 +112,7 @@
         <div class="field">
           <strong></strong>
         </div>
-      </div>
-
+      </div> -->
     </li>
   </ul>
 </ng-template>
@@ -117,7 +120,7 @@
 <ng-template #optionsListTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
   <table *ngFor="let result of matches">
     <tbody>
-      <tr >
+      <tr>
         <td>{{ result.item.id }}</td>
         <td>{{ result.item.objeto }}</td>
         <td></td>

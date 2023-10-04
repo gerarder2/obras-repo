@@ -56,7 +56,11 @@
     position: relative;
     display: block;
     padding: .75rem 1.25rem;
-    background-color: #fff;
+    background-color: $gray-200;
+
+    .card {
+        cursor: pointer;
+    }
   }
 
   .custom-list-group-item.active {
@@ -83,4 +87,34 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  i.wine {
+    color: $wine;
+  }
+
+  i.wine-100 {
+    color: $wine-100;
+  }
+
+
+  i.gold {
+    color: $gold;
+  }
+
+  i.gold-800 {
+    color: $gold-800;
+  }
+
+  i.green {
+    color: $green;
+  }
+
+  .result-count {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1; /* Asegura que el div se superponga a la lista de coincidencias */
+    padding: 8px;
+    border-bottom: 1px solid #ccc; /* Línea separadora */
   }
