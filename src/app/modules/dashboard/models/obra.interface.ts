@@ -55,4 +55,5 @@ export interface Obra {
   evidencias?: Evidencia[];
   licitacion?: any;
   descripcionOrigenRecurso?: string;
+  montoInversionAcumulada?: string;
 }
