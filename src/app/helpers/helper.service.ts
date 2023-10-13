@@ -37,6 +37,11 @@ export class HelperService {
       idTipoObraSocial: 4,
       icon: 'fas fa-hand-holding-droplet',
       color: 'gold-800'
+    },
+    {
+      idTipoObraSocial: 5,
+      icon: 'fas fa-handshake-angle',
+      color: 'blue'
     }
   ];
 
