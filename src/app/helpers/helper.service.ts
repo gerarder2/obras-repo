@@ -410,7 +410,11 @@ export class HelperService {
           break;
         case 4:
           item.icon = 'fas fa-hand-holding-droplet';
-          item.color = 'gold-800';
+          item.color = 'gold';
+          break;
+        case 5:
+          item.icon = 'fas fa-handshake-angle';
+          item.color = 'blue';
           break;
       }
     }
@@ -453,13 +457,13 @@ export class HelperService {
     }, 0);
 
     obrasPorTipo.forEach((element, index) => {
-      const avance = Math.round((element.numeroObras / sum) * 100);
+      const avance = ((element.numeroObras / sum) * 100).toFixed(1);
 
       tabla1.push({
         id: index + 1,
         nombre: element.descripcionTipoObraSocial,
-        progreso: avance,
-        color: avance > 30 ? (avance > 60 ? 'green' : 'gold-500') : 'wine'
+        progreso: parseFloat(avance),
+        color: parseInt(avance) > 30 ? (parseInt(avance) > 60 ? 'green' : 'gold-500') : 'wine'
       });
     });
 
@@ -473,13 +477,13 @@ export class HelperService {
     }, 0);
 
     obrasPorEjercicio.forEach((element, index) => {
-      const avance = Math.round((element.numeroObras / sum) * 100);
+      const avance = ((element.numeroObras / sum) * 100).toFixed(1);
 
       tabla2.push({
         id: index + 1,
         nombre: element.ejercicio,
-        progreso: avance,
-        color: avance > 30 ? (avance > 60 ? 'green' : 'gold-500') : 'wine'
+        progreso: parseFloat(avance),
+        color: parseInt(avance) > 30 ? (parseInt(avance) > 60 ? 'green' : 'gold-500') : 'wine'
       });
     });
 
