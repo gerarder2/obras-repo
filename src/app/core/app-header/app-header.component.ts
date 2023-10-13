@@ -85,7 +85,8 @@ export class AppHeaderComponent implements OnInit {
     ];
 
     this.suggestions$ = new Observable((observer: Observer<string | undefined>) => {
-      observer.next(this.search);
+      console.log('sear', this.search);
+      observer?.next(this.search);
     }).pipe(
       switchMap((query: string) => {
         if (query) {
