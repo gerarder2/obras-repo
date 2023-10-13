@@ -27,7 +27,7 @@ export class CatalogosService {
   public getCatalogos() {
     const obrasSocial = `${this.webApi}/TipoObraSocial/Combo`;
     const tiposModalidad = `${this.webApi}/TipoModalidad/Combo`;
-    const organismos = `${this.webApiMaatCore}/Dependencia/Combo`;
+    const organismos = `${this.webApiMaatCore}/Dependencia/Combo?IdAgrupador=${this.config.idAgrupador}`;
     const constratistas = `${this.webApi}/Contratista/Combo`;
     const tiposContrato = `${this.webApi}/TipoContrato/Combo`;
 
