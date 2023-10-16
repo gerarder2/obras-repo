@@ -177,6 +177,10 @@ export class ObrasModalComponent implements OnInit {
     const categories = [];
     const data = [];
 
+    this.obra.avances.sort((a, b) => {
+      return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() || b.id - a.id;
+    });
+
     const porcentaje = this.obra.avances.reduce((accumulator, element) => {
       return accumulator + element.porcentaje;
     }, 0);
@@ -189,12 +193,11 @@ export class ObrasModalComponent implements OnInit {
       categories.push(fecha.toString());
       data.push(element.porcentaje);
     });
-    console.log('categorias', categories);
 
     this.showGraficaPorcentaje = true;
     this.chartOptionsRadial = {
       colors: this.graphicPalette,
-      series: [this.obra.avances.length > 1 ? Math.round(porcentaje / 2) : porcentaje],
+      series: [this.obra.avances.length > 1 ? this.obra.avances[0].porcentaje : 0],
       chart: {
         height: 210,
         type: 'radialBar'

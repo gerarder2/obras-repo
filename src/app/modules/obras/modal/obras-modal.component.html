@@ -262,6 +262,7 @@
                 >
                   <ng-template pTemplate="header">
                     <tr>
+                      <th>Id</th>
                       <th>Fecha</th>
                       <th>Comentario</th>
                       <th>Porcentaje</th>
@@ -269,7 +270,8 @@
                   </ng-template>
                   <ng-template pTemplate="body" let-avance>
                     <tr>
-                      <td>{{ avance.fecha }}</td>
+                      <td>{{ avance.id }}</td>
+                      <td>{{ avance.fecha | date: 'longDate':'':'es'  }}</td>
                       <td>{{ avance.comentario }}</td>
                       <td>{{ avance.porcentaje }} %</td>
                     </tr>
