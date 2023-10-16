@@ -196,7 +196,7 @@ export class ObrasModalComponent implements OnInit {
       colors: this.graphicPalette,
       series: [this.obra.avances.length > 1 ? Math.round(porcentaje / 2) : porcentaje],
       chart: {
-        height: 200,
+        height: 210,
         type: 'radialBar'
       },
       plotOptions: {
@@ -225,7 +225,7 @@ export class ObrasModalComponent implements OnInit {
         }
       ],
       chart: {
-        height: 250,
+        height: 180,
         type: 'line',
         zoom: {
           enabled: false
@@ -240,7 +240,7 @@ export class ObrasModalComponent implements OnInit {
         // colors: ['#ff0000']
       },
       title: {
-        text: 'Product Trends by Month',
+        text: 'Avances de la Obra',
         align: 'left'
       },
       grid: {

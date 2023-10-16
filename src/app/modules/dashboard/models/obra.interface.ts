@@ -4,6 +4,7 @@ import { Evidencia } from './evidencia.interface';
 
 export interface Obra {
   id?: number;
+  informacionRelevante?: string;
   objeto?: string;
   montoInversion?: string;
   porcentajeInversion?: number;

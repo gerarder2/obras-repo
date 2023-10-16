@@ -136,6 +136,11 @@ p-table ::ng-deep .p-datatable .p-sortable-column:hover .p-sortable-column-icon 
   small {
     font-weight: 800;
   }
+
+  .p-tabview .p-tabview-panels {
+    padding-bottom: 0;
+  }
+  
 }
 
 #chart {
