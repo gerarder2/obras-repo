@@ -35,7 +35,7 @@
         color: $white;
     }
 }
-::ng-deep .dropdown-menu {
+::ng-deep typeahead-container.dropdown-menu {
    height: 450px !important;
 }
 

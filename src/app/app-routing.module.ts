@@ -13,6 +13,7 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    canActivate: [AuthGuard],
     path: '',
     component: FullLayoutComponent,
     data: {

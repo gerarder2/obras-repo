@@ -1,12 +1,10 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 import { ConfigService } from './config.service';
 import { HttpClient } from '@angular/common/http';
-import { ICredential } from './../models/ICredential';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ToasterService } from 'angular2-toaster';
 import { environment } from './../../environments/environment.dev';
 import { map } from 'rxjs/operators';
 
@@ -19,13 +17,13 @@ export class AuthenticationService {
 
   constructor(private router: Router, private http: HttpClient, private configService: ConfigService) {
     this.settings = this.configService.getConfig();
-    this.apiLogin = this.settings.webApi + '/login';
+    this.apiLogin = this.settings.webApiMaatCore + '/Login';
   }
 
   login(credential: any, automatico?: boolean) {
-    let url = this.settings.webApi + '/login';
+    let url = this.settings.webApiMaatCore + 'Login';
     if (automatico) {
-      url = this.settings.webApi + '/agregarUsuario';
+      url = this.settings.webApiMaatCore + '/agregarUsuario';
     }
     return this.http.post<any>(url, credential).pipe(
       map((user) => {
@@ -40,7 +38,7 @@ export class AuthenticationService {
   }
 
   loginAutomatico(token: string) {
-    this.http.post<any>(this.settings.webApi + '/agregarUsuario', { Token: token }).subscribe(
+    this.http.post<any>(this.settings.webApiMaatCore + '/agregarUsuario', { Token: token }).subscribe(
       (resp) => {
         if (resp.Data) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes

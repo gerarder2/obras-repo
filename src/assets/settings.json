@@ -19,5 +19,6 @@
             "descripcion": "2023"
         }
     ],
-    "idAgrupador": 1
+    "idAgrupador": 1,
+    "logo": "assets/logosinaloacolor.svg"
 }

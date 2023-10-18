@@ -1,4 +1,12 @@
 @import '../../../scss/bootstrap-variables';
+
+.theme-1 {
+  // background-color: $wine;
+  background-image: url('../../../assets/images/fondo-gobierno-figuras.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .page {
   align-items: center;
   flex-direction: column;
@@ -15,6 +23,15 @@
   // height: 224;
   font-weight: bold;
 }
+
+.card{
+  img.card-img-top {
+    padding:20px !important;
+    width: 260px;
+  }
+}
+
+
 .header {
   horizontal-align: center;
   font-size: 25;
