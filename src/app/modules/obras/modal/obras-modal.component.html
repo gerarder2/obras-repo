@@ -75,25 +75,25 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12">
+            <div class="col-12" *ngIf="showCharts">
               <apx-chart
-                [series]="chartOptionsRadial.series"
                 [chart]="chartOptionsRadial.chart"
                 [plotOptions]="chartOptionsRadial.plotOptions"
                 [labels]="chartOptionsRadial.labels"
                 [colors]="chartOptionsRadial.colors"
                 [stroke]="chartOptionsRadial.stroke"
+                [series]="chartOptionsRadial.series"
               ></apx-chart>
             </div>
           </div>
-          <div class="row" *ngIf="obra.avances.length > 0">
+          <div class="row" *ngIf="obra?.avances?.length > 0">
             <div class="col-12 col-md-6">
               <small>Fecha</small>
-              <p>{{ obra.avances[obra.avances.length - 1].fecha | date: 'longDate':'':'es' }}</p>
+              <p>{{ obra.avances[0].fecha | date: 'longDate':'':'es' }}</p>
             </div>
             <div class="col-12 col-md-6">
               <small>Comentario</small>
-              <p>{{ obra.avances[obra.avances.length - 1].comentario }}</p>
+              <p>{{ obra.avances[0].comentario }}</p>
             </div>
           </div>
         </div>
@@ -217,12 +217,12 @@
                     <div class="card-body">
                       <div id="chartradial-{{ this.obra.id }}">
                         <apx-chart
-                          [series]="chartOptionsRadial.series"
                           [chart]="chartOptionsRadial.chart"
                           [plotOptions]="chartOptionsRadial.plotOptions"
                           [labels]="chartOptionsRadial.labels"
                           [colors]="chartOptionsRadial.colors"
                           [stroke]="chartOptionsRadial.stroke"
+                          [series]="chartOptionsRadial.series"
                         ></apx-chart>
                       </div>
                     </div>

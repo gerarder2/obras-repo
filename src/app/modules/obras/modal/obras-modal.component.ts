@@ -76,6 +76,7 @@ export class ObrasModalComponent implements OnInit {
   public chartOptionsLine: Partial<ChartOptionsLine>;
   public showGraficaPorcentaje: boolean;
   public chartOptionsPie: Partial<ChartOptionsPie>;
+  public showCharts: boolean;
 
   //Layout
   public showCarousel: boolean;
@@ -91,6 +92,7 @@ export class ObrasModalComponent implements OnInit {
   private graphicPalette: string[];
 
   constructor(public bsObraModalRef: BsModalRef, private obrasService: ObrasService) {
+    this.showCharts = false;
     this.graphicPalette = ['#952431', '#B18147', '#3D5C4F', '#6610f2'];
     this.mensaje = new Mensaje();
     this.eventos = [];
@@ -197,7 +199,7 @@ export class ObrasModalComponent implements OnInit {
     this.showGraficaPorcentaje = true;
     this.chartOptionsRadial = {
       colors: this.graphicPalette,
-      series: [this.obra.avances.length > 1 ? this.obra.avances[0].porcentaje : 0],
+      series: [this.obra.avances.length > 0 ? this.obra.avances[0].porcentaje : 0],
       chart: {
         height: 210,
         type: 'radialBar'
@@ -285,6 +287,7 @@ export class ObrasModalComponent implements OnInit {
         }
       ]
     };
+    this.showCharts = true;
   }
 
   // Cerrar el modal, ademas envia la informacion al componente list correspondiente. No modificar
