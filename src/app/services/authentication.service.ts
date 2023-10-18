@@ -21,7 +21,7 @@ export class AuthenticationService {
   }
 
   login(credential: any, automatico?: boolean) {
-    let url = this.settings.webApiMaatCore + 'Login';
+    let url = this.settings.webApiMaatCore + '/Login';
     if (automatico) {
       url = this.settings.webApiMaatCore + '/agregarUsuario';
     }
