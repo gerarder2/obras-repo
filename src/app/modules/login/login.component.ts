@@ -64,11 +64,8 @@ export class LoginComponent implements OnInit {
       (resp) => {
         this.loading = false;
         this.blockUI.stop();
-        if (!resp.EsUsuarioCliente) {
-          this.router.navigate(['/']);
-        } else {
-          this.router.navigate(['clientes']);
-        }
+
+        this.router.navigate(['/']);
       },
       (error: unknown) => {
         this.loading = false;

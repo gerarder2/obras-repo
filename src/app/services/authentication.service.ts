@@ -17,20 +17,21 @@ export class AuthenticationService {
 
   constructor(private router: Router, private http: HttpClient, private configService: ConfigService) {
     this.settings = this.configService.getConfig();
-    this.apiLogin = this.settings.webApiMaatCore + '/Login';
+    this.apiLogin = this.settings.webApiMaatCore + '/login';
   }
 
   login(credential: any, automatico?: boolean) {
     let url = this.settings.webApiMaatCore + '/Login';
+    credential.idSistema = environment.idSistema;
     if (automatico) {
       url = this.settings.webApiMaatCore + '/agregarUsuario';
     }
     return this.http.post<any>(url, credential).pipe(
       map((user) => {
         // login successful if there's a jwt token in the response
-        if (user.Data) {
+        if (user.data) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user.Data));
+          localStorage.setItem('currentUser', JSON.stringify(user.data));
         }
         return user.Data;
       })
