@@ -57,4 +57,5 @@ export interface Obra {
   licitacion?: any;
   descripcionOrigenRecurso?: string;
   montoInversionAcumulada?: string;
+  numeroAutorizacion?: string;
 }

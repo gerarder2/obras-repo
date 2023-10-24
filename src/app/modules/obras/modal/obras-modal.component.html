@@ -71,7 +71,14 @@
           <div class="row">
             <div class="col-12">
               <small>Geolocalizacion</small>
-              <p>[{{ obra.latitud }},{{ obra.longitud }}]</p>
+              <a href="#" (click)="openGoogleMaps()">
+                <p>
+                  <i class="fas fa-location-dot"></i> [{{ obra.latitud }}, {{ obra.longitud }}] <br /><small
+                    class="text-muted"
+                    >Click para abrir mapa</small
+                  >
+                </p>
+              </a>
             </div>
           </div>
           <div class="row">
@@ -148,7 +155,7 @@
           <div class="row">
             <div class="col-12">
               <small>Número autorización</small>
-              <p>{{ '-' }}</p>
+              <p>{{ obra.numeroAutorizacion }}</p>
             </div>
           </div>
           <div class="row">
@@ -254,7 +261,7 @@
             <div class="card shadow">
               <div class="card-body">
                 <p-table
-                  [value]="obra.avances"
+                  [value]="obraAvancesSorter"
                   styleClass="p-datatable-sm"
                   [scrollable]="true"
                   scrollHeight="150px"
@@ -271,7 +278,7 @@
                   <ng-template pTemplate="body" let-avance>
                     <tr>
                       <td>{{ avance.id }}</td>
-                      <td>{{ avance.fecha | date: 'longDate':'':'es'  }}</td>
+                      <td>{{ avance.fecha | date: 'longDate':'':'es' }}</td>
                       <td>{{ avance.comentario }}</td>
                       <td>{{ avance.porcentaje }} %</td>
                     </tr>

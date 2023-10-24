@@ -20,6 +20,7 @@ import {
 import { Evidencia } from '../../dashboard/models/evidencia.interface';
 import { Imagen } from '../../dashboard/models/imagen.interface';
 import * as moment from 'moment';
+import { Avance } from '../../dashboard/models/avance.interface';
 
 export type ChartOptionsRadial = {
   colors: string[];
@@ -69,6 +70,7 @@ export class ObrasModalComponent implements OnInit {
   public eventos: any[];
   public obra: Obra;
   public evidencia: Evidencia;
+  public obraAvancesSorter: Avance[];
   // end
 
   //charts
@@ -179,7 +181,9 @@ export class ObrasModalComponent implements OnInit {
     const categories = [];
     const data = [];
 
-    this.obra.avances.sort((a, b) => {
+    this.obraAvancesSorter = [...this.obra.avances];
+
+    this.obraAvancesSorter.sort((a, b) => {
       return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() || b.id - a.id;
     });
 
@@ -297,5 +301,10 @@ export class ObrasModalComponent implements OnInit {
     };
     this.event.next(response);
     this.bsObraModalRef.hide();
+  }
+
+  openGoogleMaps() {
+    const url = `https://www.google.com/maps?q=${this.obra.latitud},${this.obra.longitud}&ll=${this.obra.latitud},${this.obra.longitud}&z=10`;
+    window.open(url, '_blank');
   }
 }
