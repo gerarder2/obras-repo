@@ -203,7 +203,7 @@ export class ObrasModalComponent implements OnInit {
     this.showGraficaPorcentaje = true;
     this.chartOptionsRadial = {
       colors: this.graphicPalette,
-      series: [this.obra.avances.length > 0 ? this.obra.avances[0].porcentaje : 0],
+      series: [this.obra.avances.length > 0 ? this.obra.avances[this.obra.avances.length - 1].porcentaje : 0],
       chart: {
         height: 210,
         type: 'radialBar'

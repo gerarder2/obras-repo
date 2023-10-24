@@ -96,11 +96,11 @@
           <div class="row" *ngIf="obra?.avances?.length > 0">
             <div class="col-12 col-md-6">
               <small>Fecha</small>
-              <p>{{ obra.avances[0].fecha | date: 'longDate':'':'es' }}</p>
+              <p>{{ obra.avances[obra.avances.length - 1].fecha | date: 'longDate':'':'es' }}</p>
             </div>
             <div class="col-12 col-md-6">
               <small>Comentario</small>
-              <p>{{ obra.avances[0].comentario }}</p>
+              <p>{{ obra.avances[obra.avances.length - 1].comentario }}</p>
             </div>
           </div>
         </div>
