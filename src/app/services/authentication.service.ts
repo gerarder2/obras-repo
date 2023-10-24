@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from './../../environments/environment.dev';
 import { map } from 'rxjs/operators';
+import { ValidaVersionService } from './valida-version.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -15,7 +16,12 @@ export class AuthenticationService {
   public settings: any;
   public apiLogin: string;
 
-  constructor(private router: Router, private http: HttpClient, private configService: ConfigService) {
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private configService: ConfigService,
+    private validaVersion: ValidaVersionService
+  ) {
     this.settings = this.configService.getConfig();
     this.apiLogin = this.settings.webApiMaatCore + '/login';
   }
@@ -124,6 +130,7 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
+    this.validaVersion.restartInterval();
     if (environment.production) {
       window.location.href = this.settings.redirectUrl;
     } else {
