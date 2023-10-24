@@ -56,22 +56,22 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="obra.objeto !=='NA'">
             <div class="col-12">
               <small>Objeto</small>
               <p>{{ obra.objeto }}</p>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="obra.informacionRelevante && obra.informacionRelevante !=='NA'">
             <div class="col-12">
               <small>Informacion Relevante</small>
               <p>{{ obra.informacionRelevante }}</p>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="obra.latitud !=='NA'">
             <div class="col-12">
               <small>Geolocalizacion</small>
-              <a href="#" (click)="openGoogleMaps()">
+              <a [href]="openGoogleMaps()" target="_blank">
                 <p>
                   <i class="fas fa-location-dot"></i> [{{ obra.latitud }}, {{ obra.longitud }}] <br /><small
                     class="text-muted"
@@ -111,7 +111,7 @@
               <p>{{ obra.fechaContratacion | date: 'longDate':'':'es' }}</p>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="obra.descripcionOrigenRecurso !=='NA'">
             <div class="col-12">
               <small>Origen del Recurso</small>
               <p>{{ obra.descripcionOrigenRecurso ? obra.descripcionOrigenRecurso : '-' }}</p>
@@ -126,19 +126,19 @@
               </p>
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row" *ngIf="obra.objeto !=='NA'">>
             <div class="col-12">
               <small>Dirección</small>
               <p>{{ '-' }}</p>
             </div>
-          </div>
-          <div class="row">
+          </div> -->
+          <div class="row" *ngIf="obra.nombreSupervisor !=='NA'">
             <div class="col-12">
               <small>Residente o Supervisor</small>
               <p>{{ obra.nombreSupervisor }}</p>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="obra.descripcionContratista !=='NA'">
             <div class="col-12">
               <small>Contratista</small>
               <p>{{ obra.descripcionContratista }}</p>
@@ -146,37 +146,37 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div class="row">
+          <div class="row" *ngIf="obra.descripcionTipoModalidad !=='NA'">
             <div class="col-12">
               <small>Tipo Modalidad</small>
               <p>{{ obra.descripcionTipoModalidad }}</p>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="obra.numeroAutorizacion !=='NA'">
             <div class="col-12">
               <small>Número autorización</small>
               <p>{{ obra.numeroAutorizacion }}</p>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="obra.nombreMunicipio !=='NA'">
             <div class="col-12">
               <small>Municipio</small>
               <p>{{ obra.nombreMunicipio }}</p>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="obra.descripcionTipoContrato !=='NA'">
             <div class="col-12">
               <small>Tipo contrato</small>
               <p>{{ obra.descripcionTipoContrato }}</p>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="obra.descripcionTipoObraSocial !=='NA'">
             <div class="col-12">
               <small>Tipo Obra</small>
               <p>{{ obra.descripcionTipoObraSocial }}</p>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="obra.descripcionDependencia !=='NA'">
             <div class="col-12">
               <small>Dependencia / Organismo</small>
               <p>{{ obra.descripcionDependencia }}</p>

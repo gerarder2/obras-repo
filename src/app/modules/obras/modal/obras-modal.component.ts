@@ -303,8 +303,10 @@ export class ObrasModalComponent implements OnInit {
     this.bsObraModalRef.hide();
   }
 
-  openGoogleMaps() {
-    const url = `https://www.google.com/maps?q=${this.obra.latitud},${this.obra.longitud}&ll=${this.obra.latitud},${this.obra.longitud}&z=10`;
-    window.open(url, '_blank');
+  openGoogleMaps(): string {
+    let url = '';
+    url = `https://www.google.com/maps?q=${this.obra.latitud},${this.obra.longitud}&ll=${this.obra.latitud},${this.obra.longitud}&z=10`;
+    return url;
+    //window.open(url, '_blank');
   }
 }
