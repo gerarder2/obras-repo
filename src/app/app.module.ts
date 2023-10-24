@@ -66,6 +66,8 @@ import { SharedModule } from 'primeng/api';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AppUpdatePopupComponent } from './shared-components/app-update-popup/app-update-popup.component';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 registerLocaleData(localeEsMx);
 
@@ -85,7 +87,8 @@ const APP_COMPONENTS = [
   AppSidebarNavDropdownComponent,
   AppSidebarNavItemComponent,
   AppSidebarNavLinkComponent,
-  AppSidebarNavTitleComponent
+  AppSidebarNavTitleComponent,
+  AppUpdatePopupComponent
 ];
 
 const APP_DIRECTIVES = [
@@ -128,7 +131,8 @@ export function ConfigLoader(configService: ConfigService) {
     SharedModule,
     TypeaheadModule.forRoot(),
     FormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    AlertModule
   ],
   declarations: [AppComponent, ...APP_CONTAINERS, ...APP_COMPONENTS, ...APP_DIRECTIVES],
   providers: [
