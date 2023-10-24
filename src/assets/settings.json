@@ -20,5 +20,7 @@
         }
     ],
     "idAgrupador": 1,
-    "logo": "assets/logosinaloacolor.svg"
+    "logo": "assets/logosinaloacolor.svg",
+    "intervalOn": true,
+    "timeInterval": 30000
 }

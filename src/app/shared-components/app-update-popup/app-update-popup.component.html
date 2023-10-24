@@ -1,0 +1,20 @@
+<alert type="warning" style="position: fixed;top: 1%;right:23.5%;z-index: 1011;" *ngIf="showAlert && loggeado">
+    Nueva versión disponible, haz click en Actualizar para obtener los nuevos cambios.&nbsp;<a href="#" class="alert-link" (click)="reloadPage()"> Actualizar </a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="close" (click)="closeAlerta()" style="font-size: large;">&times;</button>
+  </alert>
+  
+  
+  <div class="popup" *ngIf="showPopup && loggeado">
+    <div class="popup-content">
+      <div class="header">
+        <h2>Nueva versión disponible</h2>
+      </div>
+      <div class="message">
+        <p>Haz click en Actualizar para obtener los nuevos cambios</p>
+      </div>
+      <div class="actions">
+        <button (click)="reloadPage()" class="update-button">Actualizar</button>
+        <button (click)="closePopup()" class="close-button">Cerrar</button>
+      </div>
+    </div>
+  </div>
