@@ -30,7 +30,7 @@ export class ValidaVersionService {
 
   constructor(private http: HttpClient, private configService: ConfigService) {
     this.config = configService.getConfig();
-    this.url = `${this.config.webApi}/Utilerias/version`;
+    this.url = `${this.config.webApiMaatCore}/Utilerias/version`;
     this.conLogin = environment.conLogin;
   }
 
