@@ -16,5 +16,6 @@ export const environment = {
   ambiente: 'develop',
   configFile: 'assets/settings.json',
   webApi: 'http://74.208.25.33:86/api',
-  idSistema: 4
+  idSistema: 4,
+  conLogin: true
 };
