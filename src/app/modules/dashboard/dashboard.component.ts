@@ -30,6 +30,7 @@ import { TipoObra } from './models/tipoobra.interface';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ObrasModalComponent } from '../obras/modal/obras-modal.component';
 import { Totales } from './models/totales.interface';
+import { ObrasService } from '../obras/services/obras.service';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -112,7 +113,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private viewRef: ViewContainerRef,
     private inj: Injector,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private bsModalService: BsModalService
+    private bsModalService: BsModalService,
+    private obrasService: ObrasService
   ) {
     const config = this.configService.getConfig();
     this.montoInversion = 0;
@@ -188,6 +190,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.catalogosService.getCatalogos().subscribe({
       next: (data: any[]) => {
         this.tiposObras = this.helperService.formatTipoObras(data[0].data);
+        this.tiposObras = this.tiposObras.filter((x) => x.id === 6);
 
         // this.partidos = data[1].data;
         // this.distritos = data[2].data;
@@ -305,33 +308,39 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   descargarReporte() {
-    this.blockUIList.start('Descargando...');
     const payload = {
       idMunicipio: this.municipioSeleccionado.id,
       ejercicio: this.periodoSeleccionado.descripcion !== 'Todos' ? parseInt(this.periodoSeleccionado.descripcion) : 0,
       estatus: this.estatusObrasSeleccionado.descripcion
     };
 
-    this.obrasService.getReporte(payload).subscribe({
-      next: (response: Blob) => {
-        const url = window.URL.createObjectURL(response);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Reporte.pdf';
-        a.click();
-        window.URL.revokeObjectURL(url);
-        this.blockUIList.stop();
-      },
-      error: (err: unknown) => {
-        this.mensaje.showMessage({
-          notification: {
-            mensajeUsuario: 'Ocurrio un error al intentar descargar el Reporte',
-            severidad: 'error'
-          }
-        });
-        this.blockUIList.stop();
-      }
-    });
+    if (payload.idMunicipio) {
+      this.obrasService.getReporte(payload).subscribe({
+        next: (response: Blob) => {
+          const url = window.URL.createObjectURL(response);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'Reporte.pdf';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: (err: unknown) => {
+          this.mensaje.showMessage({
+            notification: {
+              mensajeUsuario: 'Ocurrio un error al intentar descargar el Reporte',
+              severidad: 'error'
+            }
+          });
+        }
+      });
+    } else {
+      this.mensaje.showMessage({
+        notification: {
+          mensajeUsuario: 'Debe seleccionar un Municipio para generar el Reporte',
+          severidad: 'warning'
+        }
+      });
+    }
   }
 
   public filtrarLocal() {
