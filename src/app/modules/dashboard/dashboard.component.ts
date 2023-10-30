@@ -223,6 +223,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           estatus: this.estatusObrasSeleccionado.descripcion
         };
         const newPuntosMapa = this.helperService.filtrarData(info);
+        this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
 
         if (newPuntosMapa.data.length > 0) {
           const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
@@ -303,6 +304,36 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  descargarReporte() {
+    this.blockUIList.start('Descargando...');
+    const payload = {
+      idMunicipio: this.municipioSeleccionado.id,
+      ejercicio: this.periodoSeleccionado.descripcion !== 'Todos' ? parseInt(this.periodoSeleccionado.descripcion) : 0,
+      estatus: this.estatusObrasSeleccionado.descripcion
+    };
+
+    this.obrasService.getReporte(payload).subscribe({
+      next: (response: Blob) => {
+        const url = window.URL.createObjectURL(response);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Reporte.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        this.blockUIList.stop();
+      },
+      error: (err: unknown) => {
+        this.mensaje.showMessage({
+          notification: {
+            mensajeUsuario: 'Ocurrio un error al intentar descargar el Reporte',
+            severidad: 'error'
+          }
+        });
+        this.blockUIList.stop();
+      }
+    });
+  }
+
   public filtrarLocal() {
     const info = {
       tiposObras: this.tiposObras,
@@ -316,6 +347,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     if (newPuntosMapa.data.length > 0) {
       const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
       this.tiposObras = conteo;
+      this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
       this.mostrarPuntosObra(newPuntosMapa);
     } else {
       if (this.obrasMarksLayer) {
@@ -329,7 +361,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.catalogosService.getObrasTotales({ ejercicio: 0 }).subscribe({
       next: (response: any) => {
         this.totales = response.data[0];
-        this.montoInversion = this.totales.totalMontoInversion;
+        //this.montoInversion = this.totales.totalMontoInversion;
         this.cards = [
           {
             id: 1,
