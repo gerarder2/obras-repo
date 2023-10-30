@@ -155,7 +155,7 @@ export function ConfigLoader(configService: ConfigService) {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
-    { provide: LOCALE_ID, useValue: 'es' },
+    { provide: LOCALE_ID, useValue: 'en-US' },
     ConfigService,
     {
       provide: APP_INITIALIZER,
