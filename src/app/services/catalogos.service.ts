@@ -132,6 +132,9 @@ export class CatalogosService {
             case 5:
               element.icon = 'fas fa-handshake-angle';
               break;
+            case 6:
+              element.icon = 'fas fa-bridge-water';
+              break;
           }
           if (element.tiposObra.length > 0) {
             for (const obra of element.tiposObra) {

@@ -296,6 +296,15 @@
     .p-inputswitch-slider {
     background:$gold;
 }
+
+:host ::ng-deep .custom-gris-oxford
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-gris-oxford
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$gris-oxford;
+}
 // inputSwitch partidos
 
 :host ::ng-deep .custom-pri

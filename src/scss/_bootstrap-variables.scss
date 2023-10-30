@@ -51,6 +51,7 @@ $grey-800: #302D2A;
 $grey-500: #5D5F64;
 $grey-100: #7B7D81;
 $green: #3D5C4F;
+$gris-oxford:#393d42;
 
 $colors: (
   blue: $blue,
@@ -68,7 +69,8 @@ $colors: (
   gray: $gray-600,
   gray-dark: $gray-800,
   blue-dark: $dark-blue,
-  wine: $wine
+  wine: $wine,
+  gris-oxford: $gris-oxford
 );
 
 $theme-colors: (
@@ -85,7 +87,8 @@ $theme-colors: (
   gold-500: $gold-500,
   wine-100: $wine-100,
   wine: $wine,
-  gold: $gold-800
+  gold: $gold-800,
+  gris-oxford: $gris-oxford
 );
 
 // Options

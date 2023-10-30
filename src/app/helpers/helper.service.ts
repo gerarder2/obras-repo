@@ -42,6 +42,11 @@ export class HelperService {
       idTipoObraSocial: 5,
       icon: 'fas fa-handshake-angle',
       color: 'blue'
+    },
+    {
+      idTipoObraSocial: 6,
+      icon: 'fas fa-bridge-water',
+      color: 'gris-oxford'
     }
   ];
 
@@ -420,6 +425,10 @@ export class HelperService {
         case 5:
           item.icon = 'fas fa-handshake-angle';
           item.color = 'blue';
+          break;
+        case 6:
+          item.icon = 'fas fa-bridge-water';
+          item.color = 'gris-oxford';
           break;
       }
     }

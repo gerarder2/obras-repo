@@ -190,7 +190,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.catalogosService.getCatalogos().subscribe({
       next: (data: any[]) => {
         this.tiposObras = this.helperService.formatTipoObras(data[0].data);
-        this.tiposObras = this.tiposObras.filter((x) => x.id === 6);
 
         // this.partidos = data[1].data;
         // this.distritos = data[2].data;
@@ -247,7 +246,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   filtrar() {
-    console.log('filtrar', this.periodo !== this.periodoSeleccionado.descripcion);
     const payload = {
       idTipoObraSocial: 0,
       idMunicipio: 0,
@@ -261,7 +259,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         payload.ejercicio = parseInt(this.periodoSeleccionado.descripcion);
         payload.idMunicipio = this.municipioSeleccionado.id;
         payload.estatus = this.estatusObrasSeleccionado.descripcion;
-        console.log('payload', payload);
 
         this.catalogosService.getMapaObras(payload).subscribe({
           next: (response: any) => {
@@ -352,7 +349,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     };
 
     const newPuntosMapa = this.helperService.filtrarData(info);
-    console.log('filtrarLocal', newPuntosMapa);
     if (newPuntosMapa.data.length > 0) {
       const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
       this.tiposObras = conteo;
@@ -992,7 +988,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   onChangeTipoObra(obra: any) {
-    console.log(obra);
     this.filtrar();
   }
 }
