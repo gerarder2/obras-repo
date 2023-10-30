@@ -311,33 +311,24 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       estatus: this.estatusObrasSeleccionado.descripcion
     };
 
-    if (payload.idMunicipio) {
-      this.obrasService.getReporte(payload).subscribe({
-        next: (response: Blob) => {
-          const url = window.URL.createObjectURL(response);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'Reporte.pdf';
-          a.click();
-          window.URL.revokeObjectURL(url);
-        },
-        error: (err: unknown) => {
-          this.mensaje.showMessage({
-            notification: {
-              mensajeUsuario: 'Ocurrio un error al intentar descargar el Reporte',
-              severidad: 'error'
-            }
-          });
-        }
-      });
-    } else {
-      this.mensaje.showMessage({
-        notification: {
-          mensajeUsuario: 'Debe seleccionar un Municipio para generar el Reporte',
-          severidad: 'warning'
-        }
-      });
-    }
+    this.obrasService.getReporte(payload).subscribe({
+      next: (response: Blob) => {
+        const url = window.URL.createObjectURL(response);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Reporte.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err: unknown) => {
+        this.mensaje.showMessage({
+          notification: {
+            mensajeUsuario: 'Ocurrio un error al intentar descargar el Reporte',
+            severidad: 'error'
+          }
+        });
+      }
+    });
   }
 
   public filtrarLocal() {
