@@ -6,6 +6,11 @@
  * @license MIT
  */
 
+ @font-face {
+  font-family: 'Mestiza-Bold';
+  src: url('./../assets/fonts/Mestiza-Bold.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+} 
+
 html {
   font-size: 14px;
 }
@@ -50,6 +55,7 @@ html {
 @import '~ag-grid-community/dist/styles/ag-grid.css';
 
 @import '~ag-grid-community/dist/styles/ag-theme-balham.css';
+
 
 
 .modal-fullscreen {

@@ -1,4 +1,4 @@
-<section class="container-header">
+<section class="container-header" *ngIf="false">
   <div class="titulo-header">
     <h5>Bienvenido al portal</h5>
     <h4>OBRAS PUBLICAS SINALOA</h4>
@@ -9,16 +9,45 @@
   </div>
 </section>
 <section class="map-container">
+  <div class="lista-float-2" *ngIf="montoInversion">
+    <div class="contenido">
+      <app-lista-elementos 
+        [titulo]="'Inversion Total Ejercida'" 
+        [enableToggle]="false" 
+        [totales]="montoInversion"
+        [currency]="true"
+        [active]="true">
+      </app-lista-elementos>
+    </div>
+  </div>
+  <div class="lista-float"  *ngIf="montoInversion">
+    <div *ngFor="let item of listaItems; let i = index">
+      <app-lista-elementos
+        [titulo]="item.label"
+        [elementoActivo]="elementoActivo === i"
+        [totales]="item.totales"
+        [currency]="item.currency ? item.currency : false"
+        (click)="activarElemento(i)"
+      ></app-lista-elementos>
+    </div>
+  </div>
+
   <!-- sidebar -->
   <div class="map-sidebar map-sidebar-open">
+    <h3 class="map-sidebar-title">BIENVENIDO AL PORTAL DE OBRAS PUBLICAS SINALOA</h3>
     <div class="map-sidebar-header">
       <h6 class="header-title">Configuración</h6>
-      <button class="btn btn-sm btn-gold-100 icon text-white" (click)="recargarInfo()">
-        <i class="fas fa-rotate"></i>
-      </button>
+      <div>
+        <button class="btn btn-sm btn-primary icon text-white" (click)="recargarInfo()">
+          <i class="fas fa-rotate"></i>
+        </button>
+        <button class="btn btn-sm btn-gold-100 icon text-white" (click)="configCollapsed = !configCollapsed">
+          <i class="fas" [ngClass]="{ 'fa-chevron-down': !configCollapsed, 'fa-chevron-up': configCollapsed }"></i>
+        </button>
+      </div>
     </div>
 
-    <div class="map-sidebar-body">
+    <div class="map-sidebar-body" [collapse]="configCollapsed">
       <h6 class="header-title">Por Tipo de Obra</h6>
       <section class="tipo-obras">
         <div class="col-xs-10" *ngFor="let tipo of tiposObras">
@@ -82,7 +111,7 @@
           <button class="btn btn-primary icon text-white" (click)="descargarReporte()">
             <i class="fas fa-file-pdf"></i> Reporte
           </button>
-        </div>        
+        </div>
         <div class="form-group float-right">
           <button class="btn btn-primary icon text-white" (click)="filtrar()">
             <i class="fas fa-filter"></i> Filtrar

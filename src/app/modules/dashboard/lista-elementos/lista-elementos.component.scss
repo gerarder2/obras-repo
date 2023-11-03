@@ -1,0 +1,51 @@
+@import './../../../../scss/bootstrap-variables';
+
+.lista-elemento {
+    color: $wine;
+    border-radius: 10px;
+    padding: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    background-color: white;
+    margin-bottom: 10px;
+    opacity: 1; /* Establece la opacidad inicial a 1 */
+  
+    &.active {
+      //transform: scale(1.2);
+      width: 320px;
+      height: 80px;
+      
+      .totales {
+        display: block;
+      }
+    }
+  
+    &.inactive {
+      opacity: 0.5;
+      .totales {
+        display: none;
+      }
+    }
+
+    .contenido {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* Centra verticalmente el contenido */
+      }
+  
+      .titulo {
+        flex: 1; /* Toma todo el espacio disponible a la izquierda del ícono */
+        // Estilos del título
+      }
+    
+      .icono {
+        flex: 0; /* No tome espacio, estará en el lado derecho */
+        // Estilos del ícono
+      }
+        .totales{
+            display: none;
+            font-family: 'Mestiza-Bold';
+            font-size: 2rem;
+        }
+  }
+  

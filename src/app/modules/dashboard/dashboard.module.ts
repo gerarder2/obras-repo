@@ -26,6 +26,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SidebarModule } from 'primeng/sidebar';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ListaElementosComponent } from './lista-elementos/lista-elementos.component';
 
 @NgModule({
   imports: [
@@ -51,7 +52,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ModalModule.forRoot(),
     BlockUIModule.forRoot()
   ],
-  declarations: [DashboardComponent, GraficaPastelComponent, GraficaViewComponent, CardInformationComponent],
+  declarations: [DashboardComponent, GraficaPastelComponent, GraficaViewComponent, CardInformationComponent, ListaElementosComponent],
   providers: [CatalogosService, { provide: LOCALE_ID, useValue: 'en-US' }],
   entryComponents: [CardInformationComponent]
 })

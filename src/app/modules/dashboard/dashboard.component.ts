@@ -102,6 +102,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   totales: Totales;
   montoInversion: number;
 
+  configCollapsed = false;
+  listaItems: any[];
+  elementoActivo: number;
+
   constructor(
     private router: Router,
     private auth: AuthenticationService,
@@ -120,6 +124,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.montoInversion = 0;
     this.periodos = config.periodos;
     this.periodo = 'Todos';
+    this.elementoActivo = -1;
 
     this.LeafIcon = L.Icon.extend({
       options: {
@@ -180,6 +185,41 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.loadCatalogos();
     this.loadTotales();
+    this.listaItems = [
+      {
+        label: 'Inversion 2023',
+        valor: 0,
+        totales: 3000000000,
+        currency: true
+      },
+      {
+        label: 'Inversion 2022',
+        valor: 0,
+        totales: 2000000000,
+        currency: true
+      },
+      {
+        label: 'Inversion 2021',
+        valor: 0,
+        totales: 2658921500,
+        currency: true
+      },
+      {
+        label: 'Caminos y Carreteras',
+        valor: 0,
+        totales: 2000
+      },
+      {
+        label: 'KM Rehabilitados',
+        valor: 0,
+        totales: 6000
+      },
+      {
+        label: 'KM Pavimentados',
+        valor: 0,
+        totales: 20000
+      }
+    ];
   }
 
   ngAfterViewInit() {
@@ -410,8 +450,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
 
     this.map = L.map('map', {
-      //center: [40.737, -73.923],
-      center: [24.8049172, -108.4233141],
+      center: [25.092141890307722, -107.09195826646527],
+      // center: [24.8049172, -108.4233141],
       // center: [29.0667, -110.967],
       zoom: 8,
       //minZoom: 7,
@@ -422,7 +462,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       //layers: [openstreets]
     });
 
-    new L.Control.Zoom({ position: 'topright' }).addTo(this.map);
+    new L.Control.Zoom({ position: 'topleft' }).addTo(this.map);
     // this.map.locate({ setView: true, maxZoom: 14 });
     // this.generateRandomMarkers(10, 'green');
 
@@ -980,5 +1020,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   onChangeTipoObra(obra: any) {
     this.filtrar();
+  }
+
+  activarElemento(index: number) {
+    if (this.elementoActivo === index) {
+      this.elementoActivo = -1;
+    } else {
+      this.elementoActivo = index;
+    }
   }
 }
