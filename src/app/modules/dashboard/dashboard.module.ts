@@ -52,7 +52,13 @@ import { ListaElementosComponent } from './lista-elementos/lista-elementos.compo
     ModalModule.forRoot(),
     BlockUIModule.forRoot()
   ],
-  declarations: [DashboardComponent, GraficaPastelComponent, GraficaViewComponent, CardInformationComponent, ListaElementosComponent],
+  declarations: [
+    DashboardComponent,
+    GraficaPastelComponent,
+    GraficaViewComponent,
+    CardInformationComponent,
+    ListaElementosComponent
+  ],
   providers: [CatalogosService, { provide: LOCALE_ID, useValue: 'en-US' }],
   entryComponents: [CardInformationComponent]
 })
