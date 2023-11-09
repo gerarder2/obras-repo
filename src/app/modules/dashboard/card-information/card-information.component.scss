@@ -1,0 +1,28 @@
+@import './../../../../scss/bootstrap-variables';
+
+.content-map {
+    font-family: Montserrat;
+}
+.monto {
+    font-family: Mestiza-Bold;
+    font-size: 2.1rem;
+    color: $wine;
+    font-weight: 800;
+}
+
+.contrato {
+    font-family: Montserrat;
+    font-size: 2rem;
+}
+
+.avance {
+    font-family: Mestiza-Bold;
+    font-size: 4rem;
+    color: $wine;
+    font-weight: 800;
+}
+
+.content-map {
+    max-height: 500px;
+    overflow: auto;
+}

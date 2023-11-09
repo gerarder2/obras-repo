@@ -1,55 +1,126 @@
-<ng-container *ngIf="tipoCard !== 'obras'">
-  
-  <strong>{{properties.nombrePartido}}</strong>
-  <img [src]="properties.imagenPartido" width="16" height="16">
-  <strong>{{properties.ganador?.candidato?.nombre}}</strong>
-  <br>
-  <hr>
-  Votos: {{properties.votosContados |  number:'':'en'}}<br>
-  Partido: {{properties.ganador?.partido?.nombre}}
-  <br>
-  No.Registrados: {{properties.noRegistrados |  number:'':'en'}}<br>
-  Nulos: {{properties.nulos |  number:'':'en'}}<br>
-  Total Votos: {{properties.votos |  number:'':'en'}}<br>
-  Lista Nominal: {{properties.listaNominal |  number:'':'en'}}<br>
-    <hr>
-    <ng-scrollbar [visibility]="'hover'" style="height: 300px">
-    <app-grafica-pastel
-      [votosPartidosSeleccionado]="properties"
-      [partidos]="properties?.partidos"
-      [card]="true"
-      *ngIf="properties?.votosPartido"
-    ></app-grafica-pastel
-    ><!-- ... -->
-  </ng-scrollbar>
-</ng-container>
+<ng-container *ngIf="tipoCard === 'obras' && properties" >
+  <div class="content-map">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-xs-12 col-md-8">
+            <dl>
+              <dt>Número de contrato</dt>
+              <dd class="contrato">{{ properties?.numeroContrato }}</dd>
+            </dl>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <dl>
+              <dt>Avance</dt>
+              <dd class="avance">
+                {{ this.properties?.porcentajeAvance }}%
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-8">
+            <dl>
+              <dt>Monto total</dt>
+              <dd class="monto">{{ properties?.montoInversion | currency }} MXN</dd>
+            </dl>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <dl>
+              <dt>No. de licitacion</dt>
+              <dd>{{ properties?.licitacion }}</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-8">
+            <dl>
+              <dt>Objeto</dt>
+              <dd>{{ properties?.objeto }}</dd>
+            </dl>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <dl>
+              <dt>Tipo Modalidad</dt>
+              <dd>{{ properties?.descripcionTipoModalidad }}</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-8">
+            <dl>
+              <dt>Contratista</dt>
+              <dd>{{ properties?.descripcionContratista }}</dd>
+            </dl>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <dl>
+              <dt>Fecha de Contrato</dt>
+              <dd>{{ properties?.fechaContratacion | date: 'longDate':'':'es' }}</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-4">
+            <dl>
+              <dt>Organismo</dt>
+              <dd>{{ properties?.descripcionDependencia }}</dd>
+            </dl>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <dl>
+              <dt>Tipo de Contrato</dt>
+              <dd>{{ properties?.descripcionTipoContrato }}</dd>
+            </dl>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <dl>
+              <dt>Origen del recurso</dt>
+              <dd>{{ properties?.descripcionOrigenRecurso }}</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-4">
+            <dl>
+              <dt> <i class="fas fa-location-dot"></i> Geolocalizacion</dt>
+              <dd>
+                <a [href]="openGoogleMaps()" target="_blank">
+                  <p>
+                    [{{ properties?.latitud }}, {{ properties?.longitud }}]
+                    <br /><small class="text-muted">Click para abrir mapa</small>
+                  </p>
+                </a>
+              </dd>
+            </dl>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <dl>
+              <dt>Municipio</dt>
+              <dd>{{ properties?.nombreMunicipio }}</dd>
+            </dl>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <dl>
+              <dt>Localidad</dt>
+              <dd>{{ properties?.nombreLocalidad }}</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-8">
+            <dl>
+              <dt>Alcances de obra</dt>
+              <dd>{{ properties?.informacionRelevante }}</dd>
+            </dl>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <button class="btn btn-primary" (click)="closePopup()">Consultar el expediente de Obra</button>
+          </div>
+        </div>
 
-<ng-container *ngIf="tipoCard === 'obras'">
-  <strong>{{ properties.objeto }}</strong>
-  <!-- <img [src]="properties.imagenPartido" width="16" height="16" /> -->
-  <br />
-  <hr />
-  <p *ngIf="properties.porcentajeAvance">
-    <strong>Porcentaje Avance:</strong> {{ properties.porcentajeAvance / 100 | percent }}
-  </p>
-  <p><strong>Tipo Inversión:</strong> {{ properties.descripcionTipoInversion }}</p>
-  <p><strong>Tipo de Obra Social:</strong> {{ properties.descripcionTipoObraSocial }}</p>
-  <p><strong>Tipo de Obra:</strong> {{ properties.descripcionTipoObra }}</p>
-  <p><strong>Monto:</strong> {{ properties.montoInversion | currency }}</p>
-
-  <p>
-    <i class="far fa-calendar"></i><strong> Fecha Contratación:</strong>
-    {{ properties.fechaContratacion | date: 'longDate':'':'es' }}
-  </p>
-  <p>
-    <i class="fas fa-calendar"></i> <strong>Fecha Estimada:</strong>
-    {{ properties.fechaEstimada | date: 'longDate':'':'es' }}
-  </p>
-  <p>
-    <i class="fas fa-calendar"></i> <strong>Fecha Terminación:</strong>
-    {{ properties.fechaTerminacion | date: 'longDate':'':'es' }}
-  </p>
-  <hr />
-
-  <p><strong>Comentarios:</strong></p>
+       
+      </div>
+    </div>
+  </div>
 </ng-container>

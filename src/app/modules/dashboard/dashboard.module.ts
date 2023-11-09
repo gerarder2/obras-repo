@@ -27,6 +27,8 @@ import { SidebarModule } from 'primeng/sidebar';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ListaElementosComponent } from './lista-elementos/lista-elementos.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { GalleriaModule } from 'primeng/galleria';
 
 @NgModule({
   imports: [
@@ -50,7 +52,9 @@ import { ListaElementosComponent } from './lista-elementos/lista-elementos.compo
     TreeSelectModule,
     NgScrollbarModule,
     ModalModule.forRoot(),
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+    PopoverModule.forRoot(),
+    GalleriaModule
   ],
   declarations: [
     DashboardComponent,

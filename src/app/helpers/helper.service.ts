@@ -12,11 +12,14 @@ import { TipoObra } from './../modules/dashboard/models/tipoobra.interface';
 import { VotoDistrito } from './../modules/dashboard/models/votodistrito.interface';
 import { VotoMunicipio } from './../modules/dashboard/models/votomunicipio.interface';
 import { VotoSeccion } from './../modules/dashboard/models/votoseccion.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HelperService {
+  private idObraSeleccionada = new BehaviorSubject<string>(null);
+
   private tipoObrasUI = [
     {
       idTipoObraSocial: 1,
@@ -549,5 +552,13 @@ export class HelperService {
     });
 
     return tabla1;
+  }
+
+  setIdObraSeleccionada(valor: string) {
+    this.idObraSeleccionada.next(valor);
+  }
+
+  getIdObraSeleccionada(): Observable<string> {
+    return this.idObraSeleccionada.asObservable();
   }
 }

@@ -102,6 +102,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   totales: Totales;
   montoInversion: number;
 
+  markObrasId: any[] = [];
+
   configCollapsed = false;
   listaItems: any[];
   elementoActivo: number;
@@ -185,6 +187,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.loadCatalogos();
     this.loadTotales();
+    this.helperService.getIdObraSeleccionada().subscribe((idObra) => {
+      const markEncontrado = this.markObrasId.find((objeto) => objeto.id === idObra);
+      if (markEncontrado) {
+        this.loadObraDetalle(
+          markEncontrado.marker,
+          markEncontrado.id,
+          markEncontrado.popupComponentRef,
+          markEncontrado.popup
+        );
+      }
+    });
+
     this.listaItems = [
       {
         label: 'Inversion 2023',
@@ -921,7 +935,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.map.removeLayer(this.obrasMarksLayer);
     }
     this.obrasMarksLayer = L.layerGroup().addTo(this.map);
-
+    this.markObrasId = [];
     info.data.forEach((point) => {
       if (point.latitud && point.longitud) {
         const img = point.idTipoObraSocial;
@@ -941,15 +955,42 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         // Set the message
         popupComponentRef.instance.tipoCard = 'obras';
         popupComponentRef.setInput('tipoCard', 'obras');
-        popupComponentRef.instance.properties = point;
-        popupComponentRef.setInput('properties', point);
+        // popupComponentRef.instance.properties = point;
+        // popupComponentRef.setInput('properties', point);
 
-        // L.marker([point.latitud, point.longitud], { icon: icono }).addTo(this.obrasMarksLayer).bindPopup(popup);
-        L.marker([point.latitud, point.longitud], { icon: icono })
-          .addTo(this.obrasMarksLayer)
-          .on('click', (e) => {
-            this.openModalComponent(point);
+        const marker = L.marker([point.latitud, point.longitud], { icon: icono }).addTo(this.obrasMarksLayer);
+        marker.on('click', (e) => {
+          this.loadObraDetalle(marker, point.id, popupComponentRef, popup);
+        });
+        // L.marker([point.latitud, point.longitud], { icon: icono })
+        //   .addTo(this.obrasMarksLayer)
+        //   .on('click', (e) => {
+        //     this.openModalComponent(point);
+        //   });
+        this.markObrasId.push({ id: point.id, marker, popupComponentRef, popup });
+      }
+    });
+  }
+
+  loadObraDetalle(marker: any, idObra: number, popupComponentRef, popup) {
+    this.obrasService.getObrasDatosById({ idObra: idObra }).subscribe({
+      next: (response) => {
+        popupComponentRef.instance.properties = marker;
+        popupComponentRef.setInput('marker', marker);
+        popupComponentRef.instance.properties = response.data;
+        popupComponentRef.setInput('properties', response.data);
+
+        setTimeout(() => {
+          marker.on('popupopen', (e) => {
+            const px = this.map.project(e.target._popup._latlng);
+            px.y -= e.target._popup._container.clientHeight / 2;
+            this.map.panTo(this.map.unproject(px), { animate: true });
           });
+          marker.bindPopup(popup).openPopup();
+        }, 100);
+      },
+      error: (err: unknown) => {
+        this.mensaje.showMessage(err);
       }
     });
   }
