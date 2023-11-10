@@ -10,11 +10,11 @@
         <small>Ejercicio</small>
         <p>{{ obra.fechaContratacion | date: 'yyyy':'':'es' }}</p>
       </div>
-      <div class="col-md-2">
-        <small>Beneficiarios</small>
-        <p>{{ obra.totalBeneficiados }}</p>
+      <div class="col-md-3">
+        <small>Fecha de Contrato</small>
+        <p>{{ obra.fechaContratacion | date: 'longDate':'':'es' }}</p>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
         <small>Credito</small>
         <p>{{ obra.esCredito ? 'SI' : 'NO' }}</p>
       </div>
@@ -33,42 +33,190 @@
         <div class="col-md-6">
           <div class="row">
             <div class="col-12">
-              <div class="card shadow">
-                <div class="card-body p-0 clearfix">
-                  <i class="fas fa-hand-holding-dollar bg-green p-3 mr-1 float-left fa-2x"></i>
-                  <div class="row">
-                    <div class="col-6 col-xs-12 pr-0">
-                      <div class="pt-2 text-muted text-uppercase font-weight-bold font-xs">MONTO CONTRATADO</div>
-                      <div class="h3 text-primary mb-0">
-                        <strong>{{ this.obra.montoInversion | currency }}</strong>
-                      </div>
-                    </div>
-                    <div class="col-6 col-xs-12 p-0">
-                      <div class="pt-2 text-muted text-uppercase font-weight-bold font-xs">
-                        MONTO INVERSION ACUMULADA
-                      </div>
-                      <div class="h3 text-primary mb-0">
-                        <strong>{{ this.obra.montoInversionAcumulada | currency }}</strong>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <dl>
+                <dt>Monto Total</dt>
+                <dd class="contrato">{{ obra?.montoInversion | currency }} MXN</dd>
+              </dl>
             </div>
           </div>
-          <div class="row" *ngIf="obra.objeto !=='NA'">
+          <div class="row" *ngIf="obra.objeto !== 'NA'">
             <div class="col-12">
-              <small>Objeto</small>
-              <p>{{ obra.objeto }}</p>
+              <dl>
+                <dt>Objeto</dt>
+                <dd class="contrato">{{ obra.objeto }}</dd>
+              </dl>
             </div>
           </div>
-          <div class="row" *ngIf="obra.informacionRelevante && obra.informacionRelevante !=='NA'">
+
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Organismo</dt>
+                <dd>{{ obra?.descripcionDependencia }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Tipo de Contrato</dt>
+                <dd>{{ obra?.descripcionTipoContrato }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Origen del recurso</dt>
+                <dd>{{ obra?.descripcionOrigenRecurso }}</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>No. Licitacion</dt>
+                <dd>{{ obra?.licitacion }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Tipo de Modalidad</dt>
+                <dd>{{ obra?.descripcionTipoModalidad }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Fecha estimada inicio</dt>
+                <dd>{{ obra?.fechaEstimadaInicio | date: 'longDate':'':'es' }}</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Fecha real de inicio</dt>
+                <dd>{{ obra?.fechaInicio | date: 'longDate':'':'es' }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Fecha estimada termino</dt>
+                <dd>{{ obra?.fechaEstimadaFin | date: 'longDate':'':'es' }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Fecha real termino</dt>
+                <dd>{{ obra?.fechaFinalizacion | date: 'longDate':'':'es' }}</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Monto contratado</dt>
+                <dd>{{ obra?.montoInversion | currency }} MXN</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Monto inversion acumulada</dt>
+                <dd>{{ obra?.montoInversionAcumulada | currency }} MXN</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Anticipo</dt>
+                <dd>{{ 'NA' }}</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Duracion del contrato</dt>
+                <dd>{{ 'NA' }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Direccion de obra</dt>
+                <dd>{{ 'NA' }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Supervidor</dt>
+                <dd>{{ obra.nombreSupervisor }}</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Tipo de obra</dt>
+                <dd>{{ obra.descripcionTipoObra }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Programa</dt>
+                <dd>{{ 'NA' }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>No. de oficio de autorización</dt>
+                <dd>{{ obra.numeroAutorizacion }}</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <dl>
+                <dt>Municipio</dt>
+                <dd>{{ obra.nombreMunicipio }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <dl>
+                <dt>Localidad</dt>
+                <dd>{{ 'NA' }}</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Contratista</dt>
+                <dd>{{ obra.descripcionContratista }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Cuadro de comentarios de especificaciones de obra</dt>
+                <dd>{{ 'NA' }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Cantidad de convenios modificatorios</dt>
+                <dd>{{ 'NA' }}</dd>
+              </dl>
+            </div>
+          </div>
+          <!-- 
+          <div class="row" *ngIf="obra.informacionRelevante && obra.informacionRelevante !== 'NA'">
             <div class="col-12">
               <small>Informacion Relevante</small>
               <p>{{ obra.informacionRelevante }}</p>
             </div>
           </div>
-          <div class="row" *ngIf="obra.latitud !=='NA'">
+          <div class="row" *ngIf="obra.latitud !== 'NA'">
             <div class="col-12">
               <small>Geolocalizacion</small>
               <a [href]="openGoogleMaps()" target="_blank">
@@ -102,8 +250,134 @@
               <small>Comentario</small>
               <p>{{ obra.avances[obra.avances.length - 1].comentario }}</p>
             </div>
+          </div> 
+-->
+        </div>
+
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Avance de obra</dt>
+                <dd>{{ obra.porcentajeAvance }} %</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <dl>
+                <dt>Beneficiarios</dt>
+                <dd>{{ obra.totalBeneficiados }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-5">
+              <dl>
+                <dt>Avance financiero</dt>
+                <dd>{{ 'NA' }}</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div id="chartlineal-{{ this.obra.id }} p-2">
+                <apx-chart
+                  [series]="chartOptionsLine.series"
+                  [chart]="chartOptionsLine.chart"
+                  [xaxis]="chartOptionsLine.xaxis"
+                  [dataLabels]="chartOptionsLine.dataLabels"
+                  [grid]="chartOptionsLine.grid"
+                  [stroke]="chartOptionsLine.stroke"
+                  [colors]="chartOptionsLine.colors"
+                  [markers]="chartOptionsLine.markers"
+                  [title]="chartOptionsLine.title"
+                ></apx-chart>
+              </div>
+              <p-table
+              [value]="obraAvancesSorter"
+              styleClass="p-datatable-sm"
+              [scrollable]="true"
+              scrollHeight="150px"
+              [tableStyle]="{ 'min-width': '50rem' }"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Id</th>
+                  <th>Fecha</th>
+                  <th>Comentario</th>
+                  <th>Porcentaje</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-avance>
+                <tr>
+                  <td>{{ avance.id }}</td>
+                  <td>{{ avance.fecha | date: 'longDate':'':'es' }}</td>
+                  <td>{{ avance.comentario }}</td>
+                  <td>{{ avance.porcentaje }} %</td>
+                </tr>
+              </ng-template>
+            </p-table>
+            </div>
+            <div class="col-12">
+              <ng-container *ngIf="obra?.evidencias?.length > 0">
+                <div class="row" *ngIf="!showCarousel">
+                  <div class="col-12">
+                    <div class="card-deck">
+                      <div class="card" *ngFor="let item of obra.evidencias">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ item.descripcion }}</h5>
+                          <ng-container *ngFor="let img of item.imagenes; let index = index">
+                            <a
+                              href="#"
+                              style="text-decoration: none"
+                              (click)="onImageSelected(item, index); $event.preventDefault()"
+                            >
+                              <img src="{{ img.rutaPublica + img.nombre }}" class="img-thumbnail img-64" alt="..." />
+                            </a>
+                          </ng-container>
+                          <p class="card-text">
+                            <small class="text-muted">Click en la imagen para mas información</small>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <p-galleria
+                    [value]="images"
+                    [(visible)]="displayCustom"
+                    [(activeIndex)]="activeIndex"
+                    [responsiveOptions]="responsiveOptions"
+                    [containerStyle]="{ 'max-width': '250px' }"
+                    [numVisible]="7"
+                    [circular]="true"
+                    [fullScreen]="true"
+                    [showItemNavigators]="true"
+                    [showThumbnails]="false"
+                    [baseZIndex]="100000"
+                  >
+                    <ng-template pTemplate="item" let-item>
+                      <img [src]="item.previewImageSrc" style="max-height: 400px; width: auto; display: block" />
+                    </ng-template>
+                    <ng-template pTemplate="thumbnail" let-item>
+                      <div class="grid grid-nogutter justify-content-center">
+                        <img [src]="item.thumbnailImageSrc" style="display: block" />
+                      </div>
+                    </ng-template>
+                  </p-galleria>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="obra?.evidencias?.length === 0">
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <p class="h4 mb-5">Por el momento no existen evidencias asociadas a esta obra.</p>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
           </div>
         </div>
+          
+        <!-- 
         <div class="col-md-3">
           <div class="row">
             <div class="col-12">
@@ -111,7 +385,7 @@
               <p>{{ obra.fechaContratacion | date: 'longDate':'':'es' }}</p>
             </div>
           </div>
-          <div class="row" *ngIf="obra.descripcionOrigenRecurso !=='NA'">
+          <div class="row" *ngIf="obra.descripcionOrigenRecurso !== 'NA'">
             <div class="col-12">
               <small>Origen del Recurso</small>
               <p>{{ obra.descripcionOrigenRecurso ? obra.descripcionOrigenRecurso : '-' }}</p>
@@ -125,20 +399,14 @@
                 {{ obra.fechaEstimadaFin | date: 'longDate':'':'es' }}
               </p>
             </div>
-          </div>
-          <!-- <div class="row" *ngIf="obra.objeto !=='NA'">>
-            <div class="col-12">
-              <small>Dirección</small>
-              <p>{{ '-' }}</p>
-            </div>
-          </div> -->
-          <div class="row" *ngIf="obra.nombreSupervisor !=='NA'">
+          </div>         
+          <div class="row" *ngIf="obra.nombreSupervisor !== 'NA'">
             <div class="col-12">
               <small>Residente o Supervisor</small>
               <p>{{ obra.nombreSupervisor }}</p>
             </div>
           </div>
-          <div class="row" *ngIf="obra.descripcionContratista !=='NA'">
+          <div class="row" *ngIf="obra.descripcionContratista !== 'NA'">
             <div class="col-12">
               <small>Contratista</small>
               <p>{{ obra.descripcionContratista }}</p>
@@ -146,42 +414,68 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div class="row" *ngIf="obra.descripcionTipoModalidad !=='NA'">
+          <div class="row" *ngIf="obra.descripcionTipoModalidad !== 'NA'">
             <div class="col-12">
               <small>Tipo Modalidad</small>
               <p>{{ obra.descripcionTipoModalidad }}</p>
             </div>
           </div>
-          <div class="row" *ngIf="obra.numeroAutorizacion !=='NA'">
+          <div class="row" *ngIf="obra.numeroAutorizacion !== 'NA'">
             <div class="col-12">
               <small>Número autorización</small>
               <p>{{ obra.numeroAutorizacion }}</p>
             </div>
           </div>
-          <div class="row" *ngIf="obra.nombreMunicipio !=='NA'">
+          <div class="row" *ngIf="obra.nombreMunicipio !== 'NA'">
             <div class="col-12">
               <small>Municipio</small>
               <p>{{ obra.nombreMunicipio }}</p>
             </div>
           </div>
-          <div class="row" *ngIf="obra.descripcionTipoContrato !=='NA'">
+          <div class="row" *ngIf="obra.descripcionTipoContrato !== 'NA'">
             <div class="col-12">
               <small>Tipo contrato</small>
               <p>{{ obra.descripcionTipoContrato }}</p>
             </div>
           </div>
-          <div class="row" *ngIf="obra.descripcionTipoObraSocial !=='NA'">
+          <div class="row" *ngIf="obra.descripcionTipoObraSocial !== 'NA'">
             <div class="col-12">
               <small>Tipo Obra</small>
               <p>{{ obra.descripcionTipoObraSocial }}</p>
             </div>
           </div>
-          <div class="row" *ngIf="obra.descripcionDependencia !=='NA'">
+          <div class="row" *ngIf="obra.descripcionDependencia !== 'NA'">
             <div class="col-12">
               <small>Dependencia / Organismo</small>
               <p>{{ obra.descripcionDependencia }}</p>
             </div>
           </div>
+        </div>
+ -->
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <dl>
+            <dt>Alcances de obra</dt>
+            <dd>{{ obra?.informacionRelevante }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <dl>
+            <dt>Geolocalización
+            </dt>
+            <dd>
+              <a [href]="openGoogleMaps()" target="_blank">
+                <p>
+                  <i class="fas fa-location-dot"></i> [{{ obra.latitud }}, {{ obra.longitud }}] <br /><small
+                    class="text-muted"
+                    >Click para abrir mapa</small
+                  >
+                </p>
+              </a>
+            </dd>
+          </dl>
         </div>
       </div>
     </p-tabPanel>

@@ -88,7 +88,7 @@ export class CardInformationComponent implements OnInit, OnChanges {
 
     this.bsModalRef = this.bsModalService.show(ObrasModalComponent, {
       initialState,
-      class: 'modal-light modal-fullscreen',
+      class: 'modal-primary modal-fullscreen',
       backdrop: 'static',
       keyboard: true,
       ignoreBackdropClick: true
