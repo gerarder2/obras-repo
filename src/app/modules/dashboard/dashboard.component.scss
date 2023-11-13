@@ -199,6 +199,14 @@
 .lista-float-2 {
   position: absolute;
   left: 50px;
+  top: 60px;
+  width: 200px;
+  z-index: 998;
+}
+
+.lista-float-3 {
+  position: absolute;
+  left: 50px;
   top: 160px;
   width: 200px;
   z-index: 998;

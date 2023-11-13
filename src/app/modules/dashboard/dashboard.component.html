@@ -1,7 +1,6 @@
 <section class="container-header" *ngIf="false">
   <div class="titulo-header">
-    <h5>Bienvenido al portal</h5>
-    <h4>OBRAS PUBLICAS SINALOA</h4>
+    <h4>SISTEMA DE ADMINISTRACIÓN Y GESTIÓN DE PROYECTOS</h4>
   </div>
   <div class="desc-header">
     <h4>{{ montoInversion | currency }} MXN</h4>
@@ -11,16 +10,31 @@
 <section class="map-container">
   <div class="lista-float-2" *ngIf="montoInversion">
     <div class="contenido">
-      <app-lista-elementos 
-        [titulo]="'Inversion Total Ejercida'" 
-        [enableToggle]="false" 
+      <app-lista-elementos
+        [titulo]="'Inversion Total Acumulada'"
+        [enableToggle]="false"
         [totales]="montoInversion"
         [currency]="true"
-        [active]="true">
+        [active]="true"
+      >
       </app-lista-elementos>
     </div>
   </div>
-  <div class="lista-float"  *ngIf="montoInversion">
+
+  <div class="lista-float-3" *ngIf="montoInversion">
+    <div class="contenido">
+      <app-lista-elementos
+        titulo="{{ 'Inversion Total Ejercida' + periodoSeleccionado.descripcion }}"
+        [enableToggle]="false"
+        [totales]="montoInversion"
+        [currency]="true"
+        [active]="true"
+      >
+      </app-lista-elementos>
+    </div>
+  </div>
+
+  <div class="lista-float" *ngIf="montoInversion">
     <div *ngFor="let item of listaItems; let i = index">
       <app-lista-elementos
         [titulo]="item.label"
@@ -34,7 +48,7 @@
 
   <!-- sidebar -->
   <div class="map-sidebar map-sidebar-open">
-    <h3 class="map-sidebar-title">BIENVENIDO AL PORTAL DE OBRAS PUBLICAS SINALOA</h3>
+    <h4 class="map-sidebar-title">SISTEMA DE ADMINISTRACIÓN Y GESTIÓN DE PROYECTOS</h4>
     <div class="map-sidebar-header">
       <h6 class="header-title">Configuración</h6>
       <div>
@@ -127,33 +141,4 @@
     [ngClass]="{ 'map-sidebar-open': sidebarOpen, 'map-asidebar-open': asidebarOpen }"
     id="map"
   ></div>
-</section>
-<section class="data-container ml-5 mr-5 mb-5">
-  <div class="h4 data-title">DATOS ABIERTOS</div>
-  <div class="datos-abiertos row">
-    <div class="col-12">
-      <div class="card-deck">
-        <div class="card shadow" *ngFor="let card of cards">
-          <img src="{{ './assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="..." />
-          <div class="card-body">
-            <div class="card-title cantidad h4 mb-0 text-center text-primary">{{ card.cantidad | number }}</div>
-            <div class="card-text text-center">
-              <small class="descripcion">{{ card.descripcion }}</small>
-            </div>
-          </div>
-        </div>
-        <div class="card shadow">
-          <img src="{{ './assets/img/icono-vermas.svg' }}" class="card-img-top mx-auto" alt="..." />
-          <div class="card-body">
-            <a [routerLink]="['/datos-abiertos']" tooltip="Regresar" class="text-primary" href="#">
-              <div class="card-title cantidad h4 mb-0 text-center">Ver Más</div>
-              <div class="card-text text-center">
-                <small class="descripcion">&nbsp;</small>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   sidebarOpen = false;
   asidebarOpen = false;
 
-  periodos: string[];
+  periodos: any[];
   periodoSeleccionado: any;
   periodo: any;
 
@@ -199,25 +199,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.listaItems = [
-      {
-        label: 'Inversion 2023',
-        valor: 0,
-        totales: 3000000000,
-        currency: true
-      },
-      {
-        label: 'Inversion 2022',
-        valor: 0,
-        totales: 2000000000,
-        currency: true
-      },
-      {
-        label: 'Inversion 2021',
-        valor: 0,
-        totales: 2658921500,
-        currency: true
-      },
+    const listaPeriodos = [];
+    const listaCarreteras = [
       {
         label: 'Caminos y Carreteras',
         valor: 0,
@@ -234,6 +217,26 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         totales: 20000
       }
     ];
+    for (const periodo of this.periodos) {
+      if (periodo.descripcion !== 'Todos') {
+        listaPeriodos.push({
+          periodo: parseInt(periodo.descripcion),
+          label: `Inversion ${periodo.descripcion}`,
+          valor: 10,
+          totales: 10,
+          currency: true
+        });
+      }
+    }
+
+    this.listaItems = [
+      ...listaPeriodos.sort((a, b) => {
+        return parseInt(b.periodo) - parseInt(a.periodo);
+      }),
+      ...listaCarreteras
+    ];
+
+    console.log(this.listaItems);
   }
 
   ngAfterViewInit() {
@@ -968,6 +971,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         //     this.openModalComponent(point);
         //   });
         this.markObrasId.push({ id: point.id, marker, popupComponentRef, popup });
+        marker.on('popupclose', (e) => {
+          if (this.map.getZoom() > 8) {
+            this.map.flyTo([point.latitud, point.longitud]);
+          } else {
+            this.map.flyTo([25.092141890307722, -107.09195826646527]);
+          }
+        });
       }
     });
   }
@@ -975,6 +985,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   loadObraDetalle(marker: any, idObra: number, popupComponentRef, popup) {
     this.obrasService.getObrasDatosById({ idObra: idObra }).subscribe({
       next: (response) => {
+        if (response.data.evidencias.length > 0) {
+          console.log('id', response.data);
+        }
+
         popupComponentRef.instance.properties = marker;
         popupComponentRef.setInput('marker', marker);
         popupComponentRef.instance.properties = response.data;
