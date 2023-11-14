@@ -1,0 +1,35 @@
+@import './../../../../scss/bootstrap-variables';
+
+.content-map {
+    font-family: Montserrat;
+}
+.monto {
+    font-family: Mestiza-Bold;
+    font-size: 2.1rem;
+    color: $wine;
+    font-weight: 800;
+}
+
+.contrato {
+    font-family: Montserrat;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.avance {
+    font-family: Mestiza-Bold;
+    font-size: 4rem;
+    color: $wine;
+    font-weight: 800;
+}
+
+.content-map {
+    padding: 5%;
+    border-radius: 8px;
+    border: 1px solid $gris-oxford;
+}
+
+.cuadrito{
+    border-radius: 8px;
+    border: 1px solid $gris-oxford;
+}

@@ -1,0 +1,145 @@
+<div *ngFor="let municipio of datosGlobalesMunicipio">
+    <div class="modal-header" ngxModalDraggable>
+        <div class="container no-cursor">
+        <div class="row">
+            <div class="col-md-3">
+            <small>Municipio</small>
+            <p style="font-size: xx-large;"> {{ municipio.municipio }} </p>
+            </div>
+            <div class="col-md-2">
+            <small>Fecha de consulta</small>
+            <p>{{ fechaConsulta | date: 'longDate':'':'es' }}</p>
+            </div>
+            <div class="col-md-5">
+            <small>Monto global</small>
+            <p style="font-size: xx-large;">{{ municipio.inversion | currency }} MXN</p>
+            </div>
+            <div class="col-md-2">
+            <small>Porcentaje de la inversión total estatal</small>
+            <p>{{ municipio.porcentajeInversion | percent }}</p>
+            </div>
+        </div>
+        </div>
+        <div class="ml-auto">
+        <button type="button" class="close" (click)="bsObraModalRef.hide()">
+            <span aria-hidden="true"><i class="fa fa-close"></i></span>
+        </button>
+        </div>
+    </div>
+    <div class="card">
+        <p-table
+            [value]="allObras"
+            sortField="municipio"
+            sortMode="single"
+            dataKey="descripcionTipoObra"
+            rowGroupMode="subheader"
+            groupRowsBy="descripcionTipoObra"
+            
+        >
+            <ng-template pTemplate="header">
+            <tr>
+                <th>Concepto</th>
+                <th>Depend.</th>
+                <th>Contratista</th>
+                <th>Meta</th>
+                <th>Inversión</th>
+                <th>Federal</th>
+                <th>Estatal</th>
+                <th>Municipal</th>
+                <th>Av. de Obra</th>
+                <th>Saldo</th>
+                <th>Ficha</th>
+            </tr>
+            </ng-template>
+            <ng-template
+            pTemplate="groupheader"
+            let-rowIndex="rowIndex"
+            let-expanded="expanded"
+            let-obra
+            >
+            <tr>
+                <td class="subsubheader" colspan="3">
+                    <button type="button" pButton pRipple [pRowToggler]="obra" class="p-button-text p-button-rounded p-button-plain p-mr-2 btnExpandir" ></button>
+                    <span class="p-text-bold p-ml-2">
+                        {{ obra.descripcionTipoObra }}
+                    </span>
+                </td>
+                <td class="subsubheader">
+                    <span class="p-text-bold p-ml-2">
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'superficieConstruccion') }}
+                    </span>
+                </td>
+                <td class="subsubheader">
+                    <span class="p-text-bold p-ml-2">
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'montoInversion') }}
+                    </span>
+                </td>
+                <td class="subsubheader">
+                    <span class="p-text-bold p-ml-2">
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'federal') }}
+                    </span>
+                </td>
+                <td class="subsubheader">
+                    <span class="p-text-bold p-ml-2">
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'estatal') }}
+                    </span>
+                </td>
+                <td class="subsubheader">
+                    <span class="p-text-bold p-ml-2">
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'municipal') }}
+                    </span>
+                </td>
+                <td class="subsubheader">
+                    <span class="p-text-bold p-ml-2">
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'porcentajeAvance') }}
+                    </span>
+                </td>
+                <td colspan="2" class="subsubheader">
+                    <span class="p-text-bold p-ml-2">
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'importePorPagar') }}
+                    </span>
+                </td>                                                                                 
+            </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-obra>
+                <tr>
+                    <td>
+                        {{ obra.objeto }}
+                    </td>
+                    <td>
+                        {{ obra.siglas }}
+                    </td>
+                    <td>
+                        {{ obra.descripcionContratista }}
+                    </td>
+                    <td>
+                        {{ obra.superficieConstruccion }} {{ obra.unidadMedida }}
+                    </td>
+                    <td>
+                        {{ obra.montoInversion }}
+                    </td>
+                    <td>
+                        {{ obra.federal }}
+                    </td>
+                    <td>
+                        {{ obra.estatal }}
+                    </td>
+                    <td>
+                        {{ obra.municipal }}
+                    </td>
+                    <td>
+                        {{ obra.porcentajeAvance }}
+                    </td>
+                    <td>
+                        {{ obra.importePorPagar }}
+                    </td>
+                    <td>
+                        <button class="btn btn-primary icon text-white" (click)="mostrarFicha(obra)">
+                            Ver Ficha
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>            
+        </p-table>
+    </div>
+</div>
