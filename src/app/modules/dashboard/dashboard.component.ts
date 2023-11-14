@@ -108,6 +108,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   listaItems: any[];
   elementoActivo: number;
 
+  listaPeriodos: any[];
+  listaCarreteras: any[];
+
   constructor(
     private router: Router,
     private auth: AuthenticationService,
@@ -199,41 +202,24 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       }
     });
 
-    const listaPeriodos = [];
-    const listaCarreteras = [
+    this.listaItems = [];
+    this.listaPeriodos = [];
+    this.listaCarreteras = [
       {
         label: 'Caminos y Carreteras',
         valor: 0,
-        totales: 2000
+        totales: 0
       },
       {
         label: 'KM Rehabilitados',
         valor: 0,
-        totales: 6000
+        totales: 0
       },
       {
         label: 'KM Pavimentados',
         valor: 0,
-        totales: 20000
+        totales: 0
       }
-    ];
-    for (const periodo of this.periodos) {
-      if (periodo.descripcion !== 'Todos') {
-        listaPeriodos.push({
-          periodo: parseInt(periodo.descripcion),
-          label: `Inversion ${periodo.descripcion}`,
-          valor: 10,
-          totales: 10,
-          currency: true
-        });
-      }
-    }
-
-    this.listaItems = [
-      ...listaPeriodos.sort((a, b) => {
-        return parseInt(b.periodo) - parseInt(a.periodo);
-      }),
-      ...listaCarreteras
     ];
 
     console.log(this.listaItems);
@@ -283,6 +269,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         };
         const newPuntosMapa = this.helperService.filtrarData(info);
         this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
+
+        this.calcularKms(newPuntosMapa.data);
 
         if (newPuntosMapa.data.length > 0) {
           const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
@@ -413,7 +401,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   loadTotales() {
     this.catalogosService.getObrasTotales({ ejercicio: 0 }).subscribe({
       next: (response: any) => {
-        this.totales = response.data[0];
+        this.totales = response.data;
         //this.montoInversion = this.totales.totalMontoInversion;
         this.cards = [
           {
@@ -434,6 +422,23 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             descripcion: 'MONTO TOTAL EJERCIDO',
             imagen: 'montototal-icon.svg'
           }
+        ];
+
+        for (const periodo of response.data.totalMontoInversionEjerciciosAnteriores) {
+          this.listaPeriodos.push({
+            periodo: parseInt(periodo.ejercicio),
+            label: `Inversion ${periodo.ejercicio}`,
+            valor: periodo.totalMontoInversion,
+            totales: periodo.totalMontoInversion,
+            currency: true
+          });
+        }
+
+        this.listaItems = [
+          ...this.listaPeriodos.sort((a, b) => {
+            return parseInt(b.periodo) - parseInt(a.periodo);
+          }),
+          ...this.listaCarreteras
         ];
       },
       error: (err: unknown) => {
@@ -1082,6 +1087,32 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.elementoActivo = -1;
     } else {
       this.elementoActivo = index;
+    }
+  }
+
+  calcularKms(data) {
+    let kmsCaminosyCarreteras = 0;
+    let kmsRehabilitados = 0;
+    let kmsPavimentados = 0;
+
+    for (const punto of data) {
+      kmsCaminosyCarreteras += parseInt(punto.kmsCaminosyCarreteras);
+      kmsRehabilitados += parseInt(punto.kmsRehabilitados);
+      kmsPavimentados += parseInt(punto.kmsPavimentados);
+    }
+
+    for (const list of this.listaItems) {
+      switch (list.label) {
+        case 'Caminos y Carreteras':
+          list.totales = kmsCaminosyCarreteras;
+          break;
+        case 'KM Rehabilitados':
+          list.totales = kmsRehabilitados;
+          break;
+        case 'KM Pavimentados':
+          list.totales = kmsPavimentados;
+          break;
+      }
     }
   }
 }

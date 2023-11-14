@@ -24,7 +24,7 @@
   <div class="lista-float-3" *ngIf="montoInversion">
     <div class="contenido">
       <app-lista-elementos
-        titulo="{{ 'Inversion Total Ejercida' + periodoSeleccionado.descripcion }}"
+        titulo="{{ 'Inversion Total Ejercida ' + periodoSeleccionado.descripcion }}"
         [enableToggle]="false"
         [totales]="montoInversion"
         [currency]="true"
@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  <div class="lista-float" *ngIf="montoInversion">
+  <div class="lista-float" *ngIf="listaItems.length > 0">
     <div *ngFor="let item of listaItems; let i = index">
       <app-lista-elementos
         [titulo]="item.label"

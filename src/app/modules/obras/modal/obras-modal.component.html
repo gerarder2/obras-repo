@@ -35,7 +35,7 @@
             <div class="col-12">
               <dl>
                 <dt>Monto Total</dt>
-                <dd class="contrato">{{ obra?.montoInversion | currency }} MXN</dd>
+                <dd class="monto">{{ obra?.montoInversion | currency }} MXN</dd>
               </dl>
             </div>
           </div>
@@ -127,7 +127,7 @@
             <div class="col-xs-12 col-md-4">
               <dl>
                 <dt>Anticipo</dt>
-                <dd>{{ 'NA' }}</dd>
+                <dd>{{ obra.anticipo | currency }} MXN</dd>
               </dl>
             </div>
           </div>
@@ -136,18 +136,18 @@
             <div class="col-xs-12 col-md-4">
               <dl>
                 <dt>Duracion del contrato</dt>
-                <dd>{{ 'NA' }}</dd>
+                <dd>{{ obra.plazoContrato }}</dd>
               </dl>
             </div>
             <div class="col-xs-12 col-md-4">
               <dl>
                 <dt>Direccion de obra</dt>
-                <dd>{{ 'NA' }}</dd>
+                <dd>{{ obra.direccion }}</dd>
               </dl>
             </div>
             <div class="col-xs-12 col-md-4">
               <dl>
-                <dt>Supervidor</dt>
+                <dt>Supervisor</dt>
                 <dd>{{ obra.nombreSupervisor }}</dd>
               </dl>
             </div>
@@ -163,7 +163,7 @@
             <div class="col-xs-12 col-md-4">
               <dl>
                 <dt>Programa</dt>
-                <dd>{{ 'NA' }}</dd>
+                <dd>{{ obra.descripcionOrigenRecurso }}</dd>
               </dl>
             </div>
             <div class="col-xs-12 col-md-4">
@@ -184,7 +184,7 @@
             <div class="col-xs-12 col-md-6">
               <dl>
                 <dt>Localidad</dt>
-                <dd>{{ 'NA' }}</dd>
+                <dd>{{ obra.nombreLocalidad }}</dd>
               </dl>
             </div>
           </div>
@@ -199,7 +199,7 @@
             <div class="col-xs-12 col-md-4">
               <dl>
                 <dt>Cuadro de comentarios de especificaciones de obra</dt>
-                <dd>{{ 'NA' }}</dd>
+                <dd>{{ obra.informacionRelevante }}</dd>
               </dl>
             </div>
             <div class="col-xs-12 col-md-4">
@@ -259,19 +259,19 @@
             <div class="col-xs-12 col-md-4">
               <dl>
                 <dt>Avance de obra</dt>
-                <dd>{{ obra.porcentajeAvance }} %</dd>
+                <dd class="monto">{{ obra.porcentajeAvance }} %</dd>
               </dl>
             </div>
             <div class="col-xs-12 col-md-3">
               <dl>
                 <dt>Beneficiarios</dt>
-                <dd>{{ obra.totalBeneficiados }}</dd>
+                <dd class="monto">{{ obra.totalBeneficiados }}</dd>
               </dl>
             </div>
             <div class="col-xs-12 col-md-5">
               <dl>
                 <dt>Avance financiero</dt>
-                <dd>{{ 'NA' }}</dd>
+                <dd class="monto">{{ obra.porcentajeMonetario }}</dd>
               </dl>
             </div>
           </div>
@@ -458,7 +458,7 @@
         <div class="col-xs-12 col-md-6">
           <dl>
             <dt>Alcances de obra</dt>
-            <dd>{{ obra?.informacionRelevante }}</dd>
+            <dd>{{ obra?.alcanceObra }}</dd>
           </dl>
         </div>
         <div class="col-xs-12 col-md-6">

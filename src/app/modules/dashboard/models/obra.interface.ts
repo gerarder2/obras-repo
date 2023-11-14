@@ -58,4 +58,10 @@ export interface Obra {
   descripcionOrigenRecurso?: string;
   montoInversionAcumulada?: string;
   numeroAutorizacion?: string;
+  anticipo?: number;
+  porcentajeMonetario?: number;
+  plazoContrato?: string;
+  direccion?: string;
+  nombreLocalidad?: string;
+  alcanceObra?: string;
 }
