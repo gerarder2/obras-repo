@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, EventEmitter, OnInit } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ObrasService } from '../services/obras.service';
 import { Mensaje } from 'src/app/models';
 import { DatosReportePorMunicipio, ObraPortalReporte, ObraReporte } from '../models/obrareporte.interface';
+import { ModalFichaTecnicaComponent } from '../modal-ficha-tecnica/modal-ficha-tecnica.component';
 
 @Component({
   selector: 'app-modal-por-municipio',
@@ -25,8 +26,13 @@ export class ModalPorMunicipioComponent implements OnInit {
   public inversionGeneral: number;
   public datosGlobalesMunicipio: DatosReportePorMunicipio[] = [];
 
+  bsModalRef: BsModalRef;
   allObras: ObraReporte[];
-  constructor(public bsObraModalRef: BsModalRef, private obrasService: ObrasService) {
+  constructor(
+    public bsObraModalRef: BsModalRef,
+    private obrasService: ObrasService,
+    private bsModalService: BsModalService
+  ) {
     this.mensaje = new Mensaje();
   }
 
@@ -79,6 +85,37 @@ export class ModalPorMunicipioComponent implements OnInit {
         this.mensaje.showMessage(err);
       }
     });
+  }
+
+  mostrarFicha(obra: any) {
+    this.openModalComponent(obra);
+  }
+
+  openModalComponent(obra: any) {
+    const initialState = {
+      params: obra,
+      isModal: true,
+      modalExtraOptions: {
+        closeButton: true,
+        closeButtonText: 'Cancelar',
+        acceptButton: true,
+        acceptButtonText: 'Aceptar'
+      }
+    };
+
+    this.bsModalRef = this.bsModalService.show(ModalFichaTecnicaComponent, {
+      initialState,
+      class: 'modal-primary modal-lg',
+      backdrop: 'static',
+      keyboard: true,
+      ignoreBackdropClick: true
+    });
+
+    this.bsModalRef.content.event.subscribe((res) => {
+      console.warn(res);
+    });
+
+    this.bsModalService.onHide.subscribe((reason: string) => {});
   }
 
   calcularTotales(tipoObra, municipio, campo) {
