@@ -21,6 +21,7 @@ import { Evidencia } from '../../dashboard/models/evidencia.interface';
 import { Imagen } from '../../dashboard/models/imagen.interface';
 import * as moment from 'moment';
 import { Avance } from '../../dashboard/models/avance.interface';
+import { UltimaEvidencia } from '../../dashboard/models/ultimaEvidencia.interface';
 
 export type ChartOptionsRadial = {
   colors: string[];
@@ -144,10 +145,10 @@ export class ObrasModalComponent implements OnInit {
     });
   }
 
-  public onImageSelected(evidencia: Evidencia, index) {
+  public onImageSelected(evidencia: Evidencia, index, ultimasImagenes?: UltimaEvidencia[]) {
     this.evidencia = evidencia;
-    this.images = this.formatImages(evidencia.imagenes);
-    this.showCarousel = true;
+    this.images = this.formatImages(ultimasImagenes ? ultimasImagenes : evidencia.imagenes);
+    // this.showCarousel = true;
     this.imageIndex = index;
     this.activeIndex = index;
     this.displayCustom = true;
@@ -163,12 +164,6 @@ export class ObrasModalComponent implements OnInit {
         alt: '',
         title: `Imagen - ${index + 1}`
       });
-    });
-    imgs.push({
-      previewImageSrc: './assets/img/sample_1.jpeg',
-      thumbnailImageSrc: './assets/img/sample_1.jpeg',
-      alt: '',
-      title: ''
     });
     return imgs;
   }

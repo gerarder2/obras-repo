@@ -270,28 +270,19 @@
         </div>
         <div class="col-xs-12 col-md-4">
           <ng-container *ngIf="obra?.ultimasImagenes?.length > 0">
-            <div class="row" *ngIf="!showCarousel">
-              <div class="col-12">
-                <div class="card-deck">
-                  <div class="card" *ngFor="let item of obra.ultimasImagenes; let index = index">
-                    <div class="card-body">
-                      <h5 class="card-title">{{ item.nombre }}</h5>
-
-                      <a
-                        href="#"
-                        style="text-decoration: none"
-                        (click)="onImageSelected(item, index); $event.preventDefault()"
-                      >
-                        <img src="{{ item.rutaPublica + item.nombre }}" class="img-thumbnail img-64" alt="..." />
-                      </a>
-                      <p class="card-text">
-                        <small class="text-muted">Click en la imagen para mas información</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
+            <div class="row">
+              <div class="col-md-3" *ngFor="let item of obra.ultimasImagenes; let index = index">
+                <a
+                  href="#"
+                  style="text-decoration: none"
+                  (click)="onImageSelected(null, index, obra.ultimasImagenes); $event.preventDefault()"
+                >
+                  <img src="{{ item.rutaPublica + item.nombre }}" class="img-thumbnail img-64" alt="..." />
+                </a>
+                
               </div>
             </div>
+
             <div class="row justify-content-center">
               <p-galleria
                 [value]="images"
@@ -307,7 +298,7 @@
                 [baseZIndex]="100000"
               >
                 <ng-template pTemplate="item" let-item>
-                  <img [src]="item.previewImageSrc" style="max-height: 400px; width: auto; display: block" />
+                  <img [src]="item.previewImageSrc" style="max-height: 600px; width: auto; display: block" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                   <div class="grid grid-nogutter justify-content-center">
@@ -504,7 +495,7 @@
         </div>
       </div>
     </p-tabPanel>
-    
+
     <p-tabPanel header="EVIDENCIA DOCUMENTADA">
       <ng-template pTemplate="content">
         <ng-container *ngIf="obra?.documentos?.length > 0">
