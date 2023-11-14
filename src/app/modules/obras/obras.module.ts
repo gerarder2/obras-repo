@@ -17,9 +17,10 @@ import { GalleriaModule } from 'primeng/galleria';
 
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BlockUIModule } from 'ng-block-ui';
+import { ModalPorMunicipioComponent } from './modal-por-municipio/modal-por-municipio.component';
 
 @NgModule({
-  declarations: [ObrasComponent, ObrasModalComponent],
+  declarations: [ObrasComponent, ObrasModalComponent, ModalPorMunicipioComponent],
   imports: [
     CommonModule,
     ObrasRoutingModule,

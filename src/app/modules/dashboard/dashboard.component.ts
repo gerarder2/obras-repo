@@ -31,6 +31,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ObrasModalComponent } from '../obras/modal/obras-modal.component';
 import { Totales } from './models/totales.interface';
 import { ObrasService } from '../obras/services/obras.service';
+import { ModalPorMunicipioComponent } from '../obras/modal-por-municipio/modal-por-municipio.component';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -350,31 +351,67 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   descargarReporte() {
+    this.openModalPorMunicipioComponent();
+  }
+
+  public openModalPorMunicipioComponent() {
     const payload = {
       idMunicipio: this.municipioSeleccionado.id,
       ejercicio: this.periodoSeleccionado.descripcion !== 'Todos' ? parseInt(this.periodoSeleccionado.descripcion) : 0,
       estatus: this.estatusObrasSeleccionado.descripcion
     };
-
-    this.obrasService.getReporte(payload).subscribe({
-      next: (response: Blob) => {
-        const url = window.URL.createObjectURL(response);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Reporte.pdf';
-        a.click();
-        window.URL.revokeObjectURL(url);
-      },
-      error: (err: unknown) => {
-        this.mensaje.showMessage({
-          notification: {
-            mensajeUsuario: 'Ocurrio un error al intentar descargar el Reporte',
-            severidad: 'error'
-          }
-        });
+    const initialState = {
+      params: payload,
+      isModal: true,
+      modalExtraOptions: {
+        closeButton: true,
+        closeButtonText: 'Cancelar',
+        acceptButton: true,
+        acceptButtonText: 'Aceptar'
       }
+    };
+
+    this.bsModalRef = this.bsModalService.show(ModalPorMunicipioComponent, {
+      initialState,
+      class: 'modal-primary modal-fullscreen',
+      backdrop: 'static',
+      keyboard: true,
+      ignoreBackdropClick: true
     });
+
+    this.bsModalRef.content.event.subscribe((res) => {
+      console.warn(res);
+    });
+
+    this.bsModalService.onHide.subscribe((reason: string) => {});
   }
+
+  // descargarReporte() {
+  //   const payload = {
+  //     idMunicipio: this.municipioSeleccionado.id,
+  //     ejercicio: this.periodoSeleccionado.descripcion !== 'Todos' ? parseInt(this.periodoSeleccionado.descripcion) : 0,
+  //     estatus: this.estatusObrasSeleccionado.descripcion
+  //   };
+
+  //   this.obrasService.getReporte(payload).subscribe({
+  //     next: (response: Blob) => {
+  //       const url = window.URL.createObjectURL(response);
+  //       const a = document.createElement('a');
+  //       a.href = url;
+  //       a.download = 'Reporte.pdf';
+  //       a.click();
+  //       window.URL.revokeObjectURL(url);
+  //     },
+  //     error: (err: unknown) => {
+  //       this.mensaje.showMessage({
+  //         notification: {
+  //           mensajeUsuario: 'Ocurrio un error al intentar descargar el Reporte',
+  //           severidad: 'error'
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
 
   public filtrarLocal() {
     const info = {
