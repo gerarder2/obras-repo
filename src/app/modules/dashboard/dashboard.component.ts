@@ -399,6 +399,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.tiposObras = conteo;
       this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
       this.mostrarPuntosObra(newPuntosMapa);
+
+      this.montoInversionActual = newPuntosMapa.data
+        .filter((elemento) => parseInt(elemento.ejercicio) === this.annioActual)
+        .reduce((suma, elemento) => suma + elemento.montoInversion, 0);
+
       this.calcularKms(newPuntosMapa.data);
     } else {
       if (this.obrasMarksLayer) {
