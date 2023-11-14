@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.dev';
 import { HelperService } from '../../../helpers/helper.service';
 import { ConfigService } from '../../../services';
+import { ObraPortalReporte } from '../models/obrareporte.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -35,16 +36,29 @@ export class ObrasService {
     return this.http.get(`${this.config.webApi}/ObraPortal/${obra.idObra}`);
   }
 
-  public getReporte(queryParams: {
+  // public getReporte(queryParams: {
+  //   idMunicipio?: number;
+  //   ejercicio?: number;
+  //   estatus?: string;
+  //   esPlataformaAfectaciones?: boolean;
+  // }): Observable<any> {
+  //   queryParams.esPlataformaAfectaciones = true;
+  //   return this.http.get(`${this.config.webApi}/ObraPortal/ObtenerReportePorMunicipio`, {
+  //     params: queryParams,
+  //     responseType: 'blob'
+  //   });
+  // }
+
+  public getObrasReporte(queryParams: {
     idMunicipio?: number;
     ejercicio?: number;
     estatus?: string;
     esPlataformaAfectaciones?: boolean;
   }): Observable<any> {
-    queryParams.esPlataformaAfectaciones = true;
-    return this.http.get(`${this.config.webApi}/ObraPortal/ObtenerReportePorMunicipio`, {
-      params: queryParams,
-      responseType: 'blob'
+    // queryParams.esPlataformaAfectaciones = true;
+    // return this.http.get(`${this.config.webApi}/ObraPortal/ObtenerDatosReporteMunicipios`, { params: queryParams });
+    return this.http.get(`http://localhost:5091/api/ObraPortal/ObtenerDatosReporteMunicipios`, {
+      params: queryParams
     });
   }
 }
