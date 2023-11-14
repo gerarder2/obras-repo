@@ -21,12 +21,12 @@
     </div>
   </div>
 
-  <div class="lista-float-3" *ngIf="montoInversion">
+  <div class="lista-float-3" >
     <div class="contenido">
       <app-lista-elementos
-        titulo="{{ 'Inversion Total Ejercida ' + periodoSeleccionado.descripcion }}"
+        titulo="{{ 'Inversion Total Ejercida ' + annioActual }}"
         [enableToggle]="false"
-        [totales]="montoInversion"
+        [totales]="montoInversionActual"
         [currency]="true"
         [active]="true"
       >

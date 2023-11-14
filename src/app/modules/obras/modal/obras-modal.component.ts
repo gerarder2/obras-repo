@@ -147,7 +147,7 @@ export class ObrasModalComponent implements OnInit {
   public onImageSelected(evidencia: Evidencia, index) {
     this.evidencia = evidencia;
     this.images = this.formatImages(evidencia.imagenes);
-    // this.showCarousel = true;
+    this.showCarousel = true;
     this.imageIndex = index;
     this.activeIndex = index;
     this.displayCustom = true;
@@ -191,7 +191,7 @@ export class ObrasModalComponent implements OnInit {
       return accumulator + element.porcentaje;
     }, 0);
 
-    this.obra.avances.forEach((element) => {
+    this.obra?.avances?.forEach((element) => {
       seriesPie.push(element.porcentaje);
       seriesPieLabel.push(`${moment(element.fecha).format('DD/MMM/YYYY')}`);
 
@@ -230,7 +230,7 @@ export class ObrasModalComponent implements OnInit {
       series: [
         {
           name: '% Avance',
-          data: data
+          data: data ? data : [0]
         }
       ],
       chart: {

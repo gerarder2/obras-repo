@@ -1,6 +1,7 @@
 import { Avance } from './avance.interface';
 import { Documento } from './documento.interface';
 import { Evidencia } from './evidencia.interface';
+import { UltimaEvidencia } from './ultimaEvidencia.interface';
 
 export interface Obra {
   id?: number;
@@ -64,4 +65,5 @@ export interface Obra {
   direccion?: string;
   nombreLocalidad?: string;
   alcanceObra?: string;
+  ultimasImagenes?: UltimaEvidencia[];
 }

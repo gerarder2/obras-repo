@@ -101,6 +101,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   puntosMapa: any;
   totales: Totales;
   montoInversion: number;
+  montoInversionActual: number;
 
   markObrasId: any[] = [];
 
@@ -110,6 +111,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   listaPeriodos: any[];
   listaCarreteras: any[];
+
+  fechaActual: Date = new Date();
+  annioActual: number = this.fechaActual.getFullYear();
 
   constructor(
     private router: Router,
@@ -127,6 +131,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ) {
     const config = this.configService.getConfig();
     this.montoInversion = 0;
+    this.montoInversionActual = 0;
     this.periodos = config.periodos;
     this.periodo = 'Todos';
     this.elementoActivo = -1;
@@ -270,6 +275,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         const newPuntosMapa = this.helperService.filtrarData(info);
         this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
 
+        this.montoInversionActual = newPuntosMapa.data
+          .filter((elemento) => parseInt(elemento.ejercicio) === this.annioActual)
+          .reduce((suma, elemento) => suma + elemento.montoInversion, 0);
+
         this.calcularKms(newPuntosMapa.data);
 
         if (newPuntosMapa.data.length > 0) {
@@ -390,6 +399,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.tiposObras = conteo;
       this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
       this.mostrarPuntosObra(newPuntosMapa);
+      this.calcularKms(newPuntosMapa.data);
     } else {
       if (this.obrasMarksLayer) {
         this.map.removeLayer(this.obrasMarksLayer);
