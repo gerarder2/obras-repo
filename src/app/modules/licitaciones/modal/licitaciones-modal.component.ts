@@ -145,7 +145,7 @@ export class LicitacionesModalComponent implements OnInit {
       initialState,
       class: 'modal-gold modal-fullscreen',
       backdrop: 'static',
-      keyboard: true,
+      keyboard: false,
       ignoreBackdropClick: true
     });
 

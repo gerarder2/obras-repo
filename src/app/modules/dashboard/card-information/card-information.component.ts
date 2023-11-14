@@ -90,7 +90,7 @@ export class CardInformationComponent implements OnInit, OnChanges {
       initialState,
       class: 'modal-primary modal-fullscreen',
       backdrop: 'static',
-      keyboard: true,
+      keyboard: false,
       ignoreBackdropClick: true
     });
 

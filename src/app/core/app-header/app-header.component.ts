@@ -140,7 +140,7 @@ export class AppHeaderComponent implements OnInit {
       initialState,
       class: 'modal-primary modal-fullscreen',
       backdrop: 'static',
-      keyboard: true,
+      keyboard: false,
       ignoreBackdropClick: true
     });
 

@@ -269,52 +269,56 @@
           </dl>
         </div>
         <div class="col-xs-12 col-md-4">
-          <ng-container *ngIf="obra?.ultimasImagenes?.length > 0">
-            <div class="row">
-              <div class="col-md-3" *ngFor="let item of obra.ultimasImagenes; let index = index">
-                <a
-                  href="#"
-                  style="text-decoration: none"
-                  (click)="onImageSelected(null, index, obra.ultimasImagenes); $event.preventDefault()"
-                >
-                  <img src="{{ item.rutaPublica + item.nombre }}" class="img-thumbnail img-64" alt="..." />
-                </a>
-                
-              </div>
-            </div>
-
-            <div class="row justify-content-center">
-              <p-galleria
-                [value]="images"
-                [(visible)]="displayCustom"
-                [(activeIndex)]="activeIndex"
-                [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ 'max-width': '250px' }"
-                [numVisible]="7"
-                [circular]="true"
-                [fullScreen]="true"
-                [showItemNavigators]="true"
-                [showThumbnails]="false"
-                [baseZIndex]="100000"
-              >
-                <ng-template pTemplate="item" let-item>
-                  <img [src]="item.previewImageSrc" style="max-height: 600px; width: auto; display: block" />
-                </ng-template>
-                <ng-template pTemplate="thumbnail" let-item>
-                  <div class="grid grid-nogutter justify-content-center">
-                    <img [src]="item.thumbnailImageSrc" style="display: block" />
+          <dl class="dl-list">
+            <dt>Evidencia fotográfica</dt>
+            <dd>
+              <ng-container *ngIf="obra?.ultimasImagenes?.length > 0">
+                <div class="row">
+                  <div class="col-md-3" *ngFor="let item of obra.ultimasImagenes; let index = index">
+                    <a
+                      href="#"
+                      style="text-decoration: none"
+                      (click)="onImageSelected(null, index, obra.ultimasImagenes); $event.preventDefault()"
+                    >
+                      <img src="{{ item.rutaPublica + item.nombre }}" class="img-thumbnail img-64" alt="..." />
+                    </a>
                   </div>
-                </ng-template>
-              </p-galleria>
-            </div>
-          </ng-container>
-          <ng-container *ngIf="obra?.evidencias?.length === 0">
-            <div class="row">
-              <div class="col-12 text-center">
-                <p class="h4 mb-5">Por el momento no existen evidencias asociadas a esta obra.</p>
-              </div>
-            </div>
-          </ng-container>
+                </div>
+
+                <div class="row justify-content-center">
+                  <p-galleria
+                    [value]="images"
+                    [(visible)]="displayCustom"
+                    [(activeIndex)]="activeIndex"
+                    [responsiveOptions]="responsiveOptions"
+                    [containerStyle]="{ 'max-width': '250px' }"
+                    [numVisible]="7"
+                    [circular]="true"
+                    [fullScreen]="true"
+                    [showItemNavigators]="true"
+                    [showThumbnails]="false"
+                    [baseZIndex]="100000"
+                  >
+                    <ng-template pTemplate="item" let-item>
+                      <img [src]="item.previewImageSrc" style="max-height: 600px; width: auto; display: block" />
+                    </ng-template>
+                    <ng-template pTemplate="thumbnail" let-item>
+                      <div class="grid grid-nogutter justify-content-center">
+                        <img [src]="item.thumbnailImageSrc" style="display: block" />
+                      </div>
+                    </ng-template>
+                  </p-galleria>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="obra?.evidencias?.length === 0">
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <p class="h4 mb-5">Por el momento no existen evidencias asociadas a esta obra.</p>
+                  </div>
+                </div>
+              </ng-container>
+            </dd>
+          </dl>
         </div>
       </div>
     </p-tabPanel>

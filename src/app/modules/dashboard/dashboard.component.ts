@@ -1082,7 +1082,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       initialState,
       class: 'modal-light modal-fullscreen',
       backdrop: 'static',
-      keyboard: true,
+      keyboard: false,
       ignoreBackdropClick: true
     });
 
