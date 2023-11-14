@@ -138,7 +138,7 @@ export class AppHeaderComponent implements OnInit {
 
     this.bsObraModalRef = this.bsModalService.show(ObrasModalComponent, {
       initialState,
-      class: 'modal-gold modal-fullscreen',
+      class: 'modal-primary modal-fullscreen',
       backdrop: 'static',
       keyboard: true,
       ignoreBackdropClick: true
