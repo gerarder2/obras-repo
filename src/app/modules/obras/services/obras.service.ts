@@ -55,10 +55,6 @@ export class ObrasService {
     estatus?: string;
     esPlataformaAfectaciones?: boolean;
   }): Observable<any> {
-    // queryParams.esPlataformaAfectaciones = true;
-    // return this.http.get(`${this.config.webApi}/ObraPortal/ObtenerDatosReporteMunicipios`, { params: queryParams });
-    return this.http.get(`http://localhost:5091/api/ObraPortal/ObtenerDatosReporteMunicipios`, {
-      params: queryParams
-    });
+    return this.http.get(`${this.config.webApi}/ObraPortal/ObtenerDatosReporteMunicipios`, { params: queryParams });
   }
 }
