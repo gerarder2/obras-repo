@@ -66,4 +66,5 @@ export interface Obra {
   nombreLocalidad?: string;
   alcanceObra?: string;
   ultimasImagenes?: UltimaEvidencia[];
+  montoAvanceFinanciero?: number;
 }

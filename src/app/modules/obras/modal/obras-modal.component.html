@@ -86,7 +86,7 @@
             <div class="col-xs-12 col-md-5">
               <dl class="dl-list">
                 <dt>Avance financiero</dt>
-                <dd class="monto">{{ obra.porcentajeMonetario }}</dd>
+                <dd class="monto">{{ obra.porcentajeMonetario }} %</dd>
               </dl>
             </div>
           </div>
@@ -331,26 +331,31 @@
         <div class="row">
           <div class="col-12 col-md-6">
             <div class="row">
+              <div class="col-xs-12 col-md-4">
+                <dl class="dl-list">
+                  <dt>Avance de obra</dt>
+                  <dd class="monto">{{ obra.porcentajeAvance }} %</dd>
+                </dl>
+              </div>
+              <div class="col-xs-12 col-md-4">
+                <dl class="dl-list">
+                  <dt>Avance financiero %</dt>
+                  <dd class="monto">{{ obra.porcentajeMonetario }} %</dd>
+                </dl>
+              </div>
+              <div class="col-xs-12 col-md-4">
+                <dl class="dl-list">
+                  <dt>Monto a pagar</dt>
+                  <dd class="">{{ obra.montoInversion | currency }} MXN</dd>
+                </dl>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-12">
-                <ng-container *ngIf="showGraficaPorcentaje">
-                  <div class="card shadow">
-                    <div class="card-body">
-                      <div id="chartlineal-{{ this.obra.id }}">
-                        <apx-chart
-                          [series]="chartOptionsLine.series"
-                          [chart]="chartOptionsLine.chart"
-                          [xaxis]="chartOptionsLine.xaxis"
-                          [dataLabels]="chartOptionsLine.dataLabels"
-                          [grid]="chartOptionsLine.grid"
-                          [stroke]="chartOptionsLine.stroke"
-                          [colors]="chartOptionsLine.colors"
-                          [markers]="chartOptionsLine.markers"
-                          [title]="chartOptionsLine.title"
-                        ></apx-chart>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
+                <dl class="dl-list">
+                  <dt>Avance financiero $</dt>
+                  <dd class="monto">{{ obra.montoInversionAcumulada }} MXN</dd>
+                </dl>
               </div>
             </div>
           </div>
@@ -358,36 +363,18 @@
             <div class="row">
               <div class="col-12">
                 <ng-container *ngIf="showGraficaPorcentaje">
-                  <div class="card shadow">
-                    <div class="card-body">
-                      <div id="chartradial-{{ this.obra.id }}">
-                        <apx-chart
-                          [chart]="chartOptionsRadial.chart"
-                          [plotOptions]="chartOptionsRadial.plotOptions"
-                          [labels]="chartOptionsRadial.labels"
-                          [colors]="chartOptionsRadial.colors"
-                          [stroke]="chartOptionsRadial.stroke"
-                          [series]="chartOptionsRadial.series"
-                        ></apx-chart>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-              <div class="col-12" *ngIf="false">
-                <ng-container *ngIf="showGraficaPorcentaje">
-                  <div class="card shadow">
-                    <div class="card-body">
-                      <div id="chartpie-{{ this.obra.id }}">
-                        <apx-chart
-                          [series]="chartOptionsPie.series"
-                          [chart]="chartOptionsPie.chart"
-                          [labels]="chartOptionsPie.labels"
-                          [responsive]="chartOptionsPie.responsive"
-                          [colors]="chartOptionsPie.colors"
-                        ></apx-chart>
-                      </div>
-                    </div>
+                  <div id="chartlineal-{{ this.obra.id }}">
+                    <apx-chart
+                      [series]="chartOptionsLine.series"
+                      [chart]="chartOptionsLine.chart"
+                      [xaxis]="chartOptionsLine.xaxis"
+                      [dataLabels]="chartOptionsLine.dataLabels"
+                      [grid]="chartOptionsLine.grid"
+                      [stroke]="chartOptionsLine.stroke"
+                      [colors]="chartOptionsLine.colors"
+                      [markers]="chartOptionsLine.markers"
+                      [title]="chartOptionsLine.title"
+                    ></apx-chart>
                   </div>
                 </ng-container>
               </div>
