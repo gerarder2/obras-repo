@@ -19,6 +19,7 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { BlockUIModule } from 'ng-block-ui';
 import { ModalPorMunicipioComponent } from './modal-por-municipio/modal-por-municipio.component';
 import { ModalFichaTecnicaComponent } from './modal-ficha-tecnica/modal-ficha-tecnica.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [ObrasComponent, ObrasModalComponent, ModalPorMunicipioComponent, ModalFichaTecnicaComponent],
@@ -38,7 +39,8 @@ import { ModalFichaTecnicaComponent } from './modal-ficha-tecnica/modal-ficha-te
     BlockUIModule.forRoot(),
     NgApexchartsModule,
     CarouselModule.forRoot(),
-    GalleriaModule
+    GalleriaModule,
+    TooltipModule
   ],
   exports: [ObrasModalComponent],
   providers: [{ provide: LOCALE_ID, useValue: 'en-US' }]

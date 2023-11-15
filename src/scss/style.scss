@@ -80,6 +80,28 @@ html {
 }
 }
 
+.modal-fullscreen-x2 {
+  padding: 0 !important; // override inline padding-right added from js
+}
+.modal-fullscreen-x2.modal-dialog {
+  width: 90%;
+  max-width: none;
+  margin: 1.75rem auto;
+  overflow-y: initial !important;
+  @include breakpoint('xl') {
+    width: 85%;
+   }
+
+}
+.modal-fullscreen-x2 .modal-content {
+  height: 92vh !important;
+  // overflow: hidden;
+  .modal-body{
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+}
+}
+
 img.img-thumbnail.img-64 {
   max-height: 96px;
   width: auto;
