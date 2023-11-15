@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, EventEmitter, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ObrasService } from '../services/obras.service';
 import { Mensaje } from 'src/app/models';
-import { DatosReportePorMunicipio, ObraPortalReporte, ObraReporte } from '../models/obrareporte.interface';
+import { DatosReportePorMunicipio, ObraReporte } from '../models/obrareporte.interface';
 import { ModalFichaTecnicaComponent } from '../modal-ficha-tecnica/modal-ficha-tecnica.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { ModalFichaTecnicaComponent } from '../modal-ficha-tecnica/modal-ficha-t
   templateUrl: './modal-por-municipio.component.html',
   styleUrls: ['./modal-por-municipio.component.scss']
 })
-export class ModalPorMunicipioComponent implements OnInit {
+export class ModalPorMunicipioComponent implements OnInit, AfterViewInit {
   public cssClass: { color: string; type: string };
   public maximizado: boolean;
   public event: EventEmitter<any> = new EventEmitter();
@@ -21,23 +21,35 @@ export class ModalPorMunicipioComponent implements OnInit {
 
   public mensaje: Mensaje;
   public fechaConsulta = new Date();
-  public montoGlobal = 0;
-  public porcentajeInversionTotal = 0;
   public inversionGeneral: number;
   public datosGlobalesMunicipio: DatosReportePorMunicipio[] = [];
 
   bsModalRef: BsModalRef;
   allObras: ObraReporte[];
+
   constructor(
     public bsObraModalRef: BsModalRef,
     private obrasService: ObrasService,
-    private bsModalService: BsModalService
+    private bsModalService: BsModalService,
+    private el: ElementRef
   ) {
     this.mensaje = new Mensaje();
   }
 
   ngOnInit(): void {
     this.getDataObras();
+  }
+
+  ngAfterViewInit() {
+    const intervalId = setInterval(() => {
+      const buttons = this.el.nativeElement.querySelectorAll('.btnExpandir');
+      if (buttons.length) {
+        clearInterval(intervalId);
+        buttons.forEach((button: HTMLElement) => {
+          button.click();
+        });
+      }
+    }, 100);
   }
 
   getDataObras() {
@@ -75,13 +87,8 @@ export class ModalPorMunicipioComponent implements OnInit {
         this.datosGlobalesMunicipio.forEach((item) => {
           item.porcentajeInversion = item.inversion / this.inversionGeneral;
         });
-        const btns = document.querySelectorAll('.btnExpandir');
-        btns.forEach((boton: HTMLElement) => {
-          boton.click();
-        });
       },
       error: (err: unknown) => {
-        console.warn(err);
         this.mensaje.showMessage(err);
       }
     });
@@ -122,5 +129,16 @@ export class ModalPorMunicipioComponent implements OnInit {
     return this.allObras
       .filter((x) => x.descripcionTipoObra === tipoObra && x.nombreMunicipio === municipio)
       .reduce((total, obj) => total + obj[campo], 0);
+  }
+
+  calcularPromedio(tipoObra, municipio, campo) {
+    const totalObras = this.allObras.filter(
+      (x) => x.descripcionTipoObra === tipoObra && x.nombreMunicipio === municipio
+    );
+    const totalPorcentaje = this.allObras
+      .filter((x) => x.descripcionTipoObra === tipoObra && x.nombreMunicipio === municipio)
+      .reduce((total, obj) => total + obj[campo], 0);
+
+    return totalPorcentaje / totalObras.length;
   }
 }

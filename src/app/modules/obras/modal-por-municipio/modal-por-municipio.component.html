@@ -8,7 +8,7 @@
             </div>
             <div class="col-md-2">
             <small>Fecha de consulta</small>
-            <p>{{ fechaConsulta | date: 'longDate':'':'es' }}</p>
+            <p>{{ fechaConsulta | date:'MMMM dd, yyyy':'':'es' }}</p>
             </div>
             <div class="col-md-5">
             <small>Monto global</small>
@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-2">
             <small>Porcentaje de la inversión total estatal</small>
-            <p>{{ municipio.porcentajeInversion | percent }}</p>
+            <p>{{ municipio.porcentajeInversion | number: '1.2-2' }}%</p>
             </div>
         </div>
         </div>
@@ -59,7 +59,7 @@
             >
             <tr>
                 <td class="subsubheader" colspan="3">
-                    <button type="button" pButton pRipple [pRowToggler]="obra" class="p-button-text p-button-rounded p-button-plain p-mr-2 btnExpandir" ></button>
+                    <button hidden type="button" #expandButton pButton pRipple [pRowToggler]="obra" class="p-button-text p-button-rounded p-button-plain p-mr-2 btnExpandir"></button>
                     <span class="p-text-bold p-ml-2">
                         {{ obra.descripcionTipoObra }}
                     </span>
@@ -71,67 +71,67 @@
                 </td>
                 <td class="subsubheader">
                     <span class="p-text-bold p-ml-2">
-                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'montoInversion') }}
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'montoInversion') | currency }} MXN
                     </span>
                 </td>
                 <td class="subsubheader">
                     <span class="p-text-bold p-ml-2">
-                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'federal') }}
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'federal') | currency }} MXN
                     </span>
                 </td>
                 <td class="subsubheader">
                     <span class="p-text-bold p-ml-2">
-                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'estatal') }}
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'estatal') | currency }} MXN
                     </span>
                 </td>
                 <td class="subsubheader">
                     <span class="p-text-bold p-ml-2">
-                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'municipal') }}
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'municipal') | currency }} MXN
                     </span>
                 </td>
                 <td class="subsubheader">
                     <span class="p-text-bold p-ml-2">
-                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'porcentajeAvance') }}
+                        {{ calcularPromedio(obra.descripcionTipoObra, obra.nombreMunicipio, 'porcentajeAvance') | number: '1.2-2' }}%
                     </span>
                 </td>
                 <td colspan="2" class="subsubheader">
                     <span class="p-text-bold p-ml-2">
-                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'importePorPagar') }}
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'importePorPagar') | currency }} MXN
                     </span>
                 </td>                                                                                 
             </tr>
             </ng-template>
             <ng-template pTemplate="rowexpansion" let-obra>
                 <tr>
-                    <td>
-                        {{ obra.objeto }}
+                    <td pTooltip="{{obra.objeto}}" tooltipPosition="left">
+                        {{ obra.objeto | slice:0:30 }}
                     </td>
                     <td>
                         {{ obra.siglas }}
                     </td>
-                    <td>
-                        {{ obra.descripcionContratista }}
+                    <td pTooltip="{{obra.descripcionContratista}}" tooltipPosition="left">
+                        {{ obra.descripcionContratista | slice:0:30 }}
                     </td>
                     <td>
                         {{ obra.superficieConstruccion }} {{ obra.unidadMedida }}
                     </td>
                     <td>
-                        {{ obra.montoInversion }}
+                        {{ obra.montoInversion | currency }} MXN
                     </td>
                     <td>
-                        {{ obra.federal }}
+                        {{ obra.federal | currency }} MXN
                     </td>
                     <td>
-                        {{ obra.estatal }}
+                        {{ obra.estatal | currency }} MXN
                     </td>
                     <td>
-                        {{ obra.municipal }}
+                        {{ obra.municipal | currency }} MXN
                     </td>
                     <td>
-                        {{ obra.porcentajeAvance }}
+                        {{ obra.porcentajeAvance | number: '1.2-2' }}%
                     </td>
                     <td>
-                        {{ obra.importePorPagar }}
+                        {{ obra.importePorPagar | currency }} MXN
                     </td>
                     <td>
                         <button class="btn btn-primary icon text-white" (click)="mostrarFicha(obra)">
@@ -139,7 +139,7 @@
                         </button>
                     </td>
                 </tr>
-            </ng-template>            
+            </ng-template>
         </p-table>
     </div>
 </div>

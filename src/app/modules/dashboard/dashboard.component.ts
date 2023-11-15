@@ -351,6 +351,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   descargarReporte() {
+    if (!this.municipioSeleccionado.id) {
+      this.mensaje.messageWarning('Seleccione un municipio para generar el reporte');
+      return;
+    }
     this.openModalPorMunicipioComponent();
   }
 
@@ -373,7 +377,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     this.bsModalRef = this.bsModalService.show(ModalPorMunicipioComponent, {
       initialState,
-      class: 'modal-primary modal-fullscreen',
+      class: 'modal-primary modal-fullscreen-x2',
       backdrop: 'static',
       keyboard: true,
       ignoreBackdropClick: true
