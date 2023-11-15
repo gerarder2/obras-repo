@@ -8,9 +8,8 @@ describe('ModalPorMunicipioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalPorMunicipioComponent ]
-    })
-    .compileComponents();
+      declarations: [ModalPorMunicipioComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ModalPorMunicipioComponent);
     component = fixture.componentInstance;

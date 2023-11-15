@@ -8,9 +8,8 @@ describe('ModalFichaTecnicaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalFichaTecnicaComponent ]
-    })
-    .compileComponents();
+      declarations: [ModalFichaTecnicaComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ModalFichaTecnicaComponent);
     component = fixture.componentInstance;
