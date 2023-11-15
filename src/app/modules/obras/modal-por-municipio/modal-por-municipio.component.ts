@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ObrasService } from '../services/obras.service';
 import { Mensaje } from 'src/app/models';
@@ -10,7 +10,7 @@ import { ModalFichaTecnicaComponent } from '../modal-ficha-tecnica/modal-ficha-t
   templateUrl: './modal-por-municipio.component.html',
   styleUrls: ['./modal-por-municipio.component.scss']
 })
-export class ModalPorMunicipioComponent implements OnInit, AfterViewInit {
+export class ModalPorMunicipioComponent implements OnInit {
   public cssClass: { color: string; type: string };
   public maximizado: boolean;
   public event: EventEmitter<any> = new EventEmitter();
@@ -30,26 +30,13 @@ export class ModalPorMunicipioComponent implements OnInit, AfterViewInit {
   constructor(
     public bsObraModalRef: BsModalRef,
     private obrasService: ObrasService,
-    private bsModalService: BsModalService,
-    private el: ElementRef
+    private bsModalService: BsModalService
   ) {
     this.mensaje = new Mensaje();
   }
 
   ngOnInit(): void {
     this.getDataObras();
-  }
-
-  ngAfterViewInit() {
-    const intervalId = setInterval(() => {
-      const buttons = this.el.nativeElement.querySelectorAll('.btnExpandir');
-      if (buttons.length) {
-        clearInterval(intervalId);
-        buttons.forEach((button: HTMLElement) => {
-          button.click();
-        });
-      }
-    }, 100);
   }
 
   getDataObras() {

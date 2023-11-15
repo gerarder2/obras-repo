@@ -31,6 +31,7 @@
             [value]="allObras"
             sortField="municipio"
             sortMode="single"
+            [scrollable]="true"
             dataKey="descripcionTipoObra"
             rowGroupMode="subheader"
             groupRowsBy="descripcionTipoObra"
@@ -53,13 +54,10 @@
             </ng-template>
             <ng-template
             pTemplate="groupheader"
-            let-rowIndex="rowIndex"
-            let-expanded="expanded"
             let-obra
             >
-            <tr>
+            <tr pRowGroupHeader>
                 <td class="subsubheader" colspan="3">
-                    <button hidden type="button" #expandButton pButton pRipple [pRowToggler]="obra" class="p-button-text p-button-rounded p-button-plain p-mr-2 btnExpandir"></button>
                     <span class="p-text-bold p-ml-2">
                         {{ obra.descripcionTipoObra }}
                     </span>
@@ -101,7 +99,7 @@
                 </td>                                                                                 
             </tr>
             </ng-template>
-            <ng-template pTemplate="rowexpansion" let-obra>
+            <ng-template pTemplate="body" let-obra let-rowIndex="rowIndex">
                 <tr>
                     <td pTooltip="{{obra.objeto}}" tooltipPosition="left">
                         {{ obra.objeto | slice:0:30 }}
