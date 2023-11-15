@@ -114,22 +114,22 @@
                         {{ obra.superficieConstruccion }} {{ obra.unidadMedida }}
                     </td>
                     <td>
-                        {{ obra.montoInversion | currency }} MXN
+                        {{ obra.montoInversion | currency }}
                     </td>
                     <td>
-                        {{ obra.federal | currency }} MXN
+                        {{ obra.federal | currency }}
                     </td>
                     <td>
-                        {{ obra.estatal | currency }} MXN
+                        {{ obra.estatal | currency }}
                     </td>
                     <td>
-                        {{ obra.municipal | currency }} MXN
+                        {{ obra.municipal | currency }}
                     </td>
                     <td>
                         {{ obra.porcentajeAvance | number: '1.2-2' }}%
                     </td>
                     <td>
-                        {{ obra.importePorPagar | currency }} MXN
+                        {{ obra.importePorPagar | currency }}
                     </td>
                     <td>
                         <button class="btn btn-primary icon text-white" (click)="mostrarFicha(obra)">
