@@ -119,7 +119,7 @@
     background: #fff;
     min-height: 100px;    
     position: absolute;
-    top: 48px;
+    top: 68px;
     width: 350px;
     transition: left 0.3s ease-in-out;
     z-index: 1000;
@@ -191,7 +191,7 @@
 .lista-float {
   position: absolute;
   left: 50px;
-  top: 310px;
+  top: 330px;
   width: 200px;
   z-index: 998;
 }
@@ -199,7 +199,7 @@
 .lista-float-2 {
   position: absolute;
   left: 50px;
-  top: 60px;
+  top: 90px;
   width: 200px;
   z-index: 998;
 }
@@ -207,7 +207,7 @@
 .lista-float-3 {
   position: absolute;
   left: 50px;
-  top: 160px;
+  top: 190px;
   width: 200px;
   z-index: 998;
 }
@@ -472,4 +472,10 @@
         margin-top: -0.45rem;
     }
   }
+}
+
+
+
+::ng-deep .leaflet-top.leaflet-left {
+  top: 77px;
 }

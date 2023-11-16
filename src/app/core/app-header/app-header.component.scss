@@ -12,7 +12,7 @@
   }
 
   @include breakpoint('lg') {
-    height: 55px !important;
+    height: 75px !important;
   }
 
   position: absolute;
@@ -141,9 +141,4 @@ i.blue {
   padding: 8px;
   border-bottom: 1px solid #ccc;
   /* Línea separadora */
-}
-
-
-::ng-deep .leaflet-top.leaflet-left {
-  top: 50px;
 }

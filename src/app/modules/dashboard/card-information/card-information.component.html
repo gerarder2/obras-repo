@@ -1,5 +1,7 @@
 <ng-container *ngIf="tipoCard === 'obras' && properties" >
-  <div class="content-map">
+  <div class="container content-map p-0">
+    <ng-scrollbar style="height: 500px" [visibility]="'hover'">
+
     <div class="row">
       <div class="col-12">
         <div class="row">
@@ -122,5 +124,6 @@
        
       </div>
     </div>
+    </ng-scrollbar>
   </div>
 </ng-container>
