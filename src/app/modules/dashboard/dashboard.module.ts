@@ -16,7 +16,6 @@ import { MenuModule } from 'primeng/menu';
 import { NgChartsModule } from 'ng2-charts';
 import { NgModule } from '@angular/core';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
-import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { OverlayModule } from 'primeng/overlay';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -29,6 +28,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ListaElementosComponent } from './lista-elementos/lista-elementos.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { GalleriaModule } from 'primeng/galleria';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   imports: [
@@ -54,7 +54,8 @@ import { GalleriaModule } from 'primeng/galleria';
     ModalModule.forRoot(),
     BlockUIModule.forRoot(),
     PopoverModule.forRoot(),
-    GalleriaModule
+    GalleriaModule,
+    NgScrollbarModule
   ],
   declarations: [
     DashboardComponent,
