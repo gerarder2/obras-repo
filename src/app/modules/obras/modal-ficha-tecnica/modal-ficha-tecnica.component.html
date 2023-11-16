@@ -1,19 +1,19 @@
 <ng-container *ngIf="params" >
-    <div class="content-map">
+    <div class="content-map" id="fichaTecnica">
       <div class="row">
         <div class="col-12">
           <div class="row">
             <div class="col-xs-12 col-md-4">
                 <dl>
                 <dd>
-                    <img style="max-width: -webkit-fill-available;" src="../../../../assets/img/sinaloa_logo.png" alt="sinaloa" />
+                    <img style="max-width: -webkit-fill-available;" src="./assets/img/sinaloa_logo.png" alt="sinaloa" />
                 </dd>
                 </dl>
             </div>
             <div class="col-xs-12 col-md-3 offset-4">
                 <dl>
                 <dd>
-                    <img style="max-width: -webkit-fill-available;padding-top: 10%;" src="../../../../assets/img/obras_sentido_social_logo.png" alt="obras" />
+                    <img style="max-width: -webkit-fill-available;padding-top: 10%;" src="./assets/img/obras_sentido_social_logo.png" alt="obras" />
                 </dd>
                 </dl>
             </div>
@@ -104,7 +104,7 @@
             <div class="col-xs-12 col-md-4">
                 <dl>
                     <dt>Proyecto</dt>
-                    <dd><button class="btn btn-primary">Descargar PDF</button></dd>
+                    <dd><button (click)="descargarPDF()" class="btn btn-primary">Descargar PDF</button></dd>
                   </dl>
               </div>
           </div>
