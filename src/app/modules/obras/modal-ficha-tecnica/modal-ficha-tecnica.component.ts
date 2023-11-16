@@ -30,7 +30,6 @@ export class ModalFichaTecnicaComponent implements OnInit {
 
   descargarPDF() {
     this.blockUI.start('Descargando...');
-    debugger;
     const data = document.getElementById('fichaTecnica');
 
     const pdfOptions = {

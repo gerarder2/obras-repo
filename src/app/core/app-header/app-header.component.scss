@@ -2,23 +2,17 @@
 @import './../../../scss/core/mixins';
 @import './../../../scss/core/variables';
 
+
 .app-header.navbar {
-  @include breakpoint('xs') {
-    height: 200px !important;
-  }
-
-  @include breakpoint('md') {
-    height: 110px !important;
-  }
-
-  @include breakpoint('lg') {
-    height: 55px !important;
-  }
-
-  position: absolute;
+  
   border-bottom-right-radius: 42px;
   border-bottom-left-radius: 42px;
-  float: left;
+
+  ul.nav {
+    @include breakpoint('md') {
+      margin-left: 40px;
+    }
+  }
 
   a.navbar-brand {
     border-bottom-left-radius: 42px;
@@ -28,8 +22,6 @@
 
 .app-header.navbar .nav-item {
   height: 50px;
-  margin-left: 10px !important;
-  margin-right: 10px !important;
 
   .nav-link {
     line-height: 50px;
@@ -50,6 +42,8 @@
     color: $white;
   }
 }
+
+
 
 ::ng-deep typeahead-container.dropdown-menu {
   height: 450px !important;
