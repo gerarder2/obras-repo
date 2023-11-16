@@ -90,6 +90,10 @@ p-table ::ng-deep .p-datatable .p-sortable-column:hover .p-sortable-column-icon 
   color: $white;
 }
 
+p-table {
+  margin: 0 3% 5% 3%;
+  border: 1px solid black;
+}
 // p-table ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
 //   background: $wine-50;
 // }
@@ -135,6 +139,7 @@ p-table ::ng-deep .p-datatable .p-sortable-column:hover .p-sortable-column-icon 
 
   small {
     font-weight: 800;
+    color: black;
   }
 
   .p-tabview .p-tabview-panels {
@@ -161,6 +166,16 @@ p-table ::ng-deep .p-datatable .p-sortable-column:hover .p-sortable-column-icon 
 
 .modal-header {
   background-color: #ffffff;
+  color: $wine;
+  .container.no-cursor {
+    p {
+      font-weight: 800;
+    }
+  }
+}
+
+.header-first {
+  background-color: $wine;
   color: $wine;
   .container.no-cursor {
     p {
