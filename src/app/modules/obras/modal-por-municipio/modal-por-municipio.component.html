@@ -1,29 +1,54 @@
+<div class="modal-header header-first" ngxModalDraggable>
+    <div class="container no-cursor">
+      <div class="row">
+        <div class="col-md-3">
+            <img style="width: 60%;" src="../../../../assets/img/sinaloa_logo_trans@3x.png" alt="sinaloa" />
+        </div>
+        <div class="col-md-6">
+            <p style="font-size: xx-large; text-align: center; color: white;"> INVERSIÓN {{ fechaConsulta | date:'yyyy':'':'es' }} </p>
+            </div>        
+        <div class="col-md-3 text-right">
+            <img style="width: 60%; padding-top: 3%;" src="../../../../assets/img/obras_sentido_social_blanco.png" alt="obras" />
+        </div>
+      </div>
+    </div>
+    <div class="ml-auto">
+      <button type="button" class="close" (click)="bsObraModalRef.hide()">
+        <span aria-hidden="true"><i style="color: white;" class="fa fa-close"></i></span>
+      </button>
+    </div>
+  </div>
 <div *ngFor="let municipio of datosGlobalesMunicipio">
     <div class="modal-header" ngxModalDraggable>
         <div class="container no-cursor">
         <div class="row">
             <div class="col-md-3">
             <small>Municipio</small>
-            <p style="font-size: xx-large;"> {{ municipio.municipio }} </p>
             </div>
             <div class="col-md-2">
             <small>Fecha de consulta</small>
-            <p>{{ fechaConsulta | date:'MMMM dd, yyyy':'':'es' }}</p>
             </div>
             <div class="col-md-5">
             <small>Monto global</small>
+            </div>
+            <div style="line-height: 1rem;" class="col-md-2">
+            <small>Porcentaje de la inversión total estatal</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+            <p style="font-size: xx-large;"> {{ municipio.municipio }} </p>
+            </div>
+            <div class="col-md-2">
+            <p style="padding-top: 5%;">{{ fechaConsulta | date:'MMMM dd, yyyy':'':'es' }}</p>
+            </div>
+            <div class="col-md-5">
             <p style="font-size: xx-large;">{{ municipio.inversion | currency }} MXN</p>
             </div>
             <div class="col-md-2">
-            <small>Porcentaje de la inversión total estatal</small>
-            <p>{{ municipio.porcentajeInversion | number: '1.2-2' }}%</p>
+            <p style="font-size: xx-large;">{{ municipio.porcentajeInversion | number: '1.2-2' }}%</p>
             </div>
-        </div>
-        </div>
-        <div class="ml-auto">
-        <button type="button" class="close" (click)="bsObraModalRef.hide()">
-            <span aria-hidden="true"><i class="fa fa-close"></i></span>
-        </button>
+        </div>        
         </div>
     </div>
     <div class="card">
@@ -69,22 +94,22 @@
                 </td>
                 <td class="subsubheader">
                     <span class="p-text-bold p-ml-2">
-                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'montoInversion') | currency }} MXN
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'montoInversion') | currency }}
                     </span>
                 </td>
                 <td class="subsubheader">
                     <span class="p-text-bold p-ml-2">
-                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'federal') | currency }} MXN
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'federal') | currency }}
                     </span>
                 </td>
                 <td class="subsubheader">
                     <span class="p-text-bold p-ml-2">
-                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'estatal') | currency }} MXN
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'estatal') | currency }}
                     </span>
                 </td>
                 <td class="subsubheader">
                     <span class="p-text-bold p-ml-2">
-                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'municipal') | currency }} MXN
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'municipal') | currency }}
                     </span>
                 </td>
                 <td class="subsubheader">
@@ -94,21 +119,21 @@
                 </td>
                 <td colspan="2" class="subsubheader">
                     <span class="p-text-bold p-ml-2">
-                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'importePorPagar') | currency }} MXN
+                        {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'importePorPagar') | currency }}
                     </span>
                 </td>                                                                                 
             </tr>
             </ng-template>
             <ng-template pTemplate="body" let-obra let-rowIndex="rowIndex">
                 <tr>
-                    <td pTooltip="{{obra.objeto}}" tooltipPosition="left">
-                        {{ obra.objeto | slice:0:30 }}
+                    <td>
+                        {{ obra.objeto }}
                     </td>
                     <td>
                         {{ obra.siglas }}
                     </td>
-                    <td pTooltip="{{obra.descripcionContratista}}" tooltipPosition="left">
-                        {{ obra.descripcionContratista | slice:0:30 }}
+                    <td>
+                        {{ obra.descripcionContratista }}
                     </td>
                     <td>
                         {{ obra.superficieConstruccion }} {{ obra.unidadMedida }}
