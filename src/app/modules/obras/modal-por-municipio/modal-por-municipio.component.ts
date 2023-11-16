@@ -4,6 +4,9 @@ import { ObrasService } from '../services/obras.service';
 import { Mensaje } from 'src/app/models';
 import { DatosReportePorMunicipio, ObraReporte } from '../models/obrareporte.interface';
 import { ModalFichaTecnicaComponent } from '../modal-ficha-tecnica/modal-ficha-tecnica.component';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-modal-por-municipio',
@@ -11,6 +14,7 @@ import { ModalFichaTecnicaComponent } from '../modal-ficha-tecnica/modal-ficha-t
   styleUrls: ['./modal-por-municipio.component.scss']
 })
 export class ModalPorMunicipioComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   public cssClass: { color: string; type: string };
   public maximizado: boolean;
   public event: EventEmitter<any> = new EventEmitter();
@@ -37,6 +41,28 @@ export class ModalPorMunicipioComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDataObras();
+  }
+
+  descargarPDF() {
+    this.blockUI.start('Descargando...');
+    const data = document.getElementById('reporteMunicipios');
+
+    const pdfOptions = {
+      orientation: 'landscape',
+      unit: 'mm',
+      format: 'a4'
+    };
+
+    const pdf = new jspdf(pdfOptions);
+    html2canvas(data).then((canvas) => {
+      const imgWidth = pdf.internal.pageSize.getWidth();
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      pdf.internal.pageSize.height = imgHeight;
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgWidth, imgHeight);
+      pdf.save('Reporte por municipio.pdf');
+      this.blockUI.stop();
+    });
   }
 
   getDataObras() {
