@@ -1152,9 +1152,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     let kmsPavimentados = 0;
 
     for (const punto of data) {
-      kmsCaminosyCarreteras += parseInt(punto.kmsCaminosyCarreteras);
-      kmsRehabilitados += parseInt(punto.kmsRehabilitados);
-      kmsPavimentados += parseInt(punto.kmsPavimentados);
+      kmsCaminosyCarreteras += parseFloat(punto.kmsCaminosyCarreteras);
+      kmsRehabilitados += parseFloat(punto.kmsRehabilitados);
+      kmsPavimentados += parseFloat(punto.kmsPavimentados);
     }
 
     for (const list of this.listaItems) {
