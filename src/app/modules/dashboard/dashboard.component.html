@@ -46,8 +46,9 @@
     </div>
   </div>
   <!-- sidebar -->
-  <div class="map-sidebar map-sidebar-open">
-    <ng-scrollbar style="height: 82vh" [visibility]="'hover'">    
+  <div class="map-sidebar map-sidebar-open" [ngClass]="{'map-sidebar-collapsed': configCollapsed}">
+    <ng-scrollbar style="height: 82vh" [visibility]="'hover'">
+    <div style="max-width: 310px;">
       <h5 class="map-sidebar-title">SISTEMA DE ADMINISTRACIÓN Y GESTIÓN DE PROYECTOS</h5>
       <div class="map-sidebar-header">
         <h6 class="header-title">Configuración</h6>
@@ -75,21 +76,6 @@
             </label>
           </div>
         </section>
-        <h6 class="header-title">Por Dependencia</h6>
-        <section>
-          <div class="form-group">
-            <p-dropdown
-              class="p-inputtext-sm"
-              (onChange)="filtrar()"
-              appendTo="body"
-              [options]="dependencias"
-              [(ngModel)]="dependenciaSeleccionada"
-              placeholder="Seleccione..."
-              optionLabel="nombre"
-              [showClear]="false"
-            ></p-dropdown>
-          </div>
-        </section>      
         <h6 class="header-title">Por Municipio</h6>
         <section>
           <div class="form-group">
@@ -140,7 +126,22 @@
               </div>
             </section>        
           </div>
-        </div>        
+        </div>
+        <h6 class="header-title">Por Dependencia</h6>
+        <section>
+          <div class="form-group">
+            <p-dropdown
+              class="p-inputtext-sm"
+              (onChange)="filtrar()"
+              appendTo="body"
+              [options]="dependencias"
+              [(ngModel)]="dependenciaSeleccionada"
+              placeholder="Seleccione..."
+              optionLabel="nombre"
+              [showClear]="false"
+            ></p-dropdown>
+          </div>
+        </section>        
         <section>
           <div class="form-group float-left m-0">
             <button class="btn btn-primary icon text-white" (click)="descargarReporte()">
@@ -154,6 +155,7 @@
           </div>
         </section>
       </div>
+    </div>
     </ng-scrollbar>
   </div>
   <!-- end sidebar -->
