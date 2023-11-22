@@ -189,24 +189,27 @@
 }
 
 .lista-float {
+  margin-top: 6%;
   position: absolute;
-  left: 50px;
-  top: 310px;
+  left: 10px;
+  top: 260px;
   width: 200px;
   z-index: 998;
 }
 
 .lista-float-2 {
+  margin-top: 6%;
   position: absolute;
-  left: 50px;
+  left: 10px;
   top: 60px;
   width: 200px;
   z-index: 998;
 }
 
 .lista-float-3 {
+  margin-top: 6%;
   position: absolute;
-  left: 50px;
+  left: 10px;
   top: 160px;
   width: 200px;
   z-index: 998;
@@ -478,4 +481,8 @@
 
 ::ng-deep .leaflet-top.leaflet-left {
   top: 57px;
+}
+
+h6{
+  font-size: 0.9rem;
 }

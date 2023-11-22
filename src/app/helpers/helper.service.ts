@@ -439,6 +439,7 @@ export class HelperService {
   }
   public filtrarData(info) {
     const filtros = {
+      idDependencia: info.idDependencia,
       idMunicipio: info.idMunicipio,
       estatus: info.estatus,
       idTipoObraSocial: []
@@ -450,6 +451,9 @@ export class HelperService {
       }
     });
     const resultado = info.puntosMapa.data.filter((obra) => {
+      if (filtros.idDependencia && obra.idDependencia !== filtros.idDependencia) {
+        return false;
+      }
       if (filtros.idMunicipio && obra.idMunicipio !== filtros.idMunicipio) {
         return false;
       }
