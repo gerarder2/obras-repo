@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import * as L from 'leaflet';
 
 import {
@@ -14,31 +15,30 @@ import {
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 import { AuthenticationService } from '../../services';
-import { CardInformationComponent } from './card-information/card-information.component';
+import { CardInformationComponent } from './../dashboard/card-information/card-information.component';
 import { CatalogosService } from './../../services/catalogos.service';
 import { ConfigService } from './../../services/config.service';
-import { Distrito } from './models/distrito.interface';
+import { Distrito } from './../dashboard/models/distrito.interface';
 import { HelperService } from './../../helpers/helper.service';
 import { LocalStorageService } from './../../services/local-storage.service';
 import { Mensaje } from './../../models/mensaje';
-import { Municipio } from './models/municipio.interface';
-import { Partido } from './models/partido.interface';
-import { Puesto } from './models/puesto.interface';
+import { Municipio } from './../dashboard/models/municipio.interface';
+import { Partido } from './../dashboard/models/partido.interface';
+import { Puesto } from './../dashboard/models/puesto.interface';
 import { Router } from '@angular/router';
-import { Seccion } from './models/seccion.interface';
-import { TipoObra } from './models/tipoobra.interface';
+import { Seccion } from './../dashboard/models/seccion.interface';
+import { TipoObra } from './../dashboard/models/tipoobra.interface';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ObrasModalComponent } from '../obras/modal/obras-modal.component';
-import { Totales } from './models/totales.interface';
+import { Totales } from './../dashboard/models/totales.interface';
 import { ObrasService } from '../obras/services/obras.service';
 import { ModalPorMunicipioComponent } from '../obras/modal-por-municipio/modal-por-municipio.component';
 
 @Component({
-  templateUrl: 'dashboard.component.html',
-  styleUrls: ['dashboard.component.scss'],
-  entryComponents: [CardInformationComponent]
+  templateUrl: 'caminos.component.html',
+  styleUrls: ['caminos.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class CaminosComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', { static: false }) mapContainer: ElementRef;
   @BlockUI('map-list') blockUIList: NgBlockUI;
 
@@ -52,6 +52,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   geoJsonFeatureDistritosPuntos: any;
   geoJsonFeatureSecciones: any;
   zoom = 10;
+  geoJsonFeatureVialidades: any;
 
   sidebarOpen = false;
   asidebarOpen = false;
@@ -536,7 +537,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       //maxZoom: 20
       layers: [streets],
       zoomControl: false,
-      scrollWheelZoom: false
+      scrollWheelZoom: true
       //layers: [openstreets]
     });
 
@@ -551,9 +552,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.geoJsonFeatureDistritos = geoData[2];
         this.geoJsonFeatureDistritosPuntos = geoData[3];
         this.geoJsonFeatureSecciones = geoData[4];
+        this.geoJsonFeatureVialidades = geoData[5];
 
-        this.visualizarMapa(this.geoJsonFeatureMunicipios);
-        this.loadPuntosObra();
+        this.visualizarMapa(this.geoJsonFeatureVialidades);
+        // this.loadPuntosObra();
       });
     }, 300);
 
@@ -581,21 +583,26 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
         //   return L.marker(latlng, { icon: icono });
         // },
-        style: (feature) => {
-          let color = '';
-          if (!feature.properties.color) {
-            color = this.helperService.getColor(feature.properties?.ganador?.partido?.nombre, this.partidos);
+        filter: (feature) => {
+          if (this.map.getZoom() < 8 && feature.geometry.type === 'Point') {
+            return false;
           }
+
+          if (this.map.getZoom() <= 8 && feature.geometry.type !== 'Point') {
+            return true;
+          }
+        },
+        style: (feature) => {
+          console.log('feature', feature);
+
           return {
-            weight: 1,
+            weight: 5,
             opacity: 1,
-            // color: '#9ec1f2',
-            color: color || 'gray',
-            dashArray: '3'
+            color: 'red'
           };
         },
         onEachFeature: (feature, layer) => {
-          if (feature.properties && feature.properties.nombrePartido) {
+          if (feature.properties) {
             // const component = this.viewContainerRef.createComponent(CardInformationComponent);
             // feature.properties.partidos = this.partidos;
             // component.setInput('properties', feature.properties);
@@ -616,132 +623,22 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             popupComponentRef.instance.properties = feature.properties;
             popupComponentRef.setInput('properties', feature.properties);
 
-            layer.bindPopup(popup);
+            const name = feature.properties.name;
+
+            layer.bindPopup(name);
           }
         }
       }).addTo(this.map);
       this.localStorage.setItem('geojson', geoJsonData);
     }
+
     // TODO
     // this.map.on('zoomend', (context) => {
     //   console.warn(context, this.map.getZoom());
     // });
   }
 
-  render() {
-    const features = this.geoJsonFeatureMunicipios.features;
-    features.forEach((element) => {
-      switch (element.properties.name) {
-        case 'CONCORDIA':
-          element.properties.icono = 'pri';
-          break;
-        case 'AHOME':
-          element.properties.icono = 'pan';
-          break;
-        case 'CULIACAN':
-          element.properties.icono = 'morena';
-          break;
-      }
-    });
-
-    this.geoJson = L.geoJSON(this.geoJsonFeatureMunicipios, {
-      pointToLayer: (feature, latlng) => {
-        const img = feature.properties.icono ? feature.properties.icono + '.png' : 'green.svg';
-        const icono = new this.LeafIcon({
-          iconUrl: `assets/markers/${img}`
-        });
-
-        return L.marker(latlng, { icon: icono });
-      },
-      style: (feature) => {
-        let color: string;
-        switch (feature.properties.name) {
-          case 'CONCORDIA':
-            color = '#FF0000';
-            break;
-          case 'AHOME':
-            color = '#FFFF00';
-            break;
-          case 'CULIACAN':
-            color = '#FF00FF';
-            break;
-        }
-        return {
-          weight: 2,
-          opacity: 1,
-          color: feature?.properties?.color ? feature?.properties?.color : '#9ec1f2',
-          dashArray: '3',
-          fillOpacity: 0.5,
-          fillColor: color
-        };
-      },
-      onEachFeature: (feature, layer) => {
-        layer.bindPopup(feature.properties.popupContent);
-        layer.on({
-          mouseover: (e) => {
-            const layer = e.target;
-            if (typeof layer.setStyle === 'function') {
-              layer.setStyle({
-                weight: 2,
-                color: '#666',
-                dashArray: '3',
-                fillOpacity: 0.3
-              });
-
-              layer.bringToFront();
-              layer.openPopup();
-              // layer.bindPopup(layer.feature.properties.name);
-            }
-          },
-          mouseout: (e) => {
-            this.geoJson.resetStyle(e.target);
-            layer.closePopup();
-          },
-          click: (e) => {
-            this.map.fitBounds(e.target.getBounds());
-          }
-        });
-      }
-    }).addTo(this.map);
-  }
-
   // get color depending on population density value
-
-  generateRandomMarkers(numMarkers: number, color?: string) {
-    const randomPointInCity = (cityLat: number, cityLng: number, radius: number) => {
-      const angle = Math.random() * 360;
-      const distance = Math.random() * radius;
-      const newLat = cityLat + distance * Math.cos(angle);
-      const newLng = cityLng + distance * Math.sin(angle);
-      return { lat: newLat, long: newLng };
-    };
-
-    // Crea un nuevo layer para los puntos
-    this.seccionMarkersLayer = L.layerGroup().addTo(this.map);
-
-    for (let i = 0; i < numMarkers; i++) {
-      const randomPoint = randomPointInCity(24.8049172, -107.4233141, 0.05);
-      // L.marker(randomPoint).addTo(this.map);
-      const dynamicIcon = new this.LeafIcon({ iconUrl: `assets/markers/${color}.svg` });
-      L.marker([randomPoint.lat, randomPoint.long], { icon: dynamicIcon })
-        .addTo(this.seccionMarkersLayer)
-        .on('click', (e) => {
-          alert(e);
-          //this.openModalComponent();
-        });
-    }
-  }
-
-  mostrarMarks(opcion: string) {
-    switch (opcion) {
-      case 'azul':
-        this.generateRandomMarkers(10, 'azul');
-        break;
-      case 'rojo':
-        this.generateRandomMarkers(10, 'rojo');
-        break;
-    }
-  }
 
   // toggleSidebar() {
   //   this.sidebarOpen = !this.sidebarOpen;

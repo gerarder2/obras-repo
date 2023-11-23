@@ -65,6 +65,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     ListaElementosComponent
   ],
   providers: [CatalogosService, { provide: LOCALE_ID, useValue: 'en-US' }],
-  entryComponents: [CardInformationComponent]
+  entryComponents: [CardInformationComponent],
+  exports: [CardInformationComponent, ListaElementosComponent]
 })
 export class DashboardModule {}
