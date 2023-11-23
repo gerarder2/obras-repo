@@ -119,7 +119,7 @@
   } 
   .map-sidebar {
     background: #fff;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 80px);
     position: absolute;
     top: 48px;
     width: 350px;
@@ -134,11 +134,7 @@
     right: 20px;
     border: 2px solid $gray-300;
 
-    @include breakpoint('rg') {
-      height: 300px;
-    }
-
-    @include breakpoint('lg') {
+    @include breakpoint('xxl') {
       height: 600px;
     }
   }
