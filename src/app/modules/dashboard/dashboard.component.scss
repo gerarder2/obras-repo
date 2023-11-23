@@ -1,4 +1,6 @@
 @import './../../../scss/bootstrap-variables';
+@import './../../../scss/core/mixins';
+@import './../../../scss/core/variables';
 .container-header{
   background-size: cover;
   height: 120px;
@@ -117,7 +119,7 @@
   } 
   .map-sidebar {
     background: #fff;
-    min-height: 100px;    
+    height: calc(100vh - 100px);
     position: absolute;
     top: 48px;
     width: 350px;
@@ -127,6 +129,18 @@
     overflow-x: hidden;
     overflow-y: auto;
     border-radius: 15px;
+
+    // left: 20px;
+    right: 20px;
+    border: 2px solid $gray-300;
+
+    @include breakpoint('rg') {
+      height: 300px;
+    }
+
+    @include breakpoint('lg') {
+      height: 600px;
+    }
   }
 
   .map-sidebar-header {
@@ -147,6 +161,7 @@
     // left: 20px;
     right: 20px;
     border: 2px solid $gray-300;
+    height: 180px;
   }
   .map-sidebar-title{
     font-weight: 800;
@@ -485,8 +500,4 @@
 
 h6{
   font-size: 0.9rem;
-}
-
-.map-sidebar-collapsed{
-  height: 20vh !important;
 }
