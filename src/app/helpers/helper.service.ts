@@ -20,6 +20,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class HelperService {
   private idObraSeleccionada = new BehaviorSubject<string>(null);
 
+  private closePopupEvent = new BehaviorSubject<string>(null);
+
+
   private tipoObrasUI = [
     {
       idTipoObraSocial: 1,
@@ -560,5 +563,13 @@ export class HelperService {
 
   getIdObraSeleccionada(): Observable<string> {
     return this.idObraSeleccionada.asObservable();
+  }
+
+  setClosePopup(valor: string) {
+    this.closePopupEvent.next(valor);
+  }
+
+  getClosePopup(): Observable<string> {
+    return this.closePopupEvent.asObservable();
   }
 }

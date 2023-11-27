@@ -116,6 +116,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   fechaActual: Date = new Date();
   annioActual: number = this.fechaActual.getFullYear();
 
+  closePopupEvent: string;
+
   constructor(
     private router: Router,
     private auth: AuthenticationService,
@@ -206,6 +208,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           markEncontrado.popup
         );
       }
+    });
+    this.helperService.getClosePopup().subscribe((result) => {
+      console.log(result);
+      this.closePopupEvent = result;
     });
 
     this.listaItems = [];
@@ -536,7 +542,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       //maxZoom: 20
       layers: [streets],
       zoomControl: false,
-      scrollWheelZoom: false
+      scrollWheelZoom: true
       //layers: [openstreets]
     });
 
@@ -1033,10 +1039,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         //   });
         this.markObrasId.push({ id: point.id, marker, popupComponentRef, popup });
         marker.on('popupclose', (e) => {
-          if (this.map.getZoom() > 8) {
-            this.map.flyTo([point.latitud, point.longitud]);
+          if (this.closePopupEvent !== 'closePosition') {
+            if (this.map.getZoom() > 8) {
+              this.map.flyTo([point.latitud, point.longitud]);
+            } else {
+              this.map.flyTo([25.092141890307722, -107.09195826646527]);
+            }
           } else {
-            this.map.flyTo([25.092141890307722, -107.09195826646527]);
+            const latLong = marker.getLatLng();
+            this.map.flyTo(latLong, 13);
           }
         });
       }
