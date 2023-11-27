@@ -22,7 +22,6 @@ export class HelperService {
 
   private closePopupEvent = new BehaviorSubject<string>(null);
 
-
   private tipoObrasUI = [
     {
       idTipoObraSocial: 1,
