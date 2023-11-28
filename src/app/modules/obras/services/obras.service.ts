@@ -51,6 +51,7 @@ export class ObrasService {
 
   public getObrasReporte(queryParams: {
     idMunicipio?: number;
+    idDependencia?: number;
     ejercicio?: number;
     estatus?: string;
     esPlataformaAfectaciones?: boolean;

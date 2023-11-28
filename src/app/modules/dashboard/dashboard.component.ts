@@ -56,6 +56,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   sidebarOpen = false;
   asidebarOpen = false;
 
+  dependencias: any[] = [];
+  dependenciaSeleccionada: any;
+
   periodos: any[];
   periodoSeleccionado: any;
   periodo: any;
@@ -134,7 +137,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.montoInversion = 0;
     this.montoInversionActual = 0;
     this.periodos = config.periodos;
-    this.periodo = 'Todos';
+    this.periodo = 'TODOS';
     this.elementoActivo = -1;
 
     this.LeafIcon = L.Icon.extend({
@@ -154,7 +157,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.municipiosSeleccionados = [];
     this.labelSeccionesDistritos = '';
     this.seccionesActuales = [];
-
     this.periodoSeleccionado = 0;
 
     this.municipios = [
@@ -239,7 +241,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.catalogosService.getCatalogos().subscribe({
       next: (data: any[]) => {
         this.tiposObras = this.helperService.formatTipoObras(data[0].data);
-
+        this.dependencias = this.helperService.formatTipoObras(data[5].data);
+        this.dependencias.unshift({ id: 0, nombre: 'TODAS' });
+        this.dependenciaSeleccionada = this.dependencias[0];
         // this.partidos = data[1].data;
         // this.distritos = data[2].data;
         this.populateDropdowns();
@@ -259,6 +263,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   loadPuntosObra() {
     const payload = {
+      idDependencia: 0,
       idTipoObraSocial: 0,
       idMunicipio: 0,
       ejercicio: 0,
@@ -268,6 +273,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       next: (response) => {
         this.puntosMapa = response;
         const info = {
+          idDependencia: this.dependenciaSeleccionada.id,
           tiposObras: this.tiposObras,
           puntosMapa: this.puntosMapa,
           idMunicipio: this.municipioSeleccionado.id,
@@ -302,15 +308,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   filtrar() {
     const payload = {
+      idDependencia: 0,
       idTipoObraSocial: 0,
       idMunicipio: 0,
       ejercicio: 0,
       estatus: 'TODAS'
     };
 
-    if (this.periodoSeleccionado.descripcion !== 'Todos') {
+    if (this.periodoSeleccionado.descripcion !== 'TODOS') {
       if (this.periodo !== this.periodoSeleccionado.descripcion) {
         this.periodo = this.periodoSeleccionado.descripcion;
+        payload.idDependencia = this.dependenciaSeleccionada.id;
         payload.ejercicio = parseInt(this.periodoSeleccionado.descripcion);
         payload.idMunicipio = this.municipioSeleccionado.id;
         payload.estatus = this.estatusObrasSeleccionado.descripcion;
@@ -346,7 +354,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.filtrarLocal();
       }
     } else {
-      if (this.periodoSeleccionado.descripcion === 'Todos') {
+      if (this.periodoSeleccionado.descripcion === 'TODOS') {
         if (this.periodo !== this.periodoSeleccionado.descripcion) {
           this.periodo = this.periodoSeleccionado.descripcion;
           this.loadPuntosObra();
@@ -370,7 +378,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public openModalPorMunicipioComponent() {
     const payload = {
       idMunicipio: this.municipioSeleccionado.id,
-      ejercicio: this.periodoSeleccionado.descripcion !== 'Todos' ? parseInt(this.periodoSeleccionado.descripcion) : 0,
+      idDependencia: this.dependenciaSeleccionada.id,
+      ejercicio: this.periodoSeleccionado.descripcion !== 'TODOS' ? parseInt(this.periodoSeleccionado.descripcion) : 0,
       estatus: this.estatusObrasSeleccionado.descripcion
     };
     const initialState = {
@@ -402,7 +411,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   // descargarReporte() {
   //   const payload = {
   //     idMunicipio: this.municipioSeleccionado.id,
-  //     ejercicio: this.periodoSeleccionado.descripcion !== 'Todos' ? parseInt(this.periodoSeleccionado.descripcion) : 0,
+  //     ejercicio: this.periodoSeleccionado.descripcion !== 'TODOS' ? parseInt(this.periodoSeleccionado.descripcion) : 0,
   //     estatus: this.estatusObrasSeleccionado.descripcion
   //   };
 
@@ -428,6 +437,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   public filtrarLocal() {
     const info = {
+      idDependencia: this.dependenciaSeleccionada.id,
       tiposObras: this.tiposObras,
       puntosMapa: this.puntosMapa,
       idMunicipio: this.municipioSeleccionado.id,
@@ -757,6 +767,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   //   }, 200);
   // }
 
+  onChangeDependencia(_$event) {
+    console.log(_$event);
+  }
+
   onChangePuesto(_$event) {
     const params = {
       idPuesto: this.puestoSeleccionado.id,
@@ -787,6 +801,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   recargarInfo($event?) {
+    this.dependenciaSeleccionada = this.dependencias[0];
     this.municipioSeleccionado = this.municipios[0];
     this.periodoSeleccionado = this.periodos[0];
     this.estatusObrasSeleccionado = this.estatusObras[0];

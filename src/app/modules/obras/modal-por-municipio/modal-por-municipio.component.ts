@@ -103,6 +103,7 @@ export class ModalPorMunicipioComponent implements OnInit {
       },
       error: (err: unknown) => {
         this.mensaje.showMessage(err);
+        this.bsObraModalRef.hide();
       }
     });
   }

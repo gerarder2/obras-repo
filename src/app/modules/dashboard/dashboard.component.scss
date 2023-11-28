@@ -1,4 +1,6 @@
 @import './../../../scss/bootstrap-variables';
+@import './../../../scss/core/mixins';
+@import './../../../scss/core/variables';
 .container-header{
   background-size: cover;
   height: 120px;
@@ -117,7 +119,7 @@
   } 
   .map-sidebar {
     background: #fff;
-    min-height: 100px;    
+    height: calc(100vh - 80px);
     position: absolute;
     top: 48px;
     width: 350px;
@@ -127,6 +129,14 @@
     overflow-x: hidden;
     overflow-y: auto;
     border-radius: 15px;
+
+    // left: 20px;
+    right: 20px;
+    border: 2px solid $gray-300;
+
+    @include breakpoint('xxl') {
+      height: 600px;
+    }
   }
 
   .map-sidebar-header {
@@ -147,6 +157,7 @@
     // left: 20px;
     right: 20px;
     border: 2px solid $gray-300;
+    height: 180px;
   }
   .map-sidebar-title{
     font-weight: 800;
@@ -189,24 +200,27 @@
 }
 
 .lista-float {
+  margin-top: 6%;
   position: absolute;
-  left: 50px;
-  top: 310px;
+  left: 10px;
+  top: 260px;
   width: 200px;
   z-index: 998;
 }
 
 .lista-float-2 {
+  margin-top: 6%;
   position: absolute;
-  left: 50px;
+  left: 10px;
   top: 60px;
   width: 200px;
   z-index: 998;
 }
 
 .lista-float-3 {
+  margin-top: 6%;
   position: absolute;
-  left: 50px;
+  left: 10px;
   top: 160px;
   width: 200px;
   z-index: 998;
@@ -478,4 +492,8 @@
 
 ::ng-deep .leaflet-top.leaflet-left {
   top: 57px;
+}
+
+h6{
+  font-size: 0.9rem;
 }
