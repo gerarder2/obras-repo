@@ -30,13 +30,15 @@ export class CatalogosService {
     const organismos = `${this.webApiMaatCore}/Dependencia/Combo?IdAgrupador=${this.config.idAgrupador}`;
     const constratistas = `${this.webApi}/Contratista/Combo`;
     const tiposContrato = `${this.webApi}/TipoContrato/Combo`;
+    const dependencias = `${this.webApi}/ObraPortal/ComboDependencias`;
 
     return forkJoin([
       this.http.get(obrasSocial),
       this.http.get(tiposModalidad),
       this.http.get(organismos),
       this.http.get(constratistas),
-      this.http.get(tiposContrato)
+      this.http.get(tiposContrato),
+      this.http.get(dependencias)
     ]);
   }
 
@@ -216,6 +218,7 @@ export class CatalogosService {
   }
 
   public getMapaObras(queryParams?: {
+    idDependencia: number;
     idTipoObraSocial: number;
     idMunicipio: number;
     ejercicio: number;
