@@ -1057,15 +1057,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         //   });
         this.markObrasId.push({ id: point.id, marker, popupComponentRef, popup });
         marker.on('popupclose', (e) => {
-          if (this.closePopupEvent !== 'closePosition') {
-            if (this.map.getZoom() > 8) {
-              this.map.flyTo([point.latitud, point.longitud]);
-            } else {
-              this.map.flyTo([25.092141890307722, -107.09195826646527]);
-            }
+          if (this.map.getZoom() > 8) {
+            this.map.flyTo([point.latitud, point.longitud]);
           } else {
-            const latLong = marker.getLatLng();
-            this.map.flyTo(latLong, 13);
+            this.map.flyTo([25.092141890307722, -107.09195826646527]);
           }
         });
       }

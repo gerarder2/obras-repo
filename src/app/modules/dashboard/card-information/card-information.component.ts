@@ -80,14 +80,6 @@ export class CardInformationComponent implements OnInit, OnChanges {
     }, 200);
   }
 
-  public irMarca() {
-    this.closePopupEvent.emit('closePosition');
-    this.helperService.setClosePopup('closePosition');
-    setTimeout(() => {
-      this.marker.closePopup();
-    }, 200);
-  }
-
   // SECCION CONFIGURACION MODAL
   public openModalComponent(opciones?: any) {
     const initialState = {
