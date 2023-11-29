@@ -58,4 +58,17 @@ export class ObrasService {
   }): Observable<any> {
     return this.http.get(`${this.config.webApi}/ObraPortal/ObtenerDatosReporteMunicipios`, { params: queryParams });
   }
+
+  public descargarReportePorMunicipio(queryParams: {
+    idMunicipio?: number;
+    idDependencia?: number;
+    ejercicio?: number;
+    estatus?: string;
+    esPlataformaAfectaciones?: boolean;
+  }): Observable<any> {
+    return this.http.get(`${this.config.webApi}/ObraPortal/DescargarReportePorMunicipio`, {
+      params: queryParams,
+      responseType: 'blob' as 'json'
+    });
+  }
 }

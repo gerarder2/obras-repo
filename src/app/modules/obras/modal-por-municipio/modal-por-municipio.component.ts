@@ -4,9 +4,9 @@ import { ObrasService } from '../services/obras.service';
 import { Mensaje } from 'src/app/models';
 import { DatosReportePorMunicipio, ObraReporte } from '../models/obrareporte.interface';
 import { ModalFichaTecnicaComponent } from '../modal-ficha-tecnica/modal-ficha-tecnica.component';
-import * as jspdf from 'jspdf';
-import html2canvas from 'html2canvas';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Info } from 'src/app/models/info.interface';
 
 @Component({
   selector: 'app-modal-por-municipio',
@@ -45,24 +45,30 @@ export class ModalPorMunicipioComponent implements OnInit {
 
   descargarPDF() {
     this.blockUI.start('Descargando...');
-    const data = document.getElementById('reporteMunicipios');
-
-    const pdfOptions = {
-      orientation: 'landscape',
-      unit: 'mm',
-      format: 'a4'
-    };
-
-    const pdf = new jspdf(pdfOptions);
-    html2canvas(data).then((canvas) => {
-      const imgWidth = pdf.internal.pageSize.getWidth();
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-      pdf.internal.pageSize.height = imgHeight;
-      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgWidth, imgHeight);
-      pdf.save('Reporte por municipio.pdf');
-      this.blockUI.stop();
-    });
+    this.obrasService.descargarReportePorMunicipio(this.params).subscribe(
+      (data: Blob) => {
+        const url = window.URL.createObjectURL(data);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Reporte por municipio.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        this.blockUI.stop();
+      },
+      (err: unknown) => {
+        this.blockUI.stop();
+        if (err instanceof HttpErrorResponse && err.error instanceof Blob) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const errorObj = JSON.parse(reader.result as string);
+            this.mensaje.showMessage(errorObj);
+          };
+          reader.readAsText(err.error);
+        } else {
+          this.mensaje.messageWarning('Ocurrio un error al intentar descargar el archivo.');
+        }
+      }
+    );
   }
 
   getDataObras() {

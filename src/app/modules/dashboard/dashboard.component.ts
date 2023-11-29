@@ -242,7 +242,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       next: (data: any[]) => {
         this.tiposObras = this.helperService.formatTipoObras(data[0].data);
         this.dependencias = this.helperService.formatTipoObras(data[5].data);
-        this.dependencias.unshift({ id: 0, nombre: 'TODAS' });
+        if (this.dependencias.length > 1) {
+          this.dependencias.unshift({ id: 0, nombre: 'TODAS' });
+        }
         this.dependenciaSeleccionada = this.dependencias[0];
         // this.partidos = data[1].data;
         // this.distritos = data[2].data;
@@ -267,7 +269,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       idTipoObraSocial: 0,
       idMunicipio: 0,
       ejercicio: 0,
-      estatus: 'TODAS'
+      estatus: 'TODAS',
+      idUsuario: 0
     };
     this.catalogosService.getMapaObras(payload).subscribe({
       next: (response) => {
