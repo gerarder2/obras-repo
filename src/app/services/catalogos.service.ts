@@ -7,6 +7,7 @@ import { TreeNode } from 'primeng/api';
 import { environment } from './../../environments/environment';
 import { map } from 'rxjs/operators';
 import { ConfigService } from './config.service';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,12 @@ export class CatalogosService {
   private webApi: string;
   private webApiMaatCore: string;
 
-  constructor(private http: HttpClient, private helperService: HelperService, configService: ConfigService) {
+  constructor(
+    private http: HttpClient,
+    private helperService: HelperService,
+    configService: ConfigService,
+    private auth: AuthenticationService
+  ) {
     this.config = configService.getConfig();
     this.webApi = this.config.webApi;
     this.webApiMaatCore = this.config.webApiMaatCore;
@@ -30,7 +36,7 @@ export class CatalogosService {
     const organismos = `${this.webApiMaatCore}/Dependencia/Combo?IdAgrupador=${this.config.idAgrupador}`;
     const constratistas = `${this.webApi}/Contratista/Combo`;
     const tiposContrato = `${this.webApi}/TipoContrato/Combo`;
-    const dependencias = `${this.webApi}/ObraPortal/ComboDependencias`;
+    const dependencias = `${this.webApi}/ObraPortal/ComboDependencias?IdUsuario=${this.auth.currentUser().id}`;
 
     return forkJoin([
       this.http.get(obrasSocial),
@@ -223,8 +229,10 @@ export class CatalogosService {
     idMunicipio: number;
     ejercicio: number;
     estatus?: string;
+    idUsuario?: number;
   }): Observable<any> {
     // queryParams.estatus = 'TODAS';
+    queryParams.idUsuario = this.auth.currentUser().id;
     return this.http.get(`${this.webApi}/ObraPortal/Mapa`, { params: queryParams });
   }
 
