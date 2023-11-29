@@ -9,7 +9,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start_share": "ng serve --host 0.0.0.0",
-    "build": "ng build --base-href /SYSANQx/",
+    "build": "ng build --base-href /PortalObras/",
     "build:pruebas": "ng build --base-href /SYSANQxPruebas/ --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
