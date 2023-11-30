@@ -552,7 +552,7 @@ export class CaminosComponent implements OnInit, AfterViewInit {
         this.geoJsonFeatureDistritos = geoData[2];
         this.geoJsonFeatureDistritosPuntos = geoData[3];
         this.geoJsonFeatureSecciones = geoData[4];
-        this.geoJsonFeatureVialidades = geoData[5];
+        this.geoJsonFeatureVialidades = [];
 
         this.visualizarMapa(this.geoJsonFeatureVialidades);
         // this.loadPuntosObra();

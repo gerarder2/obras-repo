@@ -224,7 +224,7 @@ export class CatalogosService {
   }
 
   public getMapaObras(queryParams?: {
-    idDependencia: number;
+    idDependencia?: number;
     idTipoObraSocial: number;
     idMunicipio: number;
     ejercicio: number;

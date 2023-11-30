@@ -37,7 +37,7 @@ export class ConfigService {
       this.http.get(`./assets/markers/sinaloa_distritos_min.json`),
       this.http.get(`./assets/markers/sinaloa_distritos_puntos.json`),
       this.http.get(`./assets/markers/secciones.json`),
-      this.http.get(`./assets/markers/vialidades.geojson`)
+      // this.http.get(`./assets/markers/vialidades.geojson`)
     ]);
   }
 }
