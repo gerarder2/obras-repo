@@ -19,7 +19,7 @@
         </button>
         </div>
     </div>
-    <div *ngFor="let municipio of datosGlobalesMunicipio">
+    <div>
         <div class="modal-header" ngxModalDraggable>
             <div class="container no-cursor">
             <div class="row">
@@ -38,16 +38,16 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                <p style="font-size: xx-large;"> {{ municipio.municipio }} </p>
+                <p style="font-size: xx-large;"> {{ datosGlobalesMunicipio.municipio }} </p>
                 </div>
                 <div class="col-md-2">
                 <p style="padding-top: 5%;">{{ fechaConsulta | date:'MMMM dd, yyyy':'':'es' }}</p>
                 </div>
                 <div class="col-md-5">
-                <p style="font-size: xx-large;">{{ municipio.inversion | currency }} MXN</p>
+                <p style="font-size: xx-large;">{{ datosGlobalesMunicipio.inversion | currency }} MXN</p>
                 </div>
                 <div class="col-md-2">
-                <p style="font-size: xx-large;">{{ municipio.porcentajeInversion | number: '1.2-2' }}%</p>
+                <p style="font-size: xx-large;">{{ datosGlobalesMunicipio.porcentajeInversion | number: '1.2-2' }}%</p>
                 </div>
             </div>
             <div class="row" id="divExportar">
@@ -132,7 +132,7 @@
                     </td>                                                                                 
                 </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-obra let-rowIndex="rowIndex">
+                <ng-template pTemplate="body" let-obra>
                     <tr class="rowObra">
                         <td>
                             {{ obra.objeto }}

@@ -6,7 +6,6 @@ import { DatosReportePorMunicipio, ObraReporte } from '../models/obrareporte.int
 import { ModalFichaTecnicaComponent } from '../modal-ficha-tecnica/modal-ficha-tecnica.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Info } from 'src/app/models/info.interface';
 
 @Component({
   selector: 'app-modal-por-municipio',
@@ -26,7 +25,7 @@ export class ModalPorMunicipioComponent implements OnInit {
   public mensaje: Mensaje;
   public fechaConsulta = new Date();
   public inversionGeneral: number;
-  public datosGlobalesMunicipio: DatosReportePorMunicipio[] = [];
+  public datosGlobalesMunicipio: DatosReportePorMunicipio;
 
   bsModalRef: BsModalRef;
   allObras: ObraReporte[];
@@ -76,36 +75,13 @@ export class ModalPorMunicipioComponent implements OnInit {
       next: (response) => {
         this.allObras = response.data.obras;
         this.inversionGeneral = response.data.inversionTotal;
+        const importeTotalMunicipio = this.allObras.reduce((total, obj) => total + obj.montoInversion, 0);
 
-        this.datosGlobalesMunicipio = this.allObras.reduce((acumulador, objeto) => {
-          const municipioExistente = acumulador.find((item) => item.municipio === objeto.nombreMunicipio);
-
-          if (municipioExistente) {
-            municipioExistente.inversion += objeto.montoInversion;
-          } else {
-            const obrasMunicipio = this.allObras.filter((x) => x.nombreMunicipio === objeto.nombreMunicipio);
-            const tipoObras = Array.from(
-              new Set(
-                this.allObras
-                  .filter((obra) => obra.nombreMunicipio === objeto.nombreMunicipio)
-                  .map((x) => x.descripcionTipoObra)
-              )
-            );
-            acumulador.push({
-              municipio: objeto.nombreMunicipio,
-              inversion: objeto.montoInversion,
-              porcentajeInversion: 0,
-              tiposObra: [...tipoObras],
-              obras: obrasMunicipio
-            });
-          }
-
-          return acumulador;
-        }, []);
-
-        this.datosGlobalesMunicipio.forEach((item) => {
-          item.porcentajeInversion = item.inversion / this.inversionGeneral;
-        });
+        this.datosGlobalesMunicipio = {
+          inversion: importeTotalMunicipio,
+          porcentajeInversion: (importeTotalMunicipio / this.inversionGeneral) * 100,
+          municipio: this.allObras[0].nombreMunicipio
+        };
       },
       error: (err: unknown) => {
         this.mensaje.showMessage(err);
