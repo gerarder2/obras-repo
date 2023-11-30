@@ -19,6 +19,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class HelperService {
   private idObraSeleccionada = new BehaviorSubject<string>(null);
+  private info: any;
+  private closePopupEvent = new BehaviorSubject<string>(null);
 
   private tipoObrasUI = [
     {
@@ -53,7 +55,9 @@ export class HelperService {
     }
   ];
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private localStorageService: LocalStorageService) {
+    this.info = {};
+  }
 
   public getGeoJsonByGroup(
     opcion: string,
@@ -564,5 +568,18 @@ export class HelperService {
 
   getIdObraSeleccionada(): Observable<string> {
     return this.idObraSeleccionada.asObservable();
+  }
+
+  setClosePopup(valor: string, info: any) {
+    this.info = info;
+    this.closePopupEvent.next(valor);
+  }
+
+  getClosePopup(): Observable<string> {
+    return this.closePopupEvent.asObservable();
+  }
+
+  getInfo() {
+    return this.info;
   }
 }

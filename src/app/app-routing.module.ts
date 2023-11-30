@@ -33,6 +33,10 @@ export const routes: Routes = [
         path: 'datos-abiertos',
         loadChildren: () => import('./modules/datos-abiertos/datos-abiertos.module').then((m) => m.DatosAbiertosModule)
       }
+      // {
+      //   path: 'caminos',
+      //   loadChildren: () => import('./modules/caminos/caminos.module').then((m) => m.CaminosModule)
+      // }
     ]
   },
 

@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ObrasModalComponent } from '../../obras/modal/obras-modal.component';
 import { Evidencia } from '../models/evidencia.interface';
 import { Imagen } from '../models/imagen.interface';
+import { HelperService } from '../../../helpers/helper.service';
 
 @Component({
   selector: 'app-card-information',
@@ -14,6 +15,8 @@ export class CardInformationComponent implements OnInit, OnChanges {
   @Input() properties?: any;
   @Input() marker?: any;
   @Input() tipoCard?: string = 'partido';
+
+  @Output() closePopupEvent = new EventEmitter();
 
   bsModalRef: BsModalRef;
 
@@ -31,7 +34,7 @@ export class CardInformationComponent implements OnInit, OnChanges {
   public activeIndex: number;
   public images: any[];
 
-  constructor(private bsModalService: BsModalService) {
+  constructor(private bsModalService: BsModalService, private helperService: HelperService) {
     this.showCarousel = false;
     this.imageIndex = 0;
     this.activeIndex = 0;
@@ -69,8 +72,12 @@ export class CardInformationComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   public closePopup() {
-    this.marker.closePopup();
-    this.openModalComponent(this.properties);
+    this.closePopupEvent.emit('close');
+    this.helperService.setClosePopup('close', null);
+    setTimeout(() => {
+      this.marker.closePopup();
+      this.openModalComponent(this.properties);
+    }, 200);
   }
 
   // SECCION CONFIGURACION MODAL

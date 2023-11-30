@@ -22,6 +22,7 @@ import { Imagen } from '../../dashboard/models/imagen.interface';
 import * as moment from 'moment';
 import { Avance } from '../../dashboard/models/avance.interface';
 import { UltimaEvidencia } from '../../dashboard/models/ultimaEvidencia.interface';
+import { HelperService } from '../../../helpers/helper.service';
 
 export type ChartOptionsRadial = {
   colors: string[];
@@ -94,7 +95,11 @@ export class ObrasModalComponent implements OnInit {
   private mensaje: Mensaje;
   private graphicPalette: string[];
 
-  constructor(public bsObraModalRef: BsModalRef, private obrasService: ObrasService) {
+  constructor(
+    public bsObraModalRef: BsModalRef,
+    private obrasService: ObrasService,
+    private helperService: HelperService
+  ) {
     this.showCharts = false;
     this.graphicPalette = ['#952431', '#B18147', '#3D5C4F', '#6610f2'];
     this.mensaje = new Mensaje();
@@ -125,7 +130,6 @@ export class ObrasModalComponent implements OnInit {
 
   // Angular metodos del ciclo de vida del componente
   ngOnInit(): void {
-    console.log(this.params, this.obra);
     this.loadObraDetalle();
   }
   public loadObraDetalle() {
@@ -290,11 +294,12 @@ export class ObrasModalComponent implements OnInit {
   }
 
   // Cerrar el modal, ademas envia la informacion al componente list correspondiente. No modificar
-  private closeModal(data: any) {
+  public closeModal(data?: any) {
     const response = {
       data
     };
     this.event.next(response);
+    this.helperService.setClosePopup('closeObraModal', this.obra);
     this.bsObraModalRef.hide();
   }
 
