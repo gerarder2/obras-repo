@@ -212,8 +212,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       }
     });
     this.helperService.getClosePopup().subscribe((result) => {
-      console.log(result);
       this.closePopupEvent = result;
+      if (this.closePopupEvent === 'closeObraModal') {
+        const mark = this.helperService.getInfo();
+        setTimeout(() => {
+          this.map.flyTo([mark.latitud, mark.longitud], 15);
+        }, 200);
+      }
     });
 
     this.listaItems = [];
@@ -1070,10 +1075,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   loadObraDetalle(marker: any, idObra: number, popupComponentRef, popup) {
     this.obrasService.getObrasDatosById({ idObra: idObra }).subscribe({
       next: (response) => {
-        if (response.data.evidencias.length > 0) {
-          console.log('id', response.data);
-        }
-
         popupComponentRef.instance.properties = marker;
         popupComponentRef.setInput('marker', marker);
         popupComponentRef.instance.properties = response.data;

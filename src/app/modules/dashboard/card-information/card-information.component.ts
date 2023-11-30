@@ -73,7 +73,7 @@ export class CardInformationComponent implements OnInit, OnChanges {
 
   public closePopup() {
     this.closePopupEvent.emit('close');
-    this.helperService.setClosePopup('close');
+    this.helperService.setClosePopup('close', null);
     setTimeout(() => {
       this.marker.closePopup();
       this.openModalComponent(this.properties);
