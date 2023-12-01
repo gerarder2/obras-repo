@@ -544,13 +544,8 @@ export class CaminosComponent implements OnInit, AfterViewInit {
     // this.generateRandomMarkers(10, 'green');
 
     setTimeout(() => {
-      this.configService.getGEOJson().subscribe((geoData) => {
-        this.geoJsonFeatureMunicipios = geoData[0];
-        this.geoJsonFeatureMunicipiosPuntos = geoData[1];
-        this.geoJsonFeatureDistritos = geoData[2];
-        this.geoJsonFeatureDistritosPuntos = geoData[3];
-        this.geoJsonFeatureSecciones = geoData[4];
-        this.geoJsonFeatureVialidades = geoData[5];
+      this.configService.getGEOJsonCarretero().subscribe((geoData) => {
+        this.geoJsonFeatureVialidades = geoData[0];
 
         this.visualizarMapa(this.geoJsonFeatureVialidades);
         // this.loadPuntosObra();

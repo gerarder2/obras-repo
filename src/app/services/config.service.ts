@@ -40,4 +40,8 @@ export class ConfigService {
       this.http.get(`./assets/markers/vialidades.json`)
     ]);
   }
+
+  public getGEOJsonCarretero() {
+    return forkJoin([this.http.get(`./assets/markers/vialidades.json`)]);
+  }
 }
