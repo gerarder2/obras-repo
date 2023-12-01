@@ -2,6 +2,12 @@
 @import './../../../scss/core/mixins';
 @import './../../../scss/core/variables';
 
+.app-header.navbar .navbar-brand {
+  @include breakpoint('md') {
+    width: 235px;
+  }
+}
+
 .app-header.navbar {
 
   border-bottom-right-radius: 42px;
