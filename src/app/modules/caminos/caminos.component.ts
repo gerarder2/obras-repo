@@ -591,7 +591,6 @@ export class CaminosComponent implements OnInit, AfterViewInit {
           }
         },
         style: (feature) => {
-
           return {
             weight: 5,
             opacity: 1,
