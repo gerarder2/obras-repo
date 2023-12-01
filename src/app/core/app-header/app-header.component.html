@@ -10,6 +10,7 @@
     <li class="nav-item px-3" *ngFor="let link of links" [routerLinkActive]="'active'">
       <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="[link.url]">{{ link.name }}</a>
     </li>
+    
   </ul>
 
   <!-- <ul class="navbar-nav mr-auto">
@@ -33,7 +34,7 @@
       <div style="margin-top: 8px" class="input-group">
         <input
           #typeaheadInput
-          class="form-control col-8 typeahead-search-input"
+          class="form-control pull-right col-7 offset-2 typeahead-search-input"
           (typeaheadOnSelect)="typeaheadOnSelect($event)"
           [(ngModel)]="search"
           [typeahead]="suggestions$"

@@ -2,17 +2,10 @@
 @import './../../../scss/core/mixins';
 @import './../../../scss/core/variables';
 
-
 .app-header.navbar {
   
   border-bottom-right-radius: 42px;
   border-bottom-left-radius: 42px;
-
-  ul.nav {
-    @include breakpoint('md') {
-      margin-left: 40px;
-    }
-  }
 
   a.navbar-brand {
     border-bottom-left-radius: 42px;

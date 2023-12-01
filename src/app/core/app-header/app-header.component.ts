@@ -81,7 +81,8 @@ export class AppHeaderComponent implements OnInit {
       { url: '/inicio', name: 'Inicio' },
       { url: '/licitaciones', name: 'Licitaciones' },
       { url: '/obras', name: 'Obras' },
-      { url: '/datos-abiertos', name: 'Datos Abiertos' }
+      { url: '/datos-abiertos', name: 'Datos Abiertos' },
+      { url: '/caminos', name: 'Mapa Carretero' }
     ];
 
     this.suggestions$ = new Observable((observer: Observer<string | undefined>) => {

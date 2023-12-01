@@ -228,8 +228,6 @@ export class CaminosComponent implements OnInit, AfterViewInit {
         totales: 0
       }
     ];
-
-    console.log(this.listaItems);
   }
 
   ngAfterViewInit() {
@@ -552,7 +550,7 @@ export class CaminosComponent implements OnInit, AfterViewInit {
         this.geoJsonFeatureDistritos = geoData[2];
         this.geoJsonFeatureDistritosPuntos = geoData[3];
         this.geoJsonFeatureSecciones = geoData[4];
-        this.geoJsonFeatureVialidades = [];
+        this.geoJsonFeatureVialidades = geoData[5];
 
         this.visualizarMapa(this.geoJsonFeatureVialidades);
         // this.loadPuntosObra();
@@ -593,7 +591,6 @@ export class CaminosComponent implements OnInit, AfterViewInit {
           }
         },
         style: (feature) => {
-          console.log('feature', feature);
 
           return {
             weight: 5,
