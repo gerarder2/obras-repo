@@ -122,10 +122,10 @@
     min-height: 100px;
     max-height: calc(100vh - 80px);
     position: absolute;
-    top: 48px;
+    top: 68px;
     width: 350px;
     transition: left 0.3s ease-in-out;
-    z-index: 1000;
+    z-index: 401;
     padding: 15px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -207,7 +207,7 @@
   left: 10px;
   top: 290px;
   width: 200px;
-  z-index: 998;
+  z-index: 401;
 }
 
 .lista-float-2 {
@@ -216,7 +216,7 @@
   left: 10px;
   top: 90px;
   width: 200px;
-  z-index: 998;
+  z-index: 401;
 }
 
 .lista-float-3 {
@@ -225,7 +225,7 @@
   left: 10px;
   top: 190px;
   width: 200px;
-  z-index: 998;
+  z-index: 401;
 }
  
 .municipios-container {
@@ -431,7 +431,7 @@
 
 ::ng-deep .leaflet-popup-content {
   font-size: 14px !important;
-  width: 500px !important;
+  width: 800px !important;
 }
 
 .controles {
@@ -495,6 +495,10 @@
 ::ng-deep .leaflet-top.leaflet-left {
   top: 57px;
 }
+
+::ng-deep .leaflet-popup {
+  z-index: 1000 !important; /* Ajusta el valor según sea necesario */
+} 
 
 h6{
   font-size: 0.9rem;

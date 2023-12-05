@@ -121,6 +121,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   closePopupEvent: string;
 
+  hideFiltersTotales: boolean;
+
   constructor(
     private router: Router,
     private auth: AuthenticationService,
@@ -135,6 +137,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private bsModalService: BsModalService,
     private obrasService: ObrasService
   ) {
+    this.hideFiltersTotales = false;
     const config = this.configService.getConfig();
     this.montoInversion = 0;
     this.montoInversionActual = 0;
@@ -1062,6 +1065,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         //   });
         this.markObrasId.push({ id: point.id, marker, popupComponentRef, popup });
         marker.on('popupclose', (e) => {
+          this.hideFiltersTotales = false;
           if (this.map.getZoom() > 8) {
             this.map.flyTo([point.latitud, point.longitud]);
           } else {
@@ -1087,6 +1091,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             this.map.panTo(this.map.unproject(px), { animate: true });
           });
           marker.bindPopup(popup).openPopup();
+          this.hideFiltersTotales = true;
         }, 100);
       },
       error: (err: unknown) => {

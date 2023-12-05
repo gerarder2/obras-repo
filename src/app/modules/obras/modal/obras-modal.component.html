@@ -71,22 +71,22 @@
         </div>
         <div class="col-md-6">
           <div class="row">
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-lg-4 col-sm-6">
               <dl class="dl-list">
                 <dt>Avance de obra</dt>
-                <dd class="monto">{{ obra.porcentajeAvance }} %</dd>
+                <dd class="monto ">{{ obra.porcentajeAvance }} %</dd>
               </dl>
             </div>
-            <div class="col-xs-12 col-md-3">
-              <dl class="dl-list">
+            <div class="col-xs-12 col-lg-4 col-sm-6">
+              <dl class="dl-list">``
                 <dt>Beneficiarios</dt>
                 <dd class="monto">{{ obra.totalBeneficiados }}</dd>
               </dl>
             </div>
-            <div class="col-xs-12 col-md-5">
+            <div class="col-xs-12 col-lg-4 col-sm-6">
               <dl class="dl-list">
                 <dt>Avance financiero</dt>
-                <dd class="monto">{{ obra.porcentajeMonetario }} %</dd>
+                <dd class="monto ">{{ obra.porcentajeMonetario }} %</dd>
               </dl>
             </div>
           </div>
@@ -112,40 +112,37 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>No. Licitacion</dt>
             <dd>{{ obra?.licitacion }}</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Tipo de Modalidad</dt>
             <dd>{{ obra?.descripcionTipoModalidad }}</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Fecha estimada inicio</dt>
             <dd>{{ obra?.fechaEstimadaInicio | date: 'longDate':'':'es' }}</dd>
           </dl>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Fecha real de inicio</dt>
             <dd>{{ obra?.fechaInicio | date: 'longDate':'':'es' }}</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Fecha estimada termino</dt>
             <dd>{{ obra?.fechaEstimadaFin | date: 'longDate':'':'es' }}</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Fecha real termino</dt>
             <dd>{{ obra?.fechaFinalizacion | date: 'longDate':'':'es' }}</dd>
@@ -153,41 +150,39 @@
         </div>
       </div>
 
+
       <div class="row">
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Monto contratado</dt>
             <dd>{{ obra?.montoInversion | currency }} MXN</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Monto inversion acumulada</dt>
             <dd>{{ obra?.montoInversionAcumulada | currency }} MXN</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Anticipo</dt>
             <dd>{{ obra.anticipo | currency }} MXN</dd>
           </dl>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Duracion del contrato</dt>
             <dd>{{ obra.plazoContrato }}</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Direccion de obra</dt>
             <dd>{{ obra.direccion }}</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Supervisor</dt>
             <dd>{{ obra.nombreSupervisor }}</dd>
@@ -195,35 +190,34 @@
         </div>
       </div>
 
+    
+
       <div class="row">
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Tipo de obra</dt>
             <dd>{{ obra.descripcionTipoObra }}</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Programa</dt>
             <dd>{{ obra.descripcionOrigenRecurso }}</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>No. de oficio de autorización</dt>
             <dd>{{ obra.numeroAutorizacion }}</dd>
           </dl>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Municipio</dt>
             <dd>{{ obra.nombreMunicipio }}</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Localidad</dt>
             <dd>{{ obra.nombreLocalidad }}</dd>
@@ -232,30 +226,25 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-4">
+        
+        <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
             <dt>Contratista</dt>
             <dd>{{ obra.descripcionContratista }}</dd>
           </dl>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-3">
           <dl class="dl-list">
             <dt>Cantidad de convenios modificatorios</dt>
             <dd>{{ 'NA' }}</dd>
           </dl>
         </div>
-      </div>
-
-      <div class="row">
         <div class="col-xs-12 col-md-4">
           <dl class="dl-list">
-            <dt>Alcances de obra</dt>
-            <dd class="cuadrito">{{ obra?.alcanceObra }}</dd>
-          </dl>
-        </div>
-        <div class="col-xs-12 col-md-4">
-          <dl class="dl-list">
-            <dt>Geolocalización</dt>
+            <dt (click)="closeModal(obra)" style="cursor:pointer" >Geolocalización  <i class="fas fa-location-dot text-primary"></i><small
+              class="text-muted"
+              > Ir a la coordenada</small
+            ></dt>
             <dd>
               <a [href]="openGoogleMaps()" target="_blank">
                 <p>
@@ -266,17 +255,24 @@
                 </p>
                
               </a>
-              <div style="cursor:pointer" (click)="closeModal(obra)">
-              <p>
-                <i class="fas fa-location-dot text-primary"></i><small
-                  class="text-muted"
-                  >Ir a la coordenada</small
-                >
-              </p>
-              </div>
+             
             </dd>
           </dl>
         </div>
+      </div>
+
+      <div class="row">
+        
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-md-4">
+          <dl class="dl-list">
+            <dt>Alcances de obra</dt>
+            <dd class="cuadrito">{{ obra?.alcanceObra }}</dd>
+          </dl>
+        </div>
+        
         <div class="col-xs-12 col-md-4">
           <dl class="dl-list">
             <dt>Evidencia fotográfica</dt>
