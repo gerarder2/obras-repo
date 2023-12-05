@@ -1088,6 +1088,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           marker.on('popupopen', (e) => {
             const px = this.map.project(e.target._popup._latlng);
             px.y -= e.target._popup._container.clientHeight / 2;
+            px.y = px.y - 35;
+
             this.map.panTo(this.map.unproject(px), { animate: true });
           });
           marker.bindPopup(popup).openPopup();
