@@ -51,7 +51,7 @@ export class HelperService {
     {
       idTipoObraSocial: 6,
       icon: 'fas fa-bridge-water',
-      color: 'orange'
+      color: 'gray-300'
     }
   ];
 
@@ -435,7 +435,7 @@ export class HelperService {
           break;
         case 6:
           item.icon = 'fas fa-bridge-water';
-          item.color = 'orange';
+          item.color = 'gray-300';
           break;
       }
     }

@@ -347,6 +347,15 @@
     background:$gray-800;
 }
 
+:host ::ng-deep .custom-gray-300
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-gray-300
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$gray-300;
+}
+
 :host ::ng-deep .custom-turquesa
     .p-inputswitch.p-inputswitch-checked
     .p-inputswitch-slider,

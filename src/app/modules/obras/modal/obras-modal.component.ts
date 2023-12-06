@@ -237,7 +237,8 @@ export class ObrasModalComponent implements OnInit {
         type: 'line',
         zoom: {
           enabled: false
-        }
+        },
+        fontFamily: 'Montserrat'
       },
       dataLabels: {
         enabled: false
