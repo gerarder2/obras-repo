@@ -338,6 +338,33 @@
     background:$gold;
 }
 
+:host ::ng-deep .custom-gray-800
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-gray-800
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$gray-800;
+}
+
+:host ::ng-deep .custom-turquesa
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-turquesa
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$turquesa;
+}
+
+:host ::ng-deep .custom-orange
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-orange
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$orange;
+}
+
 :host ::ng-deep .custom-gris-oxford
     .p-inputswitch.p-inputswitch-checked
     .p-inputswitch-slider,
