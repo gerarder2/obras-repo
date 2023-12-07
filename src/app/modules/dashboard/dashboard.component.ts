@@ -244,7 +244,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       }
     ];
 
-    console.log(this.listaItems);
+    // console.log(this.listaItems);
   }
 
   ngAfterViewInit() {
