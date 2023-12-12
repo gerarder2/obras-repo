@@ -42,6 +42,10 @@ export class ConfigService {
   }
 
   public getGEOJsonCarretero() {
-    return forkJoin([this.http.get(`./assets/markers/vialidades.json`)]);
+    return forkJoin([
+      this.http.get(`./assets/markers/sinaloa_municipios_min.json`),
+      this.http.get(`./assets/markers/vialidades/federal.json`),
+      this.http.get(`./assets/markers/vialidades/estatal.json`)
+    ]);
   }
 }
