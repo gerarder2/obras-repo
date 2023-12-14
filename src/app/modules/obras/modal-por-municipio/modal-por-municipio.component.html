@@ -6,10 +6,10 @@
                 <img style="width: 60%;" src="./assets/img/sinaloa_logo_trans@3x.png" alt="sinaloa" />
             </div>
             <div class="col-md-6">
-                <p style="font-size: xx-large; text-align: center; color: white;"> INVERSIÓN {{ fechaConsulta | date:'yyyy':'':'es' }} </p>
+                <p class="title-municipio-modal" style="font-size: xx-large; text-align: center; color: white;"> INVERSIÓN {{ fechaConsulta | date:'yyyy':'':'es' }} </p>
                 </div>        
             <div class="col-md-3 text-right">
-                <img style="width: 60%; padding-top: 3%;" src="./assets/img/obras_sentido_social_blanco.png" alt="obras" />
+                <img style="width: 40%; padding-top: 3%;" src="./assets/img/obras_sentido_social_blanco.png" alt="obras" />
             </div>
         </div>
         </div>
@@ -38,16 +38,16 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                <p style="font-size: xx-large;"> {{ municipio.municipio }} </p>
+                <p class="title-municipio-modal" style="font-size: xx-large;"> {{ municipio.municipio }} </p>
                 </div>
                 <div class="col-md-2">
                 <p style="padding-top: 5%;">{{ fechaConsulta | date:'MMMM dd, yyyy':'':'es' }}</p>
                 </div>
                 <div class="col-md-5">
-                <p style="font-size: xx-large;">{{ municipio.inversion | currency }} MXN</p>
+                <p class="title-municipio-modal" style="font-size: xx-large;">{{ municipio.inversion | currency }} MXN</p>
                 </div>
                 <div class="col-md-2">
-                <p style="font-size: xx-large;">{{ municipio.porcentajeInversion | number: '1.2-2' }}%</p>
+                <p class="title-municipio-modal" style="font-size: xx-large;">{{ municipio.porcentajeInversion | number: '1.2-2' }}%</p>
                 </div>
             </div>
             <div class="row" id="divExportar">
