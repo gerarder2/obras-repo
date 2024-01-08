@@ -415,27 +415,27 @@ export class HelperService {
       switch (item['id']) {
         case 1:
           item.icon = 'fas fa-landmark';
-          item.color = 'green';
+          item.color = 'wine';
           break;
         case 2:
           item.icon = 'fas fa-city';
-          item.color = 'wine';
+          item.color = 'green';
           break;
         case 3:
           item.icon = ' fas fa-bus';
-          item.color = 'gray-800';
+          item.color = 'wine-100';
           break;
         case 4:
           item.icon = 'fas fa-hand-holding-droplet';
-          item.color = 'turquesa';
+          item.color = 'gold';
           break;
         case 5:
           item.icon = 'fas fa-handshake-angle';
-          item.color = 'gold';
+          item.color = 'blue';
           break;
         case 6:
           item.icon = 'fas fa-bridge-water';
-          item.color = 'gray-300';
+          item.color = 'gray-800';
           break;
       }
     }
