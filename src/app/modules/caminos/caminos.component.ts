@@ -33,6 +33,7 @@ import { ObrasModalComponent } from '../obras/modal/obras-modal.component';
 import { Totales } from './../dashboard/models/totales.interface';
 import { ObrasService } from '../obras/services/obras.service';
 import { ModalPorMunicipioComponent } from '../obras/modal-por-municipio/modal-por-municipio.component';
+import { CaminosService } from './service/caminos.service';
 
 @Component({
   templateUrl: 'caminos.component.html',
@@ -132,7 +133,8 @@ export class CaminosComponent implements OnInit, AfterViewInit {
     private inj: Injector,
     private componentFactoryResolver: ComponentFactoryResolver,
     private bsModalService: BsModalService,
-    private obrasService: ObrasService
+    private obrasService: ObrasService,
+    private caminosService: CaminosService
   ) {
     const config = this.configService.getConfig();
     this.montoInversion = 0;
@@ -231,6 +233,10 @@ export class CaminosComponent implements OnInit, AfterViewInit {
         totales: 0
       }
     ];
+
+    this.caminosService.getData().subscribe((resp) => {
+      console.log(resp);
+    });
   }
 
   ngAfterViewInit() {
