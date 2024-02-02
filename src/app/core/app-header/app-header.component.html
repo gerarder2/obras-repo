@@ -7,10 +7,27 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <ul class="nav navbar-nav">
-    <li class="nav-item " [ngClass]="link.class" *ngFor="let link of links" [routerLinkActive]="'active'">
+    <li class="nav-item" [ngClass]="link.class" *ngFor="let link of links" [routerLinkActive]="'active'">
       <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="[link.url]">{{ link.name }}</a>
     </li>
-    
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a
+        class="nav-link"
+        data-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+        dropdownToggle
+        (click)="(false)"
+      >
+        Mapas <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu" *dropdownMenu aria-labelledby="simple-dropdown">
+        <a class="dropdown-item" [routerLink]="['/caminos']"><i class="fas fa-road"></i> Carretero</a>
+        <a class="dropdown-item" [routerLink]="['/mapa-obras']" ><i class="fas fa-helmet-safety"></i> Obras </a>
+      </div>
+    </li>
   </ul>
 
   <!-- <ul class="navbar-nav mr-auto">
@@ -55,9 +72,9 @@
         <div *ngIf="noResultsFound" class="no-results-message">No se encontraron resultados.</div>
       </div>
     </li>
-    <li class="nav-item dropdown " dropdown placement="bottom right">
+    <li class="nav-item dropdown" dropdown placement="bottom right">
       <a
-        style="margin-right: 25px;"
+        style="margin-right: 25px"
         class="nav-link"
         data-toggle="dropdown"
         href=""
@@ -89,7 +106,7 @@
     >
       <div class="card shadow">
         <div class="card-body">
-          <h5 class="card-title">{{match.item.id}} Contrato - {{ match.item.numeroContrato }}</h5>
+          <h5 class="card-title">{{ match.item.id }} Contrato - {{ match.item.numeroContrato }}</h5>
           <p class="card-text">{{ match.item.objeto }}</p>
           <hr />
           <div class="d-flex justify-content-between">
@@ -99,10 +116,9 @@
             </p>
           </div>
           <div class="d-flex justify-content-between">
-            <p>Avance: {{ match.item.porcentajeAvance}} % </p>
-            <p><i class="fas fa-calendar-alt fa-lg"></i> {{match.item.fechaInicio | date: 'dd/MMM/YYYY':'':'es'}}</p>
+            <p>Avance: {{ match.item.porcentajeAvance }} %</p>
+            <p><i class="fas fa-calendar-alt fa-lg"></i> {{ match.item.fechaInicio | date: 'dd/MMM/YYYY':'':'es' }}</p>
           </div>
-         
         </div>
       </div>
 

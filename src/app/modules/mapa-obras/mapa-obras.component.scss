@@ -1,0 +1,541 @@
+@import './../../../scss/bootstrap-variables';
+@import './../../../scss/core/mixins';
+@import './../../../scss/core/variables';
+.container-header{
+  background-size: cover;
+  height: 120px;
+
+  .titulo-header {
+    text-align: center;
+    background-color: $white;
+    padding-top: 10px;
+    padding-bottom: 1px;
+    color: $wine;
+
+    h4 {
+      font-weight: 600;
+    }
+   
+    h6, h5 {
+      color: $black;
+      font-weight: 500;
+    }
+  }
+}
+
+.desc-header {
+  height: 80px;
+  text-align: center;
+  background-color: $gold-800;
+  padding-top: 3px;
+  padding-bottom: 1px;
+
+  h4 {
+    font-weight: 600;
+  }
+
+  h6, h5, h4 {
+    color: $white;
+    font-weight: 500;
+    margin-bottom: 0px;
+  }
+}
+
+.map-container {
+  position:relative;
+  .map{
+      height: calc(100vh - 10px);
+      //height: 610px;
+      display:block;
+  }
+  .map.map-sidebar-open{
+    margin-left: 400px;
+    position: relative;
+    transition: margin-left 0.3s ease-in-out;
+  }
+
+  .map.map-asidebar-open{
+    margin-right: 500px;
+    position: relative;
+    transition: margin-right 0.3s ease-in-out;
+
+  }
+
+  .graphics-container {
+    cursor: pointer;
+    background: #fff;
+    height: 40px;
+    line-height: 1;
+    position: absolute;
+    right: 10px;
+    top: 85px;
+    width: 160px;
+    z-index: 400;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    &:hover{
+      background-color: $gray-200;
+    }
+    border: 2px solid rgba(0,0,0,0.2);
+  }
+
+  .map-slider {
+    position: absolute;
+    top: auto;
+    margin-left:1rem;
+    margin-right: 1rem;
+    bottom: 1rem;
+    z-index: 400;
+    background-color: #f4f7fa;
+    padding: 15px;
+    border-radius: 5px;
+    width: 100%;
+    height: 70px;
+  }
+
+  .map-sidebar-body{
+    ::ng-deep .p-dropdown {
+      width: 100%;
+      font-size: 0.8rem;
+    }
+
+  }
+
+  .map-sidebar-toggle {
+    cursor: pointer;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    z-index: 500;
+    width: 145px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    &:hover{
+      background-color: $gray-200;
+    }
+    border: 2px solid rgba(0,0,0,0.2);
+  } 
+  .map-sidebar {
+    background: #fff;
+    min-height: 100px;
+    max-height: calc(100vh - 80px);
+    position: absolute;
+    top: 68px;
+    width: 350px;
+    transition: left 0.3s ease-in-out;
+    z-index: 401;
+    padding: 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 15px;
+
+    // left: 20px;
+    right: 20px;
+    border: 2px solid $gray-300;
+
+    @include breakpoint('xxl') {
+      height: 600px;
+    }
+  }
+
+  .map-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    border-bottom: 1px solid $gray-200;
+
+    .header-title {
+      font-weight: bold;
+      margin: 0;
+      line-height: 32px;
+    }
+  }
+
+  .map-sidebar.map-sidebar-open {
+    // left: 20px;
+    right: 20px;
+    border: 2px solid $gray-300;
+    height: 180px;
+    
+  }
+  .map-sidebar-title{
+    font-weight: 800;
+    color: $wine;
+  }
+
+  .map-asidebar {
+    background: #fff;
+    height: calc(100vh - 100px);    position: fixed;
+    right: -500px;
+    top: 97px;
+    width: 500px;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    padding: 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .map-asidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid $gray-200;
+
+    .header-title {
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+
+  .map-asidebar.map-asidebar-open {
+    right: 0;
+    border-top: 1px solid $gray-300;
+    border-left: 2px solid $gray-300;
+  }
+  .map-asidebar-title{
+    margin-left: 10px;
+  }
+}
+
+.lista-float {
+  margin-top: 6%;
+  position: absolute;
+  left: 10px;
+  top: 290px;
+  width: 200px;
+  z-index: 401;
+}
+
+.lista-float-2 {
+  margin-top: 6%;
+  position: absolute;
+  left: 10px;
+  top: 90px;
+  width: 200px;
+  z-index: 401;
+}
+
+.lista-float-3 {
+  margin-top: 6%;
+  position: absolute;
+  left: 10px;
+  top: 190px;
+  width: 200px;
+  z-index: 401;
+}
+ 
+.municipios-container {
+  .municipios-title {
+    width: 100%;
+  }
+}
+
+.form-input{
+  width: 100px;
+  position: absolute;
+}
+
+.tools {
+  width: 50px;
+  margin-left: 212px;
+}
+
+
+
+.floating-div {
+  position: absolute;
+  bottom: 15px;
+  // right: 15px;
+  z-index: 400;
+  background-color: #f4f7fa;
+  padding: 15px;
+  border-radius: 10px;
+  height: 70px;
+}
+.floating-div.map-sidebar-open{
+  margin-left: 420px;
+  transition: margin-left 0.3s ease-in-out;
+}
+.floating-div.map-asidebar-open{
+  margin-right: 420px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+// @media (min-width:390px) {
+//   .floating-div { 
+//     /* Estilos para tamaños de pantalla mayores a 992px */
+//     height: 120px;
+//     width: 92%;
+//     left: 15px;
+//   }
+// }
+// @media (min-width:996px) {
+//   .floating-div { 
+//     /* Estilos para tamaños de pantalla mayores a 992px */
+//     height: 70px;
+//      width: 72%;
+//      left: inherit;
+//     // left: 0px;
+//   }
+// }
+
+.icons-list li .desc {
+  line-height: 35px;
+  height: 40px;
+  margin-left: 50px;
+  border-bottom: 0;
+}
+
+.icons-list li p-inputSwitch {
+  display: block;
+  float: left;
+  
+  line-height: 53px !important;
+  text-align: center;
+}
+
+.graphics-body{
+  max-width: 70vh;
+  overflow: auto;
+}
+
+
+// inputSwitch tiposObras
+:host ::ng-deep .custom-green
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-green
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$green;
+}
+:host ::ng-deep .custom-wine
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-wine
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$wine;
+}
+:host ::ng-deep .custom-wine-100
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-wine-100
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$wine-100;
+}
+:host ::ng-deep .custom-gold
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-gold
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$gold;
+}
+
+:host ::ng-deep .custom-gray-800
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-gray-800
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$gray-800;
+}
+
+:host ::ng-deep .custom-gray-300
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-gray-300
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$gray-300;
+}
+
+:host ::ng-deep .custom-turquesa
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-turquesa
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$turquesa;
+}
+
+:host ::ng-deep .custom-orange
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-orange
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$orange;
+}
+
+:host ::ng-deep .custom-gris-oxford
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-gris-oxford
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background:$gris-oxford;
+}
+// inputSwitch partidos
+
+:host ::ng-deep .custom-pri
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pri
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #186302;
+}
+
+:host ::ng-deep .custom-pan
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pan
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #0000FF;
+}
+
+:host ::ng-deep .custom-prd
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-prd
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #FFAB04;
+}
+
+:host ::ng-deep .custom-morena
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-morena
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #AF272F;
+}
+
+:host ::ng-deep .custom-pas
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pas
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #613AA7;
+}
+
+:host ::ng-deep .custom-mc
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-mc
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #FF8000;
+}
+
+:host ::ng-deep .custom-pt
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pt
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #D31520;
+}
+
+:host ::ng-deep .custom-pes
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pes
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #7915CB;
+}
+
+:host ::ng-deep .custom-pvem
+    .p-inputswitch.p-inputswitch-checked
+    .p-inputswitch-slider,
+:host ::ng-deep .custom-pvem
+    .p-inputswitch.p-inputswitch-checked:hover
+    .p-inputswitch-slider {
+    background: #85EE66;
+}
+
+::ng-deep .leaflet-popup-content {
+  font-size: 14px !important;
+  width: 800px !important;
+}
+
+.controles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.icon-text {
+  font-size: 5rem;
+  color: $gold;
+}
+
+.card-img-top {
+  max-height: 100px;
+  margin-top: 15px;
+  // height: 10vw;
+  // object-fit: cover;
+}
+
+.label-switch {
+  top: -5px;
+    line-height: 15px;
+    position: relative;
+    margin-bottom: 10px;
+    color: $gray-700;
+}
+
+.data-container {
+  height: 325px;
+  .data-title {
+    color: $wine;
+    h4 {
+      font-weight: 600;
+    }
+  }
+}
+
+.small-input-switch {
+
+  ::ng-deep .p-inputswitch {
+    height: 1.2rem;
+    width: 2.4rem;
+    &.p-inputswitch-checked {
+        .p-inputswitch-slider::before {
+            transform: translateX(1rem);
+        }
+    }
+
+    ::ng-deep .p-inputswitch-slider::before {
+        width: 0.9rem;
+        height: 0.9rem;
+        margin-top: -0.45rem;
+    }
+  }
+}
+
+
+
+::ng-deep .leaflet-top.leaflet-left {
+  top: 57px;
+}
+
+::ng-deep .leaflet-popup {
+  z-index: 1000 !important; /* Ajusta el valor según sea necesario */
+} 
+
+h6{
+  font-size: 0.9rem;
+}

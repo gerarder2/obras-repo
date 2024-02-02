@@ -40,6 +40,10 @@ export const routes: Routes = [
       {
         path: 'caminos',
         loadChildren: () => import('./modules/caminos/caminos.module').then((m) => m.CaminosModule)
+      },
+      {
+        path: 'mapa-obras',
+        loadChildren: () => import('./modules/mapa-obras/mapa-obras.module').then((m) => m.MapaObrasModule)
       }
     ]
   },
