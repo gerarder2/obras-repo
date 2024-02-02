@@ -81,7 +81,7 @@ export class AppHeaderComponent implements OnInit {
       { url: '/inicio', name: 'Inicio', class: 'px-3' },
       { url: '/licitaciones', name: 'Licitaciones', class: 'px-3' },
       { url: '/obras', name: 'Obras', class: 'px-3' },
-      { url: '/datos-abiertos', name: 'Datos Abiertos', class: 'px-3' },
+      { url: '/datos-abiertos', name: 'Datos Abiertos', class: 'px-3' }
       //{ url: '/caminos', name: 'Mapa Carretero', class: 'px-2' }
     ];
 
