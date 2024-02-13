@@ -18,7 +18,6 @@ export class CatalogosService {
   private locale: any;
   private webApi: string;
   private webApiMaatCore: string;
-  private webApiFederativo: string;
 
   constructor(
     private http: HttpClient,
@@ -29,17 +28,16 @@ export class CatalogosService {
     this.config = configService.getConfig();
     this.webApi = this.config.webApi;
     this.webApiMaatCore = this.config.webApiMaatCore;
-    this.webApiFederativo = this.config.wepApiFederativo;
   }
 
   public getCatalogos() {
-    const obrasSocial = `${this.webApi}/TipoObraSocial/Combo`;
+    const obrasSocial = `${this.webApi}/TipoObraSocial/Filtro`;
     const tiposModalidad = `${this.webApi}/TipoModalidad/Combo`;
     const organismos = `${this.webApiMaatCore}/Dependencia/Combo?IdAgrupador=${this.config.idAgrupador}`;
     const constratistas = `${this.webApi}/Contratista/Combo`;
     const tiposContrato = `${this.webApi}/TipoContrato/Combo`;
     const dependencias = `${this.webApi}/ObraPortal/ComboDependencias?IdUsuario=${this.auth.currentUser().id}`;
-    const distritos = `${this.webApiFederativo}/Distrito/Combo`;
+    const distritos = `${this.webApiMaatCore}/Distrito/Combo`;
 
     //74.208.25.33:8083/api/Distrito/Combo
 
