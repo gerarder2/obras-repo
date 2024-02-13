@@ -8,6 +8,7 @@
   </div>
 </section>
 <section class="map-container">
+  <ng-container *ngIf="!hideFiltersTotales">
   <div class="lista-float-2" *ngIf="montoInversion">
     <div class="contenido">
       <app-lista-elementos
@@ -45,9 +46,10 @@
       ></app-lista-elementos>
     </div>
   </div>
+  </ng-container>
   <!-- sidebar -->
+  <ng-container *ngIf="!hideFiltersTotales">
   <div class="map-sidebar" [ngClass]="{'map-sidebar-open': configCollapsed}">
-    <ng-scrollbar [visibility]="'hover'">
     <div style="max-width: 310px;">
       <h5 class="map-sidebar-title">SISTEMA DE ADMINISTRACIÓN Y GESTIÓN DE PROYECTOS</h5>
       <div class="map-sidebar-header">
@@ -72,7 +74,9 @@
               (onChange)="onChangeTipoObra(tipo)"
             ></p-inputSwitch>
             <label class="label-switch" for="switch1"
-              ><i class="fas" [ngClass]="tipo.icon"></i> {{ tipo.descripcion }} ({{ tipo.conteo }})
+              >
+              <i class="fas" [ngClass]="tipo.icon" *ngIf="false"></i> 
+              {{ tipo.descripcion }} ({{ tipo.conteo }})
             </label>
           </div>
         </section>
@@ -156,13 +160,14 @@
         </section>
       </div>
     </div>
-    </ng-scrollbar>
   </div>
+  </ng-container>
   <!-- end sidebar -->
   <div
     *blockUI="'map-list'"
     class="map"
     [ngClass]="{ 'map-sidebar-open': sidebarOpen, 'map-asidebar-open': asidebarOpen }"
     id="map-container" #mapContainer
-  ></div>
+  >
+</div>
 </section>

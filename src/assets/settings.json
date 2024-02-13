@@ -1,6 +1,8 @@
 {
     "webApi": "http://74.208.25.33:86/api",
+    "webApiCaminos": "http://74.208.25.33:84/api",
     "webApiMaatCore": "http://74.208.25.33:83/api",
+    "wepApiFederativo": "http://74.208.25.33:8083/api",
     "periodos": [
         {
             "id": 0,

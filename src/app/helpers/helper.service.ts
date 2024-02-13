@@ -26,32 +26,32 @@ export class HelperService {
     {
       idTipoObraSocial: 1,
       icon: 'fas fa-landmark',
-      color: 'wine'
+      color: 'green'
     },
     {
       idTipoObraSocial: 2,
       icon: 'fas fa-city',
-      color: 'green'
+      color: 'wine'
     },
     {
       idTipoObraSocial: 3,
       icon: 'fas fa-bus',
-      color: 'wine-100'
+      color: 'gray-800'
     },
     {
       idTipoObraSocial: 4,
       icon: 'fas fa-hand-holding-droplet',
-      color: 'gold-800'
+      color: 'turquesa'
     },
     {
       idTipoObraSocial: 5,
       icon: 'fas fa-handshake-angle',
-      color: 'blue'
+      color: 'gold'
     },
     {
       idTipoObraSocial: 6,
       icon: 'fas fa-bridge-water',
-      color: 'gris-oxford'
+      color: 'gray-300'
     }
   ];
 
@@ -435,7 +435,7 @@ export class HelperService {
           break;
         case 6:
           item.icon = 'fas fa-bridge-water';
-          item.color = 'gris-oxford';
+          item.color = 'gray-800';
           break;
       }
     }
@@ -446,7 +446,8 @@ export class HelperService {
       idDependencia: info.idDependencia,
       idMunicipio: info.idMunicipio,
       estatus: info.estatus,
-      idTipoObraSocial: []
+      idTipoObraSocial: [],
+      idDistrito: info.idDistrito
     };
     // Obtener los tipos de obrasocial seleccionados
     info.tiposObras.forEach((element) => {
@@ -459,6 +460,9 @@ export class HelperService {
         return false;
       }
       if (filtros.idMunicipio && obra.idMunicipio !== filtros.idMunicipio) {
+        return false;
+      }
+      if (filtros.idDistrito && obra.idDistrito !== filtros.idDistrito) {
         return false;
       }
       if (filtros.estatus !== 'TODAS' && obra.estatus !== filtros.estatus) {

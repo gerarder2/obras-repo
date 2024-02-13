@@ -14,31 +14,32 @@ import {
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 import { AuthenticationService } from '../../services';
-import { CardInformationComponent } from './card-information/card-information.component';
 import { CatalogosService } from './../../services/catalogos.service';
 import { ConfigService } from './../../services/config.service';
-import { Distrito } from './models/distrito.interface';
 import { HelperService } from './../../helpers/helper.service';
 import { LocalStorageService } from './../../services/local-storage.service';
 import { Mensaje } from './../../models/mensaje';
-import { Municipio } from './models/municipio.interface';
-import { Partido } from './models/partido.interface';
-import { Puesto } from './models/puesto.interface';
+
 import { Router } from '@angular/router';
-import { Seccion } from './models/seccion.interface';
-import { TipoObra } from './models/tipoobra.interface';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ObrasModalComponent } from '../obras/modal/obras-modal.component';
-import { Totales } from './models/totales.interface';
 import { ObrasService } from '../obras/services/obras.service';
 import { ModalPorMunicipioComponent } from '../obras/modal-por-municipio/modal-por-municipio.component';
+import { CardInformationComponent } from '../dashboard/card-information/card-information.component';
+import { Distrito } from '../dashboard/models/distrito.interface';
+import { Municipio } from '../dashboard/models/municipio.interface';
+import { Partido } from '../dashboard/models/partido.interface';
+import { Puesto } from '../dashboard/models/puesto.interface';
+import { Seccion } from '../dashboard/models/seccion.interface';
+import { TipoObra } from '../dashboard/models/tipoobra.interface';
+import { Totales } from '../dashboard/models/totales.interface';
 
 @Component({
-  templateUrl: 'dashboard.component.html',
-  styleUrls: ['dashboard.component.scss'],
+  templateUrl: './mapa-obras.component.html',
+  styleUrls: ['./mapa-obras.component.scss'],
   entryComponents: [CardInformationComponent]
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class MapaObrasComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', { static: false }) mapContainer: ElementRef;
   @BlockUI('map-list') blockUIList: NgBlockUI;
 
@@ -52,6 +53,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   geoJsonFeatureDistritosPuntos: any;
   geoJsonFeatureSecciones: any;
   zoom = 10;
+
+  tipoMapa: string;
 
   sidebarOpen = false;
   asidebarOpen = false;
@@ -122,6 +125,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   closePopupEvent: string;
 
   hideFiltersTotales: boolean;
+  todasLasObras: any;
 
   constructor(
     private router: Router,
@@ -144,6 +148,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.periodos = config.periodos;
     this.periodo = 'TODOS';
     this.elementoActivo = -1;
+    this.tipoMapa = 'municipios';
 
     this.LeafIcon = L.Icon.extend({
       options: {
@@ -256,6 +261,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       next: (data: any[]) => {
         this.tiposObras = this.helperService.formatTipoObras(data[0].data);
         this.dependencias = this.helperService.formatTipoObras(data[5].data);
+        this.distritos = this.helperService.formatTipoObras(data[6].data);
+        this.distritos.unshift({ id: 0, clave: 'TODOS LOS DISTRITOS' });
+
         if (this.dependencias.length > 1) {
           this.dependencias.unshift({ id: 0, nombre: 'TODAS' });
         }
@@ -294,7 +302,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           tiposObras: this.tiposObras,
           puntosMapa: this.puntosMapa,
           idMunicipio: this.municipioSeleccionado.id,
-          estatus: this.estatusObrasSeleccionado.descripcion
+          estatus: this.estatusObrasSeleccionado.descripcion,
+          idDistrito: this.distritoSeleccionado.id
         };
         const newPuntosMapa = this.helperService.filtrarData(info);
         this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
@@ -308,6 +317,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         if (newPuntosMapa.data.length > 0) {
           const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
           this.tiposObras = conteo;
+          this.todasLasObras = newPuntosMapa;
           this.mostrarPuntosObra(newPuntosMapa);
         } else {
           if (this.obrasMarksLayer) {
@@ -329,7 +339,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       idTipoObraSocial: 0,
       idMunicipio: 0,
       ejercicio: 0,
-      estatus: 'TODAS'
+      estatus: 'TODAS',
+      idDistrito: 0
     };
 
     if (this.periodoSeleccionado.descripcion !== 'TODOS') {
@@ -339,6 +350,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         payload.ejercicio = parseInt(this.periodoSeleccionado.descripcion);
         payload.idMunicipio = this.municipioSeleccionado.id;
         payload.estatus = this.estatusObrasSeleccionado.descripcion;
+        payload.idDistrito = this.distritoSeleccionado.id;
 
         this.catalogosService.getMapaObras(payload).subscribe({
           next: (response: any) => {
@@ -347,7 +359,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
               tiposObras: this.tiposObras,
               puntosMapa: this.puntosMapa,
               idMunicipio: this.municipioSeleccionado.id,
-              estatus: this.estatusObrasSeleccionado.descripcion
+              estatus: this.estatusObrasSeleccionado.descripcion,
+              idDistrito: this.distritoSeleccionado.id
             };
             const newPuntosMapa = this.helperService.filtrarData(info);
 
@@ -458,7 +471,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       tiposObras: this.tiposObras,
       puntosMapa: this.puntosMapa,
       idMunicipio: this.municipioSeleccionado.id,
-      estatus: this.estatusObrasSeleccionado.descripcion
+      estatus: this.estatusObrasSeleccionado.descripcion,
+      idDistrito: this.distritoSeleccionado.id
     };
 
     const newPuntosMapa = this.helperService.filtrarData(info);
@@ -617,7 +631,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             weight: 1,
             opacity: 1,
             // color: '#9ec1f2',
-            color: color || 'gray',
+            color: _opt === 'distritos' ? '#911D1D' : color || 'gray',
             dashArray: '3'
           };
         },
@@ -1202,5 +1216,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           break;
       }
     }
+  }
+  toggleRadio($event) {
+    this.map.removeLayer(this.obrasMarksLayer);
+    if ($event?.target?.value === 'distritos') {
+      this.municipioSeleccionado = this.municipios[0];
+      this.visualizarMapa(this.geoJsonFeatureDistritos, 'distritos');
+    } else {
+      this.distritoSeleccionado = this.distritos[0];
+      this.visualizarMapa(this.geoJsonFeatureMunicipios);
+    }
+    this.mostrarPuntosObra(this.todasLasObras);
   }
 }

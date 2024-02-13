@@ -33,6 +33,7 @@ import { ObrasModalComponent } from '../obras/modal/obras-modal.component';
 import { Totales } from './../dashboard/models/totales.interface';
 import { ObrasService } from '../obras/services/obras.service';
 import { ModalPorMunicipioComponent } from '../obras/modal-por-municipio/modal-por-municipio.component';
+import { CaminosService } from './service/caminos.service';
 
 @Component({
   templateUrl: 'caminos.component.html',
@@ -95,6 +96,9 @@ export class CaminosComponent implements OnInit, AfterViewInit {
 
   obrasMarksLayer: any;
 
+  geoJsonLayerFederal: any;
+  geoJsonLayerEstatal: any;
+
   cards: any[];
   tiposObras: TipoObra[];
   estatusObras: any[];
@@ -129,7 +133,8 @@ export class CaminosComponent implements OnInit, AfterViewInit {
     private inj: Injector,
     private componentFactoryResolver: ComponentFactoryResolver,
     private bsModalService: BsModalService,
-    private obrasService: ObrasService
+    private obrasService: ObrasService,
+    private caminosService: CaminosService
   ) {
     const config = this.configService.getConfig();
     this.montoInversion = 0;
@@ -229,7 +234,9 @@ export class CaminosComponent implements OnInit, AfterViewInit {
       }
     ];
 
-    console.log(this.listaItems);
+    this.caminosService.getData().subscribe((resp) => {
+      console.log(resp);
+    });
   }
 
   ngAfterViewInit() {
@@ -528,6 +535,18 @@ export class CaminosComponent implements OnInit, AfterViewInit {
       attribution: attribution
     });
 
+    const baseMaps = {
+      Streets: streets
+    };
+
+    this.geoJsonLayerFederal = L.layerGroup();
+    this.geoJsonLayerEstatal = L.layerGroup();
+
+    const overlayMaps = {
+      Federal: this.geoJsonLayerFederal,
+      Estatal: this.geoJsonLayerEstatal
+    };
+
     this.map = L.map(this.mapContainer.nativeElement, {
       center: [25.092141890307722, -107.09195826646527],
       // center: [24.8049172, -108.4233141],
@@ -535,26 +554,23 @@ export class CaminosComponent implements OnInit, AfterViewInit {
       zoom: 8,
       //minZoom: 7,
       //maxZoom: 20
-      layers: [streets],
+      layers: [streets, overlayMaps.Estatal, overlayMaps.Federal],
       zoomControl: false,
       scrollWheelZoom: true
       //layers: [openstreets]
     });
-
+    L.control.layers(baseMaps, overlayMaps).addTo(this.map);
     new L.Control.Zoom({ position: 'topleft' }).addTo(this.map);
     // this.map.locate({ setView: true, maxZoom: 14 });
     // this.generateRandomMarkers(10, 'green');
 
     setTimeout(() => {
-      this.configService.getGEOJson().subscribe((geoData) => {
-        this.geoJsonFeatureMunicipios = geoData[0];
-        this.geoJsonFeatureMunicipiosPuntos = geoData[1];
-        this.geoJsonFeatureDistritos = geoData[2];
-        this.geoJsonFeatureDistritosPuntos = geoData[3];
-        this.geoJsonFeatureSecciones = geoData[4];
-        this.geoJsonFeatureVialidades = [];
+      this.configService.getGEOJsonCarretero().subscribe((geoData) => {
+        this.geoJsonFeatureVialidades = geoData[0];
 
         this.visualizarMapa(this.geoJsonFeatureVialidades);
+        this.loadGeoJson(geoData[1], 'Federal', '#691c32');
+        this.loadGeoJson(geoData[2], 'Estatal', '#235B4E');
         // this.loadPuntosObra();
       });
     }, 300);
@@ -566,6 +582,48 @@ export class CaminosComponent implements OnInit, AfterViewInit {
     // this.map.locate({ setView: true, maxZoom: 18 });
   }
 
+  loadGeoJson(geoJson: any, layerName: string, color: string) {
+    const geoJsonLayer = L.geoJSON(geoJson, {
+      style: {
+        color: color,
+        weight: 2,
+        opacity: 1
+      },
+      onEachFeature: (feature, layer) => {
+        if (feature.properties) {
+          // Create element
+          const popup = document.createElement('app-card-information');
+
+          // Create the component and wire it up with the element
+          const factory = this.componentFactoryResolver.resolveComponentFactory(CardInformationComponent);
+          const popupComponentRef = factory.create(this.inj, [], popup);
+
+          // Attach to the view so that the change detector knows to run
+          this.applicationRef.attachView(popupComponentRef.hostView);
+
+          // Set the message
+          feature.properties.partidos = this.partidos;
+          popupComponentRef.instance.properties = feature.properties;
+          popupComponentRef.setInput('properties', feature.properties);
+
+          const name = feature.properties.name;
+
+          layer.bindPopup(name);
+        }
+      }
+    });
+
+    // Agregar la capa al mapa y a la capa de control
+    geoJsonLayer.addTo(this.map);
+
+    // Asignar la capa al objeto correspondiente
+    if (layerName === 'Federal') {
+      geoJsonLayer.addTo(this.geoJsonLayerFederal);
+    } else if (layerName === 'Estatal') {
+      geoJsonLayer.addTo(this.geoJsonLayerEstatal);
+    }
+  }
+
   visualizarMapa(geoJsonData?, _opt?: string) {
     if (this.geoJson) {
       this.geoJson.clearLayers();
@@ -573,60 +631,15 @@ export class CaminosComponent implements OnInit, AfterViewInit {
     }
     if (geoJsonData) {
       this.geoJson = L.geoJSON(geoJsonData, {
-        // pointToLayer: (feature, latlng) => {
-        //   const img = feature?.properties?.ganador?.partido?.nombre
-        //     ? feature?.properties?.ganador?.partido?.nombre.toLowerCase() + '.png'
-        //     : 'transparent.png';
-        //   const icono = new this.LeafIcon({
-        //     iconUrl: `assets/markers/partidos/${img}`
-        //   });
-
-        //   return L.marker(latlng, { icon: icono });
-        // },
-        filter: (feature) => {
-          if (this.map.getZoom() < 8 && feature.geometry.type === 'Point') {
-            return false;
-          }
-
-          if (this.map.getZoom() <= 8 && feature.geometry.type !== 'Point') {
-            return true;
-          }
-        },
         style: (feature) => {
-          console.log('feature', feature);
-
+          const color = null;
           return {
-            weight: 5,
+            weight: 1,
             opacity: 1,
-            color: 'red'
+            // color: '#9ec1f2',
+            color: color || 'gray',
+            dashArray: '3'
           };
-        },
-        onEachFeature: (feature, layer) => {
-          if (feature.properties) {
-            // const component = this.viewContainerRef.createComponent(CardInformationComponent);
-            // feature.properties.partidos = this.partidos;
-            // component.setInput('properties', feature.properties);
-            // layer.bindPopup(component.location.nativeElement);
-
-            // Create element
-            const popup = document.createElement('app-card-information');
-
-            // Create the component and wire it up with the element
-            const factory = this.componentFactoryResolver.resolveComponentFactory(CardInformationComponent);
-            const popupComponentRef = factory.create(this.inj, [], popup);
-
-            // Attach to the view so that the change detector knows to run
-            this.applicationRef.attachView(popupComponentRef.hostView);
-
-            // Set the message
-            feature.properties.partidos = this.partidos;
-            popupComponentRef.instance.properties = feature.properties;
-            popupComponentRef.setInput('properties', feature.properties);
-
-            const name = feature.properties.name;
-
-            layer.bindPopup(name);
-          }
         }
       }).addTo(this.map);
       this.localStorage.setItem('geojson', geoJsonData);
