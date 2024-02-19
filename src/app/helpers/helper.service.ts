@@ -25,33 +25,58 @@ export class HelperService {
   private tipoObrasUI = [
     {
       idTipoObraSocial: 1,
-      icon: 'fas fa-landmark',
-      color: 'green'
+      icon: 'fas agua',
+      color: '44BBED'
     },
     {
       idTipoObraSocial: 2,
-      icon: 'fas fa-city',
-      color: 'wine'
+      icon: 'fas caminos',
+      color: '691B32'
     },
     {
       idTipoObraSocial: 3,
-      icon: 'fas fa-bus',
-      color: 'gray-800'
+      icon: 'fas deporte',
+      color: 'E397B4'
     },
     {
       idTipoObraSocial: 4,
-      icon: 'fas fa-hand-holding-droplet',
-      color: 'turquesa'
+      icon: 'fas drenaje',
+      color: '84559E'
     },
     {
       idTipoObraSocial: 5,
-      icon: 'fas fa-handshake-angle',
-      color: 'gold'
+      icon: 'fas electrificacion',
+      color: 'BC955B'
     },
     {
       idTipoObraSocial: 6,
-      icon: 'fas fa-bridge-water',
-      color: 'gray-300'
+      icon: 'fas represas',
+      color: '2D2A26'
+    },
+    {
+      idTipoObraSocial: 7,
+      icon: 'fas salud',
+      color: '27578A'
+    },
+    {
+      idTipoObraSocial: 8,
+      icon: 'fas seguridad',
+      color: '235C4E'
+    },
+    {
+      idTipoObraSocial: 9,
+      icon: 'fas servicios',
+      color: 'EA9256'
+    },
+    {
+      idTipoObraSocial: 10,
+      icon: 'fas urbana',
+      color: '777777'
+    },
+    {
+      idTipoObraSocial: 11,
+      icon: 'fas vialidades',
+      color: 'D92562'
     }
   ];
 
@@ -414,28 +439,48 @@ export class HelperService {
       item.checked = true;
       switch (item['id']) {
         case 1:
-          item.icon = 'fas fa-landmark';
-          item.color = 'wine';
+          item.icon = 'fas agua';
+          item.color = '44BBED';
           break;
         case 2:
-          item.icon = 'fas fa-city';
-          item.color = 'green';
+          item.icon = 'fas caminos';
+          item.color = '691B32';
           break;
         case 3:
-          item.icon = ' fas fa-bus';
-          item.color = 'wine-100';
+          item.icon = ' fas deporte';
+          item.color = 'E397B4';
           break;
         case 4:
-          item.icon = 'fas fa-hand-holding-droplet';
-          item.color = 'gold';
+          item.icon = 'fas drenaje';
+          item.color = '84559E';
           break;
         case 5:
-          item.icon = 'fas fa-handshake-angle';
-          item.color = 'blue';
+          item.icon = 'fas electrificacion';
+          item.color = 'BC955B';
           break;
         case 6:
-          item.icon = 'fas fa-bridge-water';
-          item.color = 'gray-800';
+          item.icon = 'fas represas';
+          item.color = '2D2A26';
+          break;
+        case 7:
+          item.icon = 'fas salud';
+          item.color = '27578A';
+          break;
+        case 8:
+          item.icon = 'fas seguridad';
+          item.color = '235C4E';
+          break;
+        case 9:
+          item.icon = 'fas servicios';
+          item.color = 'EA9256';
+          break;
+        case 10:
+          item.icon = 'fas urbana';
+          item.color = '777777';
+          break;
+        case 11:
+          item.icon = 'fas vialidades';
+          item.color = 'D92562';
           break;
       }
     }
