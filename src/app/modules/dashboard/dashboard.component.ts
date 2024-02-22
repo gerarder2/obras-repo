@@ -331,7 +331,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       ejercicio: 0,
       estatus: 'TODAS'
     };
-
+    console.log(this.periodo, this.periodoSeleccionado.descripcion);
     if (this.periodoSeleccionado.descripcion !== 'TODOS') {
       if (this.periodo !== this.periodoSeleccionado.descripcion) {
         this.periodo = this.periodoSeleccionado.descripcion;
@@ -354,7 +354,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             if (newPuntosMapa.data.length > 0) {
               const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
               this.tiposObras = conteo;
-              this.mostrarPuntosObra(newPuntosMapa);
+              this.mostrarPuntosObra(newPuntosMapa, 'filtrar');
             } else {
               if (this.obrasMarksLayer) {
                 this.map.removeLayer(this.obrasMarksLayer);
@@ -1026,7 +1026,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  mostrarPuntosObra(info) {
+  mostrarPuntosObra(info: any, opcion?: string) {
     if (this.obrasMarksLayer) {
       this.map.removeLayer(this.obrasMarksLayer);
     }
@@ -1074,6 +1074,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         });
       }
     });
+    if (opcion === 'filtrar') {
+      this.filtrarLocal();
+    }
   }
 
   loadObraDetalle(marker: any, idObra: number, popupComponentRef, popup) {
