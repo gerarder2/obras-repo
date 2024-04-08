@@ -34,7 +34,7 @@ export class CatalogosService {
     const obrasSocial = `${this.webApi}/TipoObraSocial/Filtro`;
     const tiposModalidad = `${this.webApi}/TipoModalidad/Combo`;
     const organismos = `${this.webApiMaatCore}/Dependencia/Combo?IdAgrupador=${this.config.idAgrupador}`;
-    const constratistas = `${this.webApi}/Contratista/Combo`;
+    const constratistas = `${this.webApi}/Contratista/Combo?IdUsuario=${this.auth.currentUser().id}`;
     const tiposContrato = `${this.webApi}/TipoContrato/Combo`;
     const dependencias = `${this.webApi}/ObraPortal/ComboDependencias?IdUsuario=${this.auth.currentUser().id}`;
     const distritos = `${this.webApiMaatCore}/Distrito/Combo`;
