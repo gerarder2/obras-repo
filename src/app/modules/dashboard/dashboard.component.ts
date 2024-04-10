@@ -465,12 +465,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     if (newPuntosMapa.data.length > 0) {
       const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
       this.tiposObras = conteo;
-      this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
+      // this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
       this.mostrarPuntosObra(newPuntosMapa);
 
-      this.montoInversionActual = newPuntosMapa.data
-        .filter((elemento) => parseInt(elemento.ejercicio) === this.annioActual)
-        .reduce((suma, elemento) => suma + elemento.montoInversion, 0);
+      // this.montoInversionActual = newPuntosMapa.data
+      //   .filter((elemento) => parseInt(elemento.ejercicio) === this.annioActual)
+      //   .reduce((suma, elemento) => suma + elemento.montoInversion, 0);
 
       this.calcularKms(newPuntosMapa.data);
     } else {
@@ -510,7 +510,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         for (const periodo of response.data.totalMontoInversionEjerciciosAnteriores) {
           this.listaPeriodos.push({
             periodo: parseInt(periodo.ejercicio),
-            label: `Inversion ${periodo.ejercicio}`,
+            label: `Total ejercido ${periodo.ejercicio}`,
             valor: periodo.totalMontoInversion,
             totales: periodo.totalMontoInversion,
             currency: true
