@@ -31,12 +31,15 @@ export class CatalogosService {
   }
 
   public getCatalogos() {
-    const obrasSocial = `${this.webApi}/TipoObraSocial/Combo`;
+    const obrasSocial = `${this.webApi}/TipoObraSocial/Filtro`;
     const tiposModalidad = `${this.webApi}/TipoModalidad/Combo`;
     const organismos = `${this.webApiMaatCore}/Dependencia/Combo?IdAgrupador=${this.config.idAgrupador}`;
-    const constratistas = `${this.webApi}/Contratista/Combo`;
+    const constratistas = `${this.webApi}/Contratista/Combo?IdUsuario=${this.auth.currentUser().id}`;
     const tiposContrato = `${this.webApi}/TipoContrato/Combo`;
     const dependencias = `${this.webApi}/ObraPortal/ComboDependencias?IdUsuario=${this.auth.currentUser().id}`;
+    const distritos = `${this.webApiMaatCore}/Distrito/Combo`;
+
+    //74.208.25.33:8083/api/Distrito/Combo
 
     return forkJoin([
       this.http.get(obrasSocial),
@@ -44,7 +47,8 @@ export class CatalogosService {
       this.http.get(organismos),
       this.http.get(constratistas),
       this.http.get(tiposContrato),
-      this.http.get(dependencias)
+      this.http.get(dependencias),
+      this.http.get(distritos)
     ]);
   }
 

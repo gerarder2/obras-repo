@@ -2,10 +2,8 @@ import { Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment.dev';
 import { HelperService } from '../../../helpers/helper.service';
 import { ConfigService } from '../../../services';
-import { ObraPortalReporte } from '../models/obrareporte.interface';
 
 @Injectable({
   providedIn: 'root'

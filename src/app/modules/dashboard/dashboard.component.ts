@@ -121,6 +121,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   closePopupEvent: string;
 
+  hideFiltersTotales: boolean;
+
   constructor(
     private router: Router,
     private auth: AuthenticationService,
@@ -135,6 +137,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private bsModalService: BsModalService,
     private obrasService: ObrasService
   ) {
+    this.hideFiltersTotales = false;
     const config = this.configService.getConfig();
     this.montoInversion = 0;
     this.montoInversionActual = 0;
@@ -241,7 +244,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       }
     ];
 
-    console.log(this.listaItems);
+    // console.log(this.listaItems);
   }
 
   ngAfterViewInit() {
@@ -328,7 +331,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       ejercicio: 0,
       estatus: 'TODAS'
     };
-
+    console.log(this.periodo, this.periodoSeleccionado.descripcion);
     if (this.periodoSeleccionado.descripcion !== 'TODOS') {
       if (this.periodo !== this.periodoSeleccionado.descripcion) {
         this.periodo = this.periodoSeleccionado.descripcion;
@@ -351,7 +354,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             if (newPuntosMapa.data.length > 0) {
               const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
               this.tiposObras = conteo;
-              this.mostrarPuntosObra(newPuntosMapa);
+              this.mostrarPuntosObra(newPuntosMapa, 'filtrar');
             } else {
               if (this.obrasMarksLayer) {
                 this.map.removeLayer(this.obrasMarksLayer);
@@ -462,12 +465,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     if (newPuntosMapa.data.length > 0) {
       const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
       this.tiposObras = conteo;
-      this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
+      // this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
       this.mostrarPuntosObra(newPuntosMapa);
 
-      this.montoInversionActual = newPuntosMapa.data
-        .filter((elemento) => parseInt(elemento.ejercicio) === this.annioActual)
-        .reduce((suma, elemento) => suma + elemento.montoInversion, 0);
+      // this.montoInversionActual = newPuntosMapa.data
+      //   .filter((elemento) => parseInt(elemento.ejercicio) === this.annioActual)
+      //   .reduce((suma, elemento) => suma + elemento.montoInversion, 0);
 
       this.calcularKms(newPuntosMapa.data);
     } else {
@@ -507,7 +510,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         for (const periodo of response.data.totalMontoInversionEjerciciosAnteriores) {
           this.listaPeriodos.push({
             periodo: parseInt(periodo.ejercicio),
-            label: `Inversion ${periodo.ejercicio}`,
+            label: `Total ejercido ${periodo.ejercicio}`,
             valor: periodo.totalMontoInversion,
             totales: periodo.totalMontoInversion,
             currency: true
@@ -574,7 +577,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.geoJsonFeatureMunicipiosPuntos = geoData[1];
         this.geoJsonFeatureDistritos = geoData[2];
         this.geoJsonFeatureDistritosPuntos = geoData[3];
-        this.geoJsonFeatureSecciones = geoData[4];
+        // this.geoJsonFeatureSecciones = geoData[4];
 
         this.visualizarMapa(this.geoJsonFeatureMunicipios);
         this.loadPuntosObra();
@@ -1023,7 +1026,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  mostrarPuntosObra(info) {
+  mostrarPuntosObra(info: any, opcion?: string) {
     if (this.obrasMarksLayer) {
       this.map.removeLayer(this.obrasMarksLayer);
     }
@@ -1062,6 +1065,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         //   });
         this.markObrasId.push({ id: point.id, marker, popupComponentRef, popup });
         marker.on('popupclose', (e) => {
+          this.hideFiltersTotales = false;
           if (this.map.getZoom() > 8) {
             this.map.flyTo([point.latitud, point.longitud]);
           } else {
@@ -1070,6 +1074,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         });
       }
     });
+    if (opcion === 'filtrar') {
+      this.filtrarLocal();
+    }
   }
 
   loadObraDetalle(marker: any, idObra: number, popupComponentRef, popup) {
@@ -1084,9 +1091,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           marker.on('popupopen', (e) => {
             const px = this.map.project(e.target._popup._latlng);
             px.y -= e.target._popup._container.clientHeight / 2;
+            px.y = px.y - 35;
+
             this.map.panTo(this.map.unproject(px), { animate: true });
           });
           marker.bindPopup(popup).openPopup();
+          this.hideFiltersTotales = true;
         }, 100);
       },
       error: (err: unknown) => {

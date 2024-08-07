@@ -2,17 +2,6 @@ export interface DatosReportePorMunicipio {
   municipio: string;
   inversion: number;
   porcentajeInversion: number;
-  tiposObra: string[];
-}
-
-export interface DatosReportePorMunicipio {
-  tipoObra: string;
-  obras: ObraReporte[];
-}
-
-export interface ObraPortalReporte {
-  obras: ObraReporte[];
-  inversionTotal: number;
 }
 
 export interface ObraReporte {

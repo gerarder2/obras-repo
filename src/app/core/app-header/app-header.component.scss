@@ -2,10 +2,17 @@
 @import './../../../scss/core/mixins';
 @import './../../../scss/core/variables';
 
+.app-header.navbar .navbar-brand {
+  @include breakpoint('md') {
+    width: 235px;
+  }
+}
+
 .app-header.navbar {
-  
+
   border-bottom-right-radius: 42px;
   border-bottom-left-radius: 42px;
+  border: none;
 
   a.navbar-brand {
     border-bottom-left-radius: 42px;
@@ -36,10 +43,23 @@
   }
 }
 
+ul.nav.navbar-nav.ml-auto {
 
+  /* Retina */
+  @include breakpoint('md') {
+    position: relative;
+    top: -53px;
+  }
+  @include breakpoint('xl') {
+    position: unset;
+    top:0;
+  }
+}
 
 ::ng-deep typeahead-container.dropdown-menu {
   height: 450px !important;
+  position: relative;
+  
 }
 
 .custom-list-group {
