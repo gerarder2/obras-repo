@@ -27,9 +27,9 @@
 }
 
 
-.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-    background-color: $wine-50;
- }
+// .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+//     background-color: $wine-50;
+//  }
 
  .progress {
     display: flex;
@@ -103,6 +103,9 @@ p-table ::ng-deep .p-datatable .p-sortable-column:hover .p-sortable-column-icon 
   }
   .p-button:focus {
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px $wine-50, 0 1px 2px 0 black;
+  }
+  small {
+    font-weight: 800;
   }
 }
 

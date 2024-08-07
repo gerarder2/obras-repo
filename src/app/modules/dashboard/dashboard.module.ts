@@ -16,7 +16,6 @@ import { MenuModule } from 'primeng/menu';
 import { NgChartsModule } from 'ng2-charts';
 import { NgModule } from '@angular/core';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
-import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { OverlayModule } from 'primeng/overlay';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -26,6 +25,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SidebarModule } from 'primeng/sidebar';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ListaElementosComponent } from './lista-elementos/lista-elementos.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { GalleriaModule } from 'primeng/galleria';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   imports: [
@@ -49,10 +52,20 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     TreeSelectModule,
     NgScrollbarModule,
     ModalModule.forRoot(),
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+    PopoverModule.forRoot(),
+    GalleriaModule,
+    NgScrollbarModule
   ],
-  declarations: [DashboardComponent, GraficaPastelComponent, GraficaViewComponent, CardInformationComponent],
+  declarations: [
+    DashboardComponent,
+    GraficaPastelComponent,
+    GraficaViewComponent,
+    CardInformationComponent,
+    ListaElementosComponent
+  ],
   providers: [CatalogosService, { provide: LOCALE_ID, useValue: 'en-US' }],
-  entryComponents: [CardInformationComponent]
+  entryComponents: [CardInformationComponent],
+  exports: [CardInformationComponent, ListaElementosComponent]
 })
 export class DashboardModule {}

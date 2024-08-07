@@ -141,6 +141,10 @@
     @media only screen and (min-width: $breakpoint-xl) { @content; }
     
   }
+  @else if  $breakpoint == xxl {
+    @media only screen and (min-width: $breakpoint-xxl) { @content; }
+    
+  }
   @else {
     @warn "Breakpoint mixing"
   } 

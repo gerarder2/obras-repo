@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { environment } from './../../environments/environment';
 import { map } from 'rxjs/operators';
+import { ConfigService } from './config.service';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,39 +16,56 @@ export class CatalogosService {
   public config: any;
   public geoJson: any;
   private locale: any;
+  private webApi: string;
+  private webApiMaatCore: string;
 
-  constructor(private http: HttpClient, private helperService: HelperService) {}
+  constructor(
+    private http: HttpClient,
+    private helperService: HelperService,
+    configService: ConfigService,
+    private auth: AuthenticationService
+  ) {
+    this.config = configService.getConfig();
+    this.webApi = this.config.webApi;
+    this.webApiMaatCore = this.config.webApiMaatCore;
+  }
 
   public getCatalogos() {
-    const obrasSocial = `${environment.webApi}/TipoObraSocial/Combo`;
-    const tiposModalidad = `${environment.webApi}/TipoModalidad/Combo`;
-    const organismos = `${environment.webApi}/Dependencia/Combo`;
-    const constratistas = `${environment.webApi}/Contratista/Combo`;
-    const tiposContrato = `${environment.webApi}/TipoContrato/Combo`;
+    const obrasSocial = `${this.webApi}/TipoObraSocial/Filtro`;
+    const tiposModalidad = `${this.webApi}/TipoModalidad/Combo`;
+    const organismos = `${this.webApiMaatCore}/Dependencia/Combo?IdAgrupador=${this.config.idAgrupador}`;
+    const constratistas = `${this.webApi}/Contratista/Combo?IdUsuario=${this.auth.currentUser().id}`;
+    const tiposContrato = `${this.webApi}/TipoContrato/Combo`;
+    const dependencias = `${this.webApi}/ObraPortal/ComboDependencias?IdUsuario=${this.auth.currentUser().id}`;
+    const distritos = `${this.webApiMaatCore}/Distrito/Combo`;
+
+    //74.208.25.33:8083/api/Distrito/Combo
 
     return forkJoin([
       this.http.get(obrasSocial),
       this.http.get(tiposModalidad),
       this.http.get(organismos),
       this.http.get(constratistas),
-      this.http.get(tiposContrato)
+      this.http.get(tiposContrato),
+      this.http.get(dependencias),
+      this.http.get(distritos)
     ]);
   }
 
   public getDistritos(queryParams: any): Observable<any> {
-    return this.http.get(`${environment.webApi}/Menu/Distritos`, { params: queryParams });
+    return this.http.get(`${this.webApiMaatCore}/Menu/Distritos`, { params: queryParams });
   }
 
   public getSecciones(queryParams: any): Observable<any> {
-    return this.http.get(`${environment.webApi}/Menu/Secciones`, { params: queryParams });
+    return this.http.get(`${this.webApiMaatCore}/Menu/Secciones`, { params: queryParams });
   }
 
   public getElecciones(queryParams: { idPuesto: number; anio: number; idMunicipio?: number }): Observable<any> {
-    return this.http.get(`${environment.webApi}/Menu/Elecciones`, { params: queryParams });
+    return this.http.get(`${this.webApiMaatCore}/Menu/Elecciones`, { params: queryParams });
   }
 
   public getObras(tiposObra: any[], queryParams?: any) {
-    return this.http.get(`${environment.webApi}/Obras/Obras`, { params: queryParams }).pipe(
+    return this.http.get(`${this.webApi}/Obras/Obras`, { params: queryParams }).pipe(
       map((response: any) => {
         let totalObras = 0;
         let costos = 0;
@@ -106,7 +125,7 @@ export class CatalogosService {
   }
 
   public getObrasTiposObra() {
-    return this.http.get(`${environment.webApi}/Obras/TiposObra`).pipe(
+    return this.http.get(`${this.webApi}/Obras/TiposObra`).pipe(
       map((response: any) => {
         for (const element of response.data) {
           switch (element.id) {
@@ -121,6 +140,12 @@ export class CatalogosService {
               break;
             case 4:
               element.icon = 'fas fa-hand-holding-droplet';
+              break;
+            case 5:
+              element.icon = 'fas fa-handshake-angle';
+              break;
+            case 6:
+              element.icon = 'fas fa-bridge-water';
               break;
           }
           if (element.tiposObra.length > 0) {
@@ -174,7 +199,7 @@ export class CatalogosService {
     anio: number;
     idDistrito?: number;
   }): Observable<any> {
-    return this.http.get(`${environment.webApi}/Menu/EleccionesSecciones`, { params: queryParams });
+    return this.http.get(`${this.webApiMaatCore}/Menu/EleccionesSecciones`, { params: queryParams });
   }
 
   private mapNodes(nodes: any[]): TreeNode[] {
@@ -190,7 +215,7 @@ export class CatalogosService {
   }
 
   public getSeccionesEspeciales(queryParams: { anio: number; puesto: number }): Observable<any> {
-    return this.http.get(`${environment.webApi}/Menu/SeccionesEspeciales`, { params: queryParams });
+    return this.http.get(`${this.webApiMaatCore}/Menu/SeccionesEspeciales`, { params: queryParams });
   }
 
   public getEleccionesSeccionesEspeciales(queryParams: {
@@ -199,20 +224,23 @@ export class CatalogosService {
     idDistrito?: number;
     idsSeccionesEspeciales: string;
   }): Observable<any> {
-    return this.http.get(`${environment.webApi}/Menu/EleccionesSecciones`, { params: queryParams });
+    return this.http.get(`${this.webApiMaatCore}/Menu/EleccionesSecciones`, { params: queryParams });
   }
 
   public getMapaObras(queryParams?: {
+    idDependencia?: number;
     idTipoObraSocial: number;
-    idsMunicipios: number;
+    idMunicipio: number;
     ejercicio: number;
     estatus?: string;
+    idUsuario?: number;
   }): Observable<any> {
     // queryParams.estatus = 'TODAS';
-    return this.http.get(`${environment.webApi}/ObraPortal/Mapa`, { params: queryParams });
+    queryParams.idUsuario = this.auth.currentUser().id;
+    return this.http.get(`${this.webApi}/ObraPortal/Mapa`, { params: queryParams });
   }
 
   public getObrasTotales(queryParams?: any): Observable<any> {
-    return this.http.get(`${environment.webApi}/ObraPortal/Totales`, { params: queryParams });
+    return this.http.get(`${this.webApi}/ObraPortal/Totales`, { params: queryParams });
   }
 }

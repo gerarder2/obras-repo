@@ -36,14 +36,16 @@ export class LicitacionesComponent implements OnInit {
   public tiposContrato: any[];
   public organismos: any[];
 
-  public montoTotalEjercido: number;
-  public totalLicitaciones: number;
-  public montoMaximoContratos: number;
-
   // Variables Mensajes y Modal
   private mensaje: Mensaje;
-  private bsModalRef: BsModalRef;
+  private bsLicitacionModalRef: BsModalRef;
   private config;
+
+  //Variables data
+  public licitacionesTabla: any[];
+  public licitacionesPorDependencia: any[];
+  public eventosPorDependencia: any[];
+
   // ------------------------------------------------ //
 
   constructor(
@@ -67,32 +69,11 @@ export class LicitacionesComponent implements OnInit {
 
     this.tabla2 = [];
 
-    this.licitacionesData = [
-      // {
-      //   numeroContrato: 'IO-956235',
-      //   objeto:
-      //     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,',
-      //   fecha: '2023-05-05',
-      //   monto: '12032145658',
-      //   avance: 30
-      // },
-      // {
-      //   numeroContrato: 'IO-856235',
-      //   objeto:
-      //     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s,',
-      //   fecha: '2023-05-05',
-      //   monto: '52032145658',
-      //   avance: 50
-      // },
-      // {
-      //   numeroContrato: 'IO-456235',
-      //   objeto:
-      //     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,',
-      //   fecha: '2023-05-05',
-      //   monto: '96032145658',
-      //   avance: 10
-      // }
-    ];
+    this.licitacionesData = [];
+
+    this.licitacionesTabla = [];
+    this.licitacionesPorDependencia = [];
+    this.eventosPorDependencia = [];
 
     this.municipios = [
       { id: 0, nombre: 'TODOS LOS MUNICIPIOS', latitud: 25.91194, longitud: -109.1735 },
@@ -169,17 +150,17 @@ export class LicitacionesComponent implements OnInit {
 
     this.licitacionesService.getLicitacionDatos(queryParams).subscribe({
       next: (response: any) => {
-        this.licitacionesData = response.data;
-        // this.tabla1 = this.helperService.calcularAvanceObra(response.data.obrasPorTipo);
-        // this.tabla2 = this.helperService.calcularAvanceObraEjercicio(response.data.obrasPorEjercicio);
+        this.licitacionesTabla = response.data.licitaciones;
+        this.licitacionesPorDependencia = this.helperService.calcularAvanceLicitacion(
+          response.data.licitacionesPorDependencia
+        );
+        console.log(this.licitacionesPorDependencia);
 
-        // const sum = this.licitacionesData.reduce((accumulator, element) => {
-        //   return accumulator + element.montoInversion;
-        // }, 0);
-        this.totalLicitaciones = this.licitacionesData.length;
-        this.cardLicitaciones[0].cantidad = this.totalLicitaciones;
-        // this.montoTotalEjercido = sum;
-        // this.montoMaximoContratos = sum;
+        this.eventosPorDependencia = this.helperService.calcularAvanceOrganismo(response.data.eventosPorDependencia);
+
+        this.cardLicitaciones[0].cantidad = response.data.totales.totalLicitaciones;
+        this.cardLicitaciones[1].cantidad = response.data.totales.totalEventos;
+        this.cardLicitaciones[2].cantidad = response.data.totales.totalDependencias;
         this.blockUIList.stop();
       },
       error: (err: unknown) => {
@@ -217,15 +198,15 @@ export class LicitacionesComponent implements OnInit {
       }
     };
 
-    this.bsModalRef = this.bsModalService.show(LicitacionesModalComponent, {
+    this.bsLicitacionModalRef = this.bsModalService.show(LicitacionesModalComponent, {
       initialState,
       class: 'modal-primary modal-fullscreen',
       backdrop: 'static',
-      keyboard: true,
+      keyboard: false,
       ignoreBackdropClick: true
     });
 
-    this.bsModalRef.content.event.subscribe((res) => {
+    this.bsLicitacionModalRef.content.event.subscribe((res) => {
       console.warn(res);
     });
 

@@ -26,7 +26,7 @@ export class LicitacionesService {
     idContratista?: number;
     idTipoContrato?: number;
   }): Observable<any> {
-    return this.http.get(`${this.config.webApi}/Licitacion/Listado`, { params: queryParams });
+    return this.http.get(`${this.config.webApi}/ObraPortal/ListadoLicitaciones`, { params: queryParams });
   }
 
   public getLicitacionDatosById(obra: { idObra?: number }): Observable<any> {

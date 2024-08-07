@@ -12,12 +12,77 @@ import { TipoObra } from './../modules/dashboard/models/tipoobra.interface';
 import { VotoDistrito } from './../modules/dashboard/models/votodistrito.interface';
 import { VotoMunicipio } from './../modules/dashboard/models/votomunicipio.interface';
 import { VotoSeccion } from './../modules/dashboard/models/votoseccion.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HelperService {
-  constructor(private localStorageService: LocalStorageService) {}
+  private idObraSeleccionada = new BehaviorSubject<string>(null);
+  private info: any;
+  private closePopupEvent = new BehaviorSubject<string>(null);
+
+  private tipoObrasUI = [
+    {
+      idTipoObraSocial: 1,
+      icon: 'fas agua',
+      color: '44BBED'
+    },
+    {
+      idTipoObraSocial: 2,
+      icon: 'fas caminos',
+      color: '691B32'
+    },
+    {
+      idTipoObraSocial: 3,
+      icon: 'fas deporte',
+      color: 'E397B4'
+    },
+    {
+      idTipoObraSocial: 4,
+      icon: 'fas drenaje',
+      color: '84559E'
+    },
+    {
+      idTipoObraSocial: 5,
+      icon: 'fas electrificacion',
+      color: 'BC955B'
+    },
+    {
+      idTipoObraSocial: 6,
+      icon: 'fas represas',
+      color: '2D2A26'
+    },
+    {
+      idTipoObraSocial: 7,
+      icon: 'fas salud',
+      color: '27578A'
+    },
+    {
+      idTipoObraSocial: 8,
+      icon: 'fas seguridad',
+      color: '235C4E'
+    },
+    {
+      idTipoObraSocial: 9,
+      icon: 'fas servicios',
+      color: 'EA9256'
+    },
+    {
+      idTipoObraSocial: 10,
+      icon: 'fas urbana',
+      color: '777777'
+    },
+    {
+      idTipoObraSocial: 11,
+      icon: 'fas vialidades',
+      color: 'D92562'
+    }
+  ];
+
+  constructor(private localStorageService: LocalStorageService) {
+    this.info = {};
+  }
 
   public getGeoJsonByGroup(
     opcion: string,
@@ -364,26 +429,58 @@ export class HelperService {
     return grupoTiposObra;
   }
 
+  public getIconTipoObras(idTipoObraSocial: number) {
+    return this.tipoObrasUI[idTipoObraSocial - 1];
+  }
+
   public formatTipoObras(tiposObras: TipoObra[]) {
     for (const item of tiposObras) {
       item.conteo = 0;
       item.checked = true;
       switch (item['id']) {
         case 1:
-          item.icon = 'fas fa-landmark';
-          item.color = 'wine';
+          item.icon = 'fas agua';
+          item.color = '44BBED';
           break;
         case 2:
-          item.icon = 'fas fa-city';
-          item.color = 'green';
+          item.icon = 'fas caminos';
+          item.color = '691B32';
           break;
         case 3:
-          item.icon = ' fas fa-bus';
-          item.color = 'wine-100';
+          item.icon = ' fas deporte';
+          item.color = 'E397B4';
           break;
         case 4:
-          item.icon = 'fas fa-hand-holding-droplet';
-          item.color = 'gold-800';
+          item.icon = 'fas drenaje';
+          item.color = '84559E';
+          break;
+        case 5:
+          item.icon = 'fas electrificacion';
+          item.color = 'BC955B';
+          break;
+        case 6:
+          item.icon = 'fas represas';
+          item.color = '2D2A26';
+          break;
+        case 7:
+          item.icon = 'fas salud';
+          item.color = '27578A';
+          break;
+        case 8:
+          item.icon = 'fas seguridad';
+          item.color = '235C4E';
+          break;
+        case 9:
+          item.icon = 'fas servicios';
+          item.color = 'EA9256';
+          break;
+        case 10:
+          item.icon = 'fas urbana';
+          item.color = '777777';
+          break;
+        case 11:
+          item.icon = 'fas vialidades';
+          item.color = 'D92562';
           break;
       }
     }
@@ -391,9 +488,11 @@ export class HelperService {
   }
   public filtrarData(info) {
     const filtros = {
+      idDependencia: info.idDependencia,
       idMunicipio: info.idMunicipio,
       estatus: info.estatus,
-      idTipoObraSocial: []
+      idTipoObraSocial: [],
+      idDistrito: info.idDistrito
     };
     // Obtener los tipos de obrasocial seleccionados
     info.tiposObras.forEach((element) => {
@@ -402,7 +501,13 @@ export class HelperService {
       }
     });
     const resultado = info.puntosMapa.data.filter((obra) => {
+      if (filtros.idDependencia && obra.idDependencia !== filtros.idDependencia) {
+        return false;
+      }
       if (filtros.idMunicipio && obra.idMunicipio !== filtros.idMunicipio) {
+        return false;
+      }
+      if (filtros.idDistrito && obra.idDistrito !== filtros.idDistrito) {
         return false;
       }
       if (filtros.estatus !== 'TODAS' && obra.estatus !== filtros.estatus) {
@@ -419,40 +524,40 @@ export class HelperService {
     return { data: resultado };
   }
 
-  calcularAvanceObra(obrasPorTipo: any[]) {
+  public calcularAvanceObra(obrasPorTipo: any[]) {
     const tabla1 = [];
     const sum = obrasPorTipo.reduce((accumulator, element) => {
       return accumulator + element.numeroObras;
     }, 0);
 
     obrasPorTipo.forEach((element, index) => {
-      const avance = Math.round((element.numeroObras / sum) * 100);
+      const avance = ((element.numeroObras / sum) * 100).toFixed(1);
 
       tabla1.push({
         id: index + 1,
         nombre: element.descripcionTipoObraSocial,
-        progreso: avance,
-        color: avance > 30 ? (avance > 60 ? 'green' : 'gold-500') : 'wine'
+        progreso: parseFloat(avance),
+        color: parseInt(avance) > 30 ? (parseInt(avance) > 60 ? 'green' : 'gold-500') : 'wine'
       });
     });
 
     return tabla1;
   }
 
-  calcularAvanceObraEjercicio(obrasPorEjercicio: any[]) {
+  public calcularAvanceObraEjercicio(obrasPorEjercicio: any[]) {
     const tabla2 = [];
     const sum = obrasPorEjercicio.reduce((accumulator, element) => {
       return accumulator + element.numeroObras;
     }, 0);
 
     obrasPorEjercicio.forEach((element, index) => {
-      const avance = Math.round((element.numeroObras / sum) * 100);
+      const avance = ((element.numeroObras / sum) * 100).toFixed(1);
 
       tabla2.push({
         id: index + 1,
         nombre: element.ejercicio,
-        progreso: avance,
-        color: avance > 30 ? (avance > 60 ? 'green' : 'gold-500') : 'wine'
+        progreso: parseFloat(avance),
+        color: parseInt(avance) > 30 ? (parseInt(avance) > 60 ? 'green' : 'gold-500') : 'wine'
       });
     });
 
@@ -465,5 +570,65 @@ export class HelperService {
       objeto.conteo = coincidencias?.length;
     });
     return tiposObras;
+  }
+
+  calcularAvanceLicitacion(licitacionesPorOrganismo: any[]) {
+    const tabla1 = [];
+    const sum = licitacionesPorOrganismo.reduce((accumulator, element) => {
+      return accumulator + element.numeroLicitaciones;
+    }, 0);
+
+    licitacionesPorOrganismo.forEach((element, index) => {
+      const avance = Math.round((element.numeroLicitaciones / sum) * 100);
+
+      tabla1.push({
+        id: index + 1,
+        nombre: element.descripcionDependencia,
+        progreso: avance,
+        color: avance > 30 ? (avance > 60 ? 'green' : 'gold-500') : 'wine'
+      });
+    });
+
+    return tabla1;
+  }
+  calcularAvanceOrganismo(licitacionesPorOrganismo: any[]) {
+    const tabla1 = [];
+    const sum = licitacionesPorOrganismo.reduce((accumulator, element) => {
+      return accumulator + element.numeroEventos;
+    }, 0);
+
+    licitacionesPorOrganismo.forEach((element, index) => {
+      const avance = Math.round((element.numeroEventos / sum) * 100);
+
+      tabla1.push({
+        id: index + 1,
+        nombre: element.descripcionDependencia,
+        progreso: avance,
+        color: avance > 30 ? (avance > 60 ? 'green' : 'gold-500') : 'wine'
+      });
+    });
+
+    return tabla1;
+  }
+
+  setIdObraSeleccionada(valor: string) {
+    this.idObraSeleccionada.next(valor);
+  }
+
+  getIdObraSeleccionada(): Observable<string> {
+    return this.idObraSeleccionada.asObservable();
+  }
+
+  setClosePopup(valor: string, info: any) {
+    this.info = info;
+    this.closePopupEvent.next(valor);
+  }
+
+  getClosePopup(): Observable<string> {
+    return this.closePopupEvent.asObservable();
+  }
+
+  getInfo() {
+    return this.info;
   }
 }

@@ -13,6 +13,7 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    canActivate: [AuthGuard],
     path: '',
     component: FullLayoutComponent,
     data: {
@@ -31,6 +32,18 @@ export const routes: Routes = [
       {
         path: 'datos-abiertos',
         loadChildren: () => import('./modules/datos-abiertos/datos-abiertos.module').then((m) => m.DatosAbiertosModule)
+      },
+      {
+        path: 'informe',
+        loadChildren: () => import('./modules/informe/informe.module').then((m) => m.InformeModule)
+      },
+      {
+        path: 'caminos',
+        loadChildren: () => import('./modules/caminos/caminos.module').then((m) => m.CaminosModule)
+      },
+      {
+        path: 'mapa-obras',
+        loadChildren: () => import('./modules/mapa-obras/mapa-obras.module').then((m) => m.MapaObrasModule)
       }
     ]
   },

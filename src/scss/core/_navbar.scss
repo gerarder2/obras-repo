@@ -18,7 +18,7 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: $navbar-brand-logo-size;
-    @include borders($navbar-brand-border);
+    //@include borders($navbar-brand-border);
   }
 
   .navbar-toggler {
@@ -38,6 +38,7 @@
   .navbar-nav {
     flex-direction: row;
     align-items: center;
+    font-weight: 600;
   }
 
   .nav-item {

@@ -19,6 +19,10 @@ import {
 } from 'ng-apexcharts';
 import { Evidencia } from '../../dashboard/models/evidencia.interface';
 import { Imagen } from '../../dashboard/models/imagen.interface';
+import * as moment from 'moment';
+import { Avance } from '../../dashboard/models/avance.interface';
+import { UltimaEvidencia } from '../../dashboard/models/ultimaEvidencia.interface';
+import { HelperService } from '../../../helpers/helper.service';
 
 export type ChartOptionsRadial = {
   colors: string[];
@@ -68,6 +72,7 @@ export class ObrasModalComponent implements OnInit {
   public eventos: any[];
   public obra: Obra;
   public evidencia: Evidencia;
+  public obraAvancesSorter: Avance[];
   // end
 
   //charts
@@ -75,6 +80,7 @@ export class ObrasModalComponent implements OnInit {
   public chartOptionsLine: Partial<ChartOptionsLine>;
   public showGraficaPorcentaje: boolean;
   public chartOptionsPie: Partial<ChartOptionsPie>;
+  public showCharts: boolean;
 
   //Layout
   public showCarousel: boolean;
@@ -89,7 +95,12 @@ export class ObrasModalComponent implements OnInit {
   private mensaje: Mensaje;
   private graphicPalette: string[];
 
-  constructor(public bsModalRef: BsModalRef, private obrasService: ObrasService) {
+  constructor(
+    public bsObraModalRef: BsModalRef,
+    private obrasService: ObrasService,
+    private helperService: HelperService
+  ) {
+    this.showCharts = false;
     this.graphicPalette = ['#952431', '#B18147', '#3D5C4F', '#6610f2'];
     this.mensaje = new Mensaje();
     this.eventos = [];
@@ -119,14 +130,17 @@ export class ObrasModalComponent implements OnInit {
 
   // Angular metodos del ciclo de vida del componente
   ngOnInit(): void {
-    console.log(this.params);
     this.loadObraDetalle();
   }
   public loadObraDetalle() {
     this.obrasService.getObrasDatosById({ idObra: this.params.id }).subscribe({
       next: (response) => {
-        console.log(response);
         this.obra = response.data;
+
+        if (this.obra.licitacion) {
+          this.params.licitacion = this.obra.licitacion;
+        }
+
         this.generarGraficas();
       },
       error: (err: unknown) => {
@@ -135,9 +149,9 @@ export class ObrasModalComponent implements OnInit {
     });
   }
 
-  public onImageSelected(evidencia: Evidencia, index) {
+  public onImageSelected(evidencia: Evidencia, index, ultimasImagenes?: UltimaEvidencia[]) {
     this.evidencia = evidencia;
-    this.images = this.formatImages(evidencia.imagenes);
+    this.images = this.formatImages(ultimasImagenes ? ultimasImagenes : evidencia.imagenes);
     // this.showCarousel = true;
     this.imageIndex = index;
     this.activeIndex = index;
@@ -155,12 +169,6 @@ export class ObrasModalComponent implements OnInit {
         title: `Imagen - ${index + 1}`
       });
     });
-    imgs.push({
-      previewImageSrc: './assets/img/sample_1.jpeg',
-      thumbnailImageSrc: './assets/img/sample_1.jpeg',
-      alt: '',
-      title: ''
-    });
     return imgs;
   }
 
@@ -168,21 +176,35 @@ export class ObrasModalComponent implements OnInit {
     // Porcentaje Avance
     const seriesPie = [];
     const seriesPieLabel = [];
+
+    const categories = [];
+    const data = [];
+
+    this.obraAvancesSorter = [...this.obra.avances];
+
+    this.obraAvancesSorter.sort((a, b) => {
+      return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() || b.id - a.id;
+    });
+
     const porcentaje = this.obra.avances.reduce((accumulator, element) => {
       return accumulator + element.porcentaje;
     }, 0);
 
-    this.obra.avances.forEach((element) => {
+    this.obra?.avances?.forEach((element) => {
       seriesPie.push(element.porcentaje);
-      seriesPieLabel.push(element.id);
+      seriesPieLabel.push(`${moment(element.fecha).format('DD/MMM/YYYY')}`);
+
+      const fecha = moment(element.fecha).format('DD/MMMM/YYYY');
+      categories.push(fecha.toString());
+      data.push(element.porcentaje);
     });
 
     this.showGraficaPorcentaje = true;
     this.chartOptionsRadial = {
       colors: this.graphicPalette,
-      series: [this.obra.avances.length > 1 ? Math.round(porcentaje / 2) : porcentaje],
+      series: [this.obra.avances.length > 0 ? this.obra.avances[this.obra.avances.length - 1].porcentaje : 0],
       chart: {
-        height: 200,
+        height: 210,
         type: 'radialBar'
       },
       plotOptions: {
@@ -198,7 +220,7 @@ export class ObrasModalComponent implements OnInit {
       stroke: {
         lineCap: 'round'
       },
-      labels: ['Avance']
+      labels: ['Avance de Obra']
     };
 
     // Line
@@ -206,16 +228,17 @@ export class ObrasModalComponent implements OnInit {
       colors: this.graphicPalette,
       series: [
         {
-          name: 'Desktops',
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          name: '% Avance',
+          data: data ? data : [0]
         }
       ],
       chart: {
-        height: 250,
+        height: 180,
         type: 'line',
         zoom: {
           enabled: false
-        }
+        },
+        fontFamily: 'Montserrat'
       },
       dataLabels: {
         enabled: false
@@ -226,7 +249,7 @@ export class ObrasModalComponent implements OnInit {
         // colors: ['#ff0000']
       },
       title: {
-        text: 'Product Trends by Month',
+        text: 'Avances de la Obra',
         align: 'left'
       },
       grid: {
@@ -240,7 +263,7 @@ export class ObrasModalComponent implements OnInit {
         size: [5]
       },
       xaxis: {
-        categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep']
+        categories: categories
       }
     };
 
@@ -268,14 +291,33 @@ export class ObrasModalComponent implements OnInit {
         }
       ]
     };
+    this.showCharts = true;
   }
 
   // Cerrar el modal, ademas envia la informacion al componente list correspondiente. No modificar
-  private closeModal(data: any) {
+  public closeModal(data?: any) {
     const response = {
       data
     };
     this.event.next(response);
-    this.bsModalRef.hide();
+    this.helperService.setClosePopup('closeObraModal', this.obra);
+    this.bsObraModalRef.hide();
+  }
+
+  // openGoogleMaps(): string {
+  //   let url = '';
+  //   url = `https://www.google.com/maps?q=${this.obra.latitud},${this.obra.longitud}&ll=${this.obra.latitud},${this.obra.longitud}&z=10`;
+  //   return url;
+  //   //window.open(url, '_blank');
+  // }
+
+  openGoogleMaps(): string {
+    let url = '';
+    if (this.obra) {
+      url = `https://www.google.com/maps?q=${this.obra.latitud},${this.obra.longitud}&ll=${this.obra.latitud},${this.obra.longitud}&z=10`;
+      return url;
+    }
+    return '';
+    //window.open(url, '_blank');
   }
 }

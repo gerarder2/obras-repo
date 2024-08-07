@@ -63,6 +63,11 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { fakeBackendProvider } from './helpers/fake-backend';
 import localeEsMx from '@angular/common/locales/es';
 import { SharedModule } from 'primeng/api';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { FormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AppUpdatePopupComponent } from './shared-components/app-update-popup/app-update-popup.component';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 registerLocaleData(localeEsMx);
 
@@ -82,7 +87,8 @@ const APP_COMPONENTS = [
   AppSidebarNavDropdownComponent,
   AppSidebarNavItemComponent,
   AppSidebarNavLinkComponent,
-  AppSidebarNavTitleComponent
+  AppSidebarNavTitleComponent,
+  AppUpdatePopupComponent
 ];
 
 const APP_DIRECTIVES = [
@@ -122,7 +128,11 @@ export function ConfigLoader(configService: ConfigService) {
     PerfectScrollbarModule,
     SidebarModule,
     ProgressBarModule,
-    SharedModule
+    SharedModule,
+    TypeaheadModule.forRoot(),
+    FormsModule,
+    ModalModule.forRoot(),
+    AlertModule
   ],
   declarations: [AppComponent, ...APP_CONTAINERS, ...APP_COMPONENTS, ...APP_DIRECTIVES],
   providers: [
@@ -145,7 +155,7 @@ export function ConfigLoader(configService: ConfigService) {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
-    { provide: LOCALE_ID, useValue: 'es' },
+    { provide: LOCALE_ID, useValue: 'en-US' },
     ConfigService,
     {
       provide: APP_INITIALIZER,

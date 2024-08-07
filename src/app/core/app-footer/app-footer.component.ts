@@ -6,9 +6,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppFooterComponent implements OnInit {
   public copyRightYear: number;
-  constructor() {}
+  public showSocials: boolean;
+  public version: string;
+  constructor() {
+    this.showSocials = false;
+  }
 
   public ngOnInit() {
     this.copyRightYear = new Date().getFullYear();
+    this.version = localStorage.getItem('version');
   }
 }

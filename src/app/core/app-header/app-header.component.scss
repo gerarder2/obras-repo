@@ -1,23 +1,151 @@
 @import './../../../scss/bootstrap-variables';
+@import './../../../scss/core/mixins';
+@import './../../../scss/core/variables';
+
+.app-header.navbar .navbar-brand {
+  @include breakpoint('md') {
+    width: 235px;
+  }
+}
+
+.app-header.navbar {
+
+  border-bottom-right-radius: 42px;
+  border-bottom-left-radius: 42px;
+  border: none;
+
+  a.navbar-brand {
+    border-bottom-left-radius: 42px;
+
+  }
+}
 
 .app-header.navbar .nav-item {
-    height: 50px;
-    margin-left: 10px !important;
-    margin-right: 10px !important;
-    .nav-link {
-        line-height: 50px;
-        color: $gray-300;
-    }
-    .nav-link:hover {
-        line-height: 50px;
-        color: $gray-100;
-    }
+  height: 50px;
+
+  .nav-link {
+    line-height: 50px;
+    color: $gray-300;
+  }
+
+  .nav-link:hover {
+    line-height: 50px;
+    color: $gray-100;
+  }
 }
+
 .app-header.navbar .nav-item.active {
-    border-bottom: 3px solid $gold-800;
-    
-    .nav-link.active {
-        font-weight: 500;
-        color: $white;
-    }
+  border-bottom: 3px solid $gold-800;
+
+  .nav-link.active {
+    font-weight: 500;
+    color: $white;
+  }
+}
+
+ul.nav.navbar-nav.ml-auto {
+
+  /* Retina */
+  @include breakpoint('md') {
+    position: relative;
+    top: -53px;
+  }
+  @include breakpoint('xl') {
+    position: unset;
+    top:0;
+  }
+}
+
+::ng-deep typeahead-container.dropdown-menu {
+  height: 450px !important;
+  position: relative;
+  
+}
+
+.custom-list-group {
+  display: flex;
+  flex-direction: column;
+  width: 275;
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  height: 300px;
+
+  @include breakpoint('xl') {
+    width: 500px !important;
+  }
+}
+
+.custom-list-group-item {
+  position: relative;
+  display: block;
+  padding: .75rem 1.25rem;
+  background-color: $gray-200;
+
+  .card {
+    cursor: pointer;
+  }
+}
+
+.custom-list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: $wine-800;
+  border-color: $wine-800;
+}
+
+.result-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+.no-results-message {
+  position: absolute;
+  top: calc(100% + 5px);
+  /* Ajusta el espaciado vertical entre el input y el mensaje */
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+i.wine {
+  color: $wine;
+}
+
+i.wine-100 {
+  color: $wine-100;
+}
+
+
+i.gold {
+  color: $gold;
+}
+
+i.gold-800 {
+  color: $gold-800;
+}
+
+i.green {
+  color: $green;
+}
+
+i.blue {
+  color: $blue;
+}
+
+.result-count {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+  /* Asegura que el div se superponga a la lista de coincidencias */
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  /* Línea separadora */
 }

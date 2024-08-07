@@ -6,6 +6,11 @@
  * @license MIT
  */
 
+ @font-face {
+  font-family: 'Mestiza-Bold';
+  src: url('./../assets/fonts/Mestiza-Bold.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+} 
+
 html {
   font-size: 14px;
 }
@@ -52,6 +57,7 @@ html {
 @import '~ag-grid-community/dist/styles/ag-theme-balham.css';
 
 
+
 .modal-fullscreen {
   padding: 0 !important; // override inline padding-right added from js
 }
@@ -59,9 +65,35 @@ html {
   width: 90%;
   max-width: none;
   margin: 1.75rem auto;
-  overflow-y: initial !important
+  overflow-y: initial !important;
+  @include breakpoint('xl') {
+    width: 90%;
+   }
+
 }
 .modal-fullscreen .modal-content {
+  height: 92vh !important;
+  // overflow: hidden;
+  .modal-body{
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+}
+}
+
+.modal-fullscreen-x2 {
+  padding: 0 !important; // override inline padding-right added from js
+}
+.modal-fullscreen-x2.modal-dialog {
+  width: 95%;
+  max-width: none;
+  margin: 1.75rem auto;
+  overflow-y: initial !important;
+  @include breakpoint('xl') {
+    width: 98%;
+   }
+
+}
+.modal-fullscreen-x2 .modal-content {
   height: 92vh !important;
   // overflow: hidden;
   .modal-body{
@@ -82,5 +114,12 @@ img.carousel {
   @include breakpoint('xs') {
     width: 100%;
     height: auto;
+   }
+}
+
+.typeahead-search-input {
+  width: 275px !important;
+  @include breakpoint('xl') {
+    width: 500px !important;
    }
 }

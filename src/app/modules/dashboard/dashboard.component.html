@@ -1,7 +1,6 @@
-<section class="container-header">
+<section class="container-header" *ngIf="false">
   <div class="titulo-header">
-    <h5>Bienvenido al portal</h5>
-    <h4>OBRAS PUBLICAS SINALOA</h4>
+    <h4>SISTEMA DE ADMINISTRACIÓN Y GESTIÓN DE PROYECTOS</h4>
   </div>
   <div class="desc-header">
     <h4>{{ montoInversion | currency }} MXN</h4>
@@ -9,117 +8,166 @@
   </div>
 </section>
 <section class="map-container">
-  <!-- sidebar -->
-  <div class="map-sidebar map-sidebar-open">
-    <div class="map-sidebar-header">
-      <h6 class="header-title">Configuración</h6>
-      <button class="btn btn-sm btn-gold-100 icon text-white" (click)="recargarInfo()">
-        <i class="fas fa-rotate"></i>
-      </button>
-    </div>
-
-    <div class="map-sidebar-body">
-      <h6 class="header-title">Por Tipo de Obra</h6>
-      <section class="tipo-obras">
-        <div class="col-xs-10" *ngFor="let tipo of tiposObras">
-          <p-inputSwitch
-            [(ngModel)]="tipo.checked"
-            [class]="'small-input-switch p-mr-2 custom-' + tipo.color"
-            (onChange)="onChangeTipoObra(tipo)"
-          ></p-inputSwitch>
-          <label class="label-switch" for="switch1"
-            ><i class="fas" [ngClass]="tipo.icon"></i> {{ tipo.descripcion }} ({{ tipo.conteo }})
-          </label>
-        </div>
-      </section>
-      <h6 class="header-title">Por Municipio</h6>
-      <section>
-        <div class="form-group">
-          <p-dropdown
-            class="p-inputtext-sm"
-            (onChange)="filtrar()"
-            appendTo="body"
-            [options]="municipios"
-            [(ngModel)]="municipioSeleccionado"
-            placeholder="Seleccione..."
-            optionLabel="nombre"
-            [showClear]="false"
-          ></p-dropdown>
-        </div>
-      </section>
-      <h6 class="header-title">Por Años</h6>
-      <section class="drop-years">
-        <div class="form-group">
-          <p-dropdown
-            class="p-inputtext-sm"
-            (onChange)="filtrar()"
-            appendTo="body"
-            [options]="periodos"
-            [(ngModel)]="periodoSeleccionado"
-            placeholder="Seleccione..."
-            optionLabel="descripcion"
-            [showClear]="false"
-          ></p-dropdown>
-        </div>
-      </section>
-      <h6 class="header-title">Por Estatus de Obra</h6>
-      <section class="estatus-obras">
-        <div class="form-group">
-          <p-dropdown
-            class="p-inputtext-sm"
-            (onChange)="filtrar()"
-            appendTo="body"
-            [options]="estatusObras"
-            [(ngModel)]="estatusObrasSeleccionado"
-            placeholder="Seleccione..."
-            optionLabel="descripcion"
-            [showClear]="false"
-          ></p-dropdown>
-        </div>
-      </section>
-      <section>
-        <div class="form-group float-right">
-          <button class="btn btn-primary icon text-white" (click)="filtrar()">
-            <i class="fas fa-filter"></i> Filtrar
-          </button>
-        </div>
-      </section>
+  <ng-container *ngIf="!hideFiltersTotales">
+  <div class="lista-float-2" *ngIf="montoInversion">
+    <div class="contenido">
+      <app-lista-elementos
+        [titulo]="'Inversion Total Acumulada'"
+        [enableToggle]="false"
+        [totales]="montoInversion"
+        [currency]="true"
+        [active]="true"
+      >
+      </app-lista-elementos>
     </div>
   </div>
+
+  <div class="lista-float-3" >
+    <div class="contenido">
+      <app-lista-elementos
+        titulo="{{ 'Inversion Total Ejercida ' + annioActual }}"
+        [enableToggle]="false"
+        [totales]="montoInversionActual"
+        [currency]="true"
+        [active]="true"
+      >
+      </app-lista-elementos>
+    </div>
+  </div>
+
+  <div class="lista-float" *ngIf="listaItems.length > 0">
+    <div *ngFor="let item of listaItems; let i = index">
+      <app-lista-elementos
+        [titulo]="item.label"
+        [elementoActivo]="elementoActivo === i"
+        [totales]="item.totales"
+        [currency]="item.currency ? item.currency : false"
+        (click)="activarElemento(i)"
+      ></app-lista-elementos>
+    </div>
+  </div>
+  </ng-container>
+  <!-- sidebar -->
+  <ng-container *ngIf="!hideFiltersTotales">
+  <div class="map-sidebar" [ngClass]="{'map-sidebar-open': configCollapsed}">
+    <div style="max-width: 310px;">
+      <h5 class="map-sidebar-title">SISTEMA DE ADMINISTRACIÓN Y GESTIÓN DE PROYECTOS</h5>
+      <div class="map-sidebar-header">
+        <h6 class="header-title">Configuración</h6>
+        <div>
+          <button class="btn btn-sm btn-primary icon text-white" (click)="recargarInfo()">
+            <i class="fas fa-rotate"></i>
+          </button>
+          <button class="btn btn-sm btn-gold-100 icon text-white" (click)="configCollapsed = !configCollapsed">
+            <i class="fas" [ngClass]="{ 'fa-chevron-down': !configCollapsed, 'fa-chevron-up': configCollapsed }"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="map-sidebar-body col-md-12" style="padding: 0;" [collapse]="configCollapsed">
+        <h6 class="header-title">Por Tipo de Obra</h6>
+        <section class="tipo-obras">
+          <div class="col-xs-10" *ngFor="let tipo of tiposObras">
+            <p-inputSwitch
+              [(ngModel)]="tipo.checked"
+              [class]="'small-input-switch p-mr-2 custom-' + tipo.color"
+              (onChange)="onChangeTipoObra(tipo)"
+            ></p-inputSwitch>
+            <label class="label-switch" for="switch1"
+              >
+              <i class="fas" [ngClass]="tipo.icon" *ngIf="false"></i> 
+              {{ tipo.descripcion }} ({{ tipo.conteo }})
+            </label>
+          </div>
+        </section>
+        <h6 class="header-title">Por Municipio</h6>
+        <section>
+          <div class="form-group">
+            <p-dropdown
+              class="p-inputtext-sm"
+              (onChange)="filtrar()"
+              appendTo="body"
+              [options]="municipios"
+              [(ngModel)]="municipioSeleccionado"
+              placeholder="Seleccione..."
+              optionLabel="nombre"
+              [showClear]="false"
+            ></p-dropdown>
+          </div>
+        </section>
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="header-title">Por Años</h6>
+            <section class="drop-years">
+              <div class="form-group">
+                <p-dropdown
+                  class="p-inputtext-sm"
+                  (onChange)="filtrar()"
+                  appendTo="body"
+                  [options]="periodos"
+                  [(ngModel)]="periodoSeleccionado"
+                  placeholder="Seleccione..."
+                  optionLabel="descripcion"
+                  [showClear]="false"
+                ></p-dropdown>
+              </div>
+            </section>
+          </div>
+          <div class="col-md-6">
+            <h6 class="header-title">Por Estatus de Obra</h6>
+            <section class="estatus-obras">
+              <div class="form-group">
+                <p-dropdown
+                  class="p-inputtext-sm"
+                  (onChange)="filtrar()"
+                  appendTo="body"
+                  [options]="estatusObras"
+                  [(ngModel)]="estatusObrasSeleccionado"
+                  placeholder="Seleccione..."
+                  optionLabel="descripcion"
+                  [showClear]="false"
+                ></p-dropdown>
+              </div>
+            </section>        
+          </div>
+        </div>
+        <h6 class="header-title">Por Dependencia</h6>
+        <section>
+          <div class="form-group">
+            <p-dropdown
+              class="p-inputtext-sm"
+              (onChange)="filtrar()"
+              appendTo="body"
+              [options]="dependencias"
+              [(ngModel)]="dependenciaSeleccionada"
+              placeholder="Seleccione..."
+              optionLabel="nombre"
+              [showClear]="false"
+            ></p-dropdown>
+          </div>
+        </section>        
+        <section>
+          <div class="form-group float-left m-0">
+            <button class="btn btn-primary icon text-white" (click)="descargarReporte()">
+              <i class="fas fa-file-pdf"></i> Reporte
+            </button>
+          </div>
+          <div class="form-group float-right m-0">
+            <button class="btn btn-primary icon text-white" (click)="filtrar()">
+              <i class="fas fa-filter"></i> Filtrar
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  </ng-container>
   <!-- end sidebar -->
   <div
     *blockUI="'map-list'"
     class="map"
     [ngClass]="{ 'map-sidebar-open': sidebarOpen, 'map-asidebar-open': asidebarOpen }"
-    id="map"
-  ></div>
-</section>
-<section class="data-container ml-5 mr-5 mb-5">
-  <div class="h4 data-title">DATOS ABIERTOS</div>
-  <div class="datos-abiertos row">
-    <div class="col-12">
-      <div class="card-deck">
-        <div class="card shadow" *ngFor="let card of cards">
-          <img src="{{ './assets/img/' + card.imagen }}" class="card-img-top mx-auto" alt="..." />
-          <div class="card-body">
-            <div class="card-title cantidad h4 mb-0 text-center text-primary">{{ card.cantidad | number }}</div>
-            <div class="card-text text-center">
-              <small class="descripcion">{{ card.descripcion }}</small>
-            </div>
-          </div>
-        </div>
-        <div class="card shadow">
-          <img src="{{ './assets/img/icono-vermas.svg' }}" class="card-img-top mx-auto" alt="..." />
-          <div class="card-body">
-            <a [routerLink]="['/datos-abiertos']" tooltip="Regresar" class="text-primary" href="#">
-              <div class="card-title cantidad h4 mb-0 text-center">Ver Más</div>
-              <div class="card-text text-center">
-                <small class="descripcion">&nbsp;</small>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    id="map-container" #mapContainer
+  >
+</div>
 </section>

@@ -6,13 +6,15 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthenticationService } from '../../services';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { ConfigService } from 'src/app/services';
 import { ICredential } from './../../models/ICredential';
 import { Mensaje } from '../../models';
-import { ToasterService } from 'angular2-toaster';
+import { MenuService } from './../../services/menu.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.scss']
 })
 export class LoginComponent implements OnInit {
   @BlockUI('login-section') blockUI: NgBlockUI;
@@ -24,16 +26,23 @@ export class LoginComponent implements OnInit {
   public mensaje: Mensaje;
   public loginForm: FormGroup;
   public eyeIcon: boolean;
+  public logo: string;
+  private bsModalRef: BsModalRef;
+  private dependencias: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private auth: AuthenticationService,
-    private modalService: BsModalService,
-    private fb: FormBuilder
+    private bsModalService: BsModalService,
+    private fb: FormBuilder,
+    private menuService: MenuService,
+    private configService: ConfigService
   ) {
     this.mensaje = new Mensaje();
     this.eyeIcon = true;
+    const settings = this.configService.getConfig();
+    this.logo = settings.logo;
   }
 
   ngOnInit() {
@@ -55,11 +64,8 @@ export class LoginComponent implements OnInit {
       (resp) => {
         this.loading = false;
         this.blockUI.stop();
-        if (!resp.EsUsuarioCliente) {
-          this.router.navigate(['/']);
-        } else {
-          this.router.navigate(['clientes']);
-        }
+
+        this.router.navigate(['/']);
       },
       (error: unknown) => {
         this.loading = false;

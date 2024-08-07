@@ -12,6 +12,7 @@ import { AuthenticationService } from './services/authentication.service';
     <div>
       <block-ui></block-ui>
       <router-outlet></router-outlet>
+      <app-app-update-popup></app-app-update-popup>
     </div>
   `
 })

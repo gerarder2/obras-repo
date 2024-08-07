@@ -9,6 +9,7 @@ import { Municipio } from '../dashboard/models/municipio.interface';
 import { CatalogosService } from '../../services/catalogos.service';
 import { ObrasService } from './services/obras.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-obras',
@@ -40,9 +41,11 @@ export class ObrasComponent implements OnInit {
   public totalContratos: number;
   public montoMaximoContratos: number;
 
+  public develop: boolean;
+
   // Variables Mensajes y Modal
   private mensaje: Mensaje;
-  private bsModalRef: BsModalRef;
+  private bsObraModalRef: BsModalRef;
   private config;
   // ------------------------------------------------ //
 
@@ -54,6 +57,7 @@ export class ObrasComponent implements OnInit {
     private obrassService: ObrasService,
     private helperService: HelperService
   ) {
+    this.develop = !environment.production;
     this.config = this.configService.getConfig();
     this.collapsed = false;
     this.mensaje = new Mensaje();
@@ -147,6 +151,7 @@ export class ObrasComponent implements OnInit {
       next: (response: any) => {
         this.obrasTabla = response.data.obras;
         this.tabla1 = this.helperService.calcularAvanceObra(response.data.obrasPorTipo);
+
         this.tabla2 = this.helperService.calcularAvanceObraEjercicio(response.data.obrasPorEjercicio);
 
         const sum = this.obrasTabla.reduce((accumulator, element) => {
@@ -180,7 +185,6 @@ export class ObrasComponent implements OnInit {
 
   // SECCION CONFIGURACION MODAL
   public openModalComponent(opciones?: any) {
-    console.log(opciones);
     const initialState = {
       params: opciones ? opciones : {},
       isModal: true,
@@ -192,15 +196,15 @@ export class ObrasComponent implements OnInit {
       }
     };
 
-    this.bsModalRef = this.bsModalService.show(ObrasModalComponent, {
+    this.bsObraModalRef = this.bsModalService.show(ObrasModalComponent, {
       initialState,
-      class: 'modal-gold modal-fullscreen',
+      class: 'modal-primary modal-fullscreen',
       backdrop: 'static',
-      keyboard: true,
+      keyboard: false,
       ignoreBackdropClick: true
     });
 
-    this.bsModalRef.content.event.subscribe((res) => {
+    this.bsObraModalRef.content.event.subscribe((res) => {
       console.warn(res);
     });
 

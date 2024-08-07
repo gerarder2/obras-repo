@@ -35,8 +35,17 @@ export class ConfigService {
       this.http.get(`./assets/markers/sinaloa_municipios_min.json`),
       this.http.get(`./assets/markers/sinaloa_municipios_puntos.json`),
       this.http.get(`./assets/markers/sinaloa_distritos_min.json`),
-      this.http.get(`./assets/markers/sinaloa_distritos_puntos.json`),
-      this.http.get(`./assets/markers/secciones.json`)
+      this.http.get(`./assets/markers/sinaloa_distritos_puntos.json`)
+      // this.http.get(`./assets/markers/secciones.json`),
+      // this.http.get(`./assets/markers/vialidades.json`)
+    ]);
+  }
+
+  public getGEOJsonCarretero() {
+    return forkJoin([
+      this.http.get(`./assets/markers/sinaloa_municipios_min.json`),
+      this.http.get(`./assets/markers/vialidades/federal.json`),
+      this.http.get(`./assets/markers/vialidades/estatal.json`)
     ]);
   }
 }

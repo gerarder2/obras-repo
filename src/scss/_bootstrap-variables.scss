@@ -27,7 +27,9 @@ $pink: #fff0ef !default;
 $red: #d60d2b !default;
 // $red: #BA4B44 !default;
 // $orange: #AB5C00 !default;
-$orange: #fe5000 !default;
+//$orange: #fe5000 !default;
+$orange: #feb200 !default;
+
 $yellow: #FFDD35 !default;
 // $green:                           #6CC24A !default;
 //$green: #2E8241 !default;
@@ -36,12 +38,15 @@ $yellow: #FFDD35 !default;
 $teal: #e5ffeb !default;
 $cyan: #eaf7ff;
 
-$wine: #952431;
+// $wine: #952431;
+$wine: #691c32;
 $wine-800: #952431;
-$wine-500: #9D2449;
+//$wine-500: #9D2449;
+$wine-500: #9c182f;
 $wine-100: #C97B7C;
 $wine-50: #e7d7d7;
-$gold: #B18147;
+// $gold: #B18147;
+$gold: #bc955c;
 $gold-800: #BA8C56;
 $gold-500: #CAA376;
 $gold-100: #DABB99;
@@ -50,7 +55,26 @@ $grey: #221F1C;
 $grey-800: #302D2A;
 $grey-500: #5D5F64;
 $grey-100: #7B7D81;
-$green: #3D5C4F;
+// $green: #3D5C4F;
+$green: #235b4e;
+$gris-oxford:#393d42;
+$gris: #636569;
+$turquesa: #00a19b;
+
+
+//TIPOS OBRAS COLORES
+$obra-44BBED: #44BBED;
+$obra-691B32: #691B32;
+$obra-E397B4: #E397B4;
+$obra-84559E: #84559E;
+$obra-BC955B: #BC955B;
+$obra-2D2A26: #2D2A26;
+$obra-27578A: #27578A;
+$obra-235C4E: #235C4E;
+$obra-EA9256: #EA9256;
+$obra-777777: #777777;
+$obra-D92562: #D92562;
+//////////////////////
 
 $colors: (
   blue: $blue,
@@ -68,7 +92,8 @@ $colors: (
   gray: $gray-600,
   gray-dark: $gray-800,
   blue-dark: $dark-blue,
-  wine: $wine
+  wine: $wine,
+  gris-oxford: $gris-oxford
 );
 
 $theme-colors: (
@@ -85,7 +110,8 @@ $theme-colors: (
   gold-500: $gold-500,
   wine-100: $wine-100,
   wine: $wine,
-  gold: $gold-800
+  gold: $gold-800,
+  gris-oxford: $gris-oxford
 );
 
 // Options

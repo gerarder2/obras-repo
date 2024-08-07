@@ -1,0 +1,177 @@
+<div id="reporteMunicipios">
+    <div class="modal-header header-first" ngxModalDraggable>
+        <div class="container no-cursor">
+        <div class="row">
+            <div class="col-md-3">
+                <img style="width: 60%;" src="./assets/img/sinaloa_logo_trans@3x.png" alt="sinaloa" />
+            </div>
+            <div class="col-md-6">
+                <p class="title-municipio-modal" style="font-size: xx-large; text-align: center; color: white;"> INVERSIÓN {{ fechaConsulta | date:'yyyy':'':'es' }} </p>
+                </div>        
+            <div class="col-md-3 text-right">
+                <img style="width: 40%; padding-top: 3%;" src="./assets/img/obras_sentido_social_blanco.png" alt="obras" />
+            </div>
+        </div>
+        </div>
+        <div class="ml-auto" id="btnCerrar">
+        <button type="button" class="close" (click)="bsObraModalRef.hide()">
+            <span aria-hidden="true"><i style="color: white;" class="fa fa-close"></i></span>
+        </button>
+        </div>
+    </div>
+    <div>
+        <div class="modal-header" ngxModalDraggable>
+            <div class="container no-cursor">
+            <div class="row">
+                <div class="col-md-3">
+                <small>Municipio</small>
+                </div>
+                <div class="col-md-2">
+                <small>Fecha de consulta</small>
+                </div>
+                <div class="col-md-5">
+                <small>Monto global</small>
+                </div>
+                <div style="line-height: 1rem;" class="col-md-2">
+                <small>Porcentaje de la inversión total estatal</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                <p style="font-size: xx-large;"> {{ datosGlobalesMunicipio.municipio }} </p>
+                </div>
+                <div class="col-md-2">
+                <p style="padding-top: 5%;">{{ fechaConsulta | date:'MMMM dd, yyyy':'':'es' }}</p>
+                </div>
+                <div class="col-md-5">
+                <p style="font-size: xx-large;">{{ datosGlobalesMunicipio.inversion | currency }} MXN</p>
+                </div>
+                <div class="col-md-2">
+                <p style="font-size: xx-large;">{{ datosGlobalesMunicipio.porcentajeInversion | number: '1.0-0' }}%</p>
+                </div>
+            </div>
+            <div class="row" id="divExportar">
+                <div class="ml-auto" id="btnExportar" style="margin-right: 3%;">
+                    <button class="btn btn-outline-wine" (click)="descargarPDF()">
+                        <i class="fas fa-file-pdf"></i>&nbsp;Descargar PDF
+                    </button>
+                </div>   
+            </div>
+            </div>
+        </div>     
+        <div class="card">
+            <p-table
+                [value]="allObras"
+                sortField="municipio"
+                sortMode="single"
+                [scrollable]="true"
+                dataKey="descripcionTipoObra"
+                rowGroupMode="subheader"
+                groupRowsBy="descripcionTipoObra"
+                
+            >
+                <ng-template pTemplate="header">
+                <tr>
+                    <th>Concepto</th>
+                    <th>Depend.</th>
+                    <th>Contratista</th>
+                    <th>Meta</th>
+                    <th>Inversión</th>
+                    <th>Federal</th>
+                    <th>Estatal</th>
+                    <th>Municipal</th>
+                    <th>Av. de Obra</th>
+                    <th>Saldo</th>
+                    <th>Ficha</th>
+                </tr>
+                </ng-template>
+                <ng-template
+                pTemplate="groupheader"
+                let-obra
+                >
+                <tr pRowGroupHeader>
+                    <td class="subsubheader" colspan="3">
+                        <span class="p-text-bold p-ml-2">
+                            {{ obra.descripcionTipoObra }}
+                        </span>
+                    </td>
+                    <td class="subsubheader">
+                        <span class="p-text-bold p-ml-2">
+                            {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'superficieConstruccion') }}
+                        </span>
+                    </td>
+                    <td class="subsubheader">
+                        <span class="p-text-bold p-ml-2">
+                            {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'montoInversion') | currency }}
+                        </span>
+                    </td>
+                    <td class="subsubheader">
+                        <span class="p-text-bold p-ml-2">
+                            {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'federal') | currency }}
+                        </span>
+                    </td>
+                    <td class="subsubheader">
+                        <span class="p-text-bold p-ml-2">
+                            {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'estatal') | currency }}
+                        </span>
+                    </td>
+                    <td class="subsubheader">
+                        <span class="p-text-bold p-ml-2">
+                            {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'municipal') | currency }}
+                        </span>
+                    </td>
+                    <td class="subsubheader">
+                        <span class="p-text-bold p-ml-2">
+                            {{ calcularPromedio(obra.descripcionTipoObra, obra.nombreMunicipio, 'porcentajeAvance') | number: '1.2-2' }}%
+                        </span>
+                    </td>
+                    <td colspan="2" class="subsubheader">
+                        <span class="p-text-bold p-ml-2">
+                            {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'importePorPagar') | currency }}
+                        </span>
+                    </td>                                                                                 
+                </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-obra>
+                    <tr class="rowObra">
+                        <td>
+                            {{ obra.objeto }}
+                        </td>
+                        <td>
+                            {{ obra.siglas }}
+                        </td>
+                        <td>
+                            {{ obra.descripcionContratista }}
+                        </td>
+                        <td>
+                            {{ obra.superficieConstruccion }} {{ obra.unidadMedida }}
+                        </td>
+                        <td>
+                            {{ obra.montoInversion | currency }}
+                        </td>
+                        <td>
+                            {{ obra.federal | currency }}
+                        </td>
+                        <td>
+                            {{ obra.estatal | currency }}
+                        </td>
+                        <td>
+                            {{ obra.municipal | currency }}
+                        </td>
+                        <td>
+                            {{ obra.porcentajeAvance | number: '1.2-2' }}%
+                        </td>
+                        <td>
+                            {{ obra.importePorPagar | currency }}
+                        </td>
+                        <td>
+                            <button class="btn btn-primary icon text-white" (click)="mostrarFicha(obra)">
+                                Ver Ficha
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

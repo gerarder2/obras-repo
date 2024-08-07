@@ -1,14 +1,17 @@
-<div class="app flex-row align-items-center" *blockUI="'login-section'">
+<toaster-container></toaster-container>
+<div class="app flex-row align-items-center theme-1" *blockUI="'login-section'">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-5">
+      <div class="col-md-8 col-lg-6">
         <div class="card">
-          <img class="card-img-top" src="assets/img/banner.png" alt="Card image cap" />
+          <img class="mx-auto d-block card-img-top" [src]="logo" alt="Card image cap" />
           <hr />
           <div class="card-body">
-            <p class="text-muted">Favor de Identificarse</p>
+            <h5 class="text-center text-muted pb-3"><strong>¡Bienvenido! </strong>Favor de Identificarse</h5>
             <form name="form" (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
-              <small *ngIf="loginForm.controls['Usuario'].invalid && loginForm.controls['Usuario'].touched" class="help-block text-danger"
+              <small
+                *ngIf="loginForm.controls['Usuario'].invalid && loginForm.controls['Usuario'].touched"
+                class="help-block text-danger"
                 >Usuario es requerido</small
               >
               <div class="input-group mb-3">
@@ -18,13 +21,17 @@
                 <input
                   type="text"
                   class="form-control form-control-lg"
-                  [ngClass]="{ 'is-invalid': loginForm.controls['Usuario'].invalid && loginForm.controls['Usuario'].touched }"
+                  [ngClass]="{
+                    'is-invalid': loginForm.controls['Usuario'].invalid && loginForm.controls['Usuario'].touched
+                  }"
                   placeholder="Usuario"
                   name="username"
                   formControlName="Usuario"
                 />
               </div>
-              <small *ngIf="loginForm.controls['Password'].invalid && loginForm.controls['Password'].touched" class="help-block text-danger"
+              <small
+                *ngIf="loginForm.controls['Password'].invalid && loginForm.controls['Password'].touched"
+                class="help-block text-danger"
                 >Password es requerido</small
               >
               <div class="input-group mb-4">
@@ -36,19 +43,26 @@
                 <input
                   [type]="eyeIcon ? 'password' : 'text'"
                   class="form-control form-control-lg"
-                  [ngClass]="{ 'is-invalid': loginForm.controls['Password'].invalid && loginForm.controls['Password'].touched }"
+                  [ngClass]="{
+                    'is-invalid': loginForm.controls['Password'].invalid && loginForm.controls['Password'].touched
+                  }"
                   placeholder="Password"
                   formControlName="Password"
                 />
                 <div class="input-group-append">
-                  <span style="cursor:pointer" class="input-group-text" (click)="eyeIcon = !eyeIcon" class="input-group-text">
+                  <span
+                    style="cursor: pointer"
+                    class="input-group-text"
+                    (click)="eyeIcon = !eyeIcon"
+                    class="input-group-text"
+                  >
                     <i class="fa" [ngClass]="{ 'fa-eye': eyeIcon, 'fa-eye-slash': !eyeIcon }"></i>
                   </span>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12">
-                  <button [disabled]="loginForm.invalid" class="btn btn-primary px-4 pull-right">Ingresar</button>
+                <div class="col-12 text-center">
+                  <button [disabled]="loginForm.invalid" class="btn btn-gold px-4">Ingresar</button>
                 </div>
               </div>
             </form>

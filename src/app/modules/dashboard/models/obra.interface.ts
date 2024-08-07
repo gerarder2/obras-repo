@@ -1,8 +1,11 @@
 import { Avance } from './avance.interface';
+import { Documento } from './documento.interface';
 import { Evidencia } from './evidencia.interface';
+import { UltimaEvidencia } from './ultimaEvidencia.interface';
 
 export interface Obra {
   id?: number;
+  informacionRelevante?: string;
   objeto?: string;
   montoInversion?: string;
   porcentajeInversion?: number;
@@ -50,6 +53,18 @@ export interface Obra {
   nombreSupervisor?: string;
   nombreMunicipio?: string;
   avances?: Avance[];
-  documentos?: any[];
+  documentos?: Documento[];
   evidencias?: Evidencia[];
+  licitacion?: any;
+  descripcionOrigenRecurso?: string;
+  montoInversionAcumulada?: string;
+  numeroAutorizacion?: string;
+  anticipo?: number;
+  porcentajeMonetario?: number;
+  plazoContrato?: string;
+  direccion?: string;
+  nombreLocalidad?: string;
+  alcanceObra?: string;
+  ultimasImagenes?: UltimaEvidencia[];
+  montoAvanceFinanciero?: number;
 }

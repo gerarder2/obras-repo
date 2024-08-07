@@ -1,0 +1,117 @@
+<ng-container *ngIf="params" >
+    <div class="content-map" id="fichaTecnica">
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <dl>
+                <dd>
+                    <img style="width: 100%;" src="./assets/img/sinaloa_logo.png" alt="sinaloa" />
+                </dd>
+                </dl>
+            </div>
+            <div class="col-xs-12 col-md-3 offset-4">
+                <dl>
+                <dd>
+                    <img style="width: 100%;padding-top: 10%;" src="./assets/img/obras_sentido_social_logo.png" alt="obras" />
+                </dd>
+                </dl>
+            </div>
+            <div class="ml-auto col-xs-12 col-md-1" style="padding-right: 0;">
+              <button type="button" class="close" (click)="bsObraModalRef.hide()">
+                  <span aria-hidden="true"><i class="fa fa-close"></i></span>
+              </button>
+              </div>            
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-8">
+              <dl>
+                <dt>Concepto</dt>
+                <dd class="contrato">{{ params?.objeto }}</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-8">
+              <dl>
+                <dt>Inversión</dt>
+                <dd class="monto">{{ params?.montoInversion | currency }} MXN</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <dl>
+                  <dt>Superficie de Construcción</dt>
+                  <dd class="monto">
+                    {{ this.params?.superficieConstruccion }} {{ this.params?.unidadMedida }} 
+                  </dd>
+                </dl>
+            </div>            
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-8">
+              <dl>
+                <dt>Avance financiero</dt>
+                <dd class="monto">
+                    {{ params?.montoInversionAcumulada | currency }} MXN
+                </dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Saldo</dt>
+                <dd>{{ params?.importePorPagar | currency }} MXN</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-8">
+              <dl>
+                <dt>Dirección</dt>
+                <dd>{{ params?.direccion }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Estatus de los trabajos</dt>
+                <dd>{{ params?.estatus }}</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-8">
+              <dl>
+                <dt>Alcances del proyecto</dt>
+                <dd>{{ params?.alcanceObra }}</dd>
+              </dl>
+            </div>
+          </div>          
+          <div class="row">
+            <div class="col-xs-12 col-md-10">
+              <dl>
+                <dt>Localización</dt>
+                <!-- <dd>
+                  <a [href]="openGoogleMaps()" target="_blank">
+                    <p>
+                      [{{ params?.latitud }}, {{ params?.longitud }}]
+                      <br /><small class="text-muted">Click para abrir mapa</small>
+                    </p>
+                  </a>
+                </dd> -->
+              </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <dl>
+                    <dt>Proyecto</dt>
+                    <dd><button (click)="descargarPDF()" class="btn btn-primary">Descargar PDF</button></dd>
+                  </dl>
+              </div>
+          </div>
+  
+         
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  

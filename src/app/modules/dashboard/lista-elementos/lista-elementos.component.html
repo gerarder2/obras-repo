@@ -1,0 +1,16 @@
+<div [ngClass]="{ active: elementoActivo || active }" (click)="toggleActive()" class="lista-elemento">
+  <div class="contenido">
+    <div class="titulo">{{ titulo }}</div>
+    <div class="icono">
+      <i class="fas fa-chevron-right"></i>
+    </div>
+  </div>
+  <div class="totales">
+    <ng-container *ngIf="currency">
+        {{ totales | currency }}
+    </ng-container>
+    <ng-container *ngIf="!currency">
+        {{ totales | number}} KM
+    </ng-container>
+  </div>
+</div>

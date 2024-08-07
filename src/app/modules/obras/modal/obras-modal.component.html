@@ -8,119 +8,326 @@
       </div>
       <div class="col-md-2">
         <small>Ejercicio</small>
-        <p>{{ '-' }}</p>
+        <p>{{ obra.fechaContratacion | date: 'yyyy':'':'es' }}</p>
       </div>
-      <div class="col-md-2">
-        <small>Beneficiarios</small>
-        <p>{{ obra.totalBeneficiados }}</p>
+      <div class="col-md-3">
+        <small>Fecha de Contrato</small>
+        <p>{{ obra.fechaContratacion | date: 'longDate':'':'es' }}</p>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
         <small>Credito</small>
         <p>{{ obra.esCredito ? 'SI' : 'NO' }}</p>
       </div>
     </div>
   </div>
   <div class="ml-auto">
-    <button type="button" class="close" (click)="bsModalRef.hide()">
+    <button type="button" class="close text-white" (click)="bsObraModalRef.hide()">
       <span aria-hidden="true"><i class="fa fa-close"></i></span>
     </button>
   </div>
 </div>
-<div class="modal-body">
+<div class="modal-body p-0">
   <p-tabView>
     <p-tabPanel header="DATOS GENERALES">
       <div class="row">
         <div class="col-md-6">
-          <small>Objeto</small>
-          <p>{{ obra.objeto }}</p>
           <div class="row">
             <div class="col-12">
-              <small>Geolocalizacion</small>
-              <p>[{{ obra.latitud }},{{ obra.longitud }}]</p>
+              <dl class="dl-list">
+                <dt>Monto Total</dt>
+                <dd class="monto">{{ obra?.montoInversion | currency }} MXN</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row" *ngIf="obra.objeto !== 'NA'">
+            <div class="col-12">
+              <dl class="dl-list">
+                <dt>Objeto</dt>
+                <dd>{{ obra.objeto }}</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+              <dl class="dl-list">
+                <dt>Organismo</dt>
+                <dd>{{ obra?.descripcionDependencia }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl class="dl-list">
+                <dt>Tipo de Contrato</dt>
+                <dd>{{ obra?.descripcionTipoContrato }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl class="dl-list">
+                <dt>Origen del recurso</dt>
+                <dd>{{ obra?.descripcionOrigenRecurso }}</dd>
+              </dl>
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
           <div class="row">
-            <div class="col-12">
-              <small>Fecha contrato</small>
-              <p>{{ obra.fechaContratacion | date: 'longDate':'':'es' }}</p>
+            <div class="col-xs-12 col-lg-4 col-sm-6">
+              <dl class="dl-list">
+                <dt>Avance de obra</dt>
+                <dd class="monto ">{{ obra.porcentajeAvance }} %</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-lg-4 col-sm-6">
+              <dl class="dl-list">
+                <dt>Beneficiarios</dt>
+                <dd class="monto">{{ obra.totalBeneficiados | number }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-lg-4 col-sm-6">
+              <dl class="dl-list">
+                <dt>Avance financiero</dt>
+                <dd class="monto ">{{ obra.porcentajeMonetario }} %</dd>
+              </dl>
             </div>
           </div>
+
           <div class="row">
-            <div class="col-12">
-              <small>Origen recurso</small>
-              <p>{{ '-' }}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <small>Periodo ejecución</small>
-              <p>
-                {{ obra.fechaInicio | date: 'longDate':'':'es' }} -
-                {{ obra.fechaEstimadaFin | date: 'longDate':'':'es' }}
-              </p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <small>Dirección</small>
-              <p>{{ '-' }}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <small>Residente o Supervisor</small>
-              <p>{{ obra.nombreSupervisor }}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <small>Contratista</small>
-              <p>{{ obra.descripcionContratista }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="row">
-            <div class="col-12">
-              <small>Tipo Modalidad</small>
-              <p>{{ obra.descripcionTipoModalidad }}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <small>Número autorización</small>
-              <p>{{ '-' }}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <small>Municipio</small>
-              <p>{{ obra.nombreMunicipio }}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <small>Tipo contrato</small>
-              <p>{{ obra.descripcionTipoContrato }}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <small>Tipo Obra</small>
-              <p>{{ obra.descripcionTipoObraSocial }}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <small>Dependencia / Organismo</small>
-              <p>{{ obra.descripcionDependencia }}</p>
+            <div class="col-12" *ngIf="showGraficaPorcentaje">
+              <div id="chartlineal-{{ this.obra.id }} p-2">
+                <apx-chart
+                  [series]="chartOptionsLine.series"
+                  [chart]="chartOptionsLine.chart"
+                  [xaxis]="chartOptionsLine.xaxis"
+                  [dataLabels]="chartOptionsLine.dataLabels"
+                  [grid]="chartOptionsLine.grid"
+                  [stroke]="chartOptionsLine.stroke"
+                  [colors]="chartOptionsLine.colors"
+                  [markers]="chartOptionsLine.markers"
+                  [title]="chartOptionsLine.title"
+                ></apx-chart>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>No. Licitacion</dt>
+            <dd>{{ obra?.licitacion }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Tipo de Modalidad</dt>
+            <dd>{{ obra?.descripcionTipoModalidad }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Fecha estimada inicio</dt>
+            <dd>{{ obra?.fechaEstimadaInicio | date: 'longDate':'':'es' }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Fecha real de inicio</dt>
+            <dd>{{ obra?.fechaInicio | date: 'longDate':'':'es' }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Fecha estimada termino</dt>
+            <dd>{{ obra?.fechaEstimadaFin | date: 'longDate':'':'es' }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Fecha real termino</dt>
+            <dd>{{ obra?.fechaFinalizacion | date: 'longDate':'':'es' }}</dd>
+          </dl>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Monto contratado</dt>
+            <dd>{{ obra?.montoInversion | currency }} MXN</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Monto inversion acumulada</dt>
+            <dd>{{ obra?.montoInversionAcumulada | currency }} MXN</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Anticipo</dt>
+            <dd>{{ obra.anticipo | currency }} MXN</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Duracion del contrato</dt>
+            <dd>{{ obra.plazoContrato | diasAMeses }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Direccion de obra</dt>
+            <dd>{{ obra.direccion }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Supervisor</dt>
+            <dd>{{ obra.nombreSupervisor }}</dd>
+          </dl>
+        </div>
+      </div>
+
+    
+
+      <div class="row">
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Tipo de obra</dt>
+            <dd>{{ obra.descripcionTipoObra }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Programa</dt>
+            <dd>{{ obra.descripcionOrigenRecurso }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>No. de oficio de autorización</dt>
+            <dd>{{ obra.numeroAutorizacion }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Municipio</dt>
+            <dd>{{ obra.nombreMunicipio }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Localidad</dt>
+            <dd>{{ obra.nombreLocalidad }}</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="row">
+        
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Contratista</dt> 
+            <dd>{{ obra.descripcionContratista }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <dl class="dl-list">
+            <dt>Convenios Modificatorios</dt>
+            <dd>{{ 'NA' }}</dd>
+          </dl>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <dl class="dl-list">
+            <dt (click)="closeModal(obra)" style="cursor:pointer" >Geolocalización  <i class="fas fa-location-dot text-primary"></i><small
+              class="text-muted"
+              > Ir a la coordenada</small
+            ></dt>
+            <dd>
+              <a [href]="openGoogleMaps()" target="_blank">
+                <p>
+                  <i class="fas fa-location-dot"></i> [{{ obra.latitud }}, {{ obra.longitud }}] <br /><small
+                    class="text-muted"
+                    >Click para abrir mapa</small
+                  >
+                </p>
+               
+              </a>
+             
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="row">
+        
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-md-4">
+          <dl class="dl-list">
+            <dt>Alcances de obra</dt>
+            <dd class="cuadrito">{{ obra?.alcanceObra }}</dd>
+          </dl>
+        </div>
+        
+        <div class="col-xs-12 col-md-4">
+          <dl class="dl-list">
+            <dt>Evidencia fotográfica</dt>
+            <dd class="cuadrito p-2">
+              <ng-container *ngIf="obra?.ultimasImagenes?.length > 0">
+                <div class="row">
+                  <div class="col-md-3" *ngFor="let item of obra.ultimasImagenes; let index = index">
+                    <a
+                      href="#"
+                      style="text-decoration: none"
+                      (click)="onImageSelected(null, index, obra.ultimasImagenes); $event.preventDefault()"
+                    >
+                      <img src="{{ item.rutaPublica + item.nombre }}" class="img-thumbnail img-64" alt="..." />
+                    </a>
+                  </div>
+                </div>
+
+                <div class="row justify-content-center">
+                  <p-galleria
+                    [value]="images"
+                    [(visible)]="displayCustom"
+                    [(activeIndex)]="activeIndex"
+                    [responsiveOptions]="responsiveOptions"
+                    [containerStyle]="{ 'max-width': '250px' }"
+                    [numVisible]="7"
+                    [circular]="true"
+                    [fullScreen]="true"
+                    [showItemNavigators]="true"
+                    [showThumbnails]="false"
+                    [baseZIndex]="100000"
+                  >
+                    <ng-template pTemplate="item" let-item>
+                      <img [src]="item.previewImageSrc" style="max-height: 600px; width: auto; display: block" />
+                    </ng-template>
+                    <ng-template pTemplate="thumbnail" let-item>
+                      <div class="grid grid-nogutter justify-content-center">
+                        <img [src]="item.thumbnailImageSrc" style="display: block" />
+                      </div>
+                    </ng-template>
+                  </p-galleria>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="obra?.evidencias?.length === 0">
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <p class="h4 mb-5">Por el momento no existen evidencias asociadas a esta obra.</p>
+                  </div>
+                </div>
+              </ng-container>
+            </dd>
+          </dl>
+        </div>
+      </div>
     </p-tabPanel>
+
     <p-tabPanel header="AVANCES">
       <!-- <p-knob [(ngModel)]="value" valueColor="MediumTurquoise" rangeColor="SlateGray"></p-knob> -->
       <!--The content below is only a placeholder and can be replaced.-->
@@ -129,40 +336,31 @@
         <div class="row">
           <div class="col-12 col-md-6">
             <div class="row">
-              <div class="col-12">
-                <div class="card shadow">
-                  <div class="card-body p-0 clearfix">
-                    <i class="fas fa-hand-holding-dollar bg-green p-4 font-5xl mr-3 float-left"></i>
-                    <div class="pt-4 text-muted text-uppercase font-weight-bold font-xs">
-                      MONTO TOTAL EJERCIDO (MXN)
-                    </div>
-                    <div class="h3 text-primary mb-0">
-                      <strong>{{ this.obra.montoInversion | currency }}</strong>
-                    </div>
-                  </div>
-                </div>
+              <div class="col-xs-12 col-md-4">
+                <dl class="dl-list">
+                  <dt>Avance de obra</dt>
+                  <dd class="monto">{{ obra.porcentajeAvance }} %</dd>
+                </dl>
+              </div>
+              <div class="col-xs-12 col-md-4">
+                <dl class="dl-list">
+                  <dt>Avance financiero %</dt>
+                  <dd class="monto">{{ obra.porcentajeMonetario }} %</dd>
+                </dl>
+              </div>
+              <div class="col-xs-12 col-md-4">
+                <dl class="dl-list">
+                  <dt>Monto a pagar</dt>
+                  <dd class="">{{ obra.montoInversion | currency }} MXN</dd>
+                </dl>
               </div>
             </div>
             <div class="row">
               <div class="col-12">
-                <ng-container *ngIf="showGraficaPorcentaje">
-                  <div class="card shadow">
-                    <div class="card-body">
-                      <div id="chart">
-                        <apx-chart
-                          [series]="chartOptionsLine.series"
-                          [chart]="chartOptionsLine.chart"
-                          [xaxis]="chartOptionsLine.xaxis"
-                          [dataLabels]="chartOptionsLine.dataLabels"
-                          [grid]="chartOptionsLine.grid"
-                          [stroke]="chartOptionsLine.stroke"
-                          [colors]="chartOptionsLine.colors"
-                          [markers]="chartOptionsLine.markers"
-                        ></apx-chart>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
+                <dl class="dl-list">
+                  <dt>Avance financiero $</dt>
+                  <dd class="monto">{{ obra.montoInversionAcumulada | currency }} MXN</dd>
+                </dl>
               </div>
             </div>
           </div>
@@ -170,38 +368,52 @@
             <div class="row">
               <div class="col-12">
                 <ng-container *ngIf="showGraficaPorcentaje">
-                  <div class="card shadow">
-                    <div class="card-body">
-                      <div id="chart">
-                        <apx-chart
-                          [series]="chartOptionsRadial.series"
-                          [chart]="chartOptionsRadial.chart"
-                          [plotOptions]="chartOptionsRadial.plotOptions"
-                          [labels]="chartOptionsRadial.labels"
-                          [colors]="chartOptionsRadial.colors"
-                          [stroke]="chartOptionsRadial.stroke"
-                        ></apx-chart>
-                      </div>
-                    </div>
+                  <div id="chartlineal-{{ this.obra.id }}">
+                    <apx-chart
+                      [series]="chartOptionsLine.series"
+                      [chart]="chartOptionsLine.chart"
+                      [xaxis]="chartOptionsLine.xaxis"
+                      [dataLabels]="chartOptionsLine.dataLabels"
+                      [grid]="chartOptionsLine.grid"
+                      [stroke]="chartOptionsLine.stroke"
+                      [colors]="chartOptionsLine.colors"
+                      [markers]="chartOptionsLine.markers"
+                      [title]="chartOptionsLine.title"
+                    ></apx-chart>
                   </div>
                 </ng-container>
               </div>
-              <div class="col-12">
-                <ng-container *ngIf="showGraficaPorcentaje">
-                  <div class="card shadow">
-                    <div class="card-body">
-                      <div id="chart">
-                        <apx-chart
-                          [series]="chartOptionsPie.series"
-                          [chart]="chartOptionsPie.chart"
-                          [labels]="chartOptionsPie.labels"
-                          [responsive]="chartOptionsPie.responsive"
-                          [colors]="chartOptionsPie.colors"
-                        ></apx-chart>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card shadow">
+              <div class="card-body">
+                <p-table
+                  [value]="obraAvancesSorter"
+                  styleClass="p-datatable-sm"
+                  [scrollable]="true"
+                  scrollHeight="150px"
+                  [tableStyle]="{ 'min-width': '50rem' }"
+                >
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>Id</th>
+                      <th>Fecha</th>
+                      <th>Comentario</th>
+                      <th>Porcentaje</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-avance>
+                    <tr>
+                      <td>{{ avance.id }}</td>
+                      <td>{{ avance.fecha | date: 'longDate':'':'es' }}</td>
+                      <td>{{ avance.comentario }}</td>
+                      <td>{{ avance.porcentaje }} %</td>
+                    </tr>
+                  </ng-template>
+                </p-table>
               </div>
             </div>
           </div>
@@ -211,17 +423,23 @@
 
     <p-tabPanel header="LICITACIÓN">
       <div class="row">
+        <div class="col-12">
+          <small>Objeto</small>
+          <p>{{ params?.licitacion?.objeto }}</p>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-6">
           <small><strong>Tipo de Licitacion</strong></small>
-          <p>{{ params.tipoLicitacion }}</p>
+          <p>{{ params?.licitacion?.descripcionTipoLicitacion }}</p>
         </div>
         <div class="col-3">
           <small><strong>Fecha</strong></small>
-          <p>{{ params.fecha }}</p>
+          <p>{{ params?.licitacion?.fechaPublicacion | date: 'longDate':'':'es' }}</p>
         </div>
         <div class="col-3">
           <small><strong>Normatividad</strong></small>
-          <p>Federal</p>
+          <p>{{ params?.licitacion?.descripcionTipoNormatividad }}</p>
         </div>
       </div>
       <div class="row">
@@ -231,7 +449,7 @@
         <div class="col-12">
           <p-table
             [ngClass]="{ odd: true }"
-            [value]="eventos"
+            [value]="params?.licitacion?.eventos"
             [tableStyle]="{ 'min-width': '60rem' }"
             styleClass="p-datatable-sm p-datatable-striped"
           >
@@ -245,15 +463,27 @@
             </ng-template>
             <ng-template pTemplate="body" let-product>
               <tr>
-                <td>{{ product.evento }}</td>
+                <td>{{ product.descripcionTipoEvento }}</td>
                 <td>
-                  {{ product.fecha }}
+                  {{ product.fechaHora | date: 'longDate':'':'es' }}
                 </td>
                 <td>
-                  <button class="btn btn-primary"><i class="fas fa-play"></i> ver Video</button>
+                  <a
+                    class="btn btn-primary"
+                    target="_blank"
+                    href="{{ product.rutaPublicaVideo + product.nombreArchivoVideo }}"
+                    class="btn btn-primary"
+                    ><i class="fas fa-play"></i> Video</a
+                  >
                 </td>
                 <td>
-                  <button class="btn btn-primary"><i class="fas fa-file-download"></i> Documento</button>
+                  <a
+                    class="btn btn-primary"
+                    target="_blank"
+                    href="{{ product.rutaPublicaDocumento + product.nombreArchivoDocumento }}"
+                    class="btn btn-primary"
+                    ><i class="fas fa-file-download"></i> Documento</a
+                  >
                 </td>
               </tr>
             </ng-template>
@@ -261,90 +491,90 @@
         </div>
       </div>
     </p-tabPanel>
+
     <p-tabPanel header="EVIDENCIA DOCUMENTADA">
       <ng-template pTemplate="content">
-        <div class="row">
-          <div class="col-12 text-center">
-            <p class="h4 mb-5">En esta sección se encuentra toda la documentación del contrato</p>
+        <ng-container *ngIf="obra?.documentos?.length > 0">
+          <div class="row">
+            <div class="col-12 text-center">
+              <p class="h4 mb-5">En esta sección se encuentra toda la documentación del contrato</p>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="card-group">
-              <div class="card shadow text-center">
-                <div class="card-body">
-                  <h5 class="card-title">CONTRATO</h5>
-                  <p class="card-text">&nbsp;</p>
-                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download"></i> Descargar</a>
-                </div>
-              </div>
-              <div class="card shadow text-center">
-                <div class="card-body">
-                  <h5 class="card-title">FALLO</h5>
-                  <p class="card-text">&nbsp;</p>
-                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download"></i> Descargar</a>
-                </div>
-              </div>
-              <div class="card shadow text-center">
-                <div class="card-body">
-                  <h5 class="card-title">TODOS LOS ARCHIVOS</h5>
-                  <p class="card-text">&nbsp;</p>
-                  <a href="#" class="btn btn-outline-primary"><i class="fas fa-download"></i> Descargar</a>
+          <div class="row">
+            <div class="col-12">
+              <div class="card-group">
+                <div class="card shadow text-center" *ngFor="let doc of obra.documentos">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ doc.descripcionTipoDocumento }}</h5>
+                    <p class="card-text">&nbsp;</p>
+                    <a target="_blank" href="{{ doc.ruta }}{{ doc.nombreArchivo }}" class="btn btn-outline-primary"
+                      ><i class="fas fa-download"></i> Descargar</a
+                    >
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
+        <ng-container *ngIf="obra?.documentos?.length === 0">
+          <div class="row">
+            <div class="col-12 text-center">
+              <p class="h4 mb-5">Por el momento no existen documentos asociados a esta obra.</p>
+            </div>
+          </div>
+        </ng-container>
       </ng-template>
     </p-tabPanel>
+
     <p-tabPanel header="EVIDENCIA FOTOGRAFICA">
       <ng-template pTemplate="content">
-        <div class="row" *ngIf="!showCarousel">
-          <div class="col-12">
-            <div class="card-deck">
-              <div class="card shadow" *ngFor="let item of obra.evidencias">
-                <div class="card-body">
-                  <h5 class="card-title">{{ item.descripcion }}</h5>
-                  <p class="card-text">&nbsp;</p>
-                  <ng-container *ngFor="let img of item.imagenes; let index = index">
-                    <a
-                      href="#"
-                      style="text-decoration: none"
-                      (click)="onImageSelected(item, index); $event.preventDefault()"
-                    >
-                      <img src="{{ img.rutaPublica + img.nombre }}" class="img-thumbnail img-64" alt="..." />
-                    </a>
-                  </ng-container>
-                  <p class="card-text"><small class="text-muted">Click en la imagen para mas información</small></p>
+        <ng-container *ngIf="obra?.evidencias?.length > 0">
+          <div class="row" *ngIf="!showCarousel">
+            <div class="col-12">
+              <div class="card-deck">
+                <div class="card shadow" *ngFor="let item of obra.evidencias">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ item.descripcion }}</h5>
+                    <p class="card-text">&nbsp;</p>
+                    <ng-container *ngFor="let img of item.imagenes; let index = index">
+                      <a
+                        href="#"
+                        style="text-decoration: none"
+                        (click)="onImageSelected(item, index); $event.preventDefault()"
+                      >
+                        <img src="{{ img.rutaPublica + img.nombre }}" class="img-thumbnail img-64" alt="..." />
+                      </a>
+                    </ng-container>
+                    <p class="card-text"><small class="text-muted">Click en la imagen para mas información</small></p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row justify-content-center">
-          <p-galleria
-            [value]="images"
-            [(visible)]="displayCustom"
-            [(activeIndex)]="activeIndex"
-            [responsiveOptions]="responsiveOptions"
-            [containerStyle]="{ 'max-width': '850px'}"
-            [numVisible]="7"
-            [circular]="true"
-            [fullScreen]="true"
-            [showItemNavigators]="true"
-            [showThumbnails]="false"
-            [baseZIndex]="100000"
-          >
-            <ng-template pTemplate="item" let-item>
-              <img [src]="item.previewImageSrc" style=" max-height: calc(100vh - 50px); width: auto; display: block" />
-            </ng-template>
-            <ng-template pTemplate="thumbnail" let-item>
-              <div class="grid grid-nogutter justify-content-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block" />
-              </div>
-            </ng-template>
-          </p-galleria>
-          <!-- <div class="12" *ngIf="showCarousel">
+          <div class="row justify-content-center">
+            <p-galleria
+              [value]="images"
+              [(visible)]="displayCustom"
+              [(activeIndex)]="activeIndex"
+              [responsiveOptions]="responsiveOptions"
+              [containerStyle]="{ 'max-width': '850px' }"
+              [numVisible]="7"
+              [circular]="true"
+              [fullScreen]="true"
+              [showItemNavigators]="true"
+              [showThumbnails]="false"
+              [baseZIndex]="100000"
+            >
+              <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="max-height: calc(100vh - 50px); width: auto; display: block" />
+              </ng-template>
+              <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                  <img [src]="item.thumbnailImageSrc" style="display: block" />
+                </div>
+              </ng-template>
+            </p-galleria>
+            <!-- <div class="12" *ngIf="showCarousel">
             <div class="card shadow">
               <div class="card-body">
                 <div class="card-title mb-5">
@@ -366,7 +596,15 @@
               </div>
             </div>
           </div> -->
-        </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="obra?.evidencias?.length === 0">
+          <div class="row">
+            <div class="col-12 text-center">
+              <p class="h4 mb-5">Por el momento no existen evidencias asociadas a esta obra.</p>
+            </div>
+          </div>
+        </ng-container>
       </ng-template>
     </p-tabPanel>
   </p-tabView>

@@ -36,7 +36,8 @@
               "skmeans",
               "density-clustering",
               "turf-jsts",
-              "geojson-equality"
+              "geojson-equality",
+              "moment"
             ],
             "outputPath": "dist/gobierno",
             "index": "src/index.html",
@@ -88,7 +89,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumError": "11kb"
                 }
               ],
               "fileReplacements": [
@@ -187,6 +188,7 @@
   },
   "defaultProject": "gobierno",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "defaultCollection": "@angular-eslint/schematics",
+    "analytics": false
   }
 }
