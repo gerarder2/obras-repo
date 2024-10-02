@@ -145,7 +145,22 @@
               [showClear]="false"
             ></p-dropdown>
           </div>
-        </section>        
+        </section>
+        <h6 class="header-title">Por Etiquetas</h6>
+        <section>
+          <div class="form-group">
+            <p-dropdown
+              class="p-inputtext-sm"
+              (onChange)="filtrar()"
+              appendTo="body"
+              [options]="etiqueta"
+              [(ngModel)]="etiquetaSeleccionada"
+              placeholder="Seleccione..."
+              optionLabel="nombre"
+              [showClear]="false"
+            ></p-dropdown>
+          </div>
+        </section>
         <section>
           <div class="form-group float-left m-0">
             <button class="btn btn-primary icon text-white" (click)="descargarReporte()">

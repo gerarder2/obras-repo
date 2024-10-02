@@ -83,6 +83,7 @@
                     <th>Av. de Obra</th>
                     <th>Saldo</th>
                     <th>Ficha</th>
+                    <th>Tarjeta Informativa</th>
                 </tr>
                 </ng-template>
                 <ng-template
@@ -125,7 +126,7 @@
                             {{ calcularPromedio(obra.descripcionTipoObra, obra.nombreMunicipio, 'porcentajeAvance') | number: '1.2-2' }}%
                         </span>
                     </td>
-                    <td colspan="2" class="subsubheader">
+                    <td colspan="3" class="subsubheader">
                         <span class="p-text-bold p-ml-2">
                             {{ calcularTotales(obra.descripcionTipoObra, obra.nombreMunicipio, 'importePorPagar') | currency }}
                         </span>
@@ -167,6 +168,11 @@
                         <td>
                             <button class="btn btn-primary icon text-white" (click)="mostrarFicha(obra)">
                                 Ver Ficha
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary icon text-white" (click)="mostrarTarjetaInformativa(obra)">
+                                Ver Tarjeta Informativa
                             </button>
                         </td>
                     </tr>

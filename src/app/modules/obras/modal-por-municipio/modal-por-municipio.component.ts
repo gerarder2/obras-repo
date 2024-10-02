@@ -6,6 +6,7 @@ import { DatosReportePorMunicipio, ObraReporte } from '../models/obrareporte.int
 import { ModalFichaTecnicaComponent } from '../modal-ficha-tecnica/modal-ficha-tecnica.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ModalTarjetaInformativaComponent } from '../modal-tarjeta-informativa/modal-tarjeta-informativa.component';
 
 @Component({
   selector: 'app-modal-por-municipio',
@@ -94,6 +95,10 @@ export class ModalPorMunicipioComponent implements OnInit {
     this.openModalComponent(obra);
   }
 
+  mostrarTarjetaInformativa(obra: any) {
+    this.verTarjetaInformativa(obra);
+  }
+
   openModalComponent(obra: any) {
     const initialState = {
       params: obra,
@@ -107,6 +112,46 @@ export class ModalPorMunicipioComponent implements OnInit {
     };
 
     this.bsModalRef = this.bsModalService.show(ModalFichaTecnicaComponent, {
+      initialState,
+      class: 'modal-primary modal-lg',
+      backdrop: 'static',
+      keyboard: true,
+      ignoreBackdropClick: true
+    });
+
+    this.bsModalRef.content.event.subscribe((res) => {
+      console.warn(res);
+    });
+
+    this.bsModalService.onHide.subscribe((reason: string) => {});
+  }
+
+  public verTarjetaInformativa(item: any) {
+    this.obrasService.getTarjetaInformativa(item).subscribe({
+      next: (response: any) => {
+        const objeto = item.objeto;
+        const data = { ...response.data, objeto };
+        this.abreModalTarjetaInformativa(data);
+      },
+      error: (err: unknown) => {
+        this.mensaje.showMessage(err);
+      }
+    });
+  }
+
+  abreModalTarjetaInformativa(data) {
+    const initialState = {
+      params: data,
+      isModal: true,
+      modalExtraOptions: {
+        closeButton: true,
+        closeButtonText: 'Cancelar',
+        acceptButton: true,
+        acceptButtonText: 'Aceptar'
+      }
+    };
+
+    this.bsModalRef = this.bsModalService.show(ModalTarjetaInformativaComponent, {
       initialState,
       class: 'modal-primary modal-lg',
       backdrop: 'static',

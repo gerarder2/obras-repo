@@ -108,7 +108,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-12 col-md-8">
+            <div class="col-xs-12 col-md-6">
               <dl>
                 <dt>Alcances de obra</dt>
                 <dd class="cuadrito">{{ properties?.informacionRelevante }}</dd>
@@ -117,7 +117,13 @@
             <div class="col-xs-12 col-md-4">
               <dl>
                 <dt>&nbsp;</dt>
-                <dd><button class="btn btn-primary btn-block" (click)="closePopup()">Consultar el expediente de Obra</button></dd>
+                <dd><button class="btn btn-primary btn-block" (click)="closePopup(1)">Consultar el expediente de Obra</button></dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-2">
+              <dl>
+                <dt>&nbsp;</dt>
+                <dd><button class="btn btn-primary btn-block" (click)="closePopup(2)">Tarjeta Informativa</button></dd>
               </dl>
             </div>
           </div>
