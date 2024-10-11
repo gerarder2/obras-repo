@@ -26,3 +26,14 @@ export interface ObraReporte {
   latitud: string;
   unidadMedida: string;
 }
+
+export interface ObraTarjetaInformativa {
+  idObra: number;
+  inversionEstimada: string;
+  longitud: string;
+  ancho: string;
+  superficie: string;
+  imagenGrafica: string;
+  imagenCroquis: string;
+  resumenEjecutivo: string;
+}

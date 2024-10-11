@@ -492,7 +492,8 @@ export class HelperService {
       idMunicipio: info.idMunicipio,
       estatus: info.estatus,
       idTipoObraSocial: [],
-      idDistrito: info.idDistrito
+      idDistrito: info.idDistrito,
+      idEtiqueta: info.idEtiqueta
     };
     // Obtener los tipos de obrasocial seleccionados
     info.tiposObras.forEach((element) => {
@@ -517,6 +518,9 @@ export class HelperService {
         return false;
       }
       if (filtros.idTipoObraSocial.length === 0) {
+        return false;
+      }
+      if (filtros.idEtiqueta && filtros.idEtiqueta !== obra.idEtiqueta) {
         return false;
       }
       return true;

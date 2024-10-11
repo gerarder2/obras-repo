@@ -11,6 +11,8 @@ import { Mensaje } from '../../models';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ObrasModalComponent } from '../../modules/obras/modal/obras-modal.component';
 import { HelperService } from '../../helpers/helper.service';
+import { ModalTarjetaInformativaComponent } from 'src/app/modules/obras/modal-tarjeta-informativa/modal-tarjeta-informativa.component';
+import { ObrasService } from 'src/app/modules/obras/services/obras.service';
 
 @Component({
   selector: 'app-header',
@@ -42,6 +44,7 @@ export class AppHeaderComponent implements OnInit {
 
   private mensaje: Mensaje;
   private bsObraModalRef: BsModalRef;
+  private bsModalRef: BsModalRef;
 
   private config: any;
   private webApi: string;
@@ -53,7 +56,8 @@ export class AppHeaderComponent implements OnInit {
     private http: HttpClient,
     private bsModalService: BsModalService,
     private configService: ConfigService,
-    private helperService: HelperService
+    private helperService: HelperService,
+    public obrasService: ObrasService
   ) {
     this.trustedImgUrl = sanitizer.bypassSecurityTrustResourceUrl(this.imgUrl);
     this.imgUrlError = 'assets/img/avatars/user-a.png';
@@ -156,5 +160,45 @@ export class AppHeaderComponent implements OnInit {
     if (this.search) {
       this.typeaheadInput.nativeElement.value = '';
     }
+  }
+
+  public verTarjetaInformativa(item: any) {
+    this.obrasService.getTarjetaInformativa(item).subscribe({
+      next: (response: any) => {
+        const objeto = item.objeto;
+        const data = { ...response.data, objeto };
+        this.abreModalTarjetaInformativa(data);
+      },
+      error: (err: unknown) => {
+        this.mensaje.showMessage(err);
+      }
+    });
+  }
+
+  abreModalTarjetaInformativa(data) {
+    const initialState = {
+      params: data,
+      isModal: true,
+      modalExtraOptions: {
+        closeButton: true,
+        closeButtonText: 'Cancelar',
+        acceptButton: true,
+        acceptButtonText: 'Aceptar'
+      }
+    };
+
+    this.bsModalRef = this.bsModalService.show(ModalTarjetaInformativaComponent, {
+      initialState,
+      class: 'modal-primary modal-lg',
+      backdrop: 'static',
+      keyboard: true,
+      ignoreBackdropClick: true
+    });
+
+    this.bsModalRef.content.event.subscribe((res) => {
+      console.warn(res);
+    });
+
+    this.bsModalService.onHide.subscribe((reason: string) => {});
   }
 }

@@ -32,6 +32,8 @@ import { ObrasModalComponent } from '../obras/modal/obras-modal.component';
 import { Totales } from './models/totales.interface';
 import { ObrasService } from '../obras/services/obras.service';
 import { ModalPorMunicipioComponent } from '../obras/modal-por-municipio/modal-por-municipio.component';
+import { Etiquetas } from './models/etiquetas.interface';
+import { count } from 'console';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -101,6 +103,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   tiposObras: TipoObra[];
   estatusObras: any[];
   estatusObrasSeleccionado: any;
+  etiqueta: Etiquetas[];
+  etiquetaSeleccionada: any;
 
   puntosMapa: any;
   totales: Totales;
@@ -254,6 +258,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   loadCatalogos() {
     this.catalogosService.getCatalogos().subscribe({
       next: (data: any[]) => {
+        this.etiqueta = data[7].data;
+        if (this.etiqueta.length >= 1) {
+          this.etiqueta.unshift({ id: 0, nombre: 'TODAS' });
+        }
+        this.etiquetaSeleccionada = this.etiqueta[0];
         this.tiposObras = this.helperService.formatTipoObras(data[0].data);
         this.dependencias = this.helperService.formatTipoObras(data[5].data);
         if (this.dependencias.length > 1) {
@@ -275,6 +284,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.municipioSeleccionado = this.municipios[0];
     this.periodoSeleccionado = this.periodos[0];
     this.estatusObrasSeleccionado = this.estatusObras[0];
+    this.etiquetaSeleccionada = this.etiqueta[0];
   }
 
   loadPuntosObra() {
@@ -284,7 +294,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       idMunicipio: 0,
       ejercicio: 0,
       estatus: 'TODAS',
-      idUsuario: 0
+      idUsuario: 0,
+      idEtiqueta: 0
     };
     this.catalogosService.getMapaObras(payload).subscribe({
       next: (response) => {
@@ -458,19 +469,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       tiposObras: this.tiposObras,
       puntosMapa: this.puntosMapa,
       idMunicipio: this.municipioSeleccionado.id,
-      estatus: this.estatusObrasSeleccionado.descripcion
+      estatus: this.estatusObrasSeleccionado.descripcion,
+      idEtiqueta: this.etiquetaSeleccionada.id
     };
-
     const newPuntosMapa = this.helperService.filtrarData(info);
     if (newPuntosMapa.data.length > 0) {
       const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
       this.tiposObras = conteo;
-      // this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
+      this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
       this.mostrarPuntosObra(newPuntosMapa);
 
-      // this.montoInversionActual = newPuntosMapa.data
-      //   .filter((elemento) => parseInt(elemento.ejercicio) === this.annioActual)
-      //   .reduce((suma, elemento) => suma + elemento.montoInversion, 0);
+      this.montoInversionActual = newPuntosMapa.data
+        .filter((elemento) => parseInt(elemento.ejercicio) === this.annioActual)
+        .reduce((suma, elemento) => suma + elemento.montoInversion, 0);
 
       this.calcularKms(newPuntosMapa.data);
     } else {

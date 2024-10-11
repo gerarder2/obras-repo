@@ -1,0 +1,108 @@
+<ng-container *ngIf="params" >
+    <div class="content-map" id="tarjetaInformativa">
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <dl>
+                <dd>
+                    <img style="width: 100%;" src="./assets/img/sinaloa_logo.png" alt="sinaloa" />
+                </dd>
+                </dl>
+            </div>
+            <div class="col-xs-12 col-md-3 offset-4">
+                <dl>
+                <dd>
+                    <img style="width: 100%;padding-top: 10%;" src="./assets/img/obras_sentido_social_logo.png" alt="obras" />
+                </dd>
+                </dl>
+            </div>
+            <div class="ml-auto col-xs-12 col-md-1" style="padding-right: 0;">
+              <button type="button" class="close" (click)="bsObraModalRef.hide()">
+                  <span aria-hidden="true"><i class="fa fa-close"></i></span>
+              </button>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+              <dl>
+                <dt class="text-center">TARJETA INFORMATIVA DE AVANCES DE OBRA:</dt>
+                <dd class="contrato">{{ params?.objeto }}</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+              <dl>
+                <dt class="text-center">Inversión Estimada:</dt>
+                <dd class="text-center">{{params.inversionEstimada}}</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+              <dl>
+                <dt>Datos Generales:</dt>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <dl>
+                  <dt>Longitud a pavimentar</dt>
+                  <dd>
+                    {{ params.longitud}}
+                  </dd>
+                </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <dl>
+                  <dt>Ancho de Calzada</dt>
+                  <dd>
+                    {{ params.ancho}}
+                  </dd>
+                </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <dl>
+                  <dt>Superficie</dt>
+                  <dd>
+                    {{ params.superficie }}
+                  </dd>
+                </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <dl>
+                    <dt>Avance de Obra</dt>
+                    <dd><img [src]="params.urlImagenGrafica" style="height: -webkit-fill-available; width: -webkit-fill-available;"></dd>
+                  </dl>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <dl>
+                    <dt>Resumen</dt>
+                    <dd [innerHTML]="params.resumenEjecutivo"></dd>
+                  </dl>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <dl>
+                    <dt>Croquis</dt>
+                    <dd><img [src]="params.urlImagenCroquis" style="height: -webkit-fill-available; width: -webkit-fill-available;"></dd>
+                  </dl>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <dl>
+                    <dt>Tarjeta Informativa</dt>
+                    <dd><button (click)="descargarPDF()" class="btn btn-primary">Descargar PDF</button></dd>
+                  </dl>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>

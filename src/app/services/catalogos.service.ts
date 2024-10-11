@@ -38,6 +38,7 @@ export class CatalogosService {
     const tiposContrato = `${this.webApi}/TipoContrato/Combo`;
     const dependencias = `${this.webApi}/ObraPortal/ComboDependencias?IdUsuario=${this.auth.currentUser().id}`;
     const distritos = `${this.webApiMaatCore}/Distrito/Combo`;
+    const etiquetas = `${this.webApi}/Etiquetas/Combo`;
 
     //74.208.25.33:8083/api/Distrito/Combo
 
@@ -48,7 +49,8 @@ export class CatalogosService {
       this.http.get(constratistas),
       this.http.get(tiposContrato),
       this.http.get(dependencias),
-      this.http.get(distritos)
+      this.http.get(distritos),
+      this.http.get(etiquetas)
     ]);
   }
 

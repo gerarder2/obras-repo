@@ -5,6 +5,9 @@ import { ObrasModalComponent } from '../../obras/modal/obras-modal.component';
 import { Evidencia } from '../models/evidencia.interface';
 import { Imagen } from '../models/imagen.interface';
 import { HelperService } from '../../../helpers/helper.service';
+import { ModalTarjetaInformativaComponent } from '../../obras/modal-tarjeta-informativa/modal-tarjeta-informativa.component';
+import { ObrasService } from '../../obras/services/obras.service';
+import { Mensaje } from 'src/app/models/mensaje';
 
 @Component({
   selector: 'app-card-information',
@@ -33,8 +36,14 @@ export class CardInformationComponent implements OnInit, OnChanges {
   public displayCustom: boolean;
   public activeIndex: number;
   public images: any[];
+  public mensaje: Mensaje;
 
-  constructor(private bsModalService: BsModalService, private helperService: HelperService) {
+  constructor(
+    private bsModalService: BsModalService,
+    private helperService: HelperService,
+    private obrasService: ObrasService
+  ) {
+    this.mensaje = new Mensaje();
     this.showCarousel = false;
     this.imageIndex = 0;
     this.activeIndex = 0;
@@ -71,19 +80,63 @@ export class CardInformationComponent implements OnInit, OnChanges {
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
 
-  public closePopup() {
+  public closePopup(opcionModal?: number) {
     this.closePopupEvent.emit('close');
     this.helperService.setClosePopup('close', null);
     setTimeout(() => {
       this.marker.closePopup();
-      this.openModalComponent(this.properties);
+      this.openModalComponent(this.properties, opcionModal);
     }, 200);
   }
 
   // SECCION CONFIGURACION MODAL
-  public openModalComponent(opciones?: any) {
+  public openModalComponent(opciones?: any, opcionModal?: number) {
+    if (opcionModal == 2) {
+      this.verTarjetaInformativa(opciones);
+    } else {
+      const initialState = {
+        params: opciones ? opciones : {},
+        isModal: true,
+        modalExtraOptions: {
+          closeButton: true,
+          closeButtonText: 'Cancelar',
+          acceptButton: true,
+          acceptButtonText: 'Aceptar'
+        }
+      };
+
+      this.bsModalRef = this.bsModalService.show(ObrasModalComponent, {
+        initialState,
+        class: 'modal-primary modal-fullscreen',
+        backdrop: 'static',
+        keyboard: false,
+        ignoreBackdropClick: true
+      });
+
+      this.bsModalRef.content.event.subscribe((res) => {
+        console.warn(res);
+      });
+
+      this.bsModalService.onHide.subscribe((reason: string) => {});
+    }
+  }
+
+  public verTarjetaInformativa(item: any) {
+    this.obrasService.getTarjetaInformativa(item).subscribe({
+      next: (response: any) => {
+        const objeto = item.objeto;
+        const data = { ...response.data, objeto };
+        this.abreModalTarjetaInformativa(data);
+      },
+      error: (err: unknown) => {
+        this.mensaje.showMessage(err);
+      }
+    });
+  }
+
+  abreModalTarjetaInformativa(data) {
     const initialState = {
-      params: opciones ? opciones : {},
+      params: data,
       isModal: true,
       modalExtraOptions: {
         closeButton: true,
@@ -93,11 +146,11 @@ export class CardInformationComponent implements OnInit, OnChanges {
       }
     };
 
-    this.bsModalRef = this.bsModalService.show(ObrasModalComponent, {
+    this.bsModalRef = this.bsModalService.show(ModalTarjetaInformativaComponent, {
       initialState,
-      class: 'modal-primary modal-fullscreen',
+      class: 'modal-primary modal-lg',
       backdrop: 'static',
-      keyboard: false,
+      keyboard: true,
       ignoreBackdropClick: true
     });
 

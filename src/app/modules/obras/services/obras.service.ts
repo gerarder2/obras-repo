@@ -69,4 +69,9 @@ export class ObrasService {
       responseType: 'blob' as 'json'
     });
   }
+
+  public getTarjetaInformativa(queryParams: any) {
+    return this.http.get(`${this.config.webApi}/ObraTarjetaInformativa/?IdObras=${queryParams.id}`);
+    // return this.http.get(`${this.config.webApi}/ObraTarjetaInformativa/?IdObras=832`);
+  }
 }
