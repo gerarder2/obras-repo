@@ -119,7 +119,7 @@
             <p><i class="fas fa-calendar-alt fa-lg"></i> {{ match.item.fechaInicio | date: 'dd/MMM/YYYY':'':'es' }}</p>
           </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer" *ngIf="match.item.idEtiqueta">
           <div class="d-flex justify-content-between">
             <button class="btn btn-primary" (click)="verTarjetaInformativa(match.item)">Ver Tarjeta Informativa</button>
           </div>

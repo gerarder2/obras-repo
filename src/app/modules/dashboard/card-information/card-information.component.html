@@ -120,7 +120,7 @@
                 <dd><button class="btn btn-primary btn-block" (click)="closePopup(1)">Consultar el expediente de Obra</button></dd>
               </dl>
             </div>
-            <div class="col-xs-12 col-md-2">
+            <div class="col-xs-12 col-md-2" *ngIf="properties?.idEtiqueta">
               <dl>
                 <dt>&nbsp;</dt>
                 <dd><button class="btn btn-primary btn-block" (click)="closePopup(2)">Tarjeta Informativa</button></dd>
