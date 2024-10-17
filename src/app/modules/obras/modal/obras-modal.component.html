@@ -35,7 +35,7 @@
             <div class="col-12">
               <dl class="dl-list">
                 <dt>Monto Total</dt>
-                <dd class="monto">{{ (obra?.montoInversionContratada  - obra?.montoConveniosModificatorios) | currency }} MXN</dd>
+                <dd class="monto">{{ (obra?.montoInversionContratada  + obra?.montoConveniosModificatorios) | currency }} MXN</dd>
               </dl>
             </div>
           </div>
