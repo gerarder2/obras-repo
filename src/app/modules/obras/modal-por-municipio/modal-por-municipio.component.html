@@ -170,10 +170,12 @@
                                 Ver Ficha
                             </button>
                         </td>
-                        <td>
-                            <button class="btn btn-primary icon text-white" (click)="mostrarTarjetaInformativa(obra)">
-                                Ver Tarjeta Informativa
-                            </button>
+                        <td >
+                            <div *ngIf="obra.idEtiqueta">
+                                <button class="btn btn-primary icon text-white" (click)="mostrarTarjetaInformativa(obra)">
+                                    Ver Tarjeta Informativa
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 </ng-template>
