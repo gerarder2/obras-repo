@@ -34,7 +34,7 @@
           <div class="row">
             <div class="col-12">
               <dl class="dl-list">
-                <dt>Monto Total</dt>
+                <dt>Monto Total Contratado</dt>
                 <dd class="monto">{{ (obra?.montoInversionContratada  + obra?.montoConveniosModificatorios) | currency }} MXN</dd>
               </dl>
             </div>
@@ -160,8 +160,8 @@
         </div>
         <div class="col-xs-12 col-md-2">
           <dl class="dl-list">
-            <dt>Monto inversion acumulada</dt>
-            <dd>{{ obra?.montoInversionAcumulada | currency }} MXN</dd>
+            <dt>Importe pagado</dt>
+            <dd>{{ obra?.importePagado | currency }} MXN</dd>
           </dl>
         </div>
         <div class="col-xs-12 col-md-2">
@@ -269,7 +269,7 @@
         <div class="col-xs-12 col-md-4">
           <dl class="dl-list">
             <dt>Alcances de obra</dt>
-            <dd class="cuadrito">{{ obra?.alcanceObra }}</dd>
+            <dd>{{ obra?.alcanceObra }}</dd>
           </dl>
         </div>
         
@@ -350,16 +350,16 @@
               </div>
               <div class="col-xs-12 col-md-4">
                 <dl class="dl-list">
-                  <dt>Monto a pagar</dt>
-                  <dd class="">{{ obra.montoInversion | currency }} MXN</dd>
+                  <dt>Monto por pagar</dt>
+                  <dd class="">{{ ((obra?.montoInversionContratada  + obra?.montoConveniosModificatorios) - obra?.importePagado) | currency }} MXN</dd>
                 </dl>
               </div>
             </div>
             <div class="row">
               <div class="col-12">
                 <dl class="dl-list">
-                  <dt>Avance financiero $</dt>
-                  <dd class="monto">{{ obra.montoInversionAcumulada | currency }} MXN</dd>
+                  <dt>Importe pagado</dt>
+                  <dd class="monto">{{ obra.importePagado | currency }} MXN</dd>
                 </dl>
               </div>
             </div>

@@ -57,7 +57,7 @@ export interface Obra {
   evidencias?: Evidencia[];
   licitacion?: any;
   descripcionOrigenRecurso?: string;
-  montoInversionAcumulada?: string;
+  importePagado?: number;
   montoInversionContratada?: number;
   montoConveniosModificatorios?: number;
   numeroAutorizacion?: string;

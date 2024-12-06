@@ -1,5 +1,4 @@
 import * as L from 'leaflet';
-
 import {
   AfterViewInit,
   ApplicationRef,
@@ -33,7 +32,6 @@ import { Totales } from './models/totales.interface';
 import { ObrasService } from '../obras/services/obras.service';
 import { ModalPorMunicipioComponent } from '../obras/modal-por-municipio/modal-por-municipio.component';
 import { Etiquetas } from './models/etiquetas.interface';
-import { count } from 'console';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -108,8 +106,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   puntosMapa: any;
   totales: Totales;
-  montoInversion: number;
-  montoInversionActual: number;
+  montoInversionTotalAcumulada: number;
+  montoInversionTotalAnioActual: number;
 
   markObrasId: any[] = [];
 
@@ -143,8 +141,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ) {
     this.hideFiltersTotales = false;
     const config = this.configService.getConfig();
-    this.montoInversion = 0;
-    this.montoInversionActual = 0;
+    this.montoInversionTotalAcumulada = 0;
+    this.montoInversionTotalAnioActual = 0;
     this.periodos = config.periodos;
     this.periodo = 'TODOS';
     this.elementoActivo = -1;
@@ -308,11 +306,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           estatus: this.estatusObrasSeleccionado.descripcion
         };
         const newPuntosMapa = this.helperService.filtrarData(info);
-        this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
+        this.montoInversionTotalAcumulada = newPuntosMapa.data.reduce(
+          (total, x) => total + (x.montoInversionContratada + x.montoConveniosModificatorios),
+          0
+        );
 
-        this.montoInversionActual = newPuntosMapa.data
+        this.montoInversionTotalAnioActual = newPuntosMapa.data
           .filter((elemento) => parseInt(elemento.ejercicio) === this.annioActual)
-          .reduce((suma, elemento) => suma + elemento.montoInversion, 0);
+          .reduce(
+            (suma, elemento) => suma + (elemento.montoInversionContratada + elemento.montoConveniosModificatorios),
+            0
+          );
 
         this.calcularKms(newPuntosMapa.data);
 
@@ -436,33 +440,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.bsModalService.onHide.subscribe((reason: string) => {});
   }
 
-  // descargarReporte() {
-  //   const payload = {
-  //     idMunicipio: this.municipioSeleccionado.id,
-  //     ejercicio: this.periodoSeleccionado.descripcion !== 'TODOS' ? parseInt(this.periodoSeleccionado.descripcion) : 0,
-  //     estatus: this.estatusObrasSeleccionado.descripcion
-  //   };
-
-  //   this.obrasService.getReporte(payload).subscribe({
-  //     next: (response: Blob) => {
-  //       const url = window.URL.createObjectURL(response);
-  //       const a = document.createElement('a');
-  //       a.href = url;
-  //       a.download = 'Reporte.pdf';
-  //       a.click();
-  //       window.URL.revokeObjectURL(url);
-  //     },
-  //     error: (err: unknown) => {
-  //       this.mensaje.showMessage({
-  //         notification: {
-  //           mensajeUsuario: 'Ocurrio un error al intentar descargar el Reporte',
-  //           severidad: 'error'
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
-
   public filtrarLocal() {
     const info = {
       idDependencia: this.dependenciaSeleccionada.id,
@@ -476,12 +453,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     if (newPuntosMapa.data.length > 0) {
       const conteo = this.helperService.calcularConteoTiposObras(this.tiposObras, newPuntosMapa.data);
       this.tiposObras = conteo;
-      this.montoInversion = newPuntosMapa.data.reduce((total, x) => total + x.montoInversion, 0);
+      this.montoInversionTotalAcumulada = newPuntosMapa.data.reduce(
+        (total, x) => total + (x.montoInversionContratada + x.montoConveniosModificatorios),
+        0
+      );
       this.mostrarPuntosObra(newPuntosMapa);
 
-      this.montoInversionActual = newPuntosMapa.data
+      this.montoInversionTotalAnioActual = newPuntosMapa.data
         .filter((elemento) => parseInt(elemento.ejercicio) === this.annioActual)
-        .reduce((suma, elemento) => suma + elemento.montoInversion, 0);
+        .reduce(
+          (suma, elemento) => suma + (elemento.montoInversionContratada + elemento.montoConveniosModificatorios),
+          0
+        );
 
       this.calcularKms(newPuntosMapa.data);
     } else {
@@ -496,7 +479,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.catalogosService.getObrasTotales({ ejercicio: 0 }).subscribe({
       next: (response: any) => {
         this.totales = response.data;
-        //this.montoInversion = this.totales.totalMontoInversion;
+        //this.montoInversionTotalAcumulada = this.totales.totalMontoInversion;
         this.cards = [
           {
             id: 1,
@@ -521,7 +504,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         for (const periodo of response.data.totalMontoInversionEjerciciosAnteriores) {
           this.listaPeriodos.push({
             periodo: parseInt(periodo.ejercicio),
-            label: `Total ejercido ${periodo.ejercicio}`,
+            label: `Inversión Total Ejercida ${periodo.ejercicio}`,
             valor: periodo.totalMontoInversion,
             totales: periodo.totalMontoInversion,
             currency: true
@@ -781,54 +764,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // toggleSidebar() {
-  //   this.sidebarOpen = !this.sidebarOpen;
-  //   setTimeout(() => {
-  //     this.map.invalidateSize();
-  //   }, 200);
-  // }
-
-  // toggleASidebar() {
-  //   this.asidebarOpen = !this.asidebarOpen;
-  //   setTimeout(() => {
-  //     this.map.invalidateSize();
-  //   }, 200);
-  // }
-
-  onChangeDependencia(_$event) {
-    console.log(_$event);
-  }
-
-  onChangePuesto(_$event) {
-    const params = {
-      idPuesto: this.puestoSeleccionado.id,
-      anio: this.periodoSeleccionado
-    };
-    this.catalogosService.getElecciones(params).subscribe({
-      next: (response) => {
-        if (response.data === null) {
-          this.mensaje.showMessage({ notification: response.notification });
-        }
-        this.votosMunicipio = response?.data?.votosMunicipio || [];
-        this.votosDistrito = response?.data?.votosDistrito || [];
-        this.partidosSwitch.partidosDistritos = response.data.partidosDistritos;
-        this.partidosSwitch.partidosMunicipios = response.data.partidosMunicipios;
-
-        for (const element of this.partidosSwitch.partidosDistritos) {
-          element.checked = true;
-        }
-        for (const element of this.partidosSwitch.partidosMunicipios) {
-          element.checked = true;
-        }
-      },
-      error: (err: unknown) => {
-        console.warn(err);
-      }
-    });
-    this.recargarInfo();
-  }
-
-  recargarInfo($event?) {
+  recargarInfo() {
     this.dependenciaSeleccionada = this.dependencias[0];
     this.municipioSeleccionado = this.municipios[0];
     this.periodoSeleccionado = this.periodos[0];
@@ -837,8 +773,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       el.checked = true;
     });
     this.filtrar();
-    // TODO BORRAR DEMAS ELEMENTOS
-    // this.refreshMap();
   }
 
   refreshMap() {
@@ -846,195 +780,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.map.flyTo([24.8049172, -107.4233141], 8);
     }, 200);
-  }
-
-  onChangeMunicipio($event, municipio: Municipio) {
-    // this.map.setView([this.municipioSeleccionado.latitud, this.municipioSeleccionado.longitud], this.zoom);
-    if ($event.checked.length < this.municipios.length) {
-      if (this.allMunicipios) {
-        this.allMunicipios = false;
-      }
-    }
-
-    if ($event.checked.length > 0) {
-      this.helperService
-        .getGeoJsonByGroup(
-          'municipio',
-          this.votosMunicipio,
-          this.geoJsonFeatureMunicipios,
-          this.geoJsonFeatureMunicipiosPuntos,
-          $event.checked
-        )
-        .then((response) => {
-          this.visualizarMapa(response);
-          this.map.flyTo([municipio.latitud, municipio.longitud]);
-        });
-    } else if ($event.checked.length === 0) {
-      this.geoJson.clearLayers();
-    }
-  }
-
-  onChangeDistrito($event, _distrito: Distrito) {
-    if ($event.checked.length < this.distritos.length) {
-      if (this.allDistritos) {
-        this.allDistritos = false;
-      }
-    }
-    if ($event.checked.length > 0) {
-      this.helperService
-        .getGeoJsonByGroup(
-          'distrito',
-          this.votosDistrito,
-          this.geoJsonFeatureDistritos,
-          this.geoJsonFeatureDistritosPuntos,
-          $event.checked
-        )
-        .then((response) => {
-          let coord = [];
-
-          response.features.forEach((element) => {
-            if (element.geometry.type === 'Point') {
-              coord = element.geometry.coordinates;
-            }
-          });
-
-          this.visualizarMapa(response);
-          this.map.flyTo([coord[1], coord[0]], 9.2);
-        });
-    } else {
-      this.geoJson.clearLayers();
-      //this.map.flyTo([municipio.latitud, municipio.longitud]);
-    }
-  }
-
-  checkUncheckMunicipios() {
-    if (this.allMunicipios) {
-      this.municipiosSeleccionados = this.municipios.slice();
-
-      this.helperService
-        .getGeoJsonAll(
-          'municipio',
-          this.votosMunicipio,
-          this.geoJsonFeatureMunicipios,
-          this.geoJsonFeatureMunicipiosPuntos
-        )
-        .then((response) => {
-          this.visualizarMapa(response);
-        });
-      this.distritosSeleccionados = [];
-    } else {
-      this.municipiosSeleccionados = [];
-      this.quitarObrasLayer();
-      this.refreshMap();
-    }
-    // this.municipios.forEach((element) => {
-    //   element.selected = this.allMunicipios;
-    // });
-  }
-
-  checkUncheckDistritos() {
-    if (this.allDistritos) {
-      this.distritosSeleccionados = this.distritos.slice();
-      this.helperService
-        .getGeoJsonAll('distrito', this.votosDistrito, this.geoJsonFeatureDistritos, this.geoJsonFeatureDistritosPuntos)
-        .then((response) => {
-          this.visualizarMapa(response);
-        });
-      this.municipiosSeleccionados = [];
-    } else {
-      this.distritosSeleccionados = [];
-      this.quitarObrasLayer();
-      this.refreshMap();
-    }
-  }
-
-  checkDistritoSelected(distrito: Distrito) {
-    return this.distritosSeleccionados.find((element) => {
-      return element.id === distrito.id;
-    });
-  }
-
-  mostrarSeccion($event) {
-    if (!$event.value) {
-      this.mostrarSecciones(this.distritoSeleccionado);
-      return false;
-    }
-
-    this.helperService
-      .getGeoJsonSeccion(
-        this.seccionSeleccionada,
-        this.votosSeccion,
-        this.geoJsonFeatureSecciones,
-        this.distritoSeleccionado,
-        this.geoJsonFeatureDistritos
-      )
-      .then((response) => {
-        let coord = [];
-
-        response.features.forEach((element) => {
-          if (element.geometry.type === 'Point') {
-            coord = element.geometry.coordinates;
-          }
-        });
-
-        this.visualizarMapa(response);
-        // this.map.panTo([coord[1], coord[0]]);
-        this.map.flyTo([coord[1], coord[0]], 9.2);
-      });
-  }
-
-  mostrarSecciones(distrito: Distrito) {
-    this.distritoSeleccionado = distrito;
-    // console.warn(distrito);
-    const params = {
-      idPuesto: this.puestoSeleccionado.id,
-      anio: this.periodoSeleccionado,
-      idDistrito: distrito.id
-    };
-    this.blockUIList.start('Procesando...');
-    this.catalogosService.getEleccionesSeccionesPorDistrito(params).subscribe({
-      next: (response) => {
-        this.votosSeccion = response.data.votosSeccion;
-        this.partidosSwitch.partidosMunicipios = response.data.partidosMunicipios;
-
-        this.helperService
-          .getGeoJsonSecciones(distrito, this.votosSeccion, this.geoJsonFeatureSecciones, null)
-          .then((response) => {
-            this.blockUIList.stop();
-            this.seccionesActuales = [];
-            for (const element of this.votosSeccion) {
-              this.seccionesActuales.push({ id: element.seccion.id, clave: element.seccion.clave });
-            }
-            this.labelSeccionesDistritos = `Secciones del Distrito ${distrito.id}`;
-
-            this.visualizarMapa(response, 'seccion');
-          });
-      },
-      error: (err: unknown) => {
-        this.blockUIList.stop();
-        console.warn(err);
-      }
-    });
-  }
-
-  panelMunicipios() {
-    if (this.municipiosSeleccionados?.length > 0 || this.allMunicipios) {
-      return false;
-    }
-    return true;
-  }
-  panelDistritos() {
-    if (this.distritosSeleccionados?.length > 0 || this.allDistritos) {
-      return false;
-    }
-    return true;
-  }
-
-  visualizarSwitches() {
-    if (this.partidosSwitch && (this.allMunicipios || this.allDistritos)) {
-      return true;
-    }
-    return false;
   }
 
   mostrarPuntosObra(info: any, opcion?: string) {
@@ -1114,42 +859,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.mensaje.showMessage(err);
       }
     });
-  }
-
-  quitarObrasLayer() {
-    if (this.obrasMarksLayer) {
-      this.map.removeLayer(this.obrasMarksLayer);
-    }
-  }
-
-  filtrarSecciones($event: any) {
-    this.votosSeccionEspecial = $event.data.votosSeccion;
-    this.partidosSwitch.partidosSecciones = $event.data.partidosSecciones;
-    this.seccionesEspeciales = $event.secciones.split(',');
-
-    this.helperService
-      .getGeoJsonSeccionesEspeciales(
-        this.seccionesEspeciales,
-        this.votosSeccionEspecial,
-        this.geoJsonFeatureSecciones,
-        null
-      )
-      .then((response) => {
-        this.blockUIList.stop();
-        this.seccionesActuales = [];
-        this.visualizarMapa(response, 'seccion');
-      });
-  }
-
-  quitarSeccionesEspecialesLayer() {
-    this.seccionesEspeciales = [];
-    this.refreshMap();
-  }
-
-  loadingSeccionesEspeciales($event) {
-    if ($event === 'loading') {
-      this.blockUIList.start('Procesando...');
-    }
   }
 
   // SECCION CONFIGURACION MODAL

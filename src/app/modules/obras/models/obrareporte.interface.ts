@@ -12,7 +12,7 @@ export interface ObraReporte {
   municipal: number;
   estatal: number;
   federal: number;
-  montoInversionAcumulada: number;
+  importePagado: number;
   descripcionContratista: string;
   porcentajeAvance: number;
   descripcionTipoObra: string;
