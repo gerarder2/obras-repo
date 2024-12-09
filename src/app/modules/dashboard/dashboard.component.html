@@ -3,18 +3,18 @@
     <h4>SISTEMA DE ADMINISTRACIÓN Y GESTIÓN DE PROYECTOS</h4>
   </div>
   <div class="desc-header">
-    <h4>{{ montoInversion | currency }} MXN</h4>
+    <h4>{{ montoInversionTotalAcumulada | currency }} MXN</h4>
     <h6>MONTO TOTAL EJERCIDO</h6>
   </div>
 </section>
 <section class="map-container">
   <ng-container *ngIf="!hideFiltersTotales">
-  <div class="lista-float-2" *ngIf="montoInversion">
+  <div class="lista-float-2" *ngIf="montoInversionTotalAcumulada">
     <div class="contenido">
       <app-lista-elementos
-        [titulo]="'Inversion Total Acumulada'"
+        [titulo]="'Inversión Total Acumulada'"
         [enableToggle]="false"
-        [totales]="montoInversion"
+        [totales]="montoInversionTotalAcumulada"
         [currency]="true"
         [active]="true"
       >
@@ -25,9 +25,9 @@
   <div class="lista-float-3" >
     <div class="contenido">
       <app-lista-elementos
-        titulo="{{ 'Inversion Total Ejercida ' + annioActual }}"
+        titulo="{{ 'Inversión Total Ejercida ' + annioActual }}"
         [enableToggle]="false"
-        [totales]="montoInversionActual"
+        [totales]="montoInversionTotalAnioActual"
         [currency]="true"
         [active]="true"
       >
