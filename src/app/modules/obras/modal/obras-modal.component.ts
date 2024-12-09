@@ -94,6 +94,7 @@ export class ObrasModalComponent implements OnInit {
 
   private mensaje: Mensaje;
   private graphicPalette: string[];
+  public esPreecasin = false;
 
   constructor(
     public bsObraModalRef: BsModalRef,
@@ -136,7 +137,7 @@ export class ObrasModalComponent implements OnInit {
     this.obrasService.getObrasDatosById({ idObra: this.params.id }).subscribe({
       next: (response) => {
         this.obra = response.data;
-
+        this.esPreecasin = this.obra.idDependencia === 119;
         if (this.obra.licitacion) {
           this.params.licitacion = this.obra.licitacion;
         }
