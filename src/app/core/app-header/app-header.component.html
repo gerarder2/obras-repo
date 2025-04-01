@@ -88,8 +88,8 @@
         <i class="text-white fas fa-user fa-xl"></i>
       </a>
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-        <div class="dropdown-header text-center"><strong>Account</strong></div>
-        <a class="dropdown-item" href="" (click)="logOut(); (false)"><i class="fa fa-lock"></i> Logout</a>
+        <div class="dropdown-header text-center"><strong> {{ nameUser }} </strong></div>
+        <a class="dropdown-item" href="" (click)="logOut(); (false)"><i class="fa fa-lock"></i> Cerrar sesión</a>
       </div>
     </li>
   </ul>

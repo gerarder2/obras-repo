@@ -570,7 +570,7 @@ export class HelperService {
 
   public calcularConteoTiposObras(tiposObras: TipoObra[], data: any[]) {
     tiposObras.forEach((objeto) => {
-      const coincidencias = data?.filter((el) => el.idTipoObraSocial === objeto.id);
+      const coincidencias = data?.filter((el) => el.idTipoObra === objeto.id);
       objeto.conteo = coincidencias?.length;
     });
     return tiposObras;

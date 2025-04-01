@@ -48,6 +48,7 @@ export class AppHeaderComponent implements OnInit {
 
   private config: any;
   private webApi: string;
+  public nameUser: string;
 
   constructor(
     private menuData: MenuService,
@@ -64,6 +65,8 @@ export class AppHeaderComponent implements OnInit {
     this.mensaje = new Mensaje();
     this.config = this.configService.getConfig();
     this.webApi = this.config.webApi;
+    const nameUser = this.auth.currentUser().nombreCompleto;
+    this.nameUser = nameUser ?? 'Account';
   }
 
   public logOut() {

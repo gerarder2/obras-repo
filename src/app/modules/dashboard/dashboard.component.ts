@@ -299,11 +299,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       next: (response) => {
         this.puntosMapa = response;
         const info = {
-          idDependencia: this.dependenciaSeleccionada.id,
+          idDependencia: this.dependenciaSeleccionada?.id,
           tiposObras: this.tiposObras,
           puntosMapa: this.puntosMapa,
-          idMunicipio: this.municipioSeleccionado.id,
-          estatus: this.estatusObrasSeleccionado.descripcion
+          idMunicipio: this.municipioSeleccionado?.id,
+          estatus: this.estatusObrasSeleccionado?.descripcion
         };
         const newPuntosMapa = this.helperService.filtrarData(info);
         this.montoInversionTotalAcumulada = newPuntosMapa.data.reduce(

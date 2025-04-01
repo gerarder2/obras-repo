@@ -47,20 +47,20 @@ export class DatosAbiertosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cards = [
-      { id: 1, cantidad: 1069, descripcion: 'TOTAL DE CONTRATOS', imagen: 'document_sq.png', pdf: '', cvs: '' },
-      { id: 2, cantidad: 516, descripcion: 'CONTRATISTAS', imagen: 'contratista_sq.png', pdf: '', cvs: '' },
-      { id: 3, cantidad: 18, descripcion: 'MUNICIPIOS BENEFICIADOS', imagen: 'sinaloa_map_sq.png', pdf: '', cvs: '' },
-      { id: 4, cantidad: 35, descripcion: 'DEPENDENCIAS / ORGANISMOS', imagen: 'building_sq.png', pdf: '', cvs: '' },
+      { id: 1, cantidad: null, descripcion: 'TOTAL DE CONTRATOS', imagen: 'document_sq.png', pdf: '', cvs: '' },
+      { id: 2, cantidad: null, descripcion: 'CONTRATISTAS', imagen: 'contratista_sq.png', pdf: '', cvs: '' },
+      { id: 3, cantidad: null, descripcion: 'MUNICIPIOS BENEFICIADOS', imagen: 'sinaloa_map_sq.png', pdf: '', cvs: '' },
+      { id: 4, cantidad: null, descripcion: 'DEPENDENCIAS / ORGANISMOS', imagen: 'building_sq.png', pdf: '', cvs: '' },
       {
         id: 5,
-        cantidad: 2929438639.42,
+        cantidad: null,
         descripcion: 'MONTO TOTAL EJERCIDO',
         imagen: 'dollar_sq.png',
         pdf: '',
         cvs: ''
       },
-      { id: 6, cantidad: 862, descripcion: 'LICITACIONES', imagen: 'books_sq.png', pdf: '', cvs: '' },
-      { id: 7, cantidad: 1903, descripcion: 'EVENTOS DE LICITACION', imagen: 'calendar_sq.png', pdf: '', cvs: '' }
+      { id: 6, cantidad: null, descripcion: 'LICITACIONES', imagen: 'books_sq.png', pdf: '', cvs: '' },
+      { id: 7, cantidad: null, descripcion: 'EVENTOS DE LICITACION', imagen: 'calendar_sq.png', pdf: '', cvs: '' }
     ];
     this.loadTotales();
   }
@@ -68,51 +68,14 @@ export class DatosAbiertosComponent implements OnInit {
   private loadTotales() {
     this.catalogosService.getObrasTotales({ ejercicio: 0 }).subscribe({
       next: (response: any) => {
-        this.totales = response.data[0];
-        this.cards = [
-          {
-            id: 1,
-            cantidad: this.totales.totalNumeroContratos,
-            descripcion: 'TOTAL DE CONTRATOS',
-            imagen: 'contrato-icon.svg'
-          },
-          {
-            id: 2,
-            cantidad: this.totales.totalContratistas,
-            descripcion: 'CONTRATISTAS',
-            imagen: 'contratistas-icon.svg'
-          },
-          {
-            id: 3,
-            cantidad: this.totales.totalMuncipiosBeneficiados,
-            descripcion: 'MUNICIPIOS BENEFICIADOS',
-            imagen: 'municipios-icon.svg'
-          },
-          {
-            id: 4,
-            cantidad: this.totales.totalDependencias,
-            descripcion: 'DEPENDENCIAS / ORGANISMOS',
-            imagen: 'icono dependencias.svg'
-          },
-          {
-            id: 5,
-            cantidad: this.totales.totalConveniosModificatorios,
-            descripcion: 'CONVENIOS MODIFICATORIOS',
-            imagen: 'convenios-icon.svg'
-          },
-          {
-            id: 6,
-            cantidad: this.totales.totalLicitaciones,
-            descripcion: 'LICITACIONES',
-            imagen: 'licitaciones-icon.svg'
-          },
-          {
-            id: 7,
-            cantidad: this.totales.totalEventosLicitaciones,
-            descripcion: 'EVENTOS DE LICITACION',
-            imagen: 'evlicitacion-icon.svg'
-          }
-        ];
+        this.totales = response.data;
+        this.cards[0].cantidad = this.totales.totalNumeroContratos;
+        this.cards[1].cantidad = this.totales.totalContratistas;
+        this.cards[2].cantidad = this.totales.totalMuncipiosBeneficiados;
+        this.cards[3].cantidad = this.totales.totalDependencias;
+        this.cards[4].cantidad = this.totales.totalConveniosModificatorios;
+        this.cards[5].cantidad = this.totales.totalLicitaciones;
+        this.cards[6].cantidad = this.totales.totalEventosLicitaciones;
       },
       error: (err: unknown) => {
         console.warn(err);

@@ -20,8 +20,8 @@
           <div class="row">
             <div class="col-xs-12 col-md-8">
               <dl>
-                <dt>Monto total</dt>
-                <dd class="monto">{{ properties?.montoInversion | currency }} MXN</dd>
+                <dt>Monto total contratado</dt>
+                <dd class="monto">{{ (properties?.montoInversionContratada  + properties?.montoConveniosModificatorios) | currency }} MXN</dd>
               </dl>
             </div>
             <div class="col-xs-12 col-md-4">
