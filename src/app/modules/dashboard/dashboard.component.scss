@@ -1,7 +1,7 @@
 @import './../../../scss/bootstrap-variables';
 @import './../../../scss/core/mixins';
 @import './../../../scss/core/variables';
-.container-header{
+.container-header {
   background-size: cover;
   height: 120px;
 
@@ -15,7 +15,7 @@
     h4 {
       font-weight: 600;
     }
-   
+
     h6, h5 {
       color: $black;
       font-weight: 500;
@@ -42,19 +42,19 @@
 }
 
 .map-container {
-  position:relative;
-  .map{
-      height: calc(100vh - 10px);
-      //height: 610px;
-      display:block;
+  position: relative;
+  .map {
+    height: 100dvh;
+    //height: 610px;
+    display: block;
   }
-  .map.map-sidebar-open{
+  .map.map-sidebar-open {
     margin-left: 400px;
     position: relative;
     transition: margin-left 0.3s ease-in-out;
   }
 
-  .map.map-asidebar-open{
+  .map.map-asidebar-open {
     margin-right: 500px;
     position: relative;
     transition: margin-right 0.3s ease-in-out;
@@ -74,16 +74,16 @@
     background-color: white;
     border-radius: 10px;
     padding: 10px;
-    &:hover{
+    &:hover {
       background-color: $gray-200;
     }
-    border: 2px solid rgba(0,0,0,0.2);
+    border: 2px solid rgba(0, 0, 0, 0.2);
   }
 
   .map-slider {
     position: absolute;
     top: auto;
-    margin-left:1rem;
+    margin-left: 1rem;
     margin-right: 1rem;
     bottom: 1rem;
     z-index: 400;
@@ -94,7 +94,7 @@
     height: 70px;
   }
 
-  .map-sidebar-body{
+  .map-sidebar-body {
     ::ng-deep .p-dropdown {
       width: 100%;
       font-size: 0.8rem;
@@ -112,18 +112,18 @@
     background-color: white;
     border-radius: 10px;
     padding: 10px;
-    &:hover{
+    &:hover {
       background-color: $gray-200;
     }
-    border: 2px solid rgba(0,0,0,0.2);
-  } 
+    border: 2px solid rgba(0, 0, 0, 0.2);
+  }
   .map-sidebar {
     background: #fff;
     min-height: 100px;
-    max-height: calc(100vh - 80px);
+    max-height: calc(100vh - 90px);
     position: absolute;
     top: 68px;
-    width: 350px;
+    width: 290px;
     transition: left 0.3s ease-in-out;
     z-index: 401;
     padding: 15px;
@@ -132,12 +132,14 @@
     border-radius: 15px;
 
     // left: 20px;
-    right: 20px;
+    right: 10px;
     border: 2px solid $gray-300;
 
-    @include breakpoint('xxl') {
-      height: 600px;
+
+    @include breakpoint('sm') {
+      width: 350px;
     }
+
   }
 
   .map-sidebar-header {
@@ -156,19 +158,19 @@
 
   .map-sidebar.map-sidebar-open {
     // left: 20px;
-    right: 20px;
+    right: 10px;
     border: 2px solid $gray-300;
-    height: 180px;
-    
+
   }
-  .map-sidebar-title{
+  .map-sidebar-title {
     font-weight: 800;
     color: $wine;
   }
 
   .map-asidebar {
     background: #fff;
-    height: calc(100vh - 100px);    position: fixed;
+    height: calc(100vh - 100px);
+    position: fixed;
     right: -500px;
     top: 97px;
     width: 500px;
@@ -196,45 +198,68 @@
     border-top: 1px solid $gray-300;
     border-left: 2px solid $gray-300;
   }
-  .map-asidebar-title{
+  .map-asidebar-title {
     margin-left: 10px;
   }
 }
 
-.lista-float {
-  margin-top: 6%;
+.listas-container {
   position: absolute;
   left: 10px;
-  top: 290px;
-  width: 200px;
+  top: 220px;
+  min-width: 200px;
   z-index: 401;
+  overflow-y: auto;
+
+  @media (max-height: #{$breakpoint-sm}) {
+    height: 120px;
+  }
 }
 
-.lista-float-2 {
-  margin-top: 6%;
-  position: absolute;
-  left: 10px;
-  top: 90px;
-  width: 200px;
-  z-index: 401;
-}
 
-.lista-float-3 {
-  margin-top: 6%;
-  position: absolute;
-  left: 10px;
-  top: 190px;
-  width: 200px;
-  z-index: 401;
-}
- 
+// .lista-float {
+//   margin-top: 6%;
+//   position: absolute;
+//   left: 10px;
+//   top: 290px;
+//   width: 200px;
+//   z-index: 401;
+// }
+
+// .lista-float-2 {
+//   margin-top: 6%;
+//   position: absolute;
+//   left: 10px;
+//   top: 90px;
+//   width: 200px;
+//   z-index: 401;
+// }
+
+// .lista-float-3 {
+//   margin-top: 6%;
+//   position: absolute;
+//   left: 10px;
+//   top: 190px;
+//   width: 200px;
+//   z-index: 401;
+// }
+
+// .lista-float-4 {
+//   margin-top: 6%;
+//   position: absolute;
+//   left: 10px;
+//   top: 290px;
+//   width: 200px;
+//   z-index: 401;
+// }
+
 .municipios-container {
   .municipios-title {
     width: 100%;
   }
 }
 
-.form-input{
+.form-input {
   width: 100px;
   position: absolute;
 }
@@ -256,11 +281,11 @@
   border-radius: 10px;
   height: 70px;
 }
-.floating-div.map-sidebar-open{
+.floating-div.map-sidebar-open {
   margin-left: 420px;
   transition: margin-left 0.3s ease-in-out;
 }
-.floating-div.map-asidebar-open{
+.floating-div.map-asidebar-open {
   margin-right: 420px;
   transition: margin-left 0.3s ease-in-out;
 }
@@ -293,12 +318,12 @@
 .icons-list li p-inputSwitch {
   display: block;
   float: left;
-  
+
   line-height: 53px !important;
   text-align: center;
 }
 
-.graphics-body{
+.graphics-body {
   max-width: 70vh;
   overflow: auto;
 }
@@ -597,10 +622,10 @@
 
 .label-switch {
   top: -5px;
-    line-height: 15px;
-    position: relative;
-    margin-bottom: 10px;
-    color: $gray-700;
+  line-height: 15px;
+  position: relative;
+  margin-bottom: 10px;
+  color: $gray-700;
 }
 
 .data-container {
@@ -618,16 +643,17 @@
   ::ng-deep .p-inputswitch {
     height: 1.2rem;
     width: 2.4rem;
+
     &.p-inputswitch-checked {
-        .p-inputswitch-slider::before {
-            transform: translateX(1rem);
-        }
+      .p-inputswitch-slider::before {
+        transform: translateX(1rem);
+      }
     }
 
     ::ng-deep .p-inputswitch-slider::before {
-        width: 0.9rem;
-        height: 0.9rem;
-        margin-top: -0.45rem;
+      width: 0.9rem;
+      height: 0.9rem;
+      margin-top: -0.45rem;
     }
   }
 }
@@ -639,9 +665,14 @@
 }
 
 ::ng-deep .leaflet-popup {
-  z-index: 1000 !important; /* Ajusta el valor según sea necesario */
-} 
+  z-index: 1000 !important;
+}
 
-h6{
+h6 {
   font-size: 0.9rem;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
 }

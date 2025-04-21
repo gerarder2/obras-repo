@@ -1,23 +1,25 @@
 @import './../../../../scss/bootstrap-variables';
 
 .title-municipio-modal {
- font-family: Mestiza-Bold;
+  font-family: Mestiza-Bold;
 }
 
 .container.no-cursor {
-  cursor:default;
+  cursor: default;
   max-width: none;
 }
 
 .data-container {
-    height: 80px;
-    background-color:$gray-200;
-    .data-title {
-        margin-bottom: 10px;
-    }
+  height: 80px;
+  background-color: $gray-200;
+
+  .data-title {
+    margin-bottom: 10px;
+  }
 }
+
 .descripcion {
-    font-size: 0.75rem;
+  font-size: 0.75rem;
 }
 
 .card.box {
@@ -25,21 +27,23 @@
 }
 
 .card-body .title {
-    padding: 10px;
-    text-align: center;
+  padding: 10px;
+  text-align: center;
 }
 
 .card.gold-500 {
-    background-color: $gold-500;
-    color: black;
+  background-color: $gold-500;
+  color: black;
 }
+
 .card.wine-100 {
-    background-color: $gold-100;
-    color: black;
+  background-color: $gold-100;
+  color: black;
 }
+
 .card.wine-50 {
-    background-color: $gold-50;
-    color: black;
+  background-color: $gold-50;
+  color: black;
 }
 
 
@@ -77,12 +81,12 @@
   border: 1px solid $gray-300;
 }
 
-p-table ::ng-deep .p-datatable .p-datatable-thead > tr > th  {
+p-table ::ng-deep .p-datatable .p-datatable-thead>tr>th {
   background-color: $wine;
   color: $white;
 }
 
-p-table ::ng-deep .p-datatable .p-sortable-column:hover  {
+p-table ::ng-deep .p-datatable .p-sortable-column:hover {
   background-color: $gray-600;
   color: $white;
 }
@@ -99,6 +103,7 @@ p-table {
   margin: 0 3% 5% 3%;
   border: 1px solid black;
 }
+
 // p-table ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
 //   background: $wine-50;
 // }
@@ -138,6 +143,7 @@ p-table {
     border-color: $gold-500;
 
   }
+
   .p-button:focus {
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px $gold-50, 0 1px 2px 0 black;
   }
@@ -150,7 +156,7 @@ p-table {
   .p-tabview .p-tabview-panels {
     padding-bottom: 0;
   }
-  
+
 }
 
 #chart {
@@ -172,6 +178,7 @@ p-table {
 .modal-header {
   background-color: #ffffff;
   color: $wine;
+
   .container.no-cursor {
     p {
       font-weight: 800;
@@ -182,6 +189,7 @@ p-table {
 .header-first {
   background-color: $wine;
   color: $wine;
+
   .container.no-cursor {
     p {
       font-weight: 800;
@@ -194,7 +202,7 @@ p-tabview ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link
   color: $wine !important;
 }
 
-.subsubheader{
+.subsubheader {
   background-color: #4e4e4e;
   color: white;
   font-weight: bold;
@@ -202,16 +210,22 @@ p-tabview ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link
 
 
 :host ::ng-deep .p-rowgroup-footer td {
+  font-weight: 700;
+}
+
+:host ::ng-deep .p-rowgroup-header {
+  span {
     font-weight: 700;
   }
-  
-  :host ::ng-deep .p-rowgroup-header {
-    span {
-        font-weight: 700;
-    }
-  
-    .p-row-toggler {
-        vertical-align: middle;
-        margin-right: .25rem;
-    }
+
+  .p-row-toggler {
+    vertical-align: middle;
+    margin-right: .25rem;
   }
+}
+
+.row.info {
+  p {
+    font-size: x-large;
+  }
+}

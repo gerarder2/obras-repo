@@ -6,13 +6,13 @@
   @include media-breakpoint-down($breakpoint) {
     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-    .d#{$infix}-down-none         { display: none !important; }
-    // .d#{$infix}-inline       { display: inline !important; }
-    // .d#{$infix}-inline-block { display: inline-block !important; }
-    // .d#{$infix}-block        { display: block !important; }
-    // .d#{$infix}-table        { display: table !important; }
-    // .d#{$infix}-table-cell   { display: table-cell !important; }
-    // .d#{$infix}-flex         { display: flex !important; }
-    // .d#{$infix}-inline-flex  { display: inline-flex !important; }
+    .custom-d#{$infix}-down-none    { display: none !important; }
+    .custom-d#{$infix}-inline       { display: inline !important; }
+    .custom-d#{$infix}-inline-block { display: inline-block !important; }
+    .custom-d#{$infix}-block        { display: block !important; }
+    .custom-d#{$infix}-table        { display: table !important; }
+    .custom-d#{$infix}-table-cell   { display: table-cell !important; }
+    .custom-d#{$infix}-flex         { display: flex !important; }
+    .custom-dd#{$infix}-inline-flex { display: inline-flex !important; }
   }
 }

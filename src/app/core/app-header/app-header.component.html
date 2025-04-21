@@ -1,108 +1,160 @@
-<header class="app-header navbar">
-  <button class="navbar-toggler d-lg-none" type="button" appMobileSidebarToggler *ngIf="menuExist">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand d-md-down-none" href="#"></a>
-  <button class="navbar-toggler d-md-down-none" type="button" appSidebarToggler *ngIf="menuExist">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <ul class="nav navbar-nav">
-    <li class="nav-item" [ngClass]="link.class" *ngFor="let link of links" [routerLinkActive]="'active'">
-      <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="[link.url]">{{ link.name }}</a>
-    </li>
-    <li class="nav-item dropdown" dropdown placement="bottom right">
-      <a
-        class="nav-link"
-        data-toggle="dropdown"
-        href="#"
-        role="button"
-        aria-haspopup="true"
-        aria-expanded="false"
-        dropdownToggle
-        (click)="(false)"
-      >
-        Mapas <i class="fas fa-caret-down"></i>
-      </a>
-      <div class="dropdown-menu dropdown-menu" *dropdownMenu aria-labelledby="simple-dropdown">
-        <a class="dropdown-item" [routerLink]="['/caminos']"><i class="fas fa-road"></i> Carretero</a>
-        <a class="dropdown-item" [routerLink]="['/mapa-obras']" ><i class="fas fa-helmet-safety"></i> Obras </a>
-      </div>
-    </li>
-  </ul>
+<header class="app-header navbar" [ngClass]="{ expanded: isExpanded }">
+  <!-- Contenedor de los enlaces -->
+  <div class="nav-links-container">
+    <ul class="nav navbar-nav">
+      <li>
+        <a class="navbar-brand" href="#"></a>
+      </li>
 
-  <!-- <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <li
+        class="nav-item d-none d-lg-block"
+        [ngClass]="link.class"
+        *ngFor="let link of links"
+        [routerLinkActive]="'active'"
+      >
+        <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="[link.url]">{{ link.name }}</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+
+      <li class="nav-item dropdown d-none d-lg-block px-2" dropdown placement="bottom right">
+        <a
+          class="nav-link"
+          data-toggle="dropdown"
+          href="#"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          dropdownToggle
+          (click)="(false)"
+        >
+          Mapas <i class="fas fa-caret-down"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu" *dropdownMenu aria-labelledby="simple-dropdown">
+          <a class="dropdown-item" [routerLink]="['/caminos']"><i class="fas fa-road"></i> Carretero</a>
+          <a class="dropdown-item" [routerLink]="['/mapa-obras']"><i class="fas fa-helmet-safety"></i> Obras </a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled">Disabled</a>
+
+      <li class="d-none d-lg-block">
+        <div class="input-group justify-content-center">
+          <input
+            #typeaheadInput
+            class="form-control col-12 typeahead-search-input"
+            (typeaheadOnSelect)="typeaheadOnSelect($event)"
+            [(ngModel)]="search"
+            [typeahead]="suggestions$"
+            typeaheadOptionField="objeto"
+            [typeaheadAsync]="true"
+            [typeaheadWaitMs]="200"
+            [typeaheadMinLength]="3"
+            [typeaheadScrollable]="true"
+            [optionsListTemplate]="customListTemplate"
+            [adaptivePosition]="true"
+            placeholder="Buscar por objeto, contrato, contratista"
+            (focus)="clearInput()"
+          />
+
+          <div class="input-group-append">
+            <span class="input-group-text bg-green"><i class="fas fa-search"></i></span>
+          </div>
+
+          <div *ngIf="noResultsFound" class="no-results-message">No se encontraron resultados.</div>
+        </div>
+      </li>
+
+      <li class="d-lg-none d-md-block">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          (click)="isExpanded = !isExpanded"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </li>
+      <li class="dropdown" dropdown placement="bottom right">
+        <a
+          class="nav-link"
+          data-toggle="dropdown"
+          href=""
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          dropdownToggle
+          (click)="(false)"
+        >
+          <!-- <img src="{{ 'assets/img/avatars/user-a.png' }}" class="" height="25" alt="" onError="this.src='assets/img/avatars/user-a.png'"  /> -->
+          <i class="text-white fas fa-user fa-xl"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+          <div class="dropdown-header text-center"><strong> {{ nameUser }} </strong></div>
+          <a class="dropdown-item" href="" (click)="logOut(); (false)"><i class="fa fa-lock"></i> Cerrar sesión</a>
+        </div>
       </li>
     </ul>
-    <form class="form-inline mt-2 mt-md-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form> -->
+  </div>
 
-  <ul class="nav navbar-nav">
-    <li>
-      <div style="margin-top: 8px" class="input-group">
-        <input
-          #typeaheadInput
-          class="form-control col-7 offset-2 typeahead-search-input"
-          (typeaheadOnSelect)="typeaheadOnSelect($event)"
-          [(ngModel)]="search"
-          [typeahead]="suggestions$"
-          typeaheadOptionField="objeto"
-          [typeaheadAsync]="true"
-          [typeaheadWaitMs]="200"
-          [typeaheadMinLength]="3"
-          [typeaheadScrollable]="true"
-          [optionsListTemplate]="customListTemplate"
-          [adaptivePosition]="true"
-          placeholder="Buscar por objeto, contrato, contratista"
-          (focus)="clearInput()"
-        />
-
-        <div class="input-group-append">
-          <span class="input-group-text bg-green"><i class="fas fa-search"></i></span>
+  <div class="nav-links-container mobile d-lg-none" [ngClass]="{ show: isExpanded }">
+    <ul class="nav navbar-nav mobile">
+      <li class="nav-item" [ngClass]="link.class" *ngFor="let link of links" [routerLinkActive]="'active'">
+        <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="[link.url]">{{ link.name }}</a>
+      </li>
+      <li class="nav-item dropdown px-2" dropdown placement="bottom right">
+        <a
+          class="nav-link"
+          data-toggle="dropdown"
+          href="#"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          dropdownToggle
+          (click)="(false)"
+        >
+          Mapas <i class="fas fa-caret-down"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu" *dropdownMenu aria-labelledby="simple-dropdown">
+          <a class="dropdown-item" [routerLink]="['/caminos']"><i class="fas fa-road"></i> Carretero</a>
+          <a class="dropdown-item" [routerLink]="['/mapa-obras']"><i class="fas fa-helmet-safety"></i> Obras </a>
         </div>
-        <div *ngIf="noResultsFound" class="no-results-message">No se encontraron resultados.</div>
-      </div>
-    </li>
-    <li class="nav-item dropdown" dropdown placement="bottom right">
-      <a
-        style="margin-right: 25px"
-        class="nav-link"
-        data-toggle="dropdown"
-        href=""
-        role="button"
-        aria-haspopup="true"
-        aria-expanded="false"
-        dropdownToggle
-        (click)="(false)"
-      >
-        <!-- <img src="{{ 'assets/img/avatars/user-a.png' }}" class="" height="25" alt="" onError="this.src='assets/img/avatars/user-a.png'"  /> -->
-        <i class="text-white fas fa-user fa-xl"></i>
-      </a>
-      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-        <div class="dropdown-header text-center"><strong> {{ nameUser }} </strong></div>
-        <a class="dropdown-item" href="" (click)="logOut(); (false)"><i class="fa fa-lock"></i> Cerrar sesión</a>
-      </div>
-    </li>
-  </ul>
+      </li>
+      <li>
+        <div class="input-group justify-content-center">
+          <input
+            #typeaheadInput
+            class="form-control col-12"
+            (typeaheadOnSelect)="typeaheadOnSelect($event)"
+            [(ngModel)]="search"
+            [typeahead]="suggestions$"
+            typeaheadOptionField="objeto"
+            [typeaheadAsync]="true"
+            [typeaheadWaitMs]="200"
+            [typeaheadMinLength]="3"
+            [typeaheadScrollable]="true"
+            [optionsListTemplate]="customListTemplate"
+            [adaptivePosition]="true"
+            placeholder="Buscar por objeto, contrato, contratista"
+            (focus)="clearInput()"
+          />
+
+          <div class="input-group-append">
+            <span class="input-group-text bg-green"><i class="fas fa-search"></i></span>
+          </div>
+
+          <div *ngIf="noResultsFound" class="no-results-message">No se encontraron resultados.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </header>
 
 <ng-template #customListTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
   <div class="result-count text-muted p5">Resultados encontrados: {{ matches.length }}</div>
 
   <ul class="custom-list-group">
-    <li
-      class="custom-list-group-item"
-      *ngFor="let match of matches"
-    >
+    <li class="custom-list-group-item" *ngFor="let match of matches">
       <div class="card shadow">
         <div class="card-body" (click)="typeaheadTemplateMethods.selectMatch(match, $event)">
           <h5 class="card-title">{{ match.item.id }} Contrato - {{ match.item.numeroContrato }}</h5>
@@ -119,24 +171,7 @@
             <p><i class="fas fa-calendar-alt fa-lg"></i> {{ match.item.fechaInicio | date: 'dd/MMM/YYYY':'':'es' }}</p>
           </div>
         </div>
-        <div class="card-footer" *ngIf="match.item.idEtiqueta">
-          <div class="d-flex justify-content-between">
-            <button class="btn btn-primary" (click)="verTarjetaInformativa(match.item)">Ver Tarjeta Informativa</button>
-          </div>
-        </div>
       </div>
-
-      <!-- <div class="result-item">
-        <div class="field">
-          <strong>ID:</strong> {{ match.item.id }}
-        </div>
-        <div class="field">
-          <strong>Objeto:</strong> {{ match.item.objeto }}
-        </div>
-        <div class="field">
-          <strong></strong>
-        </div>
-      </div> -->
     </li>
   </ul>
 </ng-template>

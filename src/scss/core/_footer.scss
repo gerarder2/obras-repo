@@ -11,12 +11,22 @@
   justify-content: space-between;
   align-items: center;
   background-color: $gray-800;
-  height: 320px;
+  //height: 320px;
   padding: 20px;
+
+  img {
+    margin: 10px;
+    height: 55px;
+  }
+
+  p {
+    margin: 0;
+  }
 }
 
 
-.columna-izquierda, .columna-centro {
+.columna-izquierda,
+.columna-centro {
   display: flex;
   // align-items: center;
 }
@@ -36,13 +46,15 @@
   font-size: 1rem;
 }
 
-.columna-izquierda p, .columna-centro p {
+.columna-izquierda p,
+.columna-centro p {
   margin: 0;
 }
 
 .columna-izquierda {
   flex: 1;
 }
+
 .columna-centro {
   flex: 1;
   display: flex;
@@ -69,5 +81,3 @@
 .columna {
   margin: 0 10px;
 }
-
-

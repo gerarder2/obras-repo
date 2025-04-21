@@ -193,5 +193,20 @@ p-tabview ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link
 
   border-radius: 8px;
   border: 1px solid $gris-oxford;
-  min-height: 60px;
+  max-height: 110px;
+}
+
+.image-scroll-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 10px;
+}
+
+.image-wrapper {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.image-item {
+  flex: 0 0 auto;
 }

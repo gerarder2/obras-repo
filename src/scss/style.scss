@@ -123,3 +123,22 @@ img.carousel {
     width: 500px !important;
    }
 }
+
+.class-borde {
+  border: 1px solid black;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+}
+
+.fullscreen-overlay {
+  width: 100% !important;
+}
+
+.normal-overlay {
+  @include breakpoint('xs') {
+    width: 100% !important;
+   }
+   @include breakpoint('md') {
+    width: 40% !important;
+   }
+}

@@ -125,6 +125,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   hideFiltersTotales: boolean;
 
+  ocultarControles: boolean;
+
   constructor(
     private router: Router,
     private auth: AuthenticationService,
@@ -139,6 +141,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private bsModalService: BsModalService,
     private obrasService: ObrasService
   ) {
+    this.ocultarControles = false;
     this.hideFiltersTotales = false;
     const config = this.configService.getConfig();
     this.montoInversionTotalAcumulada = 0;
@@ -527,7 +530,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   inicializarMapa() {
     const mapboxUrl =
-      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibXJvbWVyb3Y4NCIsImEiOiJja3dud2cxcDkycGsyMm9xYm1md29kNWllIn0.8dhvfioKHvS7dL7Z32JrTA';
+      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicmZyYWdvc28iLCJhIjoiY203a3NuMXA1MDRkMTJrcHdnc3Zrb2xxaiJ9.PBY1SI7_vfeJbt5IK5cXNQ';
 
     const attribution =
       'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
@@ -538,13 +541,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     const _grayscale = L.tileLayer(mapboxUrl, {
       tileSize: 512,
       zoomOffset: -1,
-      id: 'mromerov84/ckwnx5mi53bld14lruvgvlfrd',
+      id: 'rfragoso/cm7kw8jyc003m01ra7lnq2x7b/',
       attribution: attribution
     });
     const streets = L.tileLayer(mapboxUrl, {
       tileSize: 512,
       zoomOffset: -1,
-      id: 'mromerov84/ckwnwi3ir16s315ohivuycsj8',
+      id: 'rfragoso/cm7kw8jyc003m01ra7lnq2x7b',
       attribution: attribution
     });
 
@@ -562,8 +565,41 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
 
     new L.Control.Zoom({ position: 'topleft' }).addTo(this.map);
-    // this.map.locate({ setView: true, maxZoom: 14 });
-    // this.generateRandomMarkers(10, 'green');
+    const customControl = L.Control.extend({
+      options: {
+        position: 'topleft'
+      },
+
+      onAdd: (_map: L.Map) => {
+        const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-hidde');
+
+        // Estilos del botón
+        container.style.backgroundColor = 'white';
+        container.style.width = '34px';
+        container.style.height = '33px';
+        container.style.cursor = 'pointer';
+        container.style.display = 'flex';
+        container.style.alignItems = 'center';
+        container.style.justifyContent = 'center';
+        container.style.fontSize = '14px';
+
+        // Agregar un icono FontAwesome
+        const icon = L.DomUtil.create('i', 'fas fa-eye', container);
+
+        // Evitar que el clic se propague al mapa
+        L.DomEvent.disableClickPropagation(container);
+
+        // Evento click para mostrar/ocultar controles
+        container.onclick = () => {
+          this.ocultarControles = !this.ocultarControles;
+          // Toggle entre los iconos fa-eye y fa-eye-slash
+          icon.className = this.ocultarControles ? 'fas fa-eye-slash' : 'fas fa-eye';
+        };
+
+        return container;
+      }
+    });
+    this.map.addControl(new customControl());
 
     setTimeout(() => {
       this.configService.getGEOJson().subscribe((geoData) => {
@@ -812,7 +848,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
         const marker = L.marker([point.latitud, point.longitud], { icon: icono }).addTo(this.obrasMarksLayer);
         marker.on('click', (e) => {
-          this.loadObraDetalle(marker, point.id, popupComponentRef, popup);
+          this.openModalComponent(point);
+          // this.loadObraDetalle(marker, point.id, popupComponentRef, popup);
         });
         // L.marker([point.latitud, point.longitud], { icon: icono })
         //   .addTo(this.obrasMarksLayer)
@@ -876,7 +913,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     this.bsModalRef = this.bsModalService.show(ObrasModalComponent, {
       initialState,
-      class: 'modal-light modal-fullscreen',
+      class: 'modal-primary modal-fullscreen',
       backdrop: 'static',
       keyboard: false,
       ignoreBackdropClick: true

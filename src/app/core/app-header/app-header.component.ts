@@ -31,6 +31,7 @@ export class AppHeaderComponent implements OnInit {
   public trustedImgUrl: SafeUrl;
   public imgUrlError;
   public links: any;
+  public isExpanded: boolean;
 
   search?: string;
   suggestions$?: Observable<any[]>;
@@ -60,6 +61,7 @@ export class AppHeaderComponent implements OnInit {
     private helperService: HelperService,
     public obrasService: ObrasService
   ) {
+    this.isExpanded = false;
     this.trustedImgUrl = sanitizer.bypassSecurityTrustResourceUrl(this.imgUrl);
     this.imgUrlError = 'assets/img/avatars/user-a.png';
     this.mensaje = new Mensaje();
@@ -85,10 +87,10 @@ export class AppHeaderComponent implements OnInit {
     );
 
     this.links = [
-      { url: '/inicio', name: 'Inicio', class: 'px-3' },
-      { url: '/licitaciones', name: 'Licitaciones', class: 'px-3' },
-      { url: '/obras', name: 'Obras', class: 'px-3' },
-      { url: '/datos-abiertos', name: 'Datos Abiertos', class: 'px-3' }
+      { url: '/inicio', name: 'Inicio', class: 'px-2' },
+      { url: '/licitaciones', name: 'Licitaciones', class: 'px-2' },
+      { url: '/obras', name: 'Obras', class: 'px-2' },
+      { url: '/datos-abiertos', name: 'Datos Abiertos', class: 'px-2' }
       //{ url: '/caminos', name: 'Mapa Carretero', class: 'px-2' }
     ];
 
