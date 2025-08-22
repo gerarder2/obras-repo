@@ -1,0 +1,30 @@
+{
+  "/api": {
+    "target": "http://66.179.94.222:86",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": { "^/api": "" }
+  },
+  "/caminos": {
+    "target": "http://66.179.94.222:84",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": { "^/caminos": "" }
+  },
+  "/maatcore": {
+    "target": "http://66.179.94.222:83",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": { "^/maatcore": "" }
+  },
+  "/federativo": {
+    "target": "http://66.179.94.222:8083",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": { "^/federativo": "" }
+  }
+}

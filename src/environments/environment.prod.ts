@@ -10,7 +10,7 @@ export const environment = {
   version: '1.0.0',
   ambiente: 'production',
   configFile: 'assets/settings.json',
-  webApi: 'http://74.208.25.33:86/api',
+  webApi: 'http://66.179.94.222:86/api',
   idSistema: 4,
   conLogin: true
 };
