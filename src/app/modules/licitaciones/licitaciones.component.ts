@@ -229,31 +229,71 @@ export class LicitacionesComponent implements OnInit {
 
   // SECCION CONFIGURACION MODAL
   public openModalComponent(opciones?: any) {
-    console.log(opciones);
-    const initialState = {
-      params: opciones ? opciones : {},
-      isModal: true,
-      modalExtraOptions: {
-        closeButton: true,
-        closeButtonText: 'Cancelar',
-        acceptButton: true,
-        acceptButtonText: 'Aceptar'
+    // si no hay id, usa comportamiento anterior
+    if (!opciones || !opciones.id) {
+      const initialState = {
+        params: opciones ? opciones : {},
+        isModal: true,
+        modalExtraOptions: {
+          closeButton: true,
+          closeButtonText: 'Cancelar',
+          acceptButton: true,
+          acceptButtonText: 'Aceptar'
+        }
+      };
+
+      this.bsLicitacionModalRef = this.bsModalService.show(LicitacionesModalComponent, {
+        initialState,
+        class: 'modal-primary modal-fullscreen',
+        backdrop: 'static',
+        keyboard: false,
+        ignoreBackdropClick: true
+      });
+
+      this.bsLicitacionModalRef.content.event.subscribe((res) => {
+        console.warn(res);
+      });
+      return;
+    }
+
+    // si viene id => obtener detalle desde API y luego abrir modal con el objeto completo
+    this.blockUIList.start('Cargando detalle...');
+    this.licitacionesService.getProyecto(opciones.id).subscribe({
+      next: (response: any) => {
+        const proyecto = response?.data ?? {};
+        const initialState = {
+          params: proyecto,
+          isModal: true,
+          modalExtraOptions: {
+            closeButton: true,
+            closeButtonText: 'Cerrar',
+            acceptButton: false
+          }
+        };
+
+        this.blockUIList.stop();
+
+        this.bsLicitacionModalRef = this.bsModalService.show(LicitacionesModalComponent, {
+          initialState,
+          class: 'modal-primary modal-fullscreen',
+          backdrop: 'static',
+          keyboard: false,
+          ignoreBackdropClick: true
+        });
+
+        // opcional: manejar eventos desde el modal
+        if (this.bsLicitacionModalRef.content && this.bsLicitacionModalRef.content.event) {
+          this.bsLicitacionModalRef.content.event.subscribe((res) => {
+            console.warn(res);
+          });
+        }
+      },
+      error: (err: unknown) => {
+        console.warn(err);
+        this.blockUIList.stop();
+        this.mensaje.showMessage(err);
       }
-    };
-
-    this.bsLicitacionModalRef = this.bsModalService.show(LicitacionesModalComponent, {
-      initialState,
-      class: 'modal-primary modal-fullscreen',
-      backdrop: 'static',
-      keyboard: false,
-      ignoreBackdropClick: true
     });
-
-    this.bsLicitacionModalRef.content.event.subscribe((res) => {
-      console.warn(res);
-    });
-
-    this.bsModalService.onHide.subscribe((reason: string) => {});
   }
 
   public filtrar() {

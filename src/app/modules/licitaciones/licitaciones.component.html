@@ -327,7 +327,11 @@
                   <td style="text-align: center">{{ product.descripcionFase }}</td>
                   <td style="text-align: center">{{ product.descripcionTipoObra }}</td>
                   <td style="text-align: center">
-                    <button (click)="openModalComponent(product)" type="button" class="btn btn-sm btn-outline-gold">
+                    <button
+                      (click)="openModalComponent({ id: (product.idObra) })"
+                      type="button"
+                      class="btn btn-sm btn-outline-gold"
+                    >
                       Ver
                     </button>
                   </td>
@@ -335,13 +339,9 @@
 
                 <!-- Filas TOTAL CONTRATOS -->
                 <tr *ngIf="cardSeleccionada === 'TOTAL CONTRATOS'">
-                  <td style="text-align: left">
-                    <!-- <div style="white-space: nowrap; width: 260px; overflow:hidden; text-overflow: ellipsis"> -->
-                      {{ product.objeto }}
-                    <!-- </div> -->
-                  </td>
-                  <td style="text-align: left">{{ product.municipioLocalidad  }}</td>
-                  <td style="text-align: left">{{ product.descripcionTipoObra  }}</td>
+                  <td style="text-align: left">{{ product.objeto }}</td>
+                  <td style="text-align: left">{{ product.municipioLocalidad }}</td>
+                  <td style="text-align: left">{{ product.descripcionTipoObra }}</td>
                   <td style="text-align: left">{{ product.montoContratado | currency:'MXN':'symbol':'1.2-2' }}</td>
                   <td style="text-align: left">{{ product.numero }}</td>
                   <td style="text-align: left">{{ product.descripcionTipoContrato }}</td>
@@ -349,14 +349,14 @@
                   <td style="text-align: left">{{ product.fechaEstimadaInicio | date:'shortDate':'':'es' }}</td>
                   <td style="text-align: left">{{ product.fechaEstimadaFin | date:'shortDate':'':'es' }}</td>
                   <td style="text-align: left">{{ product.plazoContrato }}</td>
-                  <td style="text-align: left">
-                    <!-- <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"> -->
-                      {{ product.contratistas }}
-                    <!-- </div> -->
-                  </td>
+                  <td style="text-align: left">{{ product.contratistas }}</td>
                   <td style="text-align: left">{{ product.descripcionDependencia }}</td>
                   <td style="text-align: center">
-                    <button (click)="openModalComponent(product)" type="button" class="btn btn-sm btn-outline-gold">
+                    <button
+                      (click)="openModalComponent({ id: (product.idObra) })"
+                      type="button"
+                      class="btn btn-sm btn-outline-gold"
+                    >
                       Ver
                     </button>
                   </td>
@@ -375,7 +375,11 @@
                   <td style="text-align: center">{{ product.descripcionTipoLicitacion }}</td>
                   <td style="text-align: center">{{ product.numeroEventos }}</td>
                   <td>
-                    <button (click)="openModalComponent(product)" type="button" class="btn btn-sm btn-outline-gold">
+                    <button
+                      (click)="openModalComponent({ id: (product.idObra) })"
+                      type="button"
+                      class="btn btn-sm btn-outline-gold"
+                    >
                       Ver más...
                     </button>
                   </td>

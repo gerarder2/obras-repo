@@ -1,0 +1,19 @@
+<div class="dg-gauge">
+  <div class="dg-label">{{ label }}</div>
+
+  <div class="gauge-container" style="margin-top: 1rem;">
+    <div class="gauge" [style.background]="gaugeBackground">
+      <div class="gauge-inner"></div>
+    </div>
+
+    <div class="gauge-ticks">
+      <span class="tick tick-0">0</span>
+      <span class="tick tick-25">25</span>
+      <span class="tick tick-50">50</span>
+      <span class="tick tick-75">75</span>
+      <span class="tick tick-100">100</span>
+    </div>
+
+    <div class="gauge-value">{{ value }}</div>
+  </div>
+</div>

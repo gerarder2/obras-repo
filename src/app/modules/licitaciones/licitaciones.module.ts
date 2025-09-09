@@ -12,11 +12,11 @@ import { DirectivesModule } from '../../directives/directives.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { LicitacionesModalComponent } from './modal/licitaciones-modal.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { GaugeComponent } from '../../shared/gauge/gauge.component';
 
-// import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 @NgModule({
-  declarations: [LicitacionesComponent, LicitacionesModalComponent],
+  declarations: [LicitacionesComponent, LicitacionesModalComponent, GaugeComponent],
   imports: [
     CommonModule,
     LicitacionesRoutingModule,
@@ -28,9 +28,9 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     TableModule,
     DirectivesModule,
     ModalModule.forRoot(),
-    SelectButtonModule
+    SelectButtonModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'en-US' }],
-  exports: [LicitacionesModalComponent]
+  exports: [LicitacionesModalComponent, GaugeComponent]
 })
 export class LicitacionesModule {}

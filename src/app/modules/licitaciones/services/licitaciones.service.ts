@@ -2,19 +2,12 @@ import { Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HelperService } from '../../../helpers/helper.service';
-import { ConfigService } from '../../../services';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class LicitacionesService {
-  private config: any;
-  private locale: any;
+  private baseUrl = 'https://apisobrasportal.sinaloa.gob.mx/api'; // ajustar si ya tienes otra base
 
-  constructor(private http: HttpClient, private helperService: HelperService, configService: ConfigService) {
-    this.config = configService.getConfig();
-  }
+  constructor(private http: HttpClient) {}
 
   public getLicitacionDatos(queryParams: {
     numeroContrato?: number;
@@ -27,10 +20,14 @@ export class LicitacionesService {
     idTipoContrato?: number;
     idEtiqueta?: number;
   }): Observable<any> {
-    return this.http.get(`${this.config.webApiLicitaciones}/ObraPortal/ListadoLicitacionesPorEtiqueta`, { params: queryParams });
+    return this.http.get(`${this.baseUrl}/ObraPortal/ListadoLicitacionesPorEtiqueta`, { params: queryParams });
   }
 
   public getLicitacionDatosById(obra: { idObra?: number }): Observable<any> {
-    return this.http.get(`${this.config.webApiLicitaciones}/Licitacion/${obra.idObra}`);
+    return this.http.get(`${this.baseUrl}/Licitacion/${obra.idObra}`);
+  }
+
+  public getProyecto(id: number) {
+    return this.http.get(`${this.baseUrl}/ObraPortal/Proyecto/${id}`);
   }
 }
