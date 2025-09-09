@@ -144,8 +144,6 @@
     </div>
   </section>
 
-  
-
   <section class="container mt-4">
     <div class="card-deck">
       <div class="card shadow">
@@ -225,25 +223,28 @@
 
   <section class="container mt-5">
     <div class="row justify-content-md-center">
-      <div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let card of cardLicitaciones">
+      <div class="col-xs-12 col-md-6 col-lg-3" *ngFor="let card of cardLicitaciones">
         <div class="card box shadow">
           <div class="card-body center">
             <h4 class="card-title text-primary">
               <strong>{{ card.cantidad | number }}</strong>
             </h4>
             <p class="card-text">{{ card.descripcion }}</p>
-            <button 
+            <button
               class="btn mt-2"
               type="button"
-              style="background-color: #6e2233; color: #fff; border-radius: 20px; min-width: 150px; font-weight: 500;"
-            >Ver detalle</button>
+              style="background-color: #6e2233; color: #fff; border-radius: 20px; min-width: 150px; font-weight: 500"
+              (click)="verDetalle(card)"
+            >
+              {{ mostrarTabla && card.descripcion === cardSeleccionada ? 'Ocultar detalle' : 'Ver detalle' }}
+            </button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="container mt-4">
+  <section class="container mt-4" *ngIf="mostrarTabla">
     <div class="row">
       <div class="col-12">
         <div class="card border">
@@ -260,19 +261,53 @@
               styleClass="p-datatable-sm p-datatable-striped"
             >
               <ng-template pTemplate="header">
-                <tr>
-                  <th pSortableColumn="numero" style="width: 15%">Numero <p-sortIcon field="numero"></p-sortIcon></th>
-                  <th pSortableColumn="objeto" style="width: 26%">
-                    Descripción <p-sortIcon field="objeto"></p-sortIcon>
+                <!-- PENDIENTES POR LICITAR -->
+                <tr *ngIf="cardSeleccionada === 'PENDIENTES POR LICITAR'">
+                  <th pSortableColumn="objeto" style="width: 56%">
+                    Descripción de la obra <p-sortIcon field="objeto"></p-sortIcon>
                   </th>
-                  <th pSortableColumn="fechaPublicacion" style="width: 15%">
-                    Fecha <p-sortIcon field="fechaPublicacion"></p-sortIcon>
+                  <th pSortableColumn="descripcionFase" style="width: 12%; text-align: center">
+                    Fase <p-sortIcon field="descripcionFase"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="descripcionTipoObra" style="width: 12%; text-align: center">
+                    Tipo de obra <p-sortIcon field="descripcionTipoObra"></p-sortIcon>
+                  </th>
+                  <th style="width: 10%"></th>
+                </tr>
+
+                <!-- TOTAL CONTRATOS -->
+                <tr *ngIf="cardSeleccionada === 'TOTAL CONTRATOS'">
+                  <th pSortableColumn="objeto" style="width: 18%">Objeto <p-sortIcon field="objeto"></p-sortIcon></th>
+                  <th pSortableColumn="municipioLocalidad" style="width: 10%">Municipio-Localidad <p-sortIcon field="municipioLocalidad"></p-sortIcon></th>
+                  <th pSortableColumn="descripcionTipoObra" style="width: 10%">Tipo de obra <p-sortIcon field="descripcionTipoObra"></p-sortIcon></th>
+                  <th pSortableColumn="montoContratado" style="width: 10%">Monto contratado <p-sortIcon field="montoContratado"></p-sortIcon></th>
+                  <th pSortableColumn="numero" style="width: 8%">Número de contrato <p-sortIcon field="numero"></p-sortIcon></th>
+                  <th pSortableColumn="descripcionTipoContrato" style="width: 8%">Tipo de contratación <p-sortIcon field="descripcionTipoContrato"></p-sortIcon></th>
+                  <th pSortableColumn="fechaContratacion" style="width: 9%">Fecha de contratación <p-sortIcon field="fechaContratacion"></p-sortIcon></th>
+                  <th pSortableColumn="fechaEstimadaInicio" style="width: 9%">Fecha estimada inicio <p-sortIcon field="fechaEstimadaInicio"></p-sortIcon></th>
+                  <th pSortableColumn="fechaEstimadaFin" style="width: 9%">Fecha estimada fin <p-sortIcon field="fechaEstimadaFin"></p-sortIcon></th>
+                  <th pSortableColumn="plazoContrato" style="width: 6%">Plazo <p-sortIcon field="plazoContrato"></p-sortIcon></th>
+                  <th pSortableColumn="contratistas" style="width: 9%">Nombre del contratista <p-sortIcon field="contratistas"></p-sortIcon></th>
+                  <th pSortableColumn="descripcionDependencia" style="width: 12%">Dependencia <p-sortIcon field="descripcionDependencia"></p-sortIcon></th>
+                  <th style="width: 6%"></th>
+                </tr>
+
+                <!-- Encabezado por defecto para las demás tarjetas -->
+                <tr *ngIf="cardSeleccionada !== 'PENDIENTES POR LICITAR' && cardSeleccionada !== 'TOTAL CONTRATOS'">
+                  <th pSortableColumn="numero" style="width: 15%">
+                    Numero de licitación <p-sortIcon field="numero"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="objeto" style="width: 26%">
+                    Descripción de la obra<p-sortIcon field="objeto"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="fechaConvocatoria" style="width: 15%">
+                    Fecha de la convocatoria <p-sortIcon field="fechaConvocatoria"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="fechaFallo" style="width: 15%">
+                    Fecha para dar a conocer el fallo <p-sortIcon field="fechaFallo"></p-sortIcon>
                   </th>
                   <th pSortableColumn="descripcionTipoLicitacion" style="width: 10%">
                     Tipo <p-sortIcon field="descripcionTipoLicitacion"></p-sortIcon>
-                  </th>
-                  <th pSortableColumn="descripcionTipoNormatividad" style="width: 15%">
-                    Normatividad <p-sortIcon field="descripcionTipoNormatividad"></p-sortIcon>
                   </th>
                   <th pSortableColumn="numeroEventos" style="width: 10%">
                     Eventos <p-sortIcon field="numeroEventos"></p-sortIcon>
@@ -280,17 +315,64 @@
                   <th></th>
                 </tr>
               </ng-template>
+
               <ng-template pTemplate="body" let-product>
-                <tr>
+                <!-- Filas PENDIENTES POR LICITAR -->
+                <tr *ngIf="cardSeleccionada === 'PENDIENTES POR LICITAR'">
+                  <td>
+                    <div style="white-space: normal; overflow-wrap: break-word; word-break: break-word; max-width: 420px;">
+                      {{ product.objeto }}
+                    </div>
+                  </td>
+                  <td style="text-align: center">{{ product.descripcionFase }}</td>
+                  <td style="text-align: center">{{ product.descripcionTipoObra }}</td>
+                  <td style="text-align: center">
+                    <button (click)="openModalComponent(product)" type="button" class="btn btn-sm btn-outline-gold">
+                      Ver
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Filas TOTAL CONTRATOS -->
+                <tr *ngIf="cardSeleccionada === 'TOTAL CONTRATOS'">
+                  <td style="text-align: left">
+                    <!-- <div style="white-space: nowrap; width: 260px; overflow:hidden; text-overflow: ellipsis"> -->
+                      {{ product.objeto }}
+                    <!-- </div> -->
+                  </td>
+                  <td style="text-align: left">{{ product.municipioLocalidad  }}</td>
+                  <td style="text-align: left">{{ product.descripcionTipoObra  }}</td>
+                  <td style="text-align: left">{{ product.montoContratado | currency:'MXN':'symbol':'1.2-2' }}</td>
+                  <td style="text-align: left">{{ product.numero }}</td>
+                  <td style="text-align: left">{{ product.descripcionTipoContrato }}</td>
+                  <td style="text-align: left">{{ product.fechaContratacion | date:'shortDate':'':'es' }}</td>
+                  <td style="text-align: left">{{ product.fechaEstimadaInicio | date:'shortDate':'':'es' }}</td>
+                  <td style="text-align: left">{{ product.fechaEstimadaFin | date:'shortDate':'':'es' }}</td>
+                  <td style="text-align: left">{{ product.plazoContrato }}</td>
+                  <td style="text-align: left">
+                    <!-- <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"> -->
+                      {{ product.contratistas }}
+                    <!-- </div> -->
+                  </td>
+                  <td style="text-align: left">{{ product.descripcionDependencia }}</td>
+                  <td style="text-align: center">
+                    <button (click)="openModalComponent(product)" type="button" class="btn btn-sm btn-outline-gold">
+                      Ver
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Filas por defecto -->
+                <tr *ngIf="cardSeleccionada !== 'PENDIENTES POR LICITAR' && cardSeleccionada !== 'TOTAL CONTRATOS'">
                   <td>{{ product.numero }}</td>
                   <td>
                     <div style="white-space: nowrap; width: 220px; overflow: hidden; text-overflow: ellipsis">
                       {{ product.objeto }}
                     </div>
                   </td>
-                  <td style="text-align: center">{{ product.fechaPublicacion | date: 'longDate':'':'es' }}</td>
+                  <td style="text-align: center">{{ product.fechaConvocatoria | date: 'longDate':'':'es' }}</td>
+                  <td style="text-align: center">{{ product.fechaFallo | date: 'longDate':'':'es' }}</td>
                   <td style="text-align: center">{{ product.descripcionTipoLicitacion }}</td>
-                  <td style="text-align: center">{{ product.descripcionTipoNormatividad }}</td>
                   <td style="text-align: center">{{ product.numeroEventos }}</td>
                   <td>
                     <button (click)="openModalComponent(product)" type="button" class="btn btn-sm btn-outline-gold">

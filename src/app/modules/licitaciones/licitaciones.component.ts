@@ -16,6 +16,44 @@ import { HelperService } from '../../helpers/helper.service';
   styleUrls: ['./licitaciones.component.scss']
 })
 export class LicitacionesComponent implements OnInit {
+  public mostrarTabla: boolean = false;
+  public cardSeleccionada: string = '';
+
+  public verDetalle(card: any) {
+    if (this.mostrarTabla && this.cardSeleccionada === card.descripcion) {
+      this.mostrarTabla = false;
+      this.cardSeleccionada = '';
+      return;
+    } else if (this.mostrarTabla && this.cardSeleccionada !== card.descripcion) {
+      this.mostrarTabla = true;
+      this.cardSeleccionada = card.descripcion;
+      if (card.descripcion === 'TOTAL OBRAS') {
+        this.licitacionesTabla = [...this.licitacionesTablaAux];
+      } else if (card.descripcion === 'OBRAS EN LICITACIÓN') {
+        // this.licitacionesTabla = [...this.licitacionesTablaAux];
+        this.licitacionesTabla = this.licitacionesTablaAux.filter((l) => l.fase === 10);
+      } else if (card.descripcion === 'PENDIENTES POR LICITAR') {
+        // this.licitacionesTabla = [...this.licitacionesTablaAux];
+        this.licitacionesTabla = this.licitacionesTablaAux.filter((l) => l.fase < 10);
+      } else if (card.descripcion === 'TOTAL CONTRATOS') {
+        this.licitacionesTabla = this.licitacionesTablaAux.filter((l) => l.tieneContrato === true);
+      }
+      return;
+    }
+    this.mostrarTabla = !this.mostrarTabla;
+    this.cardSeleccionada = card.descripcion;
+    if (card.descripcion === 'TOTAL OBRAS') {
+      this.licitacionesTabla = [...this.licitacionesTablaAux];
+    } else if (card.descripcion === 'OBRAS EN LICITACIÓN') {
+      // this.licitacionesTabla = [...this.licitacionesTablaAux];
+      this.licitacionesTabla = this.licitacionesTablaAux.filter((l) => l.fase === 10);
+    } else if (card.descripcion === 'PENDIENTES POR LICITAR') {
+      // this.licitacionesTabla = [...this.licitacionesTablaAux];
+      this.licitacionesTabla = this.licitacionesTablaAux.filter((l) => l.fase < 10);
+    } else if (card.descripcion === 'TOTAL CONTRATOS') {
+      this.licitacionesTabla = this.licitacionesTablaAux.filter((l) => l.tieneContrato === true);
+    }
+  }
   @BlockUI('licitaciones-page') blockUIList: NgBlockUI;
 
   public cardLicitaciones: any[];
@@ -43,6 +81,8 @@ export class LicitacionesComponent implements OnInit {
 
   //Variables data
   public licitacionesTabla: any[];
+  public licitacionesTablaAux: any[];
+
   public licitacionesPorDependencia: any[];
   public eventosPorDependencia: any[];
 
@@ -60,9 +100,10 @@ export class LicitacionesComponent implements OnInit {
     this.collapsed = false;
     this.mensaje = new Mensaje();
     this.cardLicitaciones = [
-      { id: 1, cantidad: 0, descripcion: 'TOTAL DE LICITACIONES', color: 'wine-800' },
-      { id: 2, cantidad: 0, descripcion: 'EVENTOS DE LICITACION', color: 'wine-800' },
-      { id: 3, cantidad: 0, descripcion: 'DEPENDENCIAS / ORGANISMOS', color: 'wine-800' }
+      { id: 1, cantidad: 0, descripcion: 'TOTAL OBRAS', color: 'wine-800' },
+      { id: 2, cantidad: 0, descripcion: 'OBRAS EN LICITACIÓN', color: 'wine-800' },
+      { id: 3, cantidad: 0, descripcion: 'PENDIENTES POR LICITAR', color: 'wine-800' },
+      { id: 4, cantidad: 0, descripcion: 'TOTAL CONTRATOS', color: 'wine-800' }
     ];
 
     this.tabla1 = [];
@@ -151,6 +192,7 @@ export class LicitacionesComponent implements OnInit {
     this.licitacionesService.getLicitacionDatos(queryParams).subscribe({
       next: (response: any) => {
         this.licitacionesTabla = response.data.licitaciones;
+        this.licitacionesTablaAux = response.data.licitaciones;
         this.licitacionesPorDependencia = this.helperService.calcularAvanceLicitacion(
           response.data.licitacionesPorDependencia
         );
@@ -159,8 +201,9 @@ export class LicitacionesComponent implements OnInit {
         this.eventosPorDependencia = this.helperService.calcularAvanceOrganismo(response.data.eventosPorDependencia);
 
         this.cardLicitaciones[0].cantidad = response.data.totales.totalLicitaciones;
-        this.cardLicitaciones[1].cantidad = response.data.totales.totalEventos;
-        this.cardLicitaciones[2].cantidad = response.data.totales.totalDependencias;
+        this.cardLicitaciones[1].cantidad = response.data.licitaciones.filter((l) => l.fase === 10).length;
+        this.cardLicitaciones[2].cantidad = response.data.licitaciones.filter((l) => l.fase < 10).length;
+        this.cardLicitaciones[3].cantidad = response.data.licitaciones.filter((l) => l.tieneContrato === true).length;
         this.blockUIList.stop();
       },
       error: (err: unknown) => {

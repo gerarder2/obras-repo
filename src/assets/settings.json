@@ -1,5 +1,6 @@
 {
     "webApi": "http://66.179.94.222:86/api",
+    "webApiLicitaciones": "http://localhost:5091/api",
     "webApiCaminos": "http://66.179.94.222:84/api",
     "webApiMaatCore": "http://66.179.94.222:83/api",
     "wepApiFederativo": "http://66.179.94.222:8083/api",
@@ -10,15 +11,11 @@
         },
         {
             "id": 1,
-            "descripcion": "2021"
+            "descripcion": "2024"
         },
         {
             "id": 2,
-            "descripcion": "2022"
-        },
-        {
-            "id": 3,
-            "descripcion": "2023"
+            "descripcion": "2025"
         }
     ],
     "idAgrupador": 1,
