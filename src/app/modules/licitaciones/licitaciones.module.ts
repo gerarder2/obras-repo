@@ -15,8 +15,14 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { GaugeComponent } from '../../shared/gauge/gauge.component';
 
 
+
 @NgModule({
-  declarations: [LicitacionesComponent, LicitacionesModalComponent, GaugeComponent],
+  declarations: [
+    LicitacionesComponent,
+    LicitacionesModalComponent,
+    GaugeComponent,
+ 
+  ],
   imports: [
     CommonModule,
     LicitacionesRoutingModule,

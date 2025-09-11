@@ -8,6 +8,11 @@
     }
 }
 
+.backgroud-gray {
+    background-color: #616161;
+    color: white;
+}
+
 .card-body .title {
     padding: 10px;
     text-align: center;
@@ -124,4 +129,270 @@ p-table ::ng-deep .p-datatable .p-sortable-column:hover .p-sortable-column-icon 
 
 .text-center {
   text-align: center;
+}
+
+/* estilos movidos desde el template del modal */
+
+/* solo el texto del tab seleccionado en color tinto */
+.nav-tabs .nav-link.active { color: #6b1d2b !important; font-weight: bold; }
+.nav-tabs .nav-link { color: inherit; }
+
+.dg-amount { color: #6b1d2b; font-size: 1.9rem; font-weight:700; }
+.dg-title { font-size: 1.05rem; margin-bottom: 1rem; color: #333; }
+.dg-metric { text-align:center; }
+.dg-metric .value { font-size:1.5rem; font-weight:700; color:#6b1d2b; }
+.dg-small { color:#666; font-size:0.85rem; }
+
+/* thumbnails agrandadas */
+.thumb { width:140px; height:100px; object-fit:cover; border-radius:6px; margin-right:8px; border:1px solid #e6e6e6; }
+.thumb.clickable { cursor:pointer; transition: transform 120ms ease; }
+.thumb.clickable:hover { transform: scale(1.03); }
+
+.dg-actions .btn { margin-right:0.6rem; background:#6b1d2b; color:#fff; border:none; }
+.dg-row { padding-top:1rem; padding-bottom:1rem; border-top:1px solid #eee; }
+.dg-label { font-weight:600; color:#444; font-size:0.85rem; }
+.dg-label-large { font-size:1.1rem; font-weight:700; color:#333; }
+
+/* contenedor de evidencia con borde — permite multi-fila */
+.dg-evidence { border:1.5px solid #e6e6e6; padding:0.6rem; border-radius:6px; background:#fff; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+
+/* gauge semicircular (ajustado para quedar igual a la imagen) */
+.dg-gauge { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:6px; }
+.dg-gauge .gauge {
+  width:120px;
+  height:64px;
+  border-top-left-radius:120px;
+  border-top-right-radius:120px;
+  overflow:hidden;
+  position:relative;
+  /* fallback neutral bg */
+  background: conic-gradient(#e0e0e0 0deg, #e0e0e0 180deg);
+}
+/* inner white semicircle to create ring effect */
+.dg-gauge .gauge-inner {
+  position:absolute;
+  left:50%;
+  bottom:6px;
+  transform:translateX(-50%);
+  width:72px;
+  height:42px;
+  background:#fff;
+  border-top-left-radius:72px;
+  border-top-right-radius:72px;
+}
+.dg-gauge .gauge-value {
+  font-size:32px;
+  font-weight:700;
+  color:#6b1d2b;
+  line-height:1;
+}
+.dg-gauge .gauge-sub { color:#666; font-size:12px; }
+
+/* lightbox / imagen ampliada */
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.75);
+  z-index: 2000;
+  padding: 18px;
+}
+.lightbox-content {
+  position: relative;
+  max-width: 96%;
+  max-height: 96%;
+}
+.lightbox-img {
+  display: block;
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+.lightbox-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-size: 14px;
+}
+.lightbox-close i { pointer-events: none; }
+
+/* fila principal: gauge + indicadores */
+.stats-row {
+  display: flex;
+  justify-content: space-around; /* space-around en desktop */
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gauge-col {
+  flex: 0 0 auto;
+  display: flex;
+  // align-items: center;
+  // justify-content: center;
+  min-width: 90px;
+}
+
+.stat-col {
+  flex: 1 1 0;
+  min-width: 120px;
+  text-align: center;
+}
+
+/* small gauge adjustments */
+.small-gauge { max-width: 110px; display:flex;  justify-content:center; }
+
+/* RESPONSIVE: en mobile apilar y dejar la gráfica sola arriba */
+@media (max-width: 767.98px) {
+  .stats-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    overflow-x: visible;
+  }
+  .gauge-col { width: 100%; margin-bottom: 6px; }
+  .gauge-col .small-gauge { transform: scale(1); } /* más grande en móvil si quieres */
+  .stat-col { width: 100%; min-width: unset; }
+}
+
+/* pequeño gauge: menos espacio ocupado y escala la instancia del componente */
+.small-gauge {
+  min-width: 45px !important;
+  max-width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* escalar visualmente el gauge si el componente no expone tamaño */
+.small-gauge app-gauge {
+  transform: scale(0.85);
+  transform-origin: center;
+  display: block;
+}
+
+/* ajustes para pantallas pequeñas */
+@media (max-width: 767.98px) {
+  .small-gauge {
+    min-width: 80px !important;
+    max-width: 100px;
+  }
+  .small-gauge app-gauge {
+    transform: scale(0.95);
+  }
+}
+
+/* ensure gauge container does not clip the svg/canvas */
+.gauge-wrapper,
+.small-gauge {
+  overflow: visible !important; /* allow shadows / strokes to render */
+  padding: 6px 0; /* espacio para la sombra */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 50px;
+  padding-left: 20px;
+}
+
+/* prefer explicit size instead of only transform scale to avoid clipping */
+.small-gauge app-gauge,
+.gauge-wrapper app-gauge {
+  display: block;
+  width: 110px;    /* ajusta según tamaño deseado */
+  height: auto;
+  transform: none !important; /* evita recortes por transform */
+}
+
+/* mantén un tamaño menor para dispositivos muy pequeños si hace falta */
+@media (max-width: 767.98px) {
+  .small-gauge app-gauge,
+  .gauge-wrapper app-gauge {
+    width: 120px; /* puedes aumentar en mobile si quieres que se vea más grande */
+  }
+}
+
+/* small overrides (elimina duplicados innecesarios) */
+.small-gauge {
+  min-width: unset !important;
+  max-width: none;
+}
+
+/* fechas / supervisor en grid 2 columnas */
+.date-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 24px;
+  align-items: start;
+}
+
+.date-item .dg-label { margin-bottom: 4px; font-weight:600; color:#333; }
+.date-item .dg-small { color:#666; }
+
+/* Centrar texto de la tabla dentro del tab Licitación */
+.modal-body #licitacionTab table.table thead th,
+.modal-body #licitacionTab table.table tbody td {
+  text-align: left !important;
+  vertical-align: middle !important;
+}
+
+/* Si hay estilos que afectan al tamaño de fila, aseguramos alineado vertical */
+.modal-body #licitacionTab table.table tbody tr {
+  height: 45px; /* respeta tu altura existente */
+  line-height: 45px; /* centra verticalmente si no hay elementos de bloque dentro */
+}
+
+/* Si la celda contiene elementos (p, div, botones), forzar centrado del contenido */
+.modal-body #licitacionTab table.table tbody td > * {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+/* Botón tinto para documentos */
+.btn-tinto {
+  background-color: #6b1d2b;
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+}
+.btn-tinto:hover,
+.btn-tinto:focus {
+  background-color: darken(#6b1d2b, 6%); /* si tu preprocesador no soporta darken, usa #57161f */
+  color: #fff;
+  text-decoration: none;
+}
+.btn-tinto .fa {
+  font-size: 0.9rem;
+}
+
+/* Botón Documento: tamaño ligeramente mayor para mejor legibilidad */
+.modal-body #licitacionTab table.table tbody td .btn-tinto {
+  padding: 0.5rem 0.95rem !important;
+  font-size: 1rem !important;
+  min-width: 120px;
+  height: auto;
+  border-radius: 25px;
+  gap: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
