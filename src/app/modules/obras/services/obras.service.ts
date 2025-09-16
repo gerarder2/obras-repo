@@ -17,6 +17,7 @@ export class ObrasService {
   }
 
   public getObrasDatos(queryParams: {
+    idEtiqueta?: number;
     numeroContrato?: number;
     idTipoObrasocial?: number;
     idMunicipio?: number;
@@ -26,12 +27,12 @@ export class ObrasService {
     idContratista?: number;
     idTipoContrato?: number;
   }): Observable<any> {
-    return this.http.get(`${this.config.webApi}/ObraPortal/Listado`, { params: queryParams });
+    return this.http.get(`${this.config.baseUrl}/ObraPortal/ListadoObrasEtiqueta`, { params: queryParams });
   }
 
   // http://74.208.112.87:86/api/ObraPortal/4462
   public getObrasDatosById(obra: { idObra?: number }): Observable<any> {
-    return this.http.get(`${this.config.webApi}/ObraPortal/${obra.idObra}`);
+    return this.http.get(`${this.config.baseUrl}/ObraPortal/${obra.idObra}`);
   }
 
   // public getReporte(queryParams: {

@@ -1,5 +1,5 @@
 import { HelperService } from './../../helpers/helper.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ObrasModalComponent } from './modal/obras-modal.component';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -10,19 +10,23 @@ import { CatalogosService } from '../../services/catalogos.service';
 import { ObrasService } from './services/obras.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { environment } from '../../../environments/environment';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-obras',
   templateUrl: './obras.component.html',
   styleUrls: ['./obras.component.scss']
 })
-export class ObrasComponent implements OnInit {
+export class ObrasComponent implements OnInit, AfterViewInit, OnDestroy {
   @BlockUI('obras-page') blockUIList: NgBlockUI;
 
   public cardObras: any[];
   public tabla1: any[];
   public tabla2: any[];
   public collapsed: boolean;
+
+  @ViewChild('obrasDoughnutCanvas', { static: false }) obrasDoughnutCanvas!: ElementRef<HTMLCanvasElement>;
+  private obrasDoughnutChart?: Chart;
 
   public filterForm: FormGroup;
   public obrasTabla: any[];
@@ -110,6 +114,15 @@ export class ObrasComponent implements OnInit {
     this.loadObrasData();
   }
 
+  ngAfterViewInit(): void {
+    // intenta crear la gráfica después de que exista el canvas
+    this.createOrUpdateChart();
+  }
+
+  ngOnDestroy(): void {
+    this.obrasDoughnutChart?.destroy();
+  }
+
   public loadCatalogos() {
     this.catalogosService.getCatalogos().subscribe({
       next: (response: any[]) => {
@@ -146,8 +159,11 @@ export class ObrasComponent implements OnInit {
         queryParams.ejercicio = ejercicio.descripcion;
       }
     }
+    console.log(queryParams);
+    // const queryParamsAux = { ...queryParams, idEtiqueta: 0 };
 
     this.obrassService.getObrasDatos(queryParams).subscribe({
+
       next: (response: any) => {
         this.obrasTabla = response.data.obras;
         this.tabla1 = this.helperService.calcularAvanceObra(response.data.obrasPorTipo);
@@ -160,6 +176,8 @@ export class ObrasComponent implements OnInit {
         this.totalContratos = this.obrasTabla.length;
         this.montoTotalEjercido = sum;
         this.montoMaximoContratos = sum;
+        // actualizar gráfica cuando los datos llegan
+        this.createOrUpdateChart();
         this.blockUIList.stop();
       },
       error: (err: unknown) => {
@@ -172,6 +190,7 @@ export class ObrasComponent implements OnInit {
 
   public initializeForm() {
     this.filterForm = this.fb.group({
+      idEtiqueta: new FormControl(0),
       numeroContrato: new FormControl(''),
       idTipoObraSocial: new FormControl(0),
       idMunicipio: new FormControl(0),
@@ -220,5 +239,151 @@ export class ObrasComponent implements OnInit {
     setTimeout(() => {
       this.initializeForm();
     }, 100);
+  }
+
+  // controla qué filtro está activo; null = ocultar tabla
+  public activeDetailFilter: 'porIniciar' | 'enProceso' | 'terminadas' | null = null;
+
+  // índice para p-table (paginación). se resetea a 0 al cambiar filtro
+  public tableFirst = 0;
+
+  public toggleDetalle(tipo: 'porIniciar' | 'enProceso' | 'terminadas') {
+    this.activeDetailFilter = this.activeDetailFilter === tipo ? null : tipo;
+    this.tableFirst = 0; // volver a la página 1
+  }
+
+  // getter ya usado en la plantilla
+  public get filteredObras(): any[] {
+    const list = this.obrasTabla ?? [];
+    if (!this.activeDetailFilter) { return list; }
+    if (this.activeDetailFilter === 'porIniciar') {
+      return list.filter(o => Number(o.porcentajeAvance) === 0);
+    }
+    if (this.activeDetailFilter === 'enProceso') {
+      return list.filter(o => { const p = Number(o.porcentajeAvance); return p > 0 && p < 100; });
+    }
+    return list.filter(o => Number(o.porcentajeAvance) === 100);
+  }
+
+  // computed property for template (safe: handles null/undefined)
+  get obrasPorIniciar(): number {
+    return (this.obrasTabla || []).filter(item => item.porcentajeAvance === 0.0).length;
+  }
+  get obrasEnProceso(): number {
+    return (this.obrasTabla || []).filter(item => (item.porcentajeAvance < 100.0 && item.porcentajeAvance > 0.0)).length;
+  }
+  get obrasTerminadas(): number {
+    return (this.obrasTabla || []).filter(item => item.porcentajeAvance === 100.0).length;
+  }
+
+  // crea o actualiza la gráfica doughnut usando Chart.js
+  private createOrUpdateChart(retry = 0): void {
+    const MAX_RETRY = 6;
+
+    // si el canvas aún no está disponible (llamado antes de AfterViewInit), reintentar
+    if (!this.obrasDoughnutCanvas) {
+      if (retry < MAX_RETRY) {
+        setTimeout(() => this.createOrUpdateChart(retry + 1), 150);
+      }
+      return;
+    }
+
+    const canvas = this.obrasDoughnutCanvas.nativeElement;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const counts = this.computeObrasCounts();
+    const dataValues = [counts.terminadas, counts.enProceso, counts.porIniciar];
+
+    const data = {
+      labels: ['Terminadas', 'En proceso', 'Por iniciar'],
+      datasets: [
+        {
+          data: dataValues,
+          backgroundColor: ['#265d50', '#6b1d2b', '#c99b70'],
+          borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+          borderWidth: 2,
+          hoverOffset: 6
+        }
+      ]
+    };
+
+    const options: any = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: { boxWidth: 12, padding: 12 },
+          
+          onClick: (e: MouseEvent, legendItem: any, legend: any) => {
+            
+            const chart = legend.chart as any;
+            const idx = legendItem.index;
+            if (!chart) { return; }
+            chart.setActiveElements([{ datasetIndex: 0, index: idx }]);
+            chart.tooltip.setActiveElements([{ datasetIndex: 0, index: idx }], {x: 0, y: 0});
+            chart.update();
+          },
+          onHover: (e: MouseEvent, legendItem: any, legend: any) => {
+            const chart = legend.chart as any;
+            const idx = legendItem.index;
+            if (!chart) { return; }
+            chart.setActiveElements([{ datasetIndex: 0, index: idx }]);
+            chart.update();
+          },
+          onLeave: (e: MouseEvent, legendItem: any, legend: any) => {
+            const chart = legend.chart as any;
+            if (!chart) { return; }
+            chart.setActiveElements([]);
+            chart.update();
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: (context: any) => {
+              const val = context.parsed ?? 0;
+              const total = (context.dataset.data as number[]).reduce((a, b) => a + b, 0) || 1;
+              const pct = (val / total) * 100;
+              return `${context.label}: ${val} (${pct.toFixed(1)}%)`;
+            }
+          }
+        }
+      },
+      cutout: '60%'
+    };
+
+    // destruir chart previa si existe (para evitar duplicados)
+    if (this.obrasDoughnutChart) {
+      try {
+        this.obrasDoughnutChart.data = data as any;
+        this.obrasDoughnutChart.options = options;
+        this.obrasDoughnutChart.update();
+        return;
+      } catch (e) {
+        this.obrasDoughnutChart.destroy();
+        this.obrasDoughnutChart = undefined;
+      }
+    }
+
+    // crear nueva instancia
+    this.obrasDoughnutChart = new Chart(ctx, {
+      type: 'doughnut',
+      data,
+      options
+    }) as Chart;
+  }
+
+  // cuenta las obras según avance
+  private computeObrasCounts() {
+    const list = this.obrasTabla ?? [];
+    let porIniciar = 0, enProceso = 0, terminadas = 0;
+    for (const o of list) {
+      const p = Number(o.porcentajeAvance);
+      if (p === 100) terminadas++;
+      else if (p === 0) porIniciar++;
+      else if (p > 0 && p < 100) enProceso++;
+    }
+    return { porIniciar, enProceso, terminadas };
   }
 }

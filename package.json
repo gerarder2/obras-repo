@@ -53,7 +53,7 @@
     "angular2-toaster": "8.0.0",
     "apexcharts": "3.36.0",
     "bootstrap": "4.6.1",
-    "chart.js": "3.7.1",
+    "chart.js": "^3.7.1",
     "chartjs-plugin-annotation": "2.1.2",
     "chartjs-plugin-datalabels": "2.2.0",
     "date-fns": "2.28.0",

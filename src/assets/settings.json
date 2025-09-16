@@ -1,6 +1,7 @@
 {
     "webApi": "http://66.179.94.222:86/api",
     "webApiLicitaciones": "http://localhost:5091/api",
+    "baseUrl": "https://apisobrasportal.sinaloa.gob.mx/api",
     "webApiCaminos": "http://66.179.94.222:84/api",
     "webApiMaatCore": "http://66.179.94.222:83/api",
     "wepApiFederativo": "http://66.179.94.222:8083/api",

@@ -210,3 +210,48 @@ p-tabview ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link
 .image-item {
   flex: 0 0 auto;
 }
+
+/* asegurar render del canvas Chart.js */
+.card-body canvas {
+  display: block;
+  max-width: 100%;
+  height: 260px !important; /* coincide con tu min-height */
+}
+
+/* Igualar altura de ambas cards y dar espacio mínimo */
+.card.h-100 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 420px; /* ajusta según prefieras */
+}
+
+/* card-body ocupa el espacio disponible */
+.card.h-100 .card-body {
+  flex: 1 1 auto;
+  display: flex;
+  // align-items: center;
+  // justify-content: center;
+  padding: 0.5rem;
+}
+
+/* contenedor específico de la gráfica */
+.chart-container {
+  width: 100%;
+  height: 100%;
+  min-height: 320px; /* asegura espacio en pantallas pequeñas */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* hacer que el canvas ocupe todo el contenedor sin deformarse.
+   Chart.js debe usar maintainAspectRatio: false (ya lo tienes) */
+.chart-container canvas {
+  width: 95% !important;
+  height: 95% !important;
+  max-width: 95% !important;
+  overflow:visible;
+  display: block;
+}
