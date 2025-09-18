@@ -1,3 +1,5 @@
+/* eslint-disable no-inline-comments */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Mensaje } from '../../../models/mensaje';
@@ -12,7 +14,7 @@ import { ObrasModalComponent } from '../../obras/modal/obras-modal.component';
     <div class="modal-header" ngxModalDraggable>
       <div class="container no-cursor">
         <div class="row align-items-start">
-          <div class="col-6" *ngIf="params.numeroContrato != null">
+          <div class="col-6" *ngIf="params.numeroContrato !== null">
             <small>Número de Contrato</small>
             <p style="margin-bottom:0.25rem;">{{ params.numeroContrato }}</p>
           </div>
@@ -191,7 +193,7 @@ import { ObrasModalComponent } from '../../obras/modal/obras-modal.component';
                 <div class="stat-col text-center">
                   <div class="dg-label">Beneficiarios</div>
                   <div class="value" style="font-size:1.6rem; font-weight:700; color:#6b1d2b;">
-                    {{ params.totalBeneficiados != null ? (params.totalBeneficiados | number: '1.0-0') : '-' }}
+                    {{ params.totalBeneficiados !== null ? (params.totalBeneficiados | number: '1.0-0') : '-' }}
                   </div>
                   <div class="dg-label">Habitantes</div>
                 </div>
@@ -343,7 +345,7 @@ import { ObrasModalComponent } from '../../obras/modal/obras-modal.component';
                   <div class="p-2 h-100 bg-white">
                     <div class="dg-label">Presupuesto Base</div>
                     <div class="text-muted">
-                     $ {{ params.montoInversion != null ? (params.montoInversion | number: '1.2-2') : '-' }} MXN
+                      $ {{ params.montoInversion !== null ? (params.montoInversion | number: '1.2-2') : '-' }} MXN
                     </div>
                   </div>
                 </div>
@@ -413,7 +415,9 @@ import { ObrasModalComponent } from '../../obras/modal/obras-modal.component';
                 <div class="col-6 col-md-3 mb-3">
                   <div class="p-2 h-100 bg-white">
                     <div class="dg-label">Duración de Obra</div>
-                    <div class="text-muted">{{ params.duracionObra != null ? params.duracionObra + ' día(s)' : '-' }}</div>
+                    <div class="text-muted">
+                      {{ params.duracionObra !== null ? params.duracionObra + ' día(s)' : '-' }}
+                    </div>
                   </div>
                 </div>
               </div>

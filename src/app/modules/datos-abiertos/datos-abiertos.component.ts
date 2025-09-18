@@ -66,7 +66,7 @@ export class DatosAbiertosComponent implements OnInit {
   }
 
   private loadTotales() {
-    this.catalogosService.getObrasTotales({ ejercicio: 0 }).subscribe({
+    this.catalogosService.getObrasTotales({ ejercicio: 0, idEtiqueta: 2 }).subscribe({
       next: (response: any) => {
         this.totales = response.data;
         this.cards[0].cantidad = this.totales.totalNumeroContratos;

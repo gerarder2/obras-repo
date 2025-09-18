@@ -18,6 +18,7 @@ export class CatalogosService {
   private locale: any;
   private webApi: string;
   private webApiMaatCore: string;
+  private baseUrl: string;
 
   constructor(
     private http: HttpClient,
@@ -28,17 +29,18 @@ export class CatalogosService {
     this.config = configService.getConfig();
     this.webApi = this.config.webApi;
     this.webApiMaatCore = this.config.webApiMaatCore;
+    this.baseUrl = this.config.baseUrl;
   }
 
   public getCatalogos() {
-    const obrasSocial = `${this.webApi}/TipoObraSocial/Filtro`;
-    const tiposModalidad = `${this.webApi}/TipoModalidad/Combo`;
+    const obrasSocial = `${this.baseUrl}/TipoObraSocial/Filtro`;
+    const tiposModalidad = `${this.baseUrl}/TipoModalidad/Combo`;
     const organismos = `${this.webApiMaatCore}/Dependencia/Combo?IdAgrupador=${this.config.idAgrupador}`;
-    const constratistas = `${this.webApi}/Contratista/Combo?IdUsuario=${this.auth.currentUser().id}`;
-    const tiposContrato = `${this.webApi}/TipoContrato/Combo`;
-    const dependencias = `${this.webApi}/ObraPortal/ComboDependencias?IdUsuario=${this.auth.currentUser().id}`;
+    const constratistas = `${this.baseUrl}/Contratista/Combo?IdUsuario=${this.auth.currentUser().id}`;
+    const tiposContrato = `${this.baseUrl}/TipoContrato/Combo`;
+    const dependencias = `${this.baseUrl}/ObraPortal/ComboDependencias?IdUsuario=${this.auth.currentUser().id}`;
     const distritos = `${this.webApiMaatCore}/Distrito/Combo`;
-    const etiquetas = `${this.webApi}/Etiquetas/Combo`;
+    const etiquetas = `${this.baseUrl}/Etiquetas/Combo`;
 
     //74.208.25.33:8083/api/Distrito/Combo
 
@@ -67,7 +69,7 @@ export class CatalogosService {
   }
 
   public getObras(tiposObra: any[], queryParams?: any) {
-    return this.http.get(`${this.webApi}/Obras/Obras`, { params: queryParams }).pipe(
+    return this.http.get(`${this.baseUrl}/Obras/Obras`, { params: queryParams }).pipe(
       map((response: any) => {
         let totalObras = 0;
         let costos = 0;
@@ -127,7 +129,7 @@ export class CatalogosService {
   }
 
   public getObrasTiposObra() {
-    return this.http.get(`${this.webApi}/Obras/TiposObra`).pipe(
+    return this.http.get(`${this.baseUrl}/Obras/TiposObra`).pipe(
       map((response: any) => {
         for (const element of response.data) {
           switch (element.id) {
@@ -239,10 +241,10 @@ export class CatalogosService {
   }): Observable<any> {
     // queryParams.estatus = 'TODAS';
     queryParams.idUsuario = this.auth.currentUser().id;
-    return this.http.get(`${this.webApi}/ObraPortal/Mapa`, { params: queryParams });
+    return this.http.get(`${this.baseUrl}/ObraPortal/Mapa`, { params: queryParams });
   }
 
   public getObrasTotales(queryParams?: any): Observable<any> {
-    return this.http.get(`${this.webApi}/ObraPortal/Totales`, { params: queryParams });
+    return this.http.get(`${this.baseUrl}/ObraPortal/TotalesProyecto`, { params: queryParams });
   }
 }
