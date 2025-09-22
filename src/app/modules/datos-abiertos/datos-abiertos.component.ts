@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { single } from './graficas';
-import { Color, ScaleType } from '@swimlane/ngx-charts';
+import { Color, id, ScaleType } from '@swimlane/ngx-charts';
 import { LegendPosition } from '@swimlane/ngx-charts';
 import { CatalogosService } from '../../services/catalogos.service';
 import { Mensaje } from '../../models/mensaje';
