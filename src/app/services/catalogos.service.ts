@@ -18,8 +18,6 @@ export class CatalogosService {
   private locale: any;
   private webApi: string;
   private webApiMaatCore: string;
-  private baseUrl: string;
-  private webApiLicitaciones: string;
 
   constructor(
     private http: HttpClient,
@@ -30,8 +28,6 @@ export class CatalogosService {
     this.config = configService.getConfig();
     this.webApi = this.config.webApi;
     this.webApiMaatCore = this.config.webApiMaatCore;
-    this.baseUrl = this.config.baseUrl;
-    this.webApiLicitaciones = this.config.webApiLicitaciones;
   }
 
   public getCatalogos() {
@@ -247,7 +243,7 @@ export class CatalogosService {
   }
 
   public getObrasTotales(queryParams?: any): Observable<any> {
-    return this.http.get(`${this.baseUrl}/ObraPortal/TotalesProyecto?ejercicio=0`);
+    return this.http.get(`${this.webApi}/ObraPortal/TotalesProyecto?ejercicio=0`);
     // return this.http.get(`${this.baseUrl}/ObraPortal/TotalesProyecto`, { params: queryParams });
 
   }

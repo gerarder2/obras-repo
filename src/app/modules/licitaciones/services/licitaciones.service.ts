@@ -25,14 +25,14 @@ export class LicitacionesService {
     idTipoContrato?: number;
     idEtiqueta?: number;
   }): Observable<any> {
-    return this.http.get(`${this.config.baseUrl}/ObraPortal/ListadoLicitacionesPorEtiqueta`, { params: queryParams });
+    return this.http.get(`${this.config.webApi}/ObraPortal/ListadoLicitacionesPorEtiqueta`, { params: queryParams });
   }
 
   public getLicitacionDatosById(obra: { idObra?: number }): Observable<any> {
-    return this.http.get(`${this.config.baseUrl}/Licitacion/${obra.idObra}`);
+    return this.http.get(`${this.config.webApi}/Licitacion/${obra.idObra}`);
   }
 
   public getProyecto(id: number) {
-    return this.http.get(`${this.config.baseUrl}/ObraPortal/Proyecto/${id}`);
+    return this.http.get(`${this.config.webApi}/ObraPortal/Proyecto/${id}`);
   }
 }

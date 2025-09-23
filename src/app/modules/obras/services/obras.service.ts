@@ -27,7 +27,7 @@ export class ObrasService {
     idContratista?: number;
     idTipoContrato?: number;
   }): Observable<any> {
-    return this.http.get(`${this.config.baseUrl}/ObraPortal/ListadoObrasEtiqueta`, { params: queryParams });
+    return this.http.get(`${this.config.webApi}/ObraPortal/ListadoObrasEtiqueta`, { params: queryParams });
   }
 
   // http://74.208.112.87:86/api/ObraPortal/4462
